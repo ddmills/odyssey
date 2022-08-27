@@ -2,12 +2,19 @@ package core;
 
 import core.rendering.RenderLayerManager;
 import data.TextResource;
+import domain.World;
 import ecs.Registry;
 import h2d.Console;
 import hxd.Window;
 
 class Game
 {
+	public var TILE_W:Int = 16;
+	public var TILE_H:Int = 16;
+
+	public var TILE_W_HALF(get, never):Int;
+	public var TILE_H_HALF(get, never):Int;
+
 	public static var instance:Game;
 
 	public var backgroundColor(get, set):Int;
@@ -19,6 +26,7 @@ class Game
 	public var console(default, null):Console;
 	public var layers(default, null):RenderLayerManager;
 	public var registry(default, null):Registry;
+	public var world(default, null):World;
 
 	private function new(app:hxd.App)
 	{
@@ -31,6 +39,7 @@ class Game
 		camera = new Camera();
 		console = new Console(TextResource.BIZCAT);
 		registry = new Registry();
+		world = new World();
 
 		ConsoleConfig.Config(console);
 
@@ -82,5 +91,15 @@ class Game
 	inline function get_window():Window
 	{
 		return hxd.Window.getInstance();
+	}
+
+	function get_TILE_W_HALF():Int
+	{
+		return Math.floor(TILE_W / 2);
+	}
+
+	function get_TILE_H_HALF():Int
+	{
+		return Math.floor(TILE_H / 2);
 	}
 }

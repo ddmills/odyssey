@@ -1,12 +1,12 @@
 package core;
 
 import common.struct.FloatPoint;
+import domain.World;
 
-// import domain.state.GameState;
 class Screen
 {
 	public var game(get, null):Game;
-	// public var state(get, null):GameState;
+	public var world(get, null):World;
 	public var camera(get, null):Camera;
 
 	inline function get_game():Game
@@ -14,10 +14,10 @@ class Screen
 		return Game.instance;
 	}
 
-	// inline function get_state():GameState
-	// {
-	// 	return Game.instance.state;
-	// }
+	inline function get_world():World
+	{
+		return Game.instance.world;
+	}
 
 	inline function get_camera():Camera
 	{

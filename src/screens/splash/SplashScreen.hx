@@ -57,4 +57,10 @@ class SplashScreen extends Screen
 	{
 		game.screens.set(new LoadingScreen());
 	}
+
+	override function onDestroy()
+	{
+		title.remove();
+		next.remove();
+	}
 }

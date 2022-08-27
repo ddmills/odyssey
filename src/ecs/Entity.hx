@@ -1,22 +1,33 @@
 package ecs;
 
+import common.struct.IntPoint;
 import common.util.BitUtil;
 import common.util.Serial;
 import common.util.UniqueId;
 import core.Game;
+import domain.components.Sprite;
 
 class Entity
 {
 	public var cbits(default, null):Int;
 
+	var sprite:Sprite;
+	var _x:Int;
+	var _y:Int;
+
 	public var game(get, null):Game;
 	public var registry(get, null):Registry;
 	public var id(default, null):String;
+	public var pos(get, set):IntPoint;
+	public var x(get, set):Int;
+	public var y(get, set):Int;
 
 	private var components:Map<String, Component>;
 
 	public function new()
 	{
+		_x = 0;
+		_y = 0;
 		cbits = 0;
 		components = new Map();
 		genId();
@@ -56,6 +67,11 @@ class Entity
 		components.set(component.type, component);
 		component._attach(this);
 		registry.candidacy(this);
+		if (Std.isOfType(component, Sprite))
+		{
+			sprite = cast component;
+			sprite.updatePos(_x, _y);
+		}
 	}
 
 	public function has<T:Component>(type:Class<Component>):Bool
@@ -69,6 +85,10 @@ class Entity
 		components.remove(component.type);
 		component._remove();
 		registry.candidacy(this);
+		if (Std.isOfType(component, Sprite))
+		{
+			sprite = null;
+		}
 	}
 
 	public function fireEvent(name:String):EntityEvent
@@ -119,5 +139,52 @@ class Entity
 		clone.genId();
 
 		return clone;
+	}
+
+	function get_pos():IntPoint
+	{
+		return {
+			x: _x,
+			y: _y
+		};
+	}
+
+	function set_pos(value:IntPoint):IntPoint
+	{
+		_x = value.x;
+		_y = value.y;
+		if (sprite != null)
+		{
+			sprite.updatePos(_x, _y);
+		}
+		return value;
+	}
+
+	function get_x():Int
+	{
+		return _x;
+	}
+
+	function set_x(value:Int):Int
+	{
+		if (sprite != null)
+		{
+			sprite.updatePos(value, _y);
+		}
+		return _x = value;
+	}
+
+	function get_y():Int
+	{
+		return _y;
+	}
+
+	function set_y(value:Int):Int
+	{
+		if (sprite != null)
+		{
+			sprite.updatePos(_x, value);
+		}
+		return _y = value;
 	}
 }

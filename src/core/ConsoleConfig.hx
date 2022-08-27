@@ -16,17 +16,11 @@ class ConsoleConfig
 		console.addAlias('quit', 'exit');
 		console.addAlias('q', 'exit');
 
-		console.addCommand('hello', 'Print hello', [
-			{
-				name: 'name',
-				opt: false,
-				t: AString,
-			}
-		], (name:String) -> helloCommand(console, name));
+		console.addCommand('ecount', 'Entity Count', [], () -> entityCountCmd(console));
 	}
 
-	static function helloCommand(console:Console, name:String)
+	static function entityCountCmd(console:Console)
 	{
-		console.log('Hello ${name}!', 0xffff00);
+		console.log('Entities: ${Game.instance.registry.size}', 0xffff00);
 	}
 }
