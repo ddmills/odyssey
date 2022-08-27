@@ -1,6 +1,6 @@
 package ecs;
 
-import common.struct.IntPoint;
+import common.struct.Coordinate;
 import common.util.BitUtil;
 import common.util.Serial;
 import common.util.UniqueId;
@@ -12,15 +12,15 @@ class Entity
 	public var cbits(default, null):Int;
 
 	var sprite:Sprite;
-	var _x:Int;
-	var _y:Int;
+	var _x:Float;
+	var _y:Float;
 
 	public var game(get, null):Game;
 	public var registry(get, null):Registry;
 	public var id(default, null):String;
-	public var pos(get, set):IntPoint;
-	public var x(get, set):Int;
-	public var y(get, set):Int;
+	public var pos(get, set):Coordinate;
+	public var x(get, set):Float;
+	public var y(get, set):Float;
 
 	private var components:Map<String, Component>;
 
@@ -141,18 +141,16 @@ class Entity
 		return clone;
 	}
 
-	function get_pos():IntPoint
+	function get_pos():Coordinate
 	{
-		return {
-			x: _x,
-			y: _y
-		};
+		return new Coordinate(_x, _y, WORLD);
 	}
 
-	function set_pos(value:IntPoint):IntPoint
+	function set_pos(value:Coordinate):Coordinate
 	{
-		_x = value.x;
-		_y = value.y;
+		var w = value.toWorld();
+		_x = w.x;
+		_y = w.y;
 		if (sprite != null)
 		{
 			sprite.updatePos(_x, _y);
@@ -160,31 +158,25 @@ class Entity
 		return value;
 	}
 
-	function get_x():Int
+	function get_x():Float
 	{
 		return _x;
 	}
 
-	function set_x(value:Int):Int
-	{
-		if (sprite != null)
-		{
-			sprite.updatePos(value, _y);
-		}
-		return _x = value;
-	}
-
-	function get_y():Int
+	function get_y():Float
 	{
 		return _y;
 	}
 
-	function set_y(value:Int):Int
+	function set_x(value:Float):Float
 	{
-		if (sprite != null)
-		{
-			sprite.updatePos(_x, value);
-		}
-		return _y = value;
+		set_pos(new Coordinate(value, _y, WORLD));
+		return _x;
+	}
+
+	function set_y(value:Float):Float
+	{
+		set_pos(new Coordinate(_x, value, WORLD));
+		return _y;
 	}
 }

@@ -10,6 +10,7 @@ class Camera
 	public var mouse(default, null):FloatPoint;
 	public var width(get, null):Float;
 	public var height(get, null):Float;
+	public var zoom(get, set):Float;
 	public var x(get, set):Float;
 	public var y(get, set):Float;
 
@@ -99,5 +100,17 @@ class Camera
 	function set_y(value:Float):Float
 	{
 		return scroller.y = -value;
+	}
+
+	function get_zoom():Float
+	{
+		return scroller.scaleX;
+	}
+
+	function set_zoom(value:Float):Float
+	{
+		scroller.setScale(value);
+
+		return value;
 	}
 }
