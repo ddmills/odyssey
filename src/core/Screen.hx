@@ -1,5 +1,6 @@
 package core;
 
+import common.struct.Coordinate;
 import common.struct.FloatPoint;
 import domain.World;
 
@@ -60,13 +61,13 @@ class Screen
 	 * Handle mouse click down
 	 */
 	@:allow(core.Camera)
-	function onMouseDown(pos:FloatPoint) {}
+	function onMouseDown(pos:Coordinate) {}
 
 	/**
 	 * Handle mouse click up
 	 */
 	@:allow(core.Camera)
-	function onMouseUp(pos:FloatPoint) {}
+	function onMouseUp(pos:Coordinate) {}
 
 	/**
 	 * Handle key up

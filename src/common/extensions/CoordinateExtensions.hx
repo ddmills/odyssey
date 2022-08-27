@@ -7,7 +7,15 @@ class CoordinateExtensions
 {
 	static public inline function toString(c:Coordinate, precision:Int = null):String
 	{
-		return '${c.x},${c.y}';
+		switch c.space
+		{
+			case PIXEL:
+				return 'P(${c.x},${c.y})';
+			case SCREEN:
+				return 'S(${c.x},${c.y})';
+			case WORLD:
+				return 'W(${c.x},${c.y})';
+		}
 	}
 
 	static public inline function floor(c:Coordinate):Coordinate

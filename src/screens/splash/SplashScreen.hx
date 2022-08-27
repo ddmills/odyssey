@@ -1,5 +1,6 @@
 package screens.splash;
 
+import common.struct.Coordinate;
 import common.struct.FloatPoint;
 import common.util.Timeout;
 import core.Frame;
@@ -53,7 +54,7 @@ class SplashScreen extends Screen
 		title.setScale(3 + scale);
 	}
 
-	override function onMouseUp(pos:FloatPoint)
+	override function onMouseUp(pos:Coordinate)
 	{
 		game.screens.set(new LoadingScreen());
 	}

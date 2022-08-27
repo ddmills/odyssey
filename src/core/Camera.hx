@@ -9,7 +9,7 @@ import screens.console.ConsoleScreen;
 
 class Camera
 {
-	public var mouse(default, null):FloatPoint;
+	public var mouse(default, null):Coordinate;
 	public var width(get, null):Float;
 	public var height(get, null):Float;
 	public var zoom(get, set):Float;
@@ -24,7 +24,7 @@ class Camera
 
 	public function new()
 	{
-		mouse = new FloatPoint(0, 0);
+		mouse = new Coordinate(0, 0, SCREEN);
 		onSceneChanged(Game.instance.app.s2d);
 	}
 
@@ -43,17 +43,17 @@ class Camera
 	{
 		if (event.kind == EMove)
 		{
-			mouse = new FloatPoint(event.relX, event.relY);
+			mouse = new Coordinate(event.relX, event.relY, SCREEN);
 		}
 
 		if (event.kind == ERelease)
 		{
-			Game.instance.screens.current.onMouseUp(new FloatPoint(event.relX, event.relY));
+			Game.instance.screens.current.onMouseUp(new Coordinate(event.relX, event.relY, SCREEN));
 		}
 
 		if (event.kind == EPush)
 		{
-			Game.instance.screens.current.onMouseDown(new FloatPoint(event.relX, event.relY));
+			Game.instance.screens.current.onMouseDown(new Coordinate(event.relX, event.relY, SCREEN));
 		}
 
 		if (event.kind == EKeyUp)
