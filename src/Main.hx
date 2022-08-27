@@ -1,5 +1,11 @@
+import core.Game;
+import data.TextResource;
+import screens.splash.SplashScreen;
+
 class Main extends hxd.App
 {
+	var game:Game;
+
 	static function main()
 	{
 		hxd.Res.initEmbed();
@@ -8,8 +14,17 @@ class Main extends hxd.App
 
 	override function init()
 	{
+		TextResource.Init();
+
 		hxd.Window.getInstance().title = "Odyssey";
+
+		game = Game.Create(this);
+		game.backgroundColor = 0x243549;
+		game.screens.set(new SplashScreen(1));
 	}
 
-	override function update(dt:Float) {}
+	override function update(dt:Float)
+	{
+		game.update();
+	}
 }
