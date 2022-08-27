@@ -2,6 +2,7 @@ package core;
 
 import core.rendering.RenderLayerManager;
 import data.TextResource;
+import ecs.Registry;
 import h2d.Console;
 import hxd.Window;
 
@@ -17,6 +18,7 @@ class Game
 	public var screens(default, null):ScreenManager;
 	public var console(default, null):Console;
 	public var layers(default, null):RenderLayerManager;
+	public var registry(default, null):Registry;
 
 	private function new(app:hxd.App)
 	{
@@ -28,6 +30,7 @@ class Game
 		layers = new RenderLayerManager();
 		camera = new Camera();
 		console = new Console(TextResource.BIZCAT);
+		registry = new Registry();
 
 		ConsoleConfig.Config(console);
 
