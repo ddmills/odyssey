@@ -14,7 +14,7 @@ class PlayScreen extends Screen
 	{
 		var player = new Entity();
 
-		player.add(new Glyph(TileResources.HUMAN, '@'));
+		player.add(new Glyph(TileResources.HERO, 0xca8e90, 0x557fb2, '@'));
 		player.x = 5;
 		player.y = 3;
 
