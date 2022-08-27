@@ -28,8 +28,7 @@ class SpriteSystem extends System
 	{
 		var glyph = entity.get(Glyph);
 		var bm = new Bitmap(glyph.tile);
-		var shader = new SpriteShader(glyph.fg1, glyph.fg2);
-		bm.addShader(shader);
+		bm.addShader(glyph.shader);
 		var sprite = new Sprite(bm);
 		entity.add(sprite);
 		game.render(OBJECTS, bm);

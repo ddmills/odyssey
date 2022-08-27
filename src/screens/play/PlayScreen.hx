@@ -15,8 +15,8 @@ class PlayScreen extends Screen
 		var player = new Entity();
 
 		player.add(new Glyph(TileResources.HERO, 0xca8e90, 0x557fb2, '@'));
-		player.x = 5;
-		player.y = 3;
+		player.x = 24;
+		player.y = 32;
 
 		game.camera.zoom = 2;
 		game.camera.focus = player.pos;
