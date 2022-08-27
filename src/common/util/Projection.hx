@@ -31,18 +31,17 @@ class Projection
 
 	public static function screenToPx(sx:Float, sy:Float):Coordinate
 	{
-		var camWorld = worldToPx(game.camera.x, game.camera.y);
-		var px = (sx + camWorld.x) / game.camera.zoom;
-		var py = (sy + camWorld.y) / game.camera.zoom;
+		var camPix = worldToPx(game.camera.x, game.camera.y);
+		var px = camPix.x + (sx / game.camera.zoom);
+		var py = camPix.y + (sy / game.camera.zoom);
 		return new Coordinate(px, py, PIXEL);
 	}
 
 	public static function pxToScreen(px:Float, py:Float):Coordinate
 	{
-		var camWorld = worldToPx(game.camera.x, game.camera.y);
-		var sx = (px * game.camera.zoom) - camWorld.x;
-		var sy = (py * game.camera.zoom) - camWorld.y;
-
+		var camPix = worldToPx(game.camera.x, game.camera.y);
+		var sx = (px - camPix.x) * game.camera.zoom;
+		var sy = (py - camPix.y) * game.camera.zoom;
 		return new Coordinate(sx, sy, SCREEN);
 	}
 

@@ -1,14 +1,12 @@
 package domain.systems;
 
 import core.Frame;
-import data.TileResources;
 import domain.components.Glyph;
 import domain.components.Sprite;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
 import h2d.Bitmap;
-import h2d.Tile;
 
 class SpriteSystem extends System
 {

@@ -13,11 +13,13 @@ class PlayScreen extends Screen
 	public override function onEnter()
 	{
 		var player = new Entity();
+
 		player.add(new Glyph(TileResources.HUMAN, '@'));
 		player.x = 5;
 		player.y = 3;
-		game.camera.x = -32;
-		game.camera.y = -64;
+
+		game.camera.zoom = 2;
+		game.camera.focus = player.pos;
 	}
 
 	public override function update(frame:Frame)

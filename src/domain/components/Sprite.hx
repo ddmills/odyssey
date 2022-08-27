@@ -20,8 +20,8 @@ class Sprite extends Component
 
 	public function updatePos(px:Float, py:Float)
 	{
-		ob.x = Game.instance.TILE_W * (px - offsetX);
-		ob.y = Game.instance.TILE_H * (py - offsetY);
+		ob.x = px - offsetX;
+		ob.y = py - offsetY;
 	}
 
 	inline function get_visible():Bool

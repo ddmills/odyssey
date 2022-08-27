@@ -70,7 +70,8 @@ class Entity
 		if (Std.isOfType(component, Sprite))
 		{
 			sprite = cast component;
-			sprite.updatePos(_x, _y);
+			var p = pos.toPx();
+			sprite.updatePos(p.x, p.y);
 		}
 	}
 
@@ -153,7 +154,8 @@ class Entity
 		_y = w.y;
 		if (sprite != null)
 		{
-			sprite.updatePos(_x, _y);
+			var p = pos.toPx();
+			sprite.updatePos(p.x, p.y);
 		}
 		return value;
 	}
