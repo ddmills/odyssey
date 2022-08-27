@@ -1,6 +1,7 @@
 package domain.systems;
 
 import core.Frame;
+import data.TileResources;
 import domain.components.Glyph;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -15,7 +16,6 @@ class SpriteSystem extends System
 
 	public function new()
 	{
-		game.console.log('sprite system started');
 		query = new Query({
 			all: [Glyph]
 		});
@@ -28,7 +28,7 @@ class SpriteSystem extends System
 	private function renderEntity(entity:Entity)
 	{
 		var glyph = entity.get(Glyph);
-		var bm = new Bitmap(Tile.fromColor(0x57723a, game.TILE_W, game.TILE_H));
+		var bm = new Bitmap(glyph.tile);
 		var sprite = new Sprite(bm);
 		entity.add(sprite);
 		game.render(OBJECTS, bm);

@@ -1,5 +1,6 @@
 package domain.gen;
 
+import data.TileResources;
 import domain.components.Glyph;
 import ecs.Entity;
 
@@ -15,9 +16,7 @@ class MapGen
 				ground.x = x;
 				ground.y = y;
 
-				var glyph = new Glyph('.');
-
-				ground.add(glyph);
+				ground.add(new Glyph(TileResources.GRASS, ','));
 			}
 		}
 	}

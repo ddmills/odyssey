@@ -1,7 +1,7 @@
 package core;
 
 import core.rendering.RenderLayerManager;
-import data.TextResource;
+import data.TextResources;
 import domain.World;
 import ecs.Registry;
 import h2d.Console;
@@ -37,7 +37,7 @@ class Game
 		screens = new ScreenManager();
 		layers = new RenderLayerManager();
 		camera = new Camera();
-		console = new Console(TextResource.BIZCAT);
+		console = new Console(TextResources.BIZCAT);
 		registry = new Registry();
 		world = new World();
 

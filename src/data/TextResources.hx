@@ -2,7 +2,7 @@ package data;
 
 import h2d.Font;
 
-class TextResource
+class TextResources
 {
 	public static var BIZCAT:Font;
 

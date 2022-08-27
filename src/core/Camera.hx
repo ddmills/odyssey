@@ -2,6 +2,7 @@ package core;
 
 import common.struct.FloatPoint;
 import data.Keybinding;
+import h2d.Object;
 import screens.console.ConsoleScreen;
 
 class Camera
@@ -9,6 +10,10 @@ class Camera
 	public var mouse(default, null):FloatPoint;
 	public var width(get, null):Float;
 	public var height(get, null):Float;
+	public var x(get, set):Float;
+	public var y(get, set):Float;
+
+	var scroller(get, null):h2d.Object;
 
 	var scene:h2d.Scene;
 
@@ -69,5 +74,30 @@ class Camera
 	inline function get_height():Float
 	{
 		return hxd.Window.getInstance().height;
+	}
+
+	function get_x():Float
+	{
+		return scroller.x;
+	}
+
+	function set_x(value:Float):Float
+	{
+		return scroller.x = -value;
+	}
+
+	function get_scroller():Object
+	{
+		return Game.instance.layers.scroller;
+	}
+
+	function get_y():Float
+	{
+		return scroller.y;
+	}
+
+	function set_y(value:Float):Float
+	{
+		return scroller.y = -value;
 	}
 }
