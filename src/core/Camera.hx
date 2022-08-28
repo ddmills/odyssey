@@ -1,8 +1,8 @@
 package core;
 
 import common.struct.Coordinate;
-import common.struct.FloatPoint;
 import common.util.Projection;
+import data.KeyCode;
 import data.Keybinding;
 import h2d.Object;
 import screens.console.ConsoleScreen;
@@ -60,7 +60,9 @@ class Camera
 		{
 			var inConsole = Std.isOfType(Game.instance.screens.current, ConsoleScreen);
 
-			if (!inConsole && Keybinding.CONSOLE_SCREEN.is(event.keyCode))
+			var code:KeyCode = event.keyCode;
+
+			if (!inConsole && Keybinding.CONSOLE_SCREEN == code)
 			{
 				Game.instance.screens.push(new ConsoleScreen());
 			}

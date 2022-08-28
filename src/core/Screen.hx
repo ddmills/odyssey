@@ -2,6 +2,7 @@ package core;
 
 import common.struct.Coordinate;
 import common.struct.FloatPoint;
+import data.KeyCode;
 import domain.World;
 
 class Screen
@@ -73,5 +74,5 @@ class Screen
 	 * Handle key up
 	 */
 	@:allow(core.Camera)
-	function onKeyUp(key:Int) {}
+	function onKeyUp(key:KeyCode) {}
 }
