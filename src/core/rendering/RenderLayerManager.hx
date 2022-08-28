@@ -7,6 +7,7 @@ enum RenderLayerType
 {
 	BACKGROUND;
 	OBJECTS;
+	ACTORS;
 	HUD;
 }
 
@@ -30,6 +31,7 @@ class RenderLayerManager
 
 		createLayer(BACKGROUND, WORLD);
 		createLayer(OBJECTS, WORLD);
+		createLayer(ACTORS, WORLD);
 		createLayer(HUD, SCREEN);
 
 		root.addChildAt(scroller, 0);

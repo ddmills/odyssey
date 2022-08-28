@@ -14,7 +14,7 @@ class MapGen
 			TileResources.GRASS1,
 			TileResources.GRASS2,
 			TileResources.GRASS3,
-			TileResources.GRASS4
+			TileResources.GRASS4,
 		];
 		var colors = [0x65553b, 0x826b40, 0x757632, 0x8c6d32, 0x718427];
 
@@ -26,7 +26,7 @@ class MapGen
 				ground.x = x;
 				ground.y = y;
 
-				ground.add(new Glyph(r.pick(grasses), r.pick(colors)));
+				ground.add(new Glyph(r.pick(grasses), r.pick(colors), r.pick(colors), BACKGROUND));
 			}
 		}
 	}

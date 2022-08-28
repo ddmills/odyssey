@@ -1,5 +1,6 @@
 package domain.components;
 
+import core.rendering.RenderLayerManager.RenderLayerType;
 import ecs.Component;
 import h2d.Tile;
 import shaders.SpriteShader;
@@ -18,11 +19,14 @@ import shaders.SpriteShader;
 
 	public var shader(default, null):SpriteShader;
 
-	public function new(tile:Tile, primary = 0xffffff, secondary = 0x000000, ch:String = '?')
+	public var layer(default, null):RenderLayerType;
+
+	public function new(tile:Tile, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
 	{
 		this.tile = tile;
 		_primary = primary;
 		_secondary = secondary;
+		this.layer = layer;
 
 		shader = new SpriteShader(_primary, _secondary);
 

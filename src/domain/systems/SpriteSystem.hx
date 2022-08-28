@@ -7,7 +7,6 @@ import ecs.Entity;
 import ecs.Query;
 import ecs.System;
 import h2d.Bitmap;
-import shaders.SpriteShader;
 
 class SpriteSystem extends System
 {
@@ -31,6 +30,6 @@ class SpriteSystem extends System
 		bm.addShader(glyph.shader);
 		var sprite = new Sprite(bm);
 		entity.add(sprite);
-		game.render(OBJECTS, bm);
+		game.render(glyph.layer, bm);
 	}
 }

@@ -21,7 +21,7 @@ class Main extends hxd.App
 		hxd.Window.getInstance().title = "Odyssey";
 
 		game = Game.Create(this);
-		game.backgroundColor = 0x19191a;
+		game.backgroundColor = game.CLEAR_COLOR;
 		game.screens.set(new SplashScreen(1));
 	}
 
