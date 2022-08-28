@@ -28,6 +28,11 @@ class CoordinateExtensions
 		return new Coordinate(c.x.round(), c.y.round(), c.space);
 	}
 
+	static public inline function ciel(c:Coordinate):Coordinate
+	{
+		return new Coordinate(c.x.ciel(), c.y.ciel(), c.space);
+	}
+
 	static public inline function toSpace(c:Coordinate, space:Space):Coordinate
 	{
 		var px = c.toPx();
