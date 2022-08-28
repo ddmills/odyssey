@@ -31,7 +31,7 @@ class PlayerManager
 	{
 		var e = new Entity();
 
-		e.add(new Glyph(TileResources.HERO, 0xca8e90, 0x557fb2, ACTORS));
+		e.add(new Glyph(TileResources.HERO, 0xd8cfbd, 0x7e3e32, ACTORS));
 		e.add(new IsPlayer());
 		e.add(new Energy());
 

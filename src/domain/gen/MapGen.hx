@@ -11,10 +11,10 @@ class MapGen
 	{
 		var r = new Rand(seed);
 		var grasses = [
-			TileResources.GRASS1,
-			TileResources.GRASS2,
-			TileResources.GRASS3,
-			TileResources.GRASS4,
+			TileResources.GRASS_1,
+			TileResources.GRASS_2,
+			TileResources.GRASS_3,
+			TileResources.GRASS_4,
 		];
 		var colors = [0x65553b, 0x826b40, 0x757632, 0x8c6d32, 0x718427];
 

@@ -1,7 +1,6 @@
 package core;
 
 import common.struct.Coordinate;
-import common.struct.FloatPoint;
 import data.KeyCode;
 import domain.World;
 

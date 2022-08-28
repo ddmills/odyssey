@@ -73,10 +73,6 @@ class MovementSystem extends System
 				entity.pos = move.goal;
 				entity.remove(move);
 				entity.add(new MoveComplete());
-				if (entity.has(IsPlayer))
-				{
-					entity.get(Energy).consumeEnergy(50);
-				}
 			}
 			else
 			{

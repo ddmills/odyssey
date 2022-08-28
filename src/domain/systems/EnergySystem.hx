@@ -65,7 +65,7 @@ class EnergySystem extends System
 			else
 			{
 				isPlayersTurn = false;
-				// world.ai.takeAction(entity);
+				world.ai.takeAction(entity);
 			}
 		}
 	}

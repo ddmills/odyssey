@@ -5,8 +5,9 @@ import core.Frame;
 import core.Screen;
 import data.KeyCode;
 import data.Keybinding;
-import data.TextResources;
+import domain.components.Energy;
 import domain.components.Move;
+import domain.prefabs.SnakePrefab;
 
 class PlayScreen extends Screen
 {
@@ -18,9 +19,12 @@ class PlayScreen extends Screen
 	{
 		game.camera.zoom = 2;
 
-		var target = world.player.pos.add(new Coordinate(1, 1, WORLD));
+		world.player.entity.x = 6;
+		world.player.entity.y = 6;
 
-		world.player.entity.add(new Move(target, .16, LINEAR));
+		var snake = SnakePrefab.Create();
+		snake.x = 5;
+		snake.y = 10;
 
 		renderClock();
 	}
@@ -61,6 +65,7 @@ class PlayScreen extends Screen
 		var target = world.player.pos.ciel().add(new Coordinate(x, y, WORLD));
 
 		world.player.entity.add(new Move(target, .16, LINEAR));
+		world.player.entity.get(Energy).consumeEnergy(50);
 	}
 
 	private function renderClock()
