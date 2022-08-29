@@ -5,10 +5,10 @@ import core.Frame;
 import core.Screen;
 import core.input.Command;
 import core.input.KeyCode;
-import data.Keybinding;
 import domain.components.Energy;
 import domain.components.Move;
-import domain.prefabs.SnakePrefab;
+import domain.components.MoveComplete;
+import domain.components.Sprite;
 
 class PlayScreen extends Screen
 {
@@ -34,6 +34,11 @@ class PlayScreen extends Screen
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
 		clockText.text = world.clock.toString();
+
+		if (world.player.entity.has(MoveComplete))
+		{
+			world.player.entity.get(Sprite).background = game.CLEAR_COLOR;
+		}
 
 		if (world.systems.energy.isPlayersTurn)
 		{
@@ -93,6 +98,7 @@ class PlayScreen extends Screen
 
 		world.player.entity.add(new Move(target, .16, LINEAR));
 		world.player.entity.get(Energy).consumeEnergy(50);
+		world.player.entity.get(Sprite).background = null;
 	}
 
 	private function renderClock()

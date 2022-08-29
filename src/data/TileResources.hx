@@ -10,6 +10,7 @@ class TileResources
 	public static var GRASS_4:Tile;
 	public static var HERO:Tile;
 	public static var SNAKE_1:Tile;
+	public static var STICK_1:Tile;
 
 	public static function Init()
 	{
@@ -18,6 +19,7 @@ class TileResources
 		GRASS_3 = hxd.Res.tiles.scroll.grass_3.toTile();
 		GRASS_4 = hxd.Res.tiles.scroll.grass_4.toTile();
 		SNAKE_1 = hxd.Res.tiles.scroll.snake_1.toTile();
+		STICK_1 = hxd.Res.tiles.scroll.stick_1.toTile();
 		HERO = hxd.Res.tiles.scroll.hero.toTile();
 	}
 }

@@ -3,8 +3,8 @@ package domain;
 import common.struct.Coordinate;
 import data.TileResources;
 import domain.components.Energy;
-import domain.components.Glyph;
 import domain.components.IsPlayer;
+import domain.components.Sprite;
 import ecs.Entity;
 import ecs.EntityRef;
 
@@ -31,7 +31,7 @@ class PlayerManager
 	{
 		var e = new Entity();
 
-		e.add(new Glyph(TileResources.HERO, 0xd8cfbd, 0x7e3e32, ACTORS));
+		e.add(new Sprite(TileResources.HERO, 0xd8cfbd, 0x7e3e32, ACTORS));
 		e.add(new IsPlayer());
 		e.add(new Energy());
 

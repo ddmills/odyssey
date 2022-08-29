@@ -2,8 +2,9 @@ package domain.gen;
 
 import data.TileResources;
 import domain.components.Energy;
-import domain.components.Glyph;
+import domain.components.Sprite;
 import domain.prefabs.SnakePrefab;
+import domain.prefabs.StickPrefab;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -18,7 +19,7 @@ class MapGen
 			TileResources.GRASS_3,
 			TileResources.GRASS_4,
 		];
-		var colors = [0x65553b, 0x826b40, 0x757632, 0x8c6d32, 0x718427];
+		var colors = [0x47423a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
 
 		for (x in 0...64)
 		{
@@ -28,7 +29,7 @@ class MapGen
 				ground.x = x;
 				ground.y = y;
 
-				ground.add(new Glyph(r.pick(grasses), r.pick(colors), r.pick(colors), BACKGROUND));
+				ground.add(new Sprite(r.pick(grasses), r.pick(colors), r.pick(colors), BACKGROUND));
 
 				if (r.bool(.005))
 				{
@@ -36,6 +37,13 @@ class MapGen
 					snake.x = x;
 					snake.y = y;
 					snake.get(Energy).consumeEnergy(r.integer(0, 50));
+				}
+
+				if (r.bool(.005))
+				{
+					var stick = StickPrefab.Create();
+					stick.x = x;
+					stick.y = y;
 				}
 			}
 		}

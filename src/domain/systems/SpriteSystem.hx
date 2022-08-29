@@ -1,12 +1,10 @@
 package domain.systems;
 
 import core.Frame;
-import domain.components.Glyph;
 import domain.components.Sprite;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
-import h2d.Bitmap;
 
 class SpriteSystem extends System
 {
@@ -15,7 +13,7 @@ class SpriteSystem extends System
 	public function new()
 	{
 		query = new Query({
-			all: [Glyph]
+			all: [Sprite]
 		});
 
 		query.onEntityAdded((entity) -> renderEntity(entity));
@@ -25,11 +23,7 @@ class SpriteSystem extends System
 
 	private function renderEntity(entity:Entity)
 	{
-		var glyph = entity.get(Glyph);
-		var bm = new Bitmap(glyph.tile);
-		bm.addShader(glyph.shader);
-		var sprite = new Sprite(bm);
-		entity.add(sprite);
-		game.render(glyph.layer, bm);
+		var sprite = entity.get(Sprite);
+		game.render(sprite.layer, sprite.ob);
 	}
 }
