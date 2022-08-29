@@ -1,7 +1,10 @@
 package core;
 
 import common.struct.Coordinate;
-import data.KeyCode;
+import core.input.Command;
+import core.input.CommandManager;
+import core.input.KeyCode;
+import data.input.InputDomainType;
 import domain.World;
 
 class Screen
@@ -9,6 +12,8 @@ class Screen
 	public var game(get, null):Game;
 	public var world(get, null):World;
 	public var camera(get, null):Camera;
+
+	public var inputDomain:InputDomainType = INPUT_DOMAIN_DEFAULT;
 
 	inline function get_game():Game
 	{
@@ -60,18 +65,18 @@ class Screen
 	/**
 	 * Handle mouse click down
 	 */
-	@:allow(core.Camera)
+	@:allow(core.input.InputManager)
 	function onMouseDown(pos:Coordinate) {}
 
 	/**
 	 * Handle mouse click up
 	 */
-	@:allow(core.Camera)
+	@:allow(core.input.InputManager)
 	function onMouseUp(pos:Coordinate) {}
 
 	/**
 	 * Handle key up
 	 */
-	@:allow(core.Camera)
-	function onKeyUp(key:KeyCode) {}
+	@:allow(core.input.InputManager)
+	function onKeyDown(key:KeyCode) {}
 }

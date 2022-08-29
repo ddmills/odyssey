@@ -1,6 +1,7 @@
 package domain;
 
 import common.struct.IntPoint;
+import core.Game;
 import domain.components.Energy;
 import domain.components.Move;
 import ecs.Entity;
@@ -17,15 +18,16 @@ class AIManager
 
 	public function takeAction(entity:Entity)
 	{
-		trace('take action');
+		Game.instance.world.systems.movement.finishMoveFast(entity);
+
 		var delta:IntPoint = {
 			x: rand.pick([-1, 0, 1]),
 			y: rand.pick([-1, 0, 1]),
 		};
 
-		var goal = entity.pos.add(delta.asWorld());
+		var goal = entity.pos.add(delta.asWorld()).ciel();
 
-		entity.add(new Move(goal, .2, LINEAR));
+		entity.add(new Move(goal, .1, LINEAR));
 		entity.get(Energy).consumeEnergy(75);
 	}
 }

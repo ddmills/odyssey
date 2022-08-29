@@ -1,4 +1,5 @@
 import core.Game;
+import data.Commands;
 import data.TextResources;
 import data.TileResources;
 import screens.splash.SplashScreen;
@@ -17,6 +18,7 @@ class Main extends hxd.App
 	{
 		TextResources.Init();
 		TileResources.Init();
+		Commands.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 

@@ -38,25 +38,6 @@ class PlayerManager
 		entityRef.entity = e;
 	}
 
-	public function getNextAction():() -> Void
-	{
-		// return () ->
-		// {
-		// 	entity.get(Energy).consumeEnergy(1);
-		// };
-		return null;
-	}
-
-	public function startTurn()
-	{
-		var action = getNextAction();
-
-		if (action != null)
-		{
-			action();
-		}
-	}
-
 	inline function get_x():Float
 	{
 		return entity.x;

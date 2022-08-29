@@ -1,5 +1,7 @@
 package core;
 
+import core.input.CommandManager;
+import core.input.InputManager;
 import core.rendering.RenderLayerManager;
 import data.TextResources;
 import domain.World;
@@ -24,6 +26,8 @@ class Game
 	public var camera(default, null):Camera;
 	public var window(get, never):hxd.Window;
 	public var screens(default, null):ScreenManager;
+	public var input(default, null):InputManager;
+	public var commands(default, null):CommandManager;
 	public var console(default, null):Console;
 	public var layers(default, null):RenderLayerManager;
 	public var registry(default, null):Registry;
@@ -38,6 +42,8 @@ class Game
 		screens = new ScreenManager();
 		layers = new RenderLayerManager();
 		camera = new Camera();
+		input = new InputManager();
+		commands = new CommandManager();
 		console = new Console(TextResources.BIZCAT);
 		registry = new Registry();
 		world = new World();

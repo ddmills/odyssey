@@ -1,5 +1,6 @@
 package core;
 
+import data.input.InputDomainType;
 import screens.EmptyScreen;
 
 class ScreenManager
@@ -7,6 +8,7 @@ class ScreenManager
 	var screens:Array<Screen>;
 
 	public var current(get, null):Screen;
+	public var domain(get, null):InputDomainType;
 
 	inline function get_current():Screen
 	{
@@ -51,5 +53,10 @@ class ScreenManager
 		current.onDestroy();
 		screens.pop();
 		current.onResume();
+	}
+
+	function get_domain():InputDomainType
+	{
+		return current.inputDomain;
 	}
 }

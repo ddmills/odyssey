@@ -3,7 +3,8 @@ package screens.play;
 import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
-import data.KeyCode;
+import core.input.Command;
+import core.input.KeyCode;
 import data.Keybinding;
 import domain.components.Energy;
 import domain.components.Move;
@@ -13,7 +14,10 @@ class PlayScreen extends Screen
 {
 	var clockText:h2d.Text;
 
-	public function new() {}
+	public function new()
+	{
+		inputDomain = INPUT_DOMAIN_ADVENTURE;
+	}
 
 	public override function onEnter()
 	{
@@ -21,10 +25,6 @@ class PlayScreen extends Screen
 
 		world.player.entity.x = 6;
 		world.player.entity.y = 6;
-
-		var snake = SnakePrefab.Create();
-		snake.x = 5;
-		snake.y = 10;
 
 		renderClock();
 	}
@@ -34,30 +34,57 @@ class PlayScreen extends Screen
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
 		clockText.text = world.clock.toString();
+
+		if (world.systems.energy.isPlayersTurn)
+		{
+			var cmd = game.commands.next();
+			if (cmd != null)
+			{
+				world.systems.movement.finishMoveFast(world.player.entity);
+
+				handle(cmd);
+			}
+		}
 	}
 
-	public override function onKeyUp(key:KeyCode)
+	public override function onKeyDown(key:KeyCode)
 	{
-		switch key
+		if (key == KEY_TAB)
 		{
-			case MOVE_NW:
+			var cmd = game.commands.next();
+			if (cmd != null)
+			{
+				trace(cmd.toString());
+			}
+		}
+	}
+
+	public function handle(command:Command):Bool
+	{
+		switch (command.type)
+		{
+			case CMD_MOVE_NW:
 				move(-1, -1);
-			case MOVE_N:
+			case CMD_MOVE_N:
 				move(0, -1);
-			case MOVE_NE:
+			case CMD_MOVE_NE:
 				move(1, -1);
-			case MOVE_E:
+			case CMD_MOVE_E:
 				move(1, 0);
-			case MOVE_W:
+			case CMD_MOVE_W:
 				move(-1, 0);
-			case MOVE_SW:
+			case CMD_MOVE_SW:
 				move(-1, 1);
-			case MOVE_S:
+			case CMD_MOVE_S:
 				move(0, 1);
-			case MOVE_SE:
+			case CMD_MOVE_SE:
 				move(1, 1);
+			case CMD_WAIT:
+				world.player.entity.get(Energy).consumeEnergy(50);
 			case _:
 		}
+
+		return true;
 	}
 
 	private function move(x:Int, y:Int)

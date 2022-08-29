@@ -1,4 +1,4 @@
-package data;
+package core.input;
 
 enum abstract KeyCode(Int) from Int to Int
 {
@@ -189,4 +189,9 @@ enum abstract KeyCode(Int) from Int to Int
 	var KEY_ZOOM = 251;
 	var KEY_PA1 = 253;
 	var KEY_WIN_OEM_CLEAR = 254;
+
+	public function toChar():String
+	{
+		return String.fromCharCode(this);
+	}
 }

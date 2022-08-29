@@ -1,6 +1,6 @@
 package data;
 
-import data.KeyCode;
+import core.input.KeyCode;
 
 enum abstract Keybinding(KeyCode) from KeyCode to KeyCode
 {

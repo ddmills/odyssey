@@ -1,0 +1,8 @@
+package data.input;
+
+enum InputDomainType
+{
+	INPUT_DOMAIN_DEFAULT;
+	INPUT_DOMAIN_MAIN_MENU;
+	INPUT_DOMAIN_ADVENTURE;
+}

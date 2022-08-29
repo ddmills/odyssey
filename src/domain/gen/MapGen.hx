@@ -2,6 +2,7 @@ package domain.gen;
 
 import data.TileResources;
 import domain.components.Glyph;
+import domain.prefabs.SnakePrefab;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -27,6 +28,13 @@ class MapGen
 				ground.y = y;
 
 				ground.add(new Glyph(r.pick(grasses), r.pick(colors), r.pick(colors), BACKGROUND));
+
+				if (r.bool(.005))
+				{
+					var snake = SnakePrefab.Create();
+					snake.x = x;
+					snake.y = y;
+				}
 			}
 		}
 	}

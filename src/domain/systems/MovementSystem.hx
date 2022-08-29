@@ -2,11 +2,10 @@ package domain.systems;
 
 import common.struct.Coordinate;
 import core.Frame;
-import domain.components.Energy;
-import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Moved;
+import ecs.Entity;
 import ecs.Query;
 import ecs.System;
 
@@ -43,6 +42,17 @@ class MovementSystem extends System
 				return pos.lerp(goal, tmod * speed).sub(pos);
 			case INSTANT:
 				return goal.sub(pos);
+		}
+	}
+
+	public function finishMoveFast(entity:Entity)
+	{
+		var move = entity.get(Move);
+		if (move != null)
+		{
+			entity.pos = move.goal;
+			entity.remove(move);
+			entity.add(new MoveComplete());
 		}
 	}
 

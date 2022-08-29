@@ -2,14 +2,10 @@ package core;
 
 import common.struct.Coordinate;
 import common.util.Projection;
-import data.KeyCode;
-import data.Keybinding;
 import h2d.Object;
-import screens.console.ConsoleScreen;
 
 class Camera
 {
-	public var mouse(default, null):Coordinate;
 	public var width(get, null):Float;
 	public var height(get, null):Float;
 	public var zoom(get, set):Float;
@@ -20,58 +16,7 @@ class Camera
 
 	public var scroller(get, null):h2d.Object;
 
-	var scene:h2d.Scene;
-
-	public function new()
-	{
-		mouse = new Coordinate(0, 0, SCREEN);
-		onSceneChanged(Game.instance.app.s2d);
-	}
-
-	public function onSceneChanged(scene:h2d.Scene)
-	{
-		if (this.scene != null)
-		{
-			this.scene.removeEventListener(onSceneEvent);
-		}
-
-		this.scene = scene;
-		scene.addEventListener(onSceneEvent);
-	}
-
-	function onSceneEvent(event:hxd.Event)
-	{
-		if (event.kind == EMove)
-		{
-			mouse = new Coordinate(event.relX, event.relY, SCREEN);
-		}
-
-		if (event.kind == ERelease)
-		{
-			Game.instance.screens.current.onMouseUp(new Coordinate(event.relX, event.relY, SCREEN));
-		}
-
-		if (event.kind == EPush)
-		{
-			Game.instance.screens.current.onMouseDown(new Coordinate(event.relX, event.relY, SCREEN));
-		}
-
-		if (event.kind == EKeyUp)
-		{
-			var inConsole = Std.isOfType(Game.instance.screens.current, ConsoleScreen);
-
-			var code:KeyCode = event.keyCode;
-
-			if (!inConsole && Keybinding.CONSOLE_SCREEN == code)
-			{
-				Game.instance.screens.push(new ConsoleScreen());
-			}
-			else
-			{
-				Game.instance.screens.current.onKeyUp(event.keyCode);
-			}
-		}
-	}
+	public function new() {}
 
 	inline function get_width():Float
 	{
