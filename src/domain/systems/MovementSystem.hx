@@ -45,7 +45,7 @@ class MovementSystem extends System
 		}
 	}
 
-	public function finishMoveFast(entity:Entity)
+	public function finishMoveFast(entity:Entity):Bool
 	{
 		var move = entity.get(Move);
 		if (move != null)
@@ -53,7 +53,9 @@ class MovementSystem extends System
 			entity.pos = move.goal;
 			entity.remove(move);
 			entity.add(new MoveComplete());
+			return true;
 		}
+		return false;
 	}
 
 	public override function update(frame:Frame)

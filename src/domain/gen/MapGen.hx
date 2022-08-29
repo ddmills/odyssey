@@ -1,6 +1,7 @@
 package domain.gen;
 
 import data.TileResources;
+import domain.components.Energy;
 import domain.components.Glyph;
 import domain.prefabs.SnakePrefab;
 import ecs.Entity;
@@ -34,6 +35,7 @@ class MapGen
 					var snake = SnakePrefab.Create();
 					snake.x = x;
 					snake.y = y;
+					snake.get(Energy).consumeEnergy(r.integer(0, 50));
 				}
 			}
 		}

@@ -2,6 +2,11 @@ package common.extensions.heaps;
 
 class RandExtensions
 {
+	public static function integer<T>(r:hxd.Rand, min:Int, max:Int):Int
+	{
+		return min + (r.rand() * (max - min)).floor();
+	}
+
 	public static function bool<T>(r:hxd.Rand, chance = .5):Bool
 	{
 		return r.rand() < chance;

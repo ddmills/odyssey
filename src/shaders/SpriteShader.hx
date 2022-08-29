@@ -9,7 +9,7 @@ class SpriteShader extends hxsl.Shader
 			var pixelColor:Vec4;
 			@param var primary:Vec3;
 			@param var secondary:Vec3;
-			@param var clearColor:Vec3;
+			@param var outline:Vec3;
 			function fragment()
 			{
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
@@ -20,10 +20,9 @@ class SpriteShader extends hxsl.Shader
 				{
 					pixelColor.rgb = secondary;
 				}
-				if (pixelColor.a == 0)
+				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
-					pixelColor.a = 1;
-					pixelColor.rgb = clearColor;
+					pixelColor.rgb = outline;
 				}
 			}
 		};
@@ -33,6 +32,6 @@ class SpriteShader extends hxsl.Shader
 		super();
 		this.primary = primary.toHxdColor();
 		this.secondary = secondary.toHxdColor();
-		this.clearColor = Game.instance.CLEAR_COLOR.toHxdColor();
+		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 	}
 }
