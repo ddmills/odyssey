@@ -11,4 +11,5 @@ enum CommandType
 	CMD_MOVE_SW;
 	CMD_MOVE_S;
 	CMD_MOVE_SE;
+	CMD_CONSOLE;
 }

@@ -2,7 +2,6 @@ package core.input;
 
 import data.input.CommandType;
 import data.input.InputDomainType;
-import haxe.EnumTools.EnumValueTools;
 import haxe.EnumTools;
 
 @:structInit class Command

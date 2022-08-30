@@ -9,6 +9,7 @@ import domain.components.Energy;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
+import screens.console.ConsoleScreen;
 
 class PlayScreen extends Screen
 {
@@ -86,6 +87,8 @@ class PlayScreen extends Screen
 				move(1, 1);
 			case CMD_WAIT:
 				world.player.entity.get(Energy).consumeEnergy(50);
+			case CMD_CONSOLE:
+				game.screens.push(new ConsoleScreen());
 			case _:
 		}
 

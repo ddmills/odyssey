@@ -8,11 +8,17 @@ class ScreenManager
 	var screens:Array<Screen>;
 
 	public var current(get, null):Screen;
+	public var previous(get, null):Screen;
 	public var domain(get, null):InputDomainType;
 
 	inline function get_current():Screen
 	{
 		return screens[screens.length - 1];
+	}
+
+	inline function get_previous():Screen
+	{
+		return screens[screens.length - 2];
 	}
 
 	public function new()

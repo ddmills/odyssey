@@ -67,9 +67,8 @@ class InputManager
 				mouse = new Coordinate(event.relX, event.relY, SCREEN);
 			case(EKeyUp):
 				setModKeys(event.keyCode, KEY_UP);
-			// handleKeyEvent(event.keyCode, KEY_UP);
 			case(EKeyDown):
-				setModKeys(event.keyCode, KEY_UP);
+				setModKeys(event.keyCode, KEY_DOWN);
 				handleKeyEvent(event.keyCode, KEY_DOWN);
 				Game.instance.screens.current.onKeyDown(event.keyCode);
 			case EPush:

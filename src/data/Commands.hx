@@ -14,6 +14,7 @@ class Commands
 		values = new Array();
 		// @formatter:off
 		//  Domain                    Type           Name                 Key            Shift   Ctrl   Alt
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_CONSOLE,   'open console',      KEY_COMMA,     true);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_WAIT,      'wait',              KEY_NUMPAD_5);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_MOVE_NW,   'move north west',   KEY_NUMPAD_7);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_MOVE_N,    'move north',        KEY_NUMPAD_8);
@@ -26,7 +27,7 @@ class Commands
 		// @formatter:on
 	}
 
-	public static function GetForDomain(domain:InputDomainType)
+	public static function GetForDomain(domain:InputDomainType):Array<Command>
 	{
 		return values.filter((c) -> c.domain == domain);
 	}
