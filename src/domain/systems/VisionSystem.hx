@@ -22,8 +22,8 @@ class VisionSystem extends System
 	{
 		// vision needs to be recomputed if any of the following happens:
 		// - entity with Vision spawns
-		// - entity with Vision moves
 		// - entity with Vision removed
+		// - entity Moved
 
 		var moved = new Query({
 			all: [Moved]
@@ -36,8 +36,6 @@ class VisionSystem extends System
 		visions = new Query({
 			all: [Vision]
 		});
-
-		recompute = true;
 
 		moved.onEntityAdded((entity) ->
 		{
