@@ -58,18 +58,6 @@ class PlayScreen extends Screen
 		}
 	}
 
-	public override function onKeyDown(key:KeyCode)
-	{
-		if (key == KEY_TAB)
-		{
-			var cmd = game.commands.next();
-			if (cmd != null)
-			{
-				trace(cmd.toString());
-			}
-		}
-	}
-
 	public function handle(command:Command):Bool
 	{
 		switch (command.type)

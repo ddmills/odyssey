@@ -137,7 +137,6 @@ class World
 
 			for (entity in getEntitiesAt(coord))
 			{
-				trace('entity found at ${coord}');
 				if (!entity.has(Explored))
 				{
 					entity.add(new Explored());
