@@ -1,0 +1,52 @@
+Weapons
+- Lantern
+- Lasso
+- Dynamite
+- Revolvers
+	- Navy Revolver
+	- Colt House Revolver
+- Pepper box
+- Long Rifles
+- Shotguns
+	- Coach Gun
+- Bladed
+	- Pocket Knife
+	- Bowie Knife
+	- Arkansas toothpick
+	- Bayonet
+	- Cutlass
+	- Butcher Knife
+
+- 12-Pounder “Napoleon” Gun (Cannon)
+- Gatling Gun
+- Henry Repeating Rifle
+
+https://en.wikipedia.org/wiki/List_of_weapons_in_the_American_Civil_War
+
+Buildings
+- Blacksmith
+	- Anvil
+- Bank
+	- Safe
+- Telegraph Office
+	- Desk
+	- Paper
+- Train Station
+- Jail/Sheriff
+- Saloon
+	- Whiskey
+	- Piano
+	- Spitoon
+- General Store
+- Gun Store
+- Stable
+	- Hay/Apples
+- Recruiting Office
+- Fort
+- Doctor
+	- Stethescope
+- Dentist
+	- ?
+- Coffin Maker
+	- Coffins
+	- Nails

@@ -24,8 +24,8 @@ class PlayScreen extends Screen
 	{
 		game.camera.zoom = 2;
 
-		world.player.entity.x = 6;
-		world.player.entity.y = 6;
+		world.player.entity.x = 16;
+		world.player.entity.y = 16;
 
 		renderClock();
 	}
