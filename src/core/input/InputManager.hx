@@ -23,6 +23,11 @@ class InputManager
 		return queue.dequeue();
 	}
 
+	public inline function peek():Null<KeyEvent>
+	{
+		return queue.peek();
+	}
+
 	public inline function hasNext():Bool
 	{
 		return !queue.isEmpty;

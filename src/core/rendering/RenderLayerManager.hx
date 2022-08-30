@@ -5,7 +5,7 @@ import h2d.Layers;
 
 enum RenderLayerType
 {
-	BACKGROUND;
+	GROUND;
 	OBJECTS;
 	ACTORS;
 	HUD;
@@ -29,7 +29,7 @@ class RenderLayerManager
 		scroller = new Layers();
 		screen = new Layers();
 
-		createLayer(BACKGROUND, WORLD);
+		createLayer(GROUND, WORLD);
 		createLayer(OBJECTS, WORLD);
 		createLayer(ACTORS, WORLD);
 		createLayer(HUD, SCREEN);

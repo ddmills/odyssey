@@ -2,6 +2,7 @@ package common.extensions;
 
 import common.struct.Coordinate;
 import common.util.Projection;
+import core.Game;
 
 class CoordinateExtensions
 {
@@ -15,6 +16,8 @@ class CoordinateExtensions
 				return 'S(${c.x},${c.y})';
 			case WORLD:
 				return 'W(${c.x},${c.y})';
+			case CHUNK:
+				return 'C(${c.x},${c.y})';
 		}
 	}
 
@@ -41,6 +44,8 @@ class CoordinateExtensions
 		{
 			case PIXEL:
 				return px;
+			case CHUNK:
+				return Projection.pxToChunk(px.x, px.y);
 			case SCREEN:
 				return Projection.pxToScreen(px.x, px.y);
 			case WORLD:
@@ -54,6 +59,8 @@ class CoordinateExtensions
 		{
 			case PIXEL:
 				return Projection.pxToWorld(c.x, c.y);
+			case CHUNK:
+				return Projection.chunkToWorld(c.x, c.y);
 			case SCREEN:
 				return Projection.screenToWorld(c.x, c.y);
 			case WORLD:
@@ -69,6 +76,8 @@ class CoordinateExtensions
 				return c;
 			case SCREEN:
 				return Projection.screenToPx(c.x, c.y);
+			case CHUNK:
+				return Projection.chunkToPx(c.x, c.y);
 			case WORLD:
 				return Projection.worldToPx(c.x, c.y);
 		}
@@ -80,11 +89,41 @@ class CoordinateExtensions
 		{
 			case PIXEL:
 				return Projection.pxToScreen(c.x, c.y);
+			case CHUNK:
+				return Projection.chunkToScreen(c.x, c.y);
 			case SCREEN:
 				return c;
 			case WORLD:
 				return Projection.worldToScreen(c.x, c.y);
 		}
+	}
+
+	static public inline function toChunk(c:Coordinate):Coordinate
+	{
+		switch c.space
+		{
+			case PIXEL:
+				return Projection.pxToChunk(c.x, c.y);
+			case SCREEN:
+				return Projection.screenToChunk(c.x, c.y);
+			case WORLD:
+				return Projection.worldToChunk(c.x, c.y);
+			case CHUNK:
+				return c;
+		}
+	}
+
+	static public inline function toChunkLocal(a:Coordinate, chunkX:Float, chunkY:Float):Coordinate
+	{
+		var chunk = a.toChunk().floor();
+		return a.sub(chunk);
+	}
+
+	static public inline function toChunkIdx(a:Coordinate):Int
+	{
+		var c = a.toChunk();
+
+		return Game.instance.world.chunks.getChunkIdx(c.x, c.y);
 	}
 
 	static public inline function lerp(a:Coordinate, b:Coordinate, time:Float):Coordinate

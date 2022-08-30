@@ -5,6 +5,7 @@ import data.TileResources;
 import domain.components.Energy;
 import domain.components.IsPlayer;
 import domain.components.Sprite;
+import domain.components.Vision;
 import ecs.Entity;
 import ecs.EntityRef;
 
@@ -34,6 +35,7 @@ class PlayerManager
 		e.add(new Sprite(TileResources.HERO, 0xd8cfbd, 0x7e3e32, ACTORS));
 		e.add(new IsPlayer());
 		e.add(new Energy());
+		e.add(new Vision(6, 1));
 
 		entityRef.entity = e;
 	}

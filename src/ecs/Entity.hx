@@ -149,15 +149,35 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
+		var prevChunkIdx = pos.toChunkIdx();
+
+		var p = value.toPx();
 		var w = value.toWorld();
-		_x = w.x;
-		_y = w.y;
+
 		if (sprite != null)
 		{
-			var p = pos.toPx();
 			sprite.updatePos(p.x, p.y);
 		}
-		return value;
+
+		_x = w.x;
+		_y = w.y;
+
+		var nextChunkIdx = pos.toChunkIdx();
+
+		if (prevChunkIdx != nextChunkIdx)
+		{
+			var prevChunk = Game.instance.world.chunks.getChunkById(prevChunkIdx);
+			if (prevChunk != null)
+			{
+				prevChunk.removeEntity(this);
+			}
+		}
+		var nextChunk = Game.instance.world.chunks.getChunkById(nextChunkIdx);
+		if (nextChunk != null)
+		{
+			nextChunk.setEntityPosition(this);
+		}
+		return w;
 	}
 
 	function get_x():Float

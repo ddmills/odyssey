@@ -12,15 +12,30 @@ class SpriteShader extends hxsl.Shader
 			@param var outline:Vec3;
 			@param var background:Vec3;
 			@param var clearBackground:Int;
+			@param var isShrouded:Int;
 			function fragment()
 			{
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
 					pixelColor.rgb = primary;
+					if (isShrouded == 1)
+					{
+						var color = pixelColor.rgb;
+						var lum = vec3(0.299, 0.587, 0.114);
+						var gray = vec3(dot(lum, color));
+						pixelColor.rgb = mix(color, gray, .25) * .5;
+					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1)
 				{
 					pixelColor.rgb = secondary;
+					if (isShrouded == 1)
+					{
+						var color = pixelColor.rgb;
+						var lum = vec3(0.299, 0.587, 0.114);
+						var gray = vec3(dot(lum, color));
+						pixelColor.rgb = mix(color, gray, .25) * .5;
+					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
@@ -43,5 +58,6 @@ class SpriteShader extends hxsl.Shader
 		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;
+		this.isShrouded = 1;
 	}
 }

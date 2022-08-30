@@ -13,6 +13,24 @@ class CommandManager
 
 	public function new() {}
 
+	public function peek():Null<Command>
+	{
+		var commands = Commands.GetForDomain(game.screens.domain);
+
+		while (game.input.hasNext())
+		{
+			var event = game.input.peek();
+			var input = commands.find((c) -> c.isMatch(event));
+
+			if (input != null)
+			{
+				return input;
+			}
+		}
+
+		return null;
+	}
+
 	public function next():Null<Command>
 	{
 		var commands = Commands.GetForDomain(game.screens.domain);

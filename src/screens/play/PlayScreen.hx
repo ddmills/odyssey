@@ -43,12 +43,17 @@ class PlayScreen extends Screen
 
 		if (world.systems.energy.isPlayersTurn)
 		{
-			var cmd = game.commands.next();
+			var cmd = game.commands.peek();
 			if (cmd != null)
 			{
-				world.systems.movement.finishMoveFast(world.player.entity);
-
-				handle(cmd);
+				if (world.player.entity.has(Move))
+				{
+					world.systems.movement.finishMoveFast(world.player.entity);
+				}
+				else
+				{
+					handle(game.commands.next());
+				}
 			}
 		}
 	}

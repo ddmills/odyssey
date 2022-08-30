@@ -13,6 +13,7 @@ import shaders.SpriteShader;
 	private var _secondary:Int;
 	private var _outline:Int;
 	private var _background:Int;
+	private var _isShrouded:Bool;
 
 	public var tile(default, null):Tile;
 	public var layer(default, null):RenderLayerType;
@@ -22,6 +23,7 @@ import shaders.SpriteShader;
 	public var secondary(default, set):Int;
 	public var outline(default, set):Int;
 	public var background(default, set):Null<Int>;
+	public var isShrouded(default, set):Bool;
 	public var offsetX(default, default):Float;
 	public var offsetY(default, default):Float;
 
@@ -39,6 +41,7 @@ import shaders.SpriteShader;
 
 		ob = new Bitmap(tile);
 		ob.addShader(shader);
+		ob.visible = false;
 	}
 
 	function set_ch(value:String):String
@@ -94,5 +97,11 @@ import shaders.SpriteShader;
 	override function onRemove()
 	{
 		ob.remove();
+	}
+
+	function set_isShrouded(value:Bool):Bool
+	{
+		shader.isShrouded = value ? 1 : 0;
+		return _isShrouded = value;
 	}
 }
