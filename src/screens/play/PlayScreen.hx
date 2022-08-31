@@ -4,12 +4,12 @@ import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
-import core.input.KeyCode;
 import domain.components.Energy;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
 import screens.console.ConsoleScreen;
+import screens.cursor.CursorScreen;
 
 class PlayScreen extends Screen
 {
@@ -82,6 +82,8 @@ class PlayScreen extends Screen
 				world.player.entity.get(Energy).consumeEnergy(50);
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
+			case CMD_LOOK:
+				game.screens.push(new CursorScreen());
 			case _:
 		}
 

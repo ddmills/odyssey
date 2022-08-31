@@ -126,6 +126,11 @@ class World
 		return chunk.exploration.get(local.x.floor(), local.y.floor());
 	}
 
+	public function isVisible(coord:Coordinate)
+	{
+		return visible.exists((v) -> v.toWorld().equals(coord.toWorld().floor()));
+	}
+
 	public function explore(coord:Coordinate)
 	{
 		var c = coord.toChunk();

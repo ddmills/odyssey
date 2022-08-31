@@ -11,6 +11,8 @@ class TileResources
 	public static var HERO:Tile;
 	public static var SNAKE_1:Tile;
 	public static var STICK_1:Tile;
+	public static var EYE_OPEN:Tile;
+	public static var EYE_CLOSE:Tile;
 
 	public static function Init()
 	{
@@ -21,5 +23,7 @@ class TileResources
 		SNAKE_1 = hxd.Res.tiles.scroll.snake_1.toTile();
 		STICK_1 = hxd.Res.tiles.scroll.stick_1.toTile();
 		HERO = hxd.Res.tiles.scroll.hero.toTile();
+		EYE_OPEN = hxd.Res.tiles.scroll.eye.toTile();
+		EYE_CLOSE = hxd.Res.tiles.scroll.eye_closed.toTile();
 	}
 }

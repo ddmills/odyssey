@@ -50,7 +50,7 @@ class SpriteShader extends hxsl.Shader
 			}
 		};
 
-	public function new(primary:Int, secondary:Int)
+	public function new(primary:Int = 0x000000, secondary:Int = 0xffffff)
 	{
 		super();
 		this.primary = primary.toHxdColor();

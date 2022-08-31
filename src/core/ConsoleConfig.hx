@@ -18,7 +18,7 @@ class ConsoleConfig
 		console.addCommand('cmds', 'List available commands on current screen', [], () ->
 		{
 			console.log('Available commands', 0xffff00);
-			Commands.GetForDomain(Game.instance.screens.previous.inputDomain).each((cmd:Command) ->
+			Commands.GetForDomains([INPUT_DOMAIN_DEFAULT, Game.instance.screens.previous.inputDomain]).each((cmd:Command) ->
 			{
 				console.log('${cmd.friendlyKey()} - ${cmd.name}', 0xffff00);
 			});

@@ -69,6 +69,11 @@ class IterableExtensions
 		return Lambda.exists(it, fn);
 	}
 
+	public static inline function has<T>(it:Iterable<T>, value:T):Bool
+	{
+		return Lambda.has(it, value);
+	}
+
 	public static inline function filter<A>(it:Iterable<A>, fn:(item:A) -> Bool)
 	{
 		return Lambda.filter(it, fn);

@@ -2,6 +2,8 @@ package domain.prefabs;
 
 import data.TileResources;
 import domain.components.Energy;
+import domain.components.IsEnemy;
+import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
@@ -13,6 +15,8 @@ class SnakePrefab
 
 		snake.add(new Sprite(TileResources.SNAKE_1, 0xDF9100, 0x000000, ACTORS));
 		snake.add(new Energy(-10));
+		snake.add(new IsEnemy());
+		snake.add(new Moniker('Rattlesnake'));
 
 		return snake;
 	}
