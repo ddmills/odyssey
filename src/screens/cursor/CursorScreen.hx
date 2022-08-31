@@ -46,6 +46,11 @@ class CursorScreen extends Screen
 		renderer.cleanup();
 	}
 
+	public override function onMouseMove(pos:Coordinate, previous:Coordinate)
+	{
+		target = pos.toWorld().floor();
+	}
+
 	private function look(dx:Int, dy:Int)
 	{
 		target = target.add(new Coordinate(dx, dy, WORLD));

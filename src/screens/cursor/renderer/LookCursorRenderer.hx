@@ -17,25 +17,24 @@ class LookCursorRenderer extends CursorRenderer
 	var ob:h2d.Object;
 	var targetBm:h2d.Bitmap;
 	var targetShader:SpriteShader;
-	var timeout:Timeout;
-	var isBlinking:Bool = false;
-	var terrainText:h2d.Text;
 	var targetText:h2d.Text;
+	var isBlinking:Bool = false;
+	var timeout:Timeout;
 
-	var colorEnemy = 0xd13434;
-	var colorNeutral = 0x338f9b;
+	var COLOR_DANGER = 0xb61111;
+	var COLOR_NEUTRAL = 0xa2bdc2;
 
 	public function new()
 	{
-		targetShader = new SpriteShader(colorNeutral);
+		targetShader = new SpriteShader(COLOR_NEUTRAL);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 1;
 		ob = new h2d.Object();
 		targetBm = new Bitmap(TileResources.EYE_OPEN, ob);
 		targetBm.addShader(targetShader);
 		renderText();
-		Game.instance.render(OVERLAY, ob);
-		Game.instance.render(HUD, terrainText);
+		game.render(OVERLAY, ob);
+		game.render(HUD, targetText);
 		timeout = new Timeout(.5);
 		timeout.onComplete = blink;
 	}
@@ -54,7 +53,7 @@ class LookCursorRenderer extends CursorRenderer
 	public override function cleanup()
 	{
 		ob.remove();
-		terrainText.remove();
+		targetText.remove();
 	}
 
 	public override function render(opts:CursorRenderOpts)
@@ -69,49 +68,51 @@ class LookCursorRenderer extends CursorRenderer
 			timeout.reset();
 		}
 
-		targetText.visible = false;
-		targetShader.primary = colorNeutral.toHxdColor();
+		targetShader.primary = COLOR_NEUTRAL.toHxdColor();
 
-		if (Game.instance.world.isVisible(opts.end))
+		var terrain = EnumValueTools.getName(world.map.getTerrain(opts.end.x, opts.end.y));
+
+		if (world.isVisible(opts.end))
 		{
-			terrainText.text = EnumValueTools.getName(Game.instance.world.map.getTerrain(opts.end.x, opts.end.y));
+			targetText.text = '[$terrain]';
 			targetBm.tile = TileResources.EYE_OPEN;
-			var entities = Game.instance.world.getEntitiesAt(opts.end);
+			var entities = world.getEntitiesAt(opts.end);
 			isBlinking = entities.length > 0;
 			if (entities.exists((e) -> e.has(IsEnemy)))
 			{
-				targetShader.primary = colorEnemy.toHxdColor();
+				targetShader.primary = COLOR_DANGER.toHxdColor();
 			}
 
 			var named = entities.find((e) -> e.has(Moniker));
 			if (named != null)
 			{
 				var moniker = named.get(Moniker);
-				targetText.text = moniker.displayName;
-				var tagSpot = named.pos.floor().add(new Coordinate(1.5, 0, WORLD)).toPx();
-				targetText.x = tagSpot.x;
-				targetText.y = tagSpot.y;
-				targetText.visible = true;
+				targetText.text = '${moniker.displayName} [$terrain]';
 			}
 		}
 		else
 		{
+			if (world.isExplored(opts.end))
+			{
+				targetText.text = '[$terrain]';
+			}
+			else
+			{
+				targetText.text = '[UNKNOWN]';
+			}
 			targetBm.tile = TileResources.EYE_CLOSE;
 			isBlinking = false;
 		}
+
+		targetText.x = game.window.width / 2;
+		game.camera.focus = world.player.pos;
 	}
 
 	private function renderText()
 	{
 		targetText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
 		targetText.color = new h3d.Vector(1, 1, .9);
-		targetText.x = 16;
-		targetText.y = 16;
-		ob.addChild(targetText);
-
-		terrainText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
-		terrainText.color = new h3d.Vector(1, 1, .9);
-		terrainText.x = 16;
-		terrainText.y = Game.instance.window.height - 32;
+		targetText.y = 64;
+		targetText.textAlign = Center;
 	}
 }

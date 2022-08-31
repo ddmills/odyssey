@@ -75,6 +75,12 @@ class Screen
 	function onMouseUp(pos:Coordinate) {}
 
 	/**
+	 * Handle mouse moved
+	 */
+	@:allow(core.input.InputManager)
+	function onMouseMove(pos:Coordinate, previous:Coordinate) {}
+
+	/**
 	 * Handle key up
 	 */
 	@:allow(core.input.InputManager)
