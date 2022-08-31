@@ -26,6 +26,10 @@ class CommandManager
 			{
 				return input;
 			}
+			else
+			{
+				game.input.next();
+			}
 		}
 
 		return null;

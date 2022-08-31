@@ -1,5 +1,6 @@
 package screens.cursor;
 
+import common.algorithm.Bresenham;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
@@ -34,7 +35,7 @@ class CursorScreen extends Screen
 		renderer.render({
 			start: start,
 			end: target,
-			line: new Array<IntPoint>(),
+			line: Bresenham.getLine(start.ToIntPoint(), target.ToIntPoint()),
 		});
 		renderer.update(frame);
 		world.updateSystems();
@@ -83,6 +84,8 @@ class CursorScreen extends Screen
 				look(0, 1);
 			case CMD_MOVE_SE:
 				look(1, 1);
+			case CMD_LOOK:
+				game.screens.pop();
 			case CMD_CANCEL:
 				game.screens.pop();
 			case CMD_CONSOLE:

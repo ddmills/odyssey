@@ -4,23 +4,25 @@ import common.struct.IntPoint;
 
 class Bresenham
 {
-	public static function getLine(x0:Int, y0:Int, x1:Int, y1:Int):Array<IntPoint>
+	public static function getLine(a:IntPoint, b:IntPoint):Array<IntPoint>
 	{
-		var dx = (x1 - x0).abs();
-		var dy = (y1 - y0).abs();
-		var sx = x0 < x1 ? 1 : -1;
-		var sy = y0 < y1 ? 1 : -1;
+		var dx = (b.x - a.x).abs();
+		var dy = (b.y - a.y).abs();
+		var sx = a.x < b.x ? 1 : -1;
+		var sy = a.y < b.y ? 1 : -1;
 		var result = new Array<IntPoint>();
+		var x = a.x;
+		var y = a.y;
 
 		var err = dx - dy;
 		while (true)
 		{
 			result.push({
-				x: x0,
-				y: y0,
+				x: x,
+				y: y,
 			});
 
-			if (x0 == x1 && y0 == y1)
+			if (x == b.x && y == b.y)
 			{
 				break;
 			}
@@ -30,20 +32,20 @@ class Bresenham
 			if (e2 > -dy)
 			{
 				err -= dy;
-				x0 += sx;
+				x += sx;
 			}
 
 			if (e2 < dx)
 			{
 				err += dx;
-				y0 += sy;
+				y += sy;
 			}
 		}
 
 		return result;
 	}
 
-	public static function getCircle(x0:Int, y0:Int, r:Int, fill:Bool = false):Array<IntPoint>
+	public static function getCircle(p:IntPoint, r:Int, fill:Bool = false):Array<IntPoint>
 	{
 		var pm = new Map<String, IntPoint>();
 		var points = new Array<IntPoint>();
@@ -51,13 +53,13 @@ class Bresenham
 		var dx:Int = 0;
 		var dy:Int = r;
 
-		function addPoint(p:IntPoint)
+		function addPoint(pt:IntPoint)
 		{
-			var k = '${p.x},${p.y}';
+			var k = '${pt.x},${pt.y}';
 			if (pm.get(k) == null)
 			{
-				points.push(p);
-				pm.set(k, p);
+				points.push(pt);
+				pm.set(k, pt);
 			}
 		}
 
@@ -65,38 +67,38 @@ class Bresenham
 		{
 			if (fill)
 			{
-				var p0 = x0 - dx;
-				var p1 = x0 - dy;
+				var p0 = p.x - dx;
+				var p1 = p.x - dy;
 				var w0 = dx + dx + 1;
 				var w1 = dy + dy + 1;
 
-				hline(p0, y0 + dy, w0, function(p)
+				hline(p0, p.y + dy, w0, function(p)
 				{
 					addPoint(p);
 				});
-				hline(p0, y0 - dy, w0, function(p)
+				hline(p0, p.y - dy, w0, function(p)
 				{
 					addPoint(p);
 				});
-				hline(p1, y0 + dx, w1, function(p)
+				hline(p1, p.y + dx, w1, function(p)
 				{
 					addPoint(p);
 				});
-				hline(p1, y0 - dx, w1, function(p)
+				hline(p1, p.y - dx, w1, function(p)
 				{
 					addPoint(p);
 				});
 			}
 			else
 			{
-				addPoint({x: x0 + dx, y: y0 + dy});
-				addPoint({x: x0 - dx, y: y0 + dy});
-				addPoint({x: x0 - dx, y: y0 - dy});
-				addPoint({x: x0 + dx, y: y0 - dy});
-				addPoint({x: x0 + dy, y: y0 + dx});
-				addPoint({x: x0 - dy, y: y0 + dx});
-				addPoint({x: x0 - dy, y: y0 - dx});
-				addPoint({x: x0 + dy, y: y0 - dx});
+				addPoint({x: p.x + dx, y: p.y + dy});
+				addPoint({x: p.x - dx, y: p.y + dy});
+				addPoint({x: p.x - dx, y: p.y - dy});
+				addPoint({x: p.x + dx, y: p.y - dy});
+				addPoint({x: p.x + dy, y: p.y + dx});
+				addPoint({x: p.x - dy, y: p.y + dx});
+				addPoint({x: p.x - dy, y: p.y - dx});
+				addPoint({x: p.x + dy, y: p.y - dx});
 			}
 
 			dx++;

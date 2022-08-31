@@ -14,6 +14,7 @@ class InputManager
 	public function new()
 	{
 		queue = new Queue();
+		queue.maxLength = 12;
 		mouse = new Coordinate(0, 0, SCREEN);
 		Game.instance.window.addEventTarget(onSceneEvent);
 	}

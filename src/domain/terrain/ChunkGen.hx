@@ -2,6 +2,7 @@ package domain.terrain;
 
 import core.Game;
 import domain.components.Energy;
+import domain.prefabs.CactusPrefab;
 import domain.prefabs.SnakePrefab;
 import domain.prefabs.StickPrefab;
 import hxd.Rand;
@@ -27,12 +28,17 @@ class ChunkGen
 				snake.y = y;
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
-
-			if (r.bool(.005))
+			else if (r.bool(.005))
 			{
 				var stick = StickPrefab.Create();
 				stick.x = x;
 				stick.y = y;
+			}
+			else if (r.bool(.025))
+			{
+				var cactus = CactusPrefab.Create(r);
+				cactus.x = x;
+				cactus.y = y;
 			}
 		}
 	}

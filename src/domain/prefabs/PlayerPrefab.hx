@@ -21,7 +21,7 @@ class PlayerPrefab
 		player.add(sprite);
 		player.add(new IsPlayer());
 		player.add(new Energy());
-		player.add(new Vision(8, 1));
+		player.add(new Vision(7, 1));
 		player.add(new Moniker('You'));
 
 		return player;

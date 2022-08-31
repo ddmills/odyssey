@@ -102,19 +102,18 @@ class VisionSystem extends System
 		for (entity in visions)
 		{
 			var vision = entity.get(Vision);
-			var x = entity.x.floor();
-			var y = entity.y.floor();
+			var pos = entity.pos.ToIntPoint();
 
 			if (vision.bonus > 0)
 			{
-				var exploreCircle = Bresenham.getCircle(x, y, vision.range + vision.bonus, true);
+				var exploreCircle = Bresenham.getCircle(pos, vision.range + vision.bonus, true);
 				for (point in exploreCircle)
 				{
 					world.explore(new Coordinate(point.x, point.y, WORLD));
 				}
 			}
 
-			var visCircle = Bresenham.getCircle(x, y, vision.range, true);
+			var visCircle = Bresenham.getCircle(pos, vision.range, true);
 			var vis = Coordinate.FromPoints(visCircle, WORLD);
 			for (coord in vis)
 			{

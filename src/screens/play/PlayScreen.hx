@@ -104,7 +104,7 @@ class PlayScreen extends Screen
 		clockText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
 		clockText.setScale(1);
 		clockText.text = world.clock.toString();
-		clockText.color = new h3d.Vector(1, 1, .9);
+		clockText.color = 0xf5f5f5.toHxdColor();
 		clockText.x = 16;
 		clockText.y = 16;
 		game.render(HUD, clockText);
