@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import domain.components.Blocker;
 import domain.components.Energy;
 import domain.components.Move;
 import domain.components.MoveComplete;
@@ -94,6 +95,11 @@ class PlayScreen extends Screen
 	{
 		var target = world.player.pos.ciel().add(new Coordinate(x, y, WORLD));
 
+		var entities = world.getEntitiesAt(target);
+		if (entities.exists((e) -> e.has(Blocker)))
+		{
+			return;
+		}
 		world.player.entity.add(new Move(target, .16, LINEAR));
 		world.player.entity.get(Energy).consumeEnergy(50);
 		world.player.entity.get(Sprite).background = null;
