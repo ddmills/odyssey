@@ -14,12 +14,21 @@ class TileResources
 	public static var EYE_OPEN:Tile;
 	public static var EYE_CLOSE:Tile;
 	public static var CURSOR:Tile;
-	public static var DOT:Tile;
 
 	public static var CACTUS_1:Tile;
 	public static var CACTUS_2:Tile;
 	public static var CACTUS_1_FLOWER:Tile;
 	public static var CACTUS_2_FLOWER:Tile;
+
+	public static var DOT:Tile;
+	public static var ARROW_NW:Tile;
+	public static var ARROW_N:Tile;
+	public static var ARROW_NE:Tile;
+	public static var ARROW_W:Tile;
+	public static var ARROW_E:Tile;
+	public static var ARROW_SW:Tile;
+	public static var ARROW_S:Tile;
+	public static var ARROW_SE:Tile;
 
 	public static function Init()
 	{
@@ -33,12 +42,22 @@ class TileResources
 		EYE_OPEN = hxd.Res.tiles.scroll.eye.toTile();
 		EYE_CLOSE = hxd.Res.tiles.scroll.eye_closed.toTile();
 		CURSOR = hxd.Res.tiles.scroll.cursor.toTile();
-		DOT = hxd.Res.tiles.scroll.dot.toTile();
 
 		var catus = hxd.Res.tiles.scroll.cacti.toTile().divide(4, 1);
 		CACTUS_1 = catus[0][0];
 		CACTUS_2 = catus[0][1];
 		CACTUS_1_FLOWER = catus[0][2];
 		CACTUS_2_FLOWER = catus[0][3];
+
+		var arrows = hxd.Res.tiles.scroll.arrows.toTile().divide(3, 3);
+		ARROW_NW = arrows[0][0];
+		ARROW_N = arrows[1][0];
+		ARROW_NE = arrows[2][0];
+		ARROW_W = arrows[0][1];
+		ARROW_E = arrows[2][1];
+		ARROW_SW = arrows[0][2];
+		ARROW_S = arrows[1][2];
+		ARROW_SE = arrows[2][2];
+		DOT = arrows[1][1];
 	}
 }

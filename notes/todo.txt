@@ -1,0 +1,10 @@
+- click to move
+	- in play screen
+	- when mouse moves, show path to mouse if valid
+	- on keyboard input, hide path to mouse
+	- when esc pressed, hide path to mouse
+- ground interact
+	- press spacebar to interact with ground
+	- all ground items show in list
+	- once item selected
+	- show item actions
