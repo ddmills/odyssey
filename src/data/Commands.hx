@@ -26,6 +26,7 @@ class Commands
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_SE,   'move south east',   KEY_NUMPAD_3);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_WAIT,      'wait',              KEY_NUMPAD_5);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_LOOK,      'look',              KEY_L);
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INTERACT,  'interact',          KEY_SPACE);
 		// @formatter:on
 	}
 

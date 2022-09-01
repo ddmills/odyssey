@@ -9,7 +9,7 @@ class SpriteShader extends hxsl.Shader
 			var pixelColor:Vec4;
 			@param var primary:Vec3;
 			@param var secondary:Vec3;
-			@param var outline:Vec3;
+			@param var outline:Vec4;
 			@param var background:Vec3;
 			@param var clearBackground:Int;
 			@param var isShrouded:Int;
@@ -39,7 +39,7 @@ class SpriteShader extends hxsl.Shader
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
-					pixelColor.rgb = outline;
+					pixelColor.rgba = outline;
 				}
 
 				if (pixelColor.a == 0 && clearBackground == 1)
@@ -58,6 +58,6 @@ class SpriteShader extends hxsl.Shader
 		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;
-		this.isShrouded = 1;
+		this.isShrouded = 0;
 	}
 }

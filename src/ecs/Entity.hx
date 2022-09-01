@@ -6,6 +6,7 @@ import common.util.Serial;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Sprite;
+import domain.events.EntityEventType;
 
 class Entity
 {
@@ -92,10 +93,8 @@ class Entity
 		}
 	}
 
-	public function fireEvent(name:String):EntityEvent
+	public function fireEvent(evt:EntityEvent):EntityEvent
 	{
-		var evt = new EntityEvent(name);
-
 		components.each((c) -> c.onEvent(evt));
 
 		return evt;

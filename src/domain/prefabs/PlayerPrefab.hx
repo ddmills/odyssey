@@ -4,6 +4,7 @@ import core.Game;
 import data.TileResources;
 import domain.components.Energy;
 import domain.components.IsPlayer;
+import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Vision;
@@ -23,6 +24,7 @@ class PlayerPrefab
 		player.add(new Energy());
 		player.add(new Vision(7, 1));
 		player.add(new Moniker('You'));
+		player.add(new Loot());
 
 		return player;
 	}

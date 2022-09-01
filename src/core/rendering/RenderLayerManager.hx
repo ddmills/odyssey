@@ -10,6 +10,7 @@ enum RenderLayerType
 	ACTORS;
 	OVERLAY;
 	HUD;
+	POPUP;
 }
 
 class RenderLayerManager
@@ -35,6 +36,7 @@ class RenderLayerManager
 		createLayer(ACTORS, WORLD);
 		createLayer(OVERLAY, WORLD);
 		createLayer(HUD, SCREEN);
+		createLayer(POPUP, SCREEN);
 
 		root.addChildAt(scroller, 0);
 		root.addChildAt(screen, 1);

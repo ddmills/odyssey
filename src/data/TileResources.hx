@@ -30,6 +30,9 @@ class TileResources
 	public static var ARROW_S:Tile;
 	public static var ARROW_SE:Tile;
 
+	public static var LIST_DASH:Tile;
+	public static var LIST_ARROW:Tile;
+
 	public static function Init()
 	{
 		GRASS_1 = hxd.Res.tiles.scroll.grass_1.toTile();
@@ -42,6 +45,9 @@ class TileResources
 		EYE_OPEN = hxd.Res.tiles.scroll.eye.toTile();
 		EYE_CLOSE = hxd.Res.tiles.scroll.eye_closed.toTile();
 		CURSOR = hxd.Res.tiles.scroll.cursor.toTile();
+
+		LIST_DASH = hxd.Res.tiles.scroll.list_dash.toTile();
+		LIST_ARROW = hxd.Res.tiles.scroll.list_arrow.toTile();
 
 		var catus = hxd.Res.tiles.scroll.cacti.toTile().divide(4, 1);
 		CACTUS_1 = catus[0][0];

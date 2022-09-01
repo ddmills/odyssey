@@ -11,6 +11,8 @@ abstract class Component
 	public var entity(default, null):Entity;
 	public var isAttached(get, null):Bool;
 
+	private var handlers:Map<String, (evt:EntityEvent) -> Void> = new Map();
+
 	inline function get_type():String
 	{
 		return Type.getClassName(Type.getClass(this));
@@ -19,6 +21,12 @@ abstract class Component
 	inline function get_entity():String
 	{
 		return Type.getClassName(Type.getClass(this));
+	}
+
+	private function addHandler<T:EntityEvent>(type:Class<T>, fn:(EntityEvent) -> Void)
+	{
+		var className = Type.getClassName(type);
+		handlers.set(className, fn);
 	}
 
 	function get_bit():Int
@@ -36,7 +44,16 @@ abstract class Component
 	function onRemove() {}
 
 	@:allow(ecs.Entity)
-	function onEvent(evt:EntityEvent) {}
+	private function onEvent(evt:EntityEvent)
+	{
+		var cls = Type.getClass(evt);
+		var className = Type.getClassName(cls);
+		var handler = handlers.get(className);
+		if (handler != null)
+		{
+			handler(evt);
+		}
+	}
 
 	@:allow(ecs.Entity)
 	function _attach(entity:Entity)

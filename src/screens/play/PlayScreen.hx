@@ -6,11 +6,15 @@ import core.Screen;
 import core.input.Command;
 import domain.components.Blocker;
 import domain.components.Energy;
+import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
+import domain.events.DropEvent;
+import domain.events.GetInteractionsEvent;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
+import screens.interaction.InteractionScreen;
 
 class PlayScreen extends Screen
 {
@@ -59,7 +63,7 @@ class PlayScreen extends Screen
 		}
 	}
 
-	public function handle(command:Command):Bool
+	function handle(command:Command):Bool
 	{
 		switch (command.type)
 		{
@@ -85,6 +89,8 @@ class PlayScreen extends Screen
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:
 				game.screens.push(new CursorScreen());
+			case CMD_INTERACT:
+				onInteract(world.player.pos);
 			case _:
 		}
 
@@ -103,6 +109,11 @@ class PlayScreen extends Screen
 		world.player.entity.add(new Move(target, .16, LINEAR));
 		world.player.entity.get(Energy).consumeEnergy(50);
 		world.player.entity.get(Sprite).background = null;
+	}
+
+	private function onInteract(pos:Coordinate)
+	{
+		game.screens.push(new InteractionScreen(world.player.entity));
 	}
 
 	private function renderClock()

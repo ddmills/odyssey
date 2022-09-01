@@ -14,4 +14,5 @@ enum CommandType
 	CMD_CONSOLE;
 	CMD_LOOK;
 	CMD_CANCEL;
+	CMD_INTERACT;
 }

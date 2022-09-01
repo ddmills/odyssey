@@ -1,16 +1,18 @@
 package ecs;
 
+import domain.events.EntityEventType;
+
 class EntityEvent
 {
-	public var name(default, null):String;
+	public var type(default, null):EntityEventType;
 
-	public function new(name:String)
+	public function new(type:EntityEventType)
 	{
-		this.name = name;
+		this.type = type;
 	}
 
-	public inline function is(name:String):Bool
+	public inline function is(type:EntityEventType):Bool
 	{
-		return this.name == name;
+		return this.type == type;
 	}
 }

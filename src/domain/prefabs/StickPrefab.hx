@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import core.Game;
 import data.TileResources;
+import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -16,6 +17,7 @@ class StickPrefab
 		sprite.background = Game.instance.CLEAR_COLOR;
 		stick.add(sprite);
 		stick.add(new Moniker('Stick'));
+		stick.add(new Loot());
 
 		return stick;
 	}

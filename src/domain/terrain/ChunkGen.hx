@@ -28,11 +28,14 @@ class ChunkGen
 				snake.y = y;
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
-			else if (r.bool(.005))
+			else if (r.bool(.025))
 			{
 				var stick = StickPrefab.Create();
 				stick.x = x;
 				stick.y = y;
+				var stick2 = StickPrefab.Create();
+				stick2.x = x;
+				stick2.y = y;
 			}
 			else if (r.bool(.025))
 			{

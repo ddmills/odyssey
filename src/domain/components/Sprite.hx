@@ -8,7 +8,6 @@ import shaders.SpriteShader;
 
 @:structInit class Sprite extends Component
 {
-	private var _ch:String;
 	private var _primary:Int;
 	private var _secondary:Int;
 	private var _outline:Int;
@@ -44,9 +43,22 @@ import shaders.SpriteShader;
 		ob.visible = false;
 	}
 
-	function set_ch(value:String):String
+	public function getBitmapClone():Bitmap
 	{
-		return _ch = value;
+		var bm = new Bitmap(tile);
+		var sh = new SpriteShader(_primary, _secondary);
+		sh.isShrouded = isShrouded ? 1 : 0;
+		if (background == null)
+		{
+			sh.clearBackground = 0;
+		}
+		else
+		{
+			sh.clearBackground = 1;
+			sh.background = background.toHxdColor();
+		}
+		bm.addShader(shader);
+		return bm;
 	}
 
 	function set_primary(value:Int):Int
