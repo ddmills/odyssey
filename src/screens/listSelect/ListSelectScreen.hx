@@ -42,9 +42,12 @@ class ListSelectScreen extends Screen
 	var cancelText:String = 'Cancel';
 	var includeCancel:Bool = true;
 
-	public var onCancel:() -> Void;
+	var _targetPos:Null<Coordinate>;
+	var targetOb:Bitmap;
 
+	public var onCancel:() -> Void;
 	public var pos(get, set):Coordinate;
+	public var targetPos(get, set):Null<Coordinate>;
 
 	public function new(items:Array<ListItem>)
 	{
@@ -54,6 +57,15 @@ class ListSelectScreen extends Screen
 		list = new SelectableList([]);
 		onCancel = () -> game.screens.pop();
 		_pos = new Coordinate(16, 16, SCREEN);
+
+		targetOb = new Bitmap(TileResources.CURSOR, ob);
+		var shader = new SpriteShader(0xd4d4d4);
+		shader.isShrouded = 0;
+		shader.clearBackground = 0;
+		targetOb.addShader(shader);
+		targetOb.visible = false;
+
+		game.render(OVERLAY, targetOb);
 	};
 
 	override function onEnter()
@@ -209,6 +221,7 @@ class ListSelectScreen extends Screen
 	override function onDestroy()
 	{
 		ob.remove();
+		targetOb.remove();
 	}
 
 	override function onSuspend()
@@ -234,5 +247,26 @@ class ListSelectScreen extends Screen
 	inline function get_pos():Coordinate
 	{
 		return _pos;
+	}
+
+	function get_targetPos():Null<Coordinate>
+	{
+		return _targetPos;
+	}
+
+	function set_targetPos(value:Null<Coordinate>):Null<Coordinate>
+	{
+		if (value != null)
+		{
+			var p = value.toWorld().floor().toPx();
+			targetOb.visible = true;
+			targetOb.x = p.x;
+			targetOb.y = p.y;
+		}
+		else
+		{
+			targetOb.visible = false;
+		}
+		return _targetPos = value;
 	}
 }

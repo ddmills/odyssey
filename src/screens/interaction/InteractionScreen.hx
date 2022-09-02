@@ -17,30 +17,37 @@ import screens.entitySelect.EntitySelectScreen;
 import screens.listSelect.ListSelectScreen;
 import shaders.SpriteShader;
 
+typedef TargetIndicator =
+{
+	pos:IntPoint,
+	ob:Bitmap,
+	shader:SpriteShader,
+	isBlinking:Bool,
+}
+
 class InteractionScreen extends Screen
 {
 	var ob:Object;
 	var interactor:Entity;
 	var nearbyInteractables:Array<IntPoint>;
-	var interactShader:SpriteShader;
+	var indicators:Array<TargetIndicator>;
 	var timeout:Timeout;
 	var instructionText:h2d.Text;
+	var isBlinkActive:Bool;
 
 	public function new(interactor:Entity)
 	{
 		this.interactor = interactor;
 		this.inputDomain = INPUT_DOMAIN_DEFAULT;
 
+		indicators = [];
 		ob = new Object();
+		isBlinkActive = true;
 
 		instructionText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
 		instructionText.color = 0xf5f5f5.toHxdColor();
 		instructionText.y = 64;
 		instructionText.textAlign = Center;
-
-		interactShader = new SpriteShader(0x89a886);
-		interactShader.isShrouded = 0;
-		interactShader.clearBackground = 0;
 
 		timeout = new Timeout(.25);
 		timeout.onComplete = blink;
@@ -49,7 +56,18 @@ class InteractionScreen extends Screen
 	private function blink()
 	{
 		timeout.reset();
-		ob.visible = !ob.visible;
+		isBlinkActive = !isBlinkActive;
+		indicators.each((b) ->
+		{
+			if (b.isBlinking)
+			{
+				b.ob.visible = isBlinkActive;
+			}
+			else
+			{
+				b.ob.visible = true;
+			}
+		});
 	}
 
 	override function onEnter()
@@ -81,12 +99,22 @@ class InteractionScreen extends Screen
 			instructionText.text = 'Choose a direction to inspect';
 			nearbyInteractables.each((p:IntPoint) ->
 			{
-				var px = interactor.pos.add(p.asWorld()).toPx();
+				var w = interactor.pos.add(p.asWorld());
+				var px = w.toPx();
 				var targetBm = new Bitmap(TileResources.CURSOR, ob);
 				targetBm.x = px.x;
 				targetBm.y = px.y;
-				targetBm.addShader(interactShader);
+				var shader = new SpriteShader(0x6B6B6B);
+				shader.isShrouded = 0;
+				shader.clearBackground = 0;
+				targetBm.addShader(shader);
 				ob.addChild(targetBm);
+				indicators.push({
+					ob: targetBm,
+					pos: w.toIntPoint(),
+					shader: shader,
+					isBlinking: true,
+				});
 			});
 			ob.x = 0;
 			ob.y = 0;
@@ -130,6 +158,7 @@ class InteractionScreen extends Screen
 		else
 		{
 			var selectScreen = new EntitySelectScreen(interactables);
+			selectScreen.targetPos = pos;
 			selectScreen.onSelect = (e) ->
 			{
 				game.screens.replace(getShowInteractions(e));
@@ -155,7 +184,9 @@ class InteractionScreen extends Screen
 			getIcon: () -> null,
 		}));
 
-		return new ListSelectScreen(items);
+		var s = new ListSelectScreen(items);
+		s.targetPos = entity.pos;
+		return s;
 	}
 
 	override function update(frame:Frame)
@@ -180,7 +211,31 @@ class InteractionScreen extends Screen
 	override function onSuspend()
 	{
 		ob.visible = false;
-		// in
+	}
+
+	public override function onMouseMove(pos:Coordinate, previous:Coordinate)
+	{
+		var p = pos.toWorld().toIntPoint();
+		indicators.each((b:TargetIndicator) ->
+		{
+			if (b.pos.equals(p))
+			{
+				b.isBlinking = false;
+				b.ob.visible = true;
+				b.shader.primary = 0xd4d4d4.toHxdColor();
+			}
+			else
+			{
+				b.isBlinking = true;
+				b.ob.visible = isBlinkActive;
+				b.shader.primary = 0x6B6B6B.toHxdColor();
+			}
+		});
+	}
+
+	public override function onMouseDown(pos:Coordinate)
+	{
+		inspectLocation(pos);
 	}
 
 	function handle(command:Command)
