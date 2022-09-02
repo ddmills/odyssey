@@ -69,18 +69,18 @@ class Distance
 		return (dx + dy) - (0.59 * Math.min(dx, dy));
 	}
 
-	public overload extern inline static function EuclideanSq(a:IntPoint, b:IntPoint):Float
+	public overload extern inline static function EuclideanSq(a:IntPoint, b:IntPoint):Int
 	{
-		var dx = (a.x - b.x).abs();
-		var dy = (a.y - b.y).abs();
+		var dx = a.x - b.x;
+		var dy = a.y - b.y;
 
 		return dx * dx + dy * dy;
 	}
 
 	public overload extern inline static function EuclideanSq(a:FloatPoint, b:FloatPoint):Float
 	{
-		var dx = (a.x - b.x).abs();
-		var dy = (a.y - b.y).abs();
+		var dx = a.x - b.x;
+		var dy = a.y - b.y;
 
 		return dx * dx + dy * dy;
 	}

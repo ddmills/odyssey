@@ -8,7 +8,7 @@ import haxe.EnumTools;
 {
 	public var domain:InputDomainType;
 	public var type:CommandType;
-	public var name:String;
+	public var name(get, never):String;
 	public var key:KeyCode;
 	public var shift:Bool;
 	public var ctrl:Bool;
@@ -21,7 +21,7 @@ import haxe.EnumTools;
 
 	public function toString():String
 	{
-		return EnumValueTools.getName(type);
+		return name;
 	}
 
 	public function friendlyKey():String
@@ -44,5 +44,10 @@ import haxe.EnumTools;
 		val += key.toChar();
 
 		return val;
+	}
+
+	function get_name():String
+	{
+		return type;
 	}
 }

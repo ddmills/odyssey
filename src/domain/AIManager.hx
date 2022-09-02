@@ -2,6 +2,7 @@ package domain;
 
 import common.struct.IntPoint;
 import core.Game;
+import data.Cardinal;
 import domain.components.Energy;
 import domain.components.Move;
 import ecs.Entity;
@@ -20,11 +21,7 @@ class AIManager
 	{
 		Game.instance.world.systems.movement.finishMoveFast(entity);
 
-		var delta:IntPoint = {
-			x: rand.pick([-1, 0, 1]),
-			y: rand.pick([-1, 0, 1]),
-		};
-
+		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 
 		entity.add(new Move(goal, .1, LINEAR));

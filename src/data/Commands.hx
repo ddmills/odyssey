@@ -13,20 +13,26 @@ class Commands
 	{
 		values = new Array();
 		// @formatter:off
-		//  Domain                    Type           Name                 Key            Shift   Ctrl   Alt
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONSOLE,   'open console',      KEY_COMMA,     true);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CANCEL,    'cancel/back',       KEY_ESCAPE);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NW,   'move north west',   KEY_NUMPAD_7);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_N,    'move north',        KEY_NUMPAD_8);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NE,   'move north east',   KEY_NUMPAD_9);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_W,    'move west',         KEY_NUMPAD_4);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_E,    'move east',         KEY_NUMPAD_6);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_SW,   'move south west',   KEY_NUMPAD_1);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_S,    'move south',        KEY_NUMPAD_2);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_SE,   'move south east',   KEY_NUMPAD_3);
-		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_WAIT,      'wait',              KEY_NUMPAD_5);
-		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_LOOK,      'look',              KEY_L);
-		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INTERACT,  'interact',          KEY_SPACE);
+		//  Domain                    Type           Key            Shift   Ctrl   Alt
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONSOLE,   KEY_COMMA,     true);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONFIRM,   KEY_ENTER);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CANCEL,    KEY_ESCAPE);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NW,   KEY_NUMPAD_7);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_N,    KEY_UP);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_N,    KEY_NUMPAD_8);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NE,   KEY_NUMPAD_9);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_W,    KEY_LEFT);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_W,    KEY_NUMPAD_4);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_E,    KEY_RIGHT);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_E,    KEY_NUMPAD_6);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_SW,   KEY_NUMPAD_1);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_S,    KEY_DOWN);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_S,    KEY_NUMPAD_2);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_SE,   KEY_NUMPAD_3);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_WAIT,      KEY_NUMPAD_5);
+
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_LOOK,      KEY_L);
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INTERACT,  KEY_SPACE);
 		// @formatter:on
 	}
 
@@ -35,12 +41,11 @@ class Commands
 		return values.filter((c) -> domains.has(c.domain));
 	}
 
-	private static function cmd(domain:InputDomainType, type:CommandType, name:String, key:KeyCode, shift:Bool = false, ctrl:Bool = false, alt:Bool = false)
+	private static function cmd(domain:InputDomainType, type:CommandType, key:KeyCode, shift:Bool = false, ctrl:Bool = false, alt:Bool = false)
 	{
 		values.push({
 			domain: domain,
 			type: type,
-			name: name,
 			key: key,
 			shift: shift,
 			ctrl: ctrl,

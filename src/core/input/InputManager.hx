@@ -34,9 +34,9 @@ class InputManager
 		return !queue.isEmpty;
 	}
 
-	public function clear()
+	public function flush()
 	{
-		queue.clear();
+		queue.flush();
 	}
 
 	private function handleKeyEvent(key:KeyCode, type:KeyEventType)

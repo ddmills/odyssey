@@ -10,6 +10,7 @@ class ScreenManager
 	public var current(get, null):Screen;
 	public var previous(get, null):Screen;
 	public var domain(get, null):InputDomainType;
+	public var stack(get, null):Array<Screen>;
 
 	inline function get_current():Screen
 	{
@@ -35,6 +36,7 @@ class ScreenManager
 			screens.pop();
 		}
 
+		Game.instance.input.flush();
 		screens.push(screen);
 		current.onEnter();
 	}
@@ -64,5 +66,10 @@ class ScreenManager
 	function get_domain():InputDomainType
 	{
 		return current.inputDomain;
+	}
+
+	function get_stack():Array<Screen>
+	{
+		return screens.copy();
 	}
 }

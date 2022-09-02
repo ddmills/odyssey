@@ -57,7 +57,7 @@ import shaders.SpriteShader;
 			sh.clearBackground = 1;
 			sh.background = background.toHxdColor();
 		}
-		bm.addShader(shader);
+		bm.addShader(sh);
 		return bm;
 	}
 

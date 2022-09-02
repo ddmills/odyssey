@@ -3,6 +3,7 @@ package domain.prefabs;
 import core.Game;
 import data.TileResources;
 import domain.components.Blocker;
+import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -25,6 +26,7 @@ class CactusPrefab
 
 		cactus.add(sprite);
 		cactus.add(new Blocker());
+		cactus.add(new Loot());
 
 		var name = 'Cactus';
 

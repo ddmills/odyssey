@@ -4,14 +4,12 @@ import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import data.Cardinal;
 import domain.components.Blocker;
 import domain.components.Energy;
-import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
-import domain.events.DropEvent;
-import domain.events.GetInteractionsEvent;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
 import screens.interaction.InteractionScreen;
@@ -39,7 +37,7 @@ class PlayScreen extends Screen
 	{
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
-		clockText.text = world.clock.toString();
+		clockText.text = world.clock.toString() + ' ' + world.player.pos.floor().toString();
 
 		if (world.player.entity.has(MoveComplete))
 		{
@@ -68,21 +66,21 @@ class PlayScreen extends Screen
 		switch (command.type)
 		{
 			case CMD_MOVE_NW:
-				move(-1, -1);
+				move(NORTH_WEST);
 			case CMD_MOVE_N:
-				move(0, -1);
+				move(NORTH);
 			case CMD_MOVE_NE:
-				move(1, -1);
+				move(NORTH_EAST);
 			case CMD_MOVE_E:
-				move(1, 0);
+				move(EAST);
 			case CMD_MOVE_W:
-				move(-1, 0);
+				move(WEST);
 			case CMD_MOVE_SW:
-				move(-1, 1);
+				move(SOUTH_WEST);
 			case CMD_MOVE_S:
-				move(0, 1);
+				move(SOUTH);
 			case CMD_MOVE_SE:
-				move(1, 1);
+				move(SOUTH_EAST);
 			case CMD_WAIT:
 				world.player.entity.get(Energy).consumeEnergy(50);
 			case CMD_CONSOLE:
@@ -97,16 +95,15 @@ class PlayScreen extends Screen
 		return true;
 	}
 
-	private function move(x:Int, y:Int)
+	private function move(dir:Cardinal)
 	{
-		var target = world.player.pos.ciel().add(new Coordinate(x, y, WORLD));
-
+		var target = world.player.pos.toIntPoint().add(dir.toOffset());
 		var entities = world.getEntitiesAt(target);
 		if (entities.exists((e) -> e.has(Blocker)))
 		{
 			return;
 		}
-		world.player.entity.add(new Move(target, .16, LINEAR));
+		world.player.entity.add(new Move(target.asWorld(), .16, LINEAR));
 		world.player.entity.get(Energy).consumeEnergy(50);
 		world.player.entity.get(Sprite).background = null;
 	}

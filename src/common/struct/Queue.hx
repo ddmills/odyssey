@@ -50,7 +50,7 @@ package common.struct;
 		return items.shift();
 	}
 
-	public function clear()
+	public function flush()
 	{
 		items = new Array();
 	}

@@ -85,4 +85,9 @@ typedef SelectableListItem<T> =
 			isSelected: i++ == idx
 		}));
 	}
+
+	public function iterator():Iterator<SelectableListItem<T>>
+	{
+		return data.iterator();
+	}
 }

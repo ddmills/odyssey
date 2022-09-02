@@ -20,12 +20,12 @@ class Coordinate
 		return points.map((p) -> new Coordinate(p.x, p.y, space));
 	}
 
-	public inline function ToIntPoint()
+	public inline function toIntPoint()
 	{
 		return new IntPoint(x.floor(), y.floor());
 	}
 
-	public inline function ToFloatPoint()
+	public inline function toFloatPoint()
 	{
 		return new FloatPoint(x, y);
 	}

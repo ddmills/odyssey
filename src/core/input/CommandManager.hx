@@ -15,7 +15,7 @@ class CommandManager
 
 	public function peek():Null<Command>
 	{
-		var commands = Commands.GetForDomains([INPUT_DOMAIN_DEFAULT, game.screens.domain]);
+		var commands = Commands.GetForDomains([game.screens.domain, INPUT_DOMAIN_DEFAULT]);
 
 		while (game.input.hasNext())
 		{
@@ -37,7 +37,7 @@ class CommandManager
 
 	public function next():Null<Command>
 	{
-		var commands = Commands.GetForDomains([INPUT_DOMAIN_DEFAULT, game.screens.domain]);
+		var commands = Commands.GetForDomains([game.screens.domain, INPUT_DOMAIN_DEFAULT]);
 
 		while (game.input.hasNext())
 		{

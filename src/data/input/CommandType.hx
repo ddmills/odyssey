@@ -1,18 +1,19 @@
 package data.input;
 
-enum CommandType
+enum abstract CommandType(String) to String
 {
-	CMD_WAIT;
-	CMD_MOVE_NW;
-	CMD_MOVE_N;
-	CMD_MOVE_NE;
-	CMD_MOVE_W;
-	CMD_MOVE_E;
-	CMD_MOVE_SW;
-	CMD_MOVE_S;
-	CMD_MOVE_SE;
-	CMD_CONSOLE;
-	CMD_LOOK;
-	CMD_CANCEL;
-	CMD_INTERACT;
+	var CMD_CONFIRM = 'confirm';
+	var CMD_CANCEL = 'cancel';
+	var CMD_WAIT = 'wait';
+	var CMD_MOVE_NW = 'move north west';
+	var CMD_MOVE_N = 'move north';
+	var CMD_MOVE_NE = 'move north east';
+	var CMD_MOVE_W = 'move west';
+	var CMD_MOVE_E = 'move east';
+	var CMD_MOVE_SW = 'move south west';
+	var CMD_MOVE_S = 'move south';
+	var CMD_MOVE_SE = 'move south east';
+	var CMD_CONSOLE = 'open console';
+	var CMD_LOOK = 'look';
+	var CMD_INTERACT = 'interact';
 }

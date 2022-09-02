@@ -1,42 +1,30 @@
 package screens.interaction;
 
 import common.struct.Coordinate;
+import common.struct.IntPoint;
+import common.util.Timeout;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import data.Cardinal;
 import data.TileResources;
-import domain.World;
 import domain.components.IsPlayer;
-import domain.components.Moniker;
-import domain.components.Sprite;
 import domain.events.GetInteractionsEvent;
 import ecs.Entity;
 import h2d.Bitmap;
-import h2d.Interactive;
 import h2d.Object;
-import h2d.Text;
-import h2d.Tile;
-import screens.listSelect.SelectableList;
+import screens.entitySelect.EntitySelectScreen;
+import screens.listSelect.ListSelectScreen;
 import shaders.SpriteShader;
-
-typedef ListItem =
-{
-	entity:Entity,
-	ob:Bitmap,
-	bullet:Bitmap,
-	text:Text,
-	isCancel:Bool,
-}
 
 class InteractionScreen extends Screen
 {
-	var interactor:Entity;
 	var ob:Object;
-	var listOb:Object;
-	var list:SelectableList<ListItem>;
-
-	var w = 8;
-	var h = 12;
+	var interactor:Entity;
+	var nearbyInteractables:Array<IntPoint>;
+	var interactShader:SpriteShader;
+	var timeout:Timeout;
+	var instructionText:h2d.Text;
 
 	public function new(interactor:Entity)
 	{
@@ -44,60 +32,155 @@ class InteractionScreen extends Screen
 		this.inputDomain = INPUT_DOMAIN_DEFAULT;
 
 		ob = new Object();
-		listOb = new Object();
-		list = new SelectableList([]);
+
+		instructionText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
+		instructionText.color = 0xf5f5f5.toHxdColor();
+		instructionText.y = 64;
+		instructionText.textAlign = Center;
+
+		interactShader = new SpriteShader(0x89a886);
+		interactShader.isShrouded = 0;
+		interactShader.clearBackground = 0;
+
+		timeout = new Timeout(.25);
+		timeout.onComplete = blink;
+	}
+
+	private function blink()
+	{
+		timeout.reset();
+		ob.visible = !ob.visible;
 	}
 
 	override function onEnter()
 	{
-		var entities = world.getEntitiesAt(interactor.pos);
-		var interactables = entities.filter((e) ->
-		{
-			if (e.has(IsPlayer))
-			{
-				return false;
-			}
-			var evt = new GetInteractionsEvent(interactor);
-			e.fireEvent(evt);
+		ob.removeChildren();
+		var offsets = Cardinal.values.map((c) -> c.toOffset());
+		offsets.push({x: 0, y: 0});
 
-			return evt.interactions.length > 0;
+		nearbyInteractables = offsets.filter((pos) ->
+		{
+			var w = interactor.pos.add(pos.asWorld());
+			return world
+				.getEntitiesAt(w)
+				.filter(hasInteractables).length > 0;
 		});
 
-		var i = 0;
-		var data = interactables.map((e:Entity) -> makeRow(e, i++));
+		if (nearbyInteractables.length == 0)
+		{
+			game.screens.pop();
+			return;
+		}
 
-		data.push(makeRow(null, i, true));
-
-		list.setItems(data);
-		ob.addChild(listOb);
-
-		var p = interactor.pos.add(new Coordinate(1, 0, WORLD)).toScreen();
-		ob.x = p.x;
-		ob.y = p.y;
-		renderItems();
-
-		game.render(POPUP, ob);
+		if (nearbyInteractables.length == 1)
+		{
+			inspectLocation(interactor.pos.add(nearbyInteractables[0].asWorld()));
+		}
+		else
+		{
+			instructionText.text = 'Choose a direction to inspect';
+			nearbyInteractables.each((p:IntPoint) ->
+			{
+				var px = interactor.pos.add(p.asWorld()).toPx();
+				var targetBm = new Bitmap(TileResources.CURSOR, ob);
+				targetBm.x = px.x;
+				targetBm.y = px.y;
+				targetBm.addShader(interactShader);
+				ob.addChild(targetBm);
+			});
+			ob.x = 0;
+			ob.y = 0;
+			game.render(OVERLAY, ob);
+			game.render(HUD, instructionText);
+		}
 	}
 
-	override function onDestroy()
+	function tryInteractDirection(dir:IntPoint)
 	{
-		ob.remove();
+		var target = interactor.pos.add(dir.asWorld());
+		inspectLocation(target);
+	}
+
+	function hasInteractables(e:Entity):Bool
+	{
+		if (e.has(IsPlayer))
+		{
+			return false;
+		}
+		var evt = new GetInteractionsEvent(interactor);
+		e.fireEvent(evt);
+
+		return evt.interactions.length > 0;
+	}
+
+	function inspectLocation(pos:Coordinate):Bool
+	{
+		var interactables = world.getEntitiesAt(pos).filter(hasInteractables);
+
+		if (interactables.length <= 0)
+		{
+			return false;
+		}
+
+		if (interactables.length == 1)
+		{
+			var s = getShowInteractions(interactables[0]);
+			game.screens.replace(s);
+		}
+		else
+		{
+			var selectScreen = new EntitySelectScreen(interactables);
+			selectScreen.onSelect = (e) ->
+			{
+				game.screens.replace(getShowInteractions(e));
+			}
+			game.screens.replace(selectScreen);
+		}
+
+		return true;
+	}
+
+	function getShowInteractions(entity:Entity):Screen
+	{
+		var evt = new GetInteractionsEvent(interactor);
+		entity.fireEvent(evt);
+
+		var items = evt.interactions.map((action) -> ({
+			title: action.name,
+			onSelect: () ->
+			{
+				entity.fireEvent(action.evt);
+				game.screens.pop();
+			},
+			getIcon: () -> null,
+		}));
+
+		return new ListSelectScreen(items);
 	}
 
 	override function update(frame:Frame)
 	{
 		handle(game.commands.next());
+		timeout.update();
+		instructionText.x = game.window.width / 2;
 	}
 
-	function renderItems()
+	override function onDestroy()
 	{
-		list.data.each((li:SelectableListItem<ListItem>) ->
-		{
-			var col = li.isSelected ? 0xffff00 : 0xf5f5f5;
-			li.item.text.color = col.toHxdColor();
-			li.item.bullet.tile = li.isSelected ? TileResources.LIST_ARROW : TileResources.LIST_DASH;
-			li.item.bullet.getShader(SpriteShader).primary = col.toHxdColor();
-		});
+		ob.remove();
+		instructionText.remove();
+	}
+
+	override function onResume()
+	{
+		ob.visible = true;
+		timeout.reset();
+	}
+
+	override function onSuspend()
+	{
+		ob.visible = false;
+		// in
 	}
 
 	function handle(command:Command)
@@ -109,74 +192,27 @@ class InteractionScreen extends Screen
 
 		switch (command.type)
 		{
+			case CMD_WAIT:
+				tryInteractDirection({x: 0, y: 0});
+			case CMD_MOVE_NW:
+				tryInteractDirection(NORTH_WEST.toOffset());
 			case CMD_MOVE_N:
-				list.up();
-				renderItems();
+				tryInteractDirection(NORTH.toOffset());
+			case CMD_MOVE_NE:
+				tryInteractDirection(NORTH_EAST.toOffset());
+			case CMD_MOVE_E:
+				tryInteractDirection(EAST.toOffset());
+			case CMD_MOVE_W:
+				tryInteractDirection(WEST.toOffset());
+			case CMD_MOVE_SW:
+				tryInteractDirection(SOUTH_WEST.toOffset());
 			case CMD_MOVE_S:
-				list.down();
-				renderItems();
+				tryInteractDirection(SOUTH.toOffset());
+			case CMD_MOVE_SE:
+				tryInteractDirection(SOUTH_EAST.toOffset());
 			case CMD_CANCEL:
 				game.screens.pop();
 			case _:
 		}
-	}
-
-	private function makeRow(entity:Entity, i:Int, isCancel = false)
-	{
-		var tw = (game.TILE_W * game.camera.zoom).floor();
-		var th = (game.TILE_H * game.camera.zoom).floor();
-		var rowOb = new Bitmap(Tile.fromColor(0x242020, w * tw, th));
-		rowOb.y = i * th;
-
-		var bullet = new Bitmap(TileResources.LIST_DASH);
-		bullet.addShader(new SpriteShader());
-		bullet.x = 8;
-		bullet.y = 8;
-
-		var icon = new Bitmap();
-		if (entity != null)
-		{
-			icon = entity.get(Sprite).getBitmapClone();
-			icon.scale(game.camera.zoom);
-			icon.getShader(SpriteShader).clearBackground = 0;
-			icon.getShader(SpriteShader).outline = 0x000000.toHxdColor(0);
-			icon.x = tw;
-		}
-		else
-		{
-			icon.visible = false;
-		}
-
-		var text = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
-		text.color = 0xf5f5f5.toHxdColor();
-		text.y = 8;
-		text.x = isCancel ? tw : tw + tw + 8;
-		text.setScale(1);
-		text.text = isCancel ? 'Cancel' : entity.get(Moniker).displayName;
-
-		var interactive = new Interactive(w * tw, th);
-		interactive.onClick = (e) ->
-		{
-			trace('CLICK');
-		}
-		interactive.onOver = (e) ->
-		{
-			list.selectIdx(i);
-			renderItems();
-		}
-
-		rowOb.addChild(bullet);
-		rowOb.addChild(icon);
-		rowOb.addChild(text);
-		rowOb.addChild(interactive);
-		listOb.addChild(rowOb);
-
-		return {
-			ob: rowOb,
-			text: text,
-			bullet: bullet,
-			entity: entity,
-			isCancel: isCancel,
-		};
 	}
 }

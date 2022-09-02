@@ -102,7 +102,7 @@ class VisionSystem extends System
 		for (entity in visions)
 		{
 			var vision = entity.get(Vision);
-			var pos = entity.pos.ToIntPoint();
+			var pos = entity.pos.toIntPoint();
 
 			if (vision.bonus > 0)
 			{

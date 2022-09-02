@@ -1,6 +1,5 @@
 package screens.cursor.renderer;
 
-import common.struct.Coordinate;
 import common.util.Timeout;
 import core.Frame;
 import data.TileResources;

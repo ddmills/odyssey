@@ -5,6 +5,7 @@ import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
+import data.Cardinal;
 import screens.console.ConsoleScreen;
 import screens.cursor.renderer.CursorRenderer;
 import screens.cursor.renderer.LookCursorRenderer;
@@ -35,7 +36,7 @@ class CursorScreen extends Screen
 		renderer.render({
 			start: start,
 			end: target,
-			line: Bresenham.getLine(start.ToIntPoint(), target.ToIntPoint()),
+			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
 		});
 		renderer.update(frame);
 		world.updateSystems();
@@ -52,9 +53,9 @@ class CursorScreen extends Screen
 		target = pos.toWorld().floor();
 	}
 
-	private function look(dx:Int, dy:Int)
+	private function look(dir:Cardinal)
 	{
-		target = target.add(new Coordinate(dx, dy, WORLD));
+		target = target.add(dir.toOffset().asWorld());
 	}
 
 	private function handleInput()
@@ -69,21 +70,21 @@ class CursorScreen extends Screen
 		switch (command.type)
 		{
 			case CMD_MOVE_NW:
-				look(-1, -1);
+				look(NORTH_WEST);
 			case CMD_MOVE_N:
-				look(0, -1);
+				look(NORTH);
 			case CMD_MOVE_NE:
-				look(1, -1);
+				look(NORTH_EAST);
 			case CMD_MOVE_E:
-				look(1, 0);
+				look(EAST);
 			case CMD_MOVE_W:
-				look(-1, 0);
+				look(WEST);
 			case CMD_MOVE_SW:
-				look(-1, 1);
+				look(SOUTH_WEST);
 			case CMD_MOVE_S:
-				look(0, 1);
+				look(SOUTH);
 			case CMD_MOVE_SE:
-				look(1, 1);
+				look(SOUTH_EAST);
 			case CMD_LOOK:
 				game.screens.pop();
 			case CMD_CANCEL:

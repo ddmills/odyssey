@@ -1,7 +1,9 @@
 package domain;
 
 import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Game;
+import data.Cardinal;
 import domain.AIManager;
 import domain.components.Energy;
 import domain.components.Explored;
@@ -55,18 +57,60 @@ class World
 		systems.update(game.frame);
 	}
 
-	public function getEntitiesAt(pos:Coordinate):Array<Entity>
+	public overload extern inline function getEntitiesAt(pos:IntPoint):Array<Entity>
 	{
-		var idx = pos.toChunkIdx();
+		var w = pos.asWorld();
+		var idx = pos.asWorld().toChunkIdx();
 		var chunk = chunks.getChunkById(idx);
 		if (chunk == null)
 		{
 			return new Array<Entity>();
 		}
-		var local = pos.toWorld().toChunkLocal(chunk.cx, chunk.cy);
+		var local = w.toChunkLocal(chunk.cx, chunk.cy);
 		var ids = chunk.getEntityIdsAt(local.x, local.y);
 
 		return ids.map((id:String) -> game.registry.getEntity(id));
+	}
+
+	public overload extern inline function getEntitiesAt(pos:Coordinate):Array<Entity>
+	{
+		return getEntitiesAt(pos.toWorld().toIntPoint());
+	}
+
+	public function getEntitiesInRect(pos:IntPoint, width, height):Array<Entity>
+	{
+		var entities:Array<Entity> = [];
+
+		for (x in pos.x...(pos.x + width))
+		{
+			for (y in pos.y...(pos.y + height))
+			{
+				entities = entities.concat(getEntitiesAt(new IntPoint(x, y)));
+			}
+		}
+
+		return entities;
+	}
+
+	public function getEntitiesInRange(pos:IntPoint, range:Int):Array<Entity>
+	{
+		var diameter = (range * 2) + 1;
+		var topLeft = pos.sub(new IntPoint(range, range));
+		return getEntitiesInRect(topLeft, diameter, diameter);
+	}
+
+	public function getNeighborEntities(pos:IntPoint):Array<Array<Entity>>
+	{
+		return [
+			getEntitiesAt(pos.add(Cardinal.NORTH_WEST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.NORTH.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.NORTH_EAST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.WEST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.EAST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.SOUTH_WEST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.SOUTH.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.SOUTH_EAST.toOffset())),
+		];
 	}
 
 	public function setVisible(values:Array<Coordinate>)
@@ -80,7 +124,7 @@ class World
 				var local = value.toChunkLocal(chunk.cx, chunk.cy);
 
 				chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
-				for (entity in getEntitiesAt(value))
+				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
 				{
 					if (entity.has(Visible))
 					{
@@ -98,7 +142,7 @@ class World
 				var local = value.toChunkLocal(chunk.cx, chunk.cy);
 
 				chunk.setExplore(local.x.floor(), local.y.floor(), true, true);
-				for (entity in getEntitiesAt(value))
+				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
 				{
 					if (!entity.has(Visible))
 					{
@@ -140,7 +184,7 @@ class World
 			var local = coord.toChunkLocal(c.x, c.y);
 			chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
 
-			for (entity in getEntitiesAt(coord))
+			for (entity in getEntitiesAt(coord.toWorld().toIntPoint()))
 			{
 				if (!entity.has(Explored))
 				{

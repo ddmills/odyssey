@@ -21,14 +21,14 @@ class ChunkGen
 			var x = chunk.wx + i.x;
 			var y = chunk.wy + i.y;
 
-			if (r.bool(.005))
+			if (r.bool(.015))
 			{
 				var snake = SnakePrefab.Create();
 				snake.x = x;
 				snake.y = y;
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
-			else if (r.bool(.025))
+			else if (r.bool(.045))
 			{
 				var stick = StickPrefab.Create();
 				stick.x = x;
