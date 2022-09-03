@@ -51,6 +51,7 @@ class MovementSystem extends System
 		if (move != null)
 		{
 			entity.pos = move.goal;
+			entity.remove(Move);
 			entity.add(new Moved());
 			return true;
 		}

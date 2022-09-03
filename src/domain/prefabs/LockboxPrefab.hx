@@ -27,6 +27,7 @@ class LockboxPrefab
 		lockbox.add(inventory);
 
 		inventory.addLoot(StickPrefab.Create());
+		inventory.addLoot(PistolPrefab.Create());
 
 		return lockbox;
 	}

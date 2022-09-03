@@ -27,8 +27,15 @@ class PlayerPrefab
 		player.add(new Vision(6, 2));
 		player.add(new Moniker('You'));
 		player.add(new Inventory());
-		player.add(new EquipmentSlot('Arm'));
-		player.add(new EquipmentSlot('Head'));
+		player.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
+		player.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
+		player.add(new EquipmentSlot('Right arm', 'armRight', EQ_SLOT_ARM));
+		player.add(new EquipmentSlot('Left arm', 'armLeft', EQ_SLOT_ARM));
+		player.add(new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND));
+		player.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND));
+		player.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
+		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
+		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 
 		return player;
 	}

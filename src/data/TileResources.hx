@@ -39,6 +39,8 @@ class TileResources
 	public static var CHEST_SMALL_OPEN:Tile;
 	public static var CHEST_SMALL_CLOSED:Tile;
 
+	public static var PISTOL:Tile;
+
 	public static function Init()
 	{
 		GRASS_1 = hxd.Res.tiles.scroll.grass_1.toTile();
@@ -79,5 +81,7 @@ class TileResources
 		var chestSm = hxd.Res.tiles.scroll.chest_small.toTile().divide(2, 1);
 		CHEST_SMALL_CLOSED = chestSm[0][0];
 		CHEST_SMALL_OPEN = chestSm[0][1];
+
+		PISTOL = hxd.Res.tiles.scroll.pistol.toTile();
 	}
 }
