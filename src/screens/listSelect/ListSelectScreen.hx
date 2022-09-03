@@ -34,16 +34,23 @@ typedef ListRow =
 class ListSelectScreen extends Screen
 {
 	private var _pos:Coordinate;
+	var w = 8;
+
 	var ob:Object;
 	var listOb:Object;
 	var items:Array<ListItem>;
 	var list:SelectableList<ListRow>;
 
-	var cancelText:String = 'Cancel';
+	private var _cancelText:String;
+	var cancelText(get, set):String;
 	var includeCancel:Bool = true;
 
-	var _targetPos:Null<Coordinate>;
+	public var title(get, set):String;
+
+	private var _targetPos:Null<Coordinate>;
 	var targetOb:Bitmap;
+	var titleOb:Text;
+	var cancelRow:ListRow;
 
 	public var onCancel:() -> Void;
 	public var pos(get, set):Coordinate;
@@ -54,9 +61,21 @@ class ListSelectScreen extends Screen
 		this.items = items;
 		ob = new Object();
 		listOb = new Object();
+		listOb.y = 16;
 		list = new SelectableList([]);
 		onCancel = () -> game.screens.pop();
 		_pos = new Coordinate(16, 16, SCREEN);
+
+		var titleBkg = new Bitmap(Tile.fromColor(Game.instance.CLEAR_COLOR, w * game.TILE_W, game.TILE_H));
+		ob.addChild(titleBkg);
+
+		titleOb = new Text(TextResources.BIZCAT);
+		titleOb.color = 0xf5f5f5.toHxdColor();
+		titleOb.text = 'Select';
+
+		_cancelText = 'Cancel';
+
+		ob.addChild(titleOb);
 
 		targetOb = new Bitmap(TileResources.CURSOR, ob);
 		var shader = new SpriteShader(0xd4d4d4);
@@ -75,11 +94,12 @@ class ListSelectScreen extends Screen
 
 		if (includeCancel)
 		{
-			rows.push(makeRow({
-				title: cancelText,
+			cancelRow = makeRow({
+				title: _cancelText,
 				onSelect: doCancel,
 				getIcon: () -> null,
-			}, i, true));
+			}, i, true);
+			rows.push(cancelRow);
 		}
 
 		list.setItems(rows);
@@ -160,7 +180,6 @@ class ListSelectScreen extends Screen
 
 	function makeRow(item:ListItem, idx:Int, isCancel = false):ListRow
 	{
-		var w = 8;
 		var tw = game.TILE_W;
 		var th = game.TILE_H;
 		var left = 0;
@@ -268,5 +287,32 @@ class ListSelectScreen extends Screen
 			targetOb.visible = false;
 		}
 		return _targetPos = value;
+	}
+
+	function get_title():String
+	{
+		return titleOb.text;
+	}
+
+	function set_title(value:String):String
+	{
+		return titleOb.text = value;
+	}
+
+	function get_cancelText():String
+	{
+		return _cancelText;
+	}
+
+	function set_cancelText(value:String):String
+	{
+		_cancelText = value;
+
+		if (cancelRow != null)
+		{
+			cancelRow.text.text = _cancelText;
+		}
+
+		return value;
 	}
 }

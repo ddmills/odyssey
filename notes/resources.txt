@@ -1,0 +1,8 @@
+
+### Font creation
+- https://github.com/soimy/msdf-bmfont-xml
+- https://dwarffortresswiki.org/Tileset_repository#16.C3.9720
+- https://heaps.io/documentation/text.html
+- https://github.com/Tecate/bitmap-fonts
+- https://int10h.org/oldschool-pc-fonts/
+

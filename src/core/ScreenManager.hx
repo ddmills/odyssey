@@ -33,7 +33,7 @@ class ScreenManager
 		while (screens.length > 0)
 		{
 			current.onDestroy();
-			screens.pop();
+			screens.pop().onClosedlistener();
 		}
 
 		Game.instance.input.flush();
@@ -44,7 +44,7 @@ class ScreenManager
 	public function replace(screen:Screen)
 	{
 		current.onDestroy();
-		screens.pop();
+		screens.pop().onClosedlistener();
 		screens.push(screen);
 		current.onEnter();
 	}
@@ -59,7 +59,7 @@ class ScreenManager
 	public function pop()
 	{
 		current.onDestroy();
-		screens.pop();
+		screens.pop().onClosedlistener();
 		current.onResume();
 	}
 

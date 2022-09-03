@@ -1,11 +1,17 @@
 package domain.events;
 
+import common.struct.Coordinate;
+import ecs.Entity;
 import ecs.EntityEvent;
 
 class DropEvent extends EntityEvent
 {
-	public function new()
+	public var dropper(default, null):Entity;
+	public var pos(default, null):Coordinate;
+
+	public function new(dropper:Entity, pos:Coordinate = null)
 	{
-		super(EVT_DROP);
+		this.dropper = dropper;
+		this.pos = pos;
 	}
 }

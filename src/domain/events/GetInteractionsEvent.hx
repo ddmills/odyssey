@@ -16,7 +16,6 @@ class GetInteractionsEvent extends EntityEvent
 
 	public function new(interactor:Entity)
 	{
-		super(EVT_GET_INTERACTIONS);
 		this.interactor = interactor;
 		interactions = new Array();
 	}

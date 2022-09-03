@@ -3,6 +3,7 @@ package domain.prefabs;
 import core.Game;
 import data.TileResources;
 import domain.components.Energy;
+import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -22,9 +23,9 @@ class PlayerPrefab
 		player.add(sprite);
 		player.add(new IsPlayer());
 		player.add(new Energy());
-		player.add(new Vision(7, 1));
+		player.add(new Vision(6, 2));
 		player.add(new Moniker('You'));
-		player.add(new Loot());
+		player.add(new Inventory());
 
 		return player;
 	}

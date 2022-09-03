@@ -8,7 +8,9 @@ import core.Screen;
 import core.input.Command;
 import data.Cardinal;
 import data.TileResources;
+import domain.components.IsInventoried;
 import domain.components.IsPlayer;
+import domain.components.Moniker;
 import domain.events.GetInteractionsEvent;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -86,11 +88,9 @@ class InteractionScreen extends Screen
 
 		if (nearbyInteractables.length == 0)
 		{
-			game.screens.pop();
-			return;
+			instructionText.text = 'There is nothing nearby to interact with';
 		}
-
-		if (nearbyInteractables.length == 1)
+		else if (nearbyInteractables.length == 1)
 		{
 			inspectLocation(interactor.pos.add(nearbyInteractables[0].asWorld()));
 		}
@@ -119,8 +119,9 @@ class InteractionScreen extends Screen
 			ob.x = 0;
 			ob.y = 0;
 			game.render(OVERLAY, ob);
-			game.render(HUD, instructionText);
 		}
+
+		game.render(HUD, instructionText);
 	}
 
 	function tryInteractDirection(dir:IntPoint)
@@ -131,7 +132,7 @@ class InteractionScreen extends Screen
 
 	function hasInteractables(e:Entity):Bool
 	{
-		if (e.has(IsPlayer))
+		if (e.has(IsPlayer) || e.has(IsInventoried))
 		{
 			return false;
 		}
@@ -178,13 +179,15 @@ class InteractionScreen extends Screen
 			title: action.name,
 			onSelect: () ->
 			{
-				entity.fireEvent(action.evt);
 				game.screens.pop();
+				entity.fireEvent(action.evt);
+				return;
 			},
 			getIcon: () -> null,
 		}));
 
 		var s = new ListSelectScreen(items);
+		s.title = entity.get(Moniker).displayName;
 		s.targetPos = entity.pos;
 		return s;
 	}

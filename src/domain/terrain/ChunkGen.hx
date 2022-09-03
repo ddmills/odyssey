@@ -3,6 +3,8 @@ package domain.terrain;
 import core.Game;
 import domain.components.Energy;
 import domain.prefabs.CactusPrefab;
+import domain.prefabs.ChestPrefab;
+import domain.prefabs.LockboxPrefab;
 import domain.prefabs.SnakePrefab;
 import domain.prefabs.StickPrefab;
 import hxd.Rand;
@@ -28,20 +30,29 @@ class ChunkGen
 				snake.y = y;
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
-			else if (r.bool(.045))
+			else if (r.bool(.01))
+			{
+				var chest = ChestPrefab.Create();
+				chest.x = x;
+				chest.y = y;
+			}
+			else if (r.bool(.02))
 			{
 				var stick = StickPrefab.Create();
 				stick.x = x;
 				stick.y = y;
-				var stick2 = StickPrefab.Create();
-				stick2.x = x;
-				stick2.y = y;
 			}
 			else if (r.bool(.025))
 			{
 				var cactus = CactusPrefab.Create(r);
 				cactus.x = x;
 				cactus.y = y;
+			}
+			else if (r.bool(.005))
+			{
+				var lockbox = LockboxPrefab.Create();
+				lockbox.x = x;
+				lockbox.y = y;
 			}
 		}
 	}

@@ -33,6 +33,12 @@ class TileResources
 	public static var LIST_DASH:Tile;
 	public static var LIST_ARROW:Tile;
 
+	public static var CHEST_LARGE_OPEN:Tile;
+	public static var CHEST_LARGE_CLOSED:Tile;
+
+	public static var CHEST_SMALL_OPEN:Tile;
+	public static var CHEST_SMALL_CLOSED:Tile;
+
 	public static function Init()
 	{
 		GRASS_1 = hxd.Res.tiles.scroll.grass_1.toTile();
@@ -65,5 +71,13 @@ class TileResources
 		ARROW_S = arrows[1][2];
 		ARROW_SE = arrows[2][2];
 		DOT = arrows[1][1];
+
+		var chestLg = hxd.Res.tiles.scroll.chest_large.toTile().divide(2, 1);
+		CHEST_LARGE_CLOSED = chestLg[0][0];
+		CHEST_LARGE_OPEN = chestLg[0][1];
+
+		var chestSm = hxd.Res.tiles.scroll.chest_small.toTile().divide(2, 1);
+		CHEST_SMALL_CLOSED = chestSm[0][0];
+		CHEST_SMALL_OPEN = chestSm[0][1];
 	}
 }

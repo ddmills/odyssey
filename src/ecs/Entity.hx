@@ -6,7 +6,6 @@ import common.util.Serial;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Sprite;
-import domain.events.EntityEventType;
 
 class Entity
 {

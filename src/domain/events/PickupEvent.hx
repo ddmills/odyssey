@@ -9,7 +9,6 @@ class PickupEvent extends EntityEvent
 
 	public function new(interactor:Entity)
 	{
-		super(EVT_PICKUP);
 		this.interactor = interactor;
 	}
 }

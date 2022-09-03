@@ -5,6 +5,7 @@ import common.struct.Coordinate;
 import core.Frame;
 import domain.components.Energy;
 import domain.components.Explored;
+import domain.components.IsInventoried;
 import domain.components.Moved;
 import domain.components.Sprite;
 import domain.components.Visible;
@@ -26,15 +27,18 @@ class VisionSystem extends System
 		// - entity Moved
 
 		var moved = new Query({
-			all: [Moved]
+			all: [Moved],
+			none: [IsInventoried],
 		});
 
 		visibles = new Query({
-			all: [Sprite, Visible]
+			all: [Sprite, Visible],
+			none: [IsInventoried],
 		});
 
 		visions = new Query({
-			all: [Vision]
+			all: [Vision],
+			none: [IsInventoried],
 		});
 
 		moved.onEntityAdded((entity) ->

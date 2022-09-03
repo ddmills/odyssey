@@ -1,5 +1,6 @@
 import core.Game;
 import data.Commands;
+import data.SoundResources;
 import data.TextResources;
 import data.TileResources;
 import screens.splash.SplashScreen;
@@ -16,8 +17,12 @@ class Main extends hxd.App
 
 	override function init()
 	{
+		// hack to fix audio not playing more than once
+		@:privateAccess haxe.MainLoop.add(() -> {});
+
 		TextResources.Init();
 		TileResources.Init();
+		SoundResources.Init();
 		Commands.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";

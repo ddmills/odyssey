@@ -15,7 +15,7 @@ class Commands
 		// @formatter:off
 		//  Domain                    Type           Key            Shift   Ctrl   Alt
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONSOLE,   KEY_COMMA,     true);
-		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONFIRM,   KEY_ENTER);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONFIRM,   KEY_SPACE);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CANCEL,    KEY_ESCAPE);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NW,   KEY_NUMPAD_7);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_N,    KEY_UP);
@@ -33,6 +33,7 @@ class Commands
 
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_LOOK,      KEY_L);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INTERACT,  KEY_SPACE);
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INVENTORY, KEY_I);
 		// @formatter:on
 	}
 

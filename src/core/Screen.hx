@@ -1,8 +1,6 @@
 package core;
 
 import common.struct.Coordinate;
-import core.input.Command;
-import core.input.CommandManager;
 import core.input.KeyCode;
 import data.input.InputDomainType;
 import domain.World;
@@ -12,6 +10,8 @@ class Screen
 	public var game(get, null):Game;
 	public var world(get, null):World;
 	public var camera(get, null):Camera;
+
+	public var onClosedlistener:() -> Void = () -> {};
 
 	public var inputDomain:InputDomainType = INPUT_DOMAIN_DEFAULT;
 

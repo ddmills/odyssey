@@ -4,6 +4,7 @@ import common.util.Timeout;
 import core.Frame;
 import data.TileResources;
 import domain.components.IsEnemy;
+import domain.components.IsInventoried;
 import domain.components.Moniker;
 import h2d.Bitmap;
 import haxe.EnumTools.EnumValueTools;
@@ -92,7 +93,9 @@ class LookCursorRenderer extends CursorRenderer
 		if (world.isVisible(opts.end))
 		{
 			targetText.text = '[$terrain]';
-			var entities = world.getEntitiesAt(opts.end);
+			var entities = world.getEntitiesAt(opts.end)
+				.filter((e) -> !e.has(IsInventoried));
+
 			isBlinking = entities.length > 0;
 			if (entities.exists((e) -> e.has(IsEnemy)))
 			{

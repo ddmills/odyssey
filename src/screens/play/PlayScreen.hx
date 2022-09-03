@@ -7,12 +7,14 @@ import core.input.Command;
 import data.Cardinal;
 import domain.components.Blocker;
 import domain.components.Energy;
+import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
 import screens.interaction.InteractionScreen;
+import screens.inventory.InventoryScreen;
 
 class PlayScreen extends Screen
 {
@@ -87,8 +89,10 @@ class PlayScreen extends Screen
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:
 				game.screens.push(new CursorScreen());
-			case CMD_INTERACT:
+			case CMD_CONFIRM:
 				onInteract(world.player.pos);
+			case CMD_INVENTORY:
+				game.screens.push(new InventoryScreen(world.player.entity, world.player.entity));
 			case _:
 		}
 
@@ -99,7 +103,7 @@ class PlayScreen extends Screen
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
 		var entities = world.getEntitiesAt(target);
-		if (entities.exists((e) -> e.has(Blocker)))
+		if (entities.exists((e) -> e.has(Blocker) && !e.has(IsInventoried)))
 		{
 			return;
 		}

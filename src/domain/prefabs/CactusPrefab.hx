@@ -15,7 +15,7 @@ class CactusPrefab
 	{
 		var flowerTiles = [TileResources.CACTUS_1_FLOWER, TileResources.CACTUS_2_FLOWER];
 		var nonflowerTiles = [TileResources.CACTUS_1, TileResources.CACTUS_2];
-		var isFlowering = r.bool(.5);
+		var isFlowering = r.bool(.75);
 
 		var tile = isFlowering ? r.pick(flowerTiles) : r.pick(nonflowerTiles);
 
@@ -26,7 +26,6 @@ class CactusPrefab
 
 		cactus.add(sprite);
 		cactus.add(new Blocker());
-		cactus.add(new Loot());
 
 		var name = 'Cactus';
 

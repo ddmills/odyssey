@@ -26,7 +26,7 @@ import shaders.SpriteShader;
 	public var offsetX(default, default):Float;
 	public var offsetY(default, default):Float;
 
-	public var ob(default, null):h2d.Drawable;
+	public var ob(default, null):Bitmap;
 	public var shader(default, null):SpriteShader;
 
 	public function new(tile:Tile, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
@@ -115,5 +115,15 @@ import shaders.SpriteShader;
 	{
 		shader.isShrouded = value ? 1 : 0;
 		return _isShrouded = value;
+	}
+
+	public function overrideTile(tile:Tile)
+	{
+		ob.tile = tile;
+	}
+
+	public function clearTileOverride()
+	{
+		ob.tile = tile;
 	}
 }
