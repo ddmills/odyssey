@@ -11,6 +11,12 @@ abstract class Component
 	public var entity(default, null):Entity;
 	public var isAttached(get, null):Bool;
 
+	@:allow(core.ecs.Entity)
+	public var instAllowMultiple(get, null):Bool;
+
+	@:keep
+	public static var allowMultiple(default, null):Bool;
+
 	private var handlers:Map<String, (evt:EntityEvent) -> Void> = new Map();
 
 	inline function get_type():String
@@ -68,8 +74,13 @@ abstract class Component
 		entity = null;
 	}
 
-	function get_isAttached():Bool
+	inline function get_isAttached():Bool
 	{
 		return entity != null;
+	}
+
+	inline function get_instAllowMultiple():Bool
+	{
+		return Reflect.field(Type.getClass(this), 'allowMultiple'); // return allowMultiple;
 	}
 }

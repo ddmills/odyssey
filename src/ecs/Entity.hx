@@ -22,7 +22,7 @@ class Entity
 	public var x(get, set):Float;
 	public var y(get, set):Float;
 
-	private var components:Map<String, Component>;
+	private var components:Map<String, Array<Component>>;
 
 	public function new()
 	{
@@ -49,7 +49,10 @@ class Entity
 	{
 		for (component in components)
 		{
-			remove(component);
+			for (c in component)
+			{
+				remove(c);
+			}
 		}
 		registry.unregisterEntity(this);
 	}
@@ -57,14 +60,25 @@ class Entity
 	public function add(component:Component)
 	{
 		var type = Type.getClass(component);
-		if (has(type))
+		var clist = components.get(component.type);
+
+		if (clist == null)
 		{
-			remove(type);
-			// throw 'Entity already has instance of component';
+			components.set(component.type, [component]);
+		}
+		else if (component.instAllowMultiple)
+		{
+			components.get(component.type).push(component);
+		}
+		else
+		{
+			if (has(type))
+			{
+				remove(type);
+			}
 		}
 
 		cbits = BitUtil.addBit(cbits, component.bit);
-		components.set(component.type, component);
 		component._attach(this);
 		registry.candidacy(this);
 		if (Std.isOfType(component, Sprite))
@@ -82,8 +96,25 @@ class Entity
 
 	function removeInstance(component:Component)
 	{
-		cbits = BitUtil.subtractBit(cbits, component.bit);
-		components.remove(component.type);
+		if (component.instAllowMultiple)
+		{
+			var clist = components.get(component.type);
+			if (clist != null)
+			{
+				clist.remove(component);
+				if (clist.length == 0)
+				{
+					cbits = BitUtil.subtractBit(cbits, component.bit);
+					components.remove(component.type);
+				}
+			}
+		}
+		else
+		{
+			cbits = BitUtil.subtractBit(cbits, component.bit);
+			components.remove(component.type);
+		}
+
 		component._remove();
 		registry.candidacy(this);
 		if (Std.isOfType(component, Sprite))
@@ -94,7 +125,7 @@ class Entity
 
 	public function fireEvent(evt:EntityEvent):EntityEvent
 	{
-		components.each((c) -> c.onEvent(evt));
+		components.each((a) -> a.each((c) -> c.onEvent(evt)));
 
 		return evt;
 	}
@@ -106,11 +137,27 @@ class Entity
 
 	public overload extern inline function remove<T:Component>(type:Class<T>)
 	{
-		var c = get(type);
-		if (c != null)
+		if (Reflect.field(type, 'allowMultiple'))
 		{
-			removeInstance(c);
+			var cs = getAll(type);
+			cs.each(removeInstance);
 		}
+		else
+		{
+			var c = get(type);
+			if (c != null)
+			{
+				removeInstance(c);
+			}
+		}
+	}
+
+	public function getAll<T:Component>(type:Class<T>):Array<T>
+	{
+		var className = Type.getClassName(type);
+		var cs = components.get(className);
+
+		return cs == null ? [] : cast cs;
 	}
 
 	public function get<T:Component>(type:Class<T>):T
@@ -123,7 +170,7 @@ class Entity
 			return null;
 		}
 
-		return cast component;
+		return cast component[0];
 	}
 
 	inline function get_registry():Registry

@@ -3,6 +3,7 @@ package domain.prefabs;
 import core.Game;
 import data.TileResources;
 import domain.components.Energy;
+import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Loot;
@@ -26,6 +27,8 @@ class PlayerPrefab
 		player.add(new Vision(6, 2));
 		player.add(new Moniker('You'));
 		player.add(new Inventory());
+		player.add(new EquipmentSlot('Arm'));
+		player.add(new EquipmentSlot('Head'));
 
 		return player;
 	}
