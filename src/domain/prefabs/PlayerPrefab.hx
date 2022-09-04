@@ -35,11 +35,14 @@ class PlayerPrefab extends Prefab
 		player.add(new EquipmentSlot('Left arm', 'armLeft', EQ_SLOT_ARM));
 		player.add(new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND));
 		player.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND));
-		player.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
+		var body = new EquipmentSlot('Body', 'body', EQ_SLOT_BODY);
+		player.add(body);
 		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 		player.add(new Health());
 		player.add(new Stats(3, 2, 1));
+
+		body.content = Spawner.Spawn(PONCHO);
 
 		return player;
 	}

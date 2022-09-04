@@ -20,6 +20,7 @@ class Spawner
 		prefabs.set(PISTOL, new PistolPrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
 		prefabs.set(STICK, new StickPrefab());
+		prefabs.set(PONCHO, new PonchoPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

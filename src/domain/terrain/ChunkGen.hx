@@ -2,6 +2,7 @@ package domain.terrain;
 
 import common.struct.Coordinate;
 import core.Game;
+import data.SpawnableType;
 import domain.components.Energy;
 import domain.prefabs.CactusPrefab;
 import domain.prefabs.ChestPrefab;
@@ -31,9 +32,11 @@ class ChunkGen
 				var snake = Spawner.Spawn(SNAKE, pos);
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
-			else if (r.bool(.01))
+			else if (r.bool(.02))
 			{
-				Spawner.Spawn(CHEST, pos);
+				var items:Array<SpawnableType> = [CHEST, LOCKBOX, PISTOL, PONCHO];
+				var loot = r.pick(items);
+				Spawner.Spawn(loot, pos);
 			}
 			else if (r.bool(.02))
 			{
@@ -42,10 +45,6 @@ class ChunkGen
 			else if (r.bool(.025))
 			{
 				Spawner.Spawn(CACTUS, pos);
-			}
-			else if (r.bool(.005))
-			{
-				Spawner.Spawn(LOCKBOX, pos);
 			}
 		}
 	}

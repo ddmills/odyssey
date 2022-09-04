@@ -8,5 +8,6 @@ enum SpawnableType
 	LOCKBOX;
 	PISTOL;
 	SNAKE;
+	PONCHO;
 	STICK;
 }

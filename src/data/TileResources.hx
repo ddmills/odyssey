@@ -40,6 +40,7 @@ class TileResources
 	public static var CHEST_SMALL_CLOSED:Tile;
 
 	public static var PISTOL:Tile;
+	public static var PONCHO:Tile;
 
 	public static function Init()
 	{
@@ -83,5 +84,6 @@ class TileResources
 		CHEST_SMALL_OPEN = chestSm[0][1];
 
 		PISTOL = hxd.Res.tiles.scroll.pistol.toTile();
+		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
 	}
 }
