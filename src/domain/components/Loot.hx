@@ -3,8 +3,8 @@ package domain.components;
 import core.Game;
 import data.SoundResources;
 import domain.events.DropEvent;
-import domain.events.GetInteractionsEvent;
 import domain.events.PickupEvent;
+import domain.events.QueryInteractionsEvent;
 import domain.events.StashEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
@@ -23,7 +23,7 @@ class Loot extends Component
 	{
 		pickupSound = SoundResources.LOOT_PICKUP_1;
 		dropSound = SoundResources.LOOT_DROP_1;
-		addHandler(GetInteractionsEvent, (evt) -> onGetInteractions(cast(evt)));
+		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast(evt)));
 		addHandler(PickupEvent, (evt) -> onPickup(cast(evt)));
 		addHandler(DropEvent, (evt) -> onDrop(cast(evt)));
 		addHandler(TakeEvent, (evt) -> onTake(cast(evt)));
@@ -51,7 +51,7 @@ class Loot extends Component
 		evt.taker.get(Inventory).addLoot(entity);
 	}
 
-	private function onGetInteractions(evt:GetInteractionsEvent)
+	private function onQueryInteractions(evt:QueryInteractionsEvent)
 	{
 		if (isInventoried)
 		{

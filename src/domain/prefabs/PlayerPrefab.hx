@@ -39,7 +39,7 @@ class PlayerPrefab extends Prefab
 		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 		player.add(new Health());
-		player.add(new Stats(5, 3, 5));
+		player.add(new Stats(3, 2, 1));
 
 		return player;
 	}

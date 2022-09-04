@@ -3,6 +3,7 @@ import data.Commands;
 import data.SoundResources;
 import data.TextResources;
 import data.TileResources;
+import domain.skills.Skills;
 import screens.splash.SplashScreen;
 
 class Main extends hxd.App
@@ -24,6 +25,7 @@ class Main extends hxd.App
 		TileResources.Init();
 		SoundResources.Init();
 		Commands.Init();
+		Skills.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 

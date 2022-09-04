@@ -40,6 +40,11 @@ class IterableExtensions
 		return cur;
 	}
 
+	public static inline function sum<T>(it:Iterable<T>, fn:(value:T) -> Float):Float
+	{
+		return it.fold((it, res) -> fn(it) + res, 0);
+	}
+
 	public static inline function every<T>(it:Iterable<T>, fn:(value:T) -> Bool):Bool
 	{
 		return !it.exists((v) -> !fn(v));

@@ -9,7 +9,7 @@ typedef EntityInteraction =
 	evt:EntityEvent,
 }
 
-class GetInteractionsEvent extends EntityEvent
+class QueryInteractionsEvent extends EntityEvent
 {
 	public var interactor(default, null):Entity;
 	public var interactions(default, null):Array<EntityInteraction>;

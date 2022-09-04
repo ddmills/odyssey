@@ -1,6 +1,7 @@
 package domain.components;
 
 import domain.events.SpawnedEvent;
+import domain.skills.Skills;
 import ecs.Component;
 
 class Health extends Component
@@ -15,15 +16,15 @@ class Health extends Component
 
 	public function get_max():Int
 	{
+		var skill = Skills.getValue(SKILL_MAX_HEALTH, entity);
 		var level = 0;
-		var grit = Stats.Get(entity, GRIT);
 
-		return 50 + level * 10 + grit * 10;
+		return 50 + level * 10 + skill * 10;
 	}
 
 	private function onSpawned(evt:SpawnedEvent)
 	{
-		trace('set hp', max);
+		trace(max);
 		value = max;
 	}
 }

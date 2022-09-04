@@ -11,7 +11,7 @@ import data.TileResources;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
 import domain.components.Moniker;
-import domain.events.GetInteractionsEvent;
+import domain.events.QueryInteractionsEvent;
 import ecs.Entity;
 import h2d.Bitmap;
 import h2d.Object;
@@ -136,7 +136,7 @@ class InteractionScreen extends Screen
 		{
 			return false;
 		}
-		var evt = new GetInteractionsEvent(interactor);
+		var evt = new QueryInteractionsEvent(interactor);
 		e.fireEvent(evt);
 
 		return evt.interactions.length > 0;
@@ -172,7 +172,7 @@ class InteractionScreen extends Screen
 
 	function getShowInteractions(entity:Entity):Screen
 	{
-		var evt = new GetInteractionsEvent(interactor);
+		var evt = new QueryInteractionsEvent(interactor);
 		entity.fireEvent(evt);
 
 		var items = evt.interactions.map((action) -> ({

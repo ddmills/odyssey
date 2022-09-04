@@ -2,7 +2,7 @@ package screens.inventory;
 
 import domain.components.Inventory;
 import domain.components.Moniker;
-import domain.events.GetInteractionsEvent;
+import domain.events.QueryInteractionsEvent;
 import ecs.Entity;
 import screens.entitySelect.EntitySelectScreen;
 import screens.listSelect.ListSelectScreen;
@@ -27,7 +27,7 @@ class InventoryScreen extends EntitySelectScreen
 
 	function showInteractions(entity:Entity)
 	{
-		var evt = new GetInteractionsEvent(accessor);
+		var evt = new QueryInteractionsEvent(accessor);
 		entity.fireEvent(evt);
 
 		var items = evt.interactions.map((action) -> ({

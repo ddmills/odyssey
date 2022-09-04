@@ -5,6 +5,7 @@ import data.EnergyActionType;
 import domain.components.Energy;
 import domain.components.IsPlayer;
 import domain.components.Stats;
+import domain.skills.Skills;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
@@ -75,9 +76,9 @@ class EnergySystem extends System
 	{
 		if (type == ACT_MOVE)
 		{
-			var finesse = Stats.Get(entity, FINESSE);
+			var speed = Skills.getValue(SKILL_SPEED, entity);
 
-			return 80 - (finesse * 10);
+			return 80 - (speed * 10);
 		}
 
 		if (type == ACT_WAIT)

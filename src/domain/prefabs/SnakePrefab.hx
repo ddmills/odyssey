@@ -18,7 +18,7 @@ class SnakePrefab extends Prefab
 		snake.add(new Sprite(TileResources.SNAKE_1, 0xDF9100, 0x000000, ACTORS));
 		snake.add(new Energy(-10));
 		snake.add(new Health());
-		snake.add(new Stats(2, 10, 3));
+		snake.add(new Stats(0, 0, 2));
 		snake.add(new IsEnemy());
 		snake.add(new Moniker('Rattlesnake'));
 

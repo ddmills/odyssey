@@ -2,8 +2,8 @@ package domain.components;
 
 import common.struct.Coordinate;
 import core.Game;
-import domain.events.GetInteractionsEvent;
 import domain.events.OpenInventoryEvent;
+import domain.events.QueryInteractionsEvent;
 import domain.events.StashInventoryEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
@@ -26,7 +26,7 @@ class Inventory extends Component
 	public function new()
 	{
 		_contentIds = new Array();
-		addHandler(GetInteractionsEvent, (evt) -> onGetInteractions(cast(evt)));
+		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast(evt)));
 		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast(evt)));
 		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast(evt)));
 	}
@@ -88,7 +88,7 @@ class Inventory extends Component
 		Game.instance.screens.push(screen);
 	}
 
-	function onGetInteractions(evt:GetInteractionsEvent)
+	function onQueryInteractions(evt:QueryInteractionsEvent)
 	{
 		evt.interactions.push({
 			name: 'Open',
