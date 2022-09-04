@@ -4,7 +4,7 @@ import data.SkillType;
 import domain.skills.SkillModifier;
 import ecs.EntityEvent;
 
-class QuerySkillModEvent extends EntityEvent
+class QuerySkillModEquippedEvent extends EntityEvent
 {
 	public var skill:SkillType;
 	public var mods:Array<SkillModifier> = new Array();

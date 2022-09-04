@@ -26,9 +26,9 @@ class Inventory extends Component
 	public function new()
 	{
 		_contentIds = new Array();
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast(evt)));
-		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast(evt)));
-		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast(evt)));
+		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
+		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast evt));
+		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast evt));
 	}
 
 	public function addLoot(loot:Entity)
