@@ -4,5 +4,5 @@ enum StatType
 {
 	GRIT;
 	SAVVY;
-	AGILITY;
+	FINESSE;
 }

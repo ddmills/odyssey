@@ -2,6 +2,7 @@ package domain;
 
 import common.struct.Coordinate;
 import domain.prefabs.PlayerPrefab;
+import domain.prefabs.Spawner;
 import ecs.Entity;
 import ecs.EntityRef;
 
@@ -26,7 +27,7 @@ class PlayerManager
 
 	public function initialize()
 	{
-		entityRef.entity = PlayerPrefab.Create();
+		entityRef.entity = Spawner.Spawn(PLAYER);
 	}
 
 	inline function get_x():Float

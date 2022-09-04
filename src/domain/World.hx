@@ -8,9 +8,12 @@ import domain.AIManager;
 import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.Visible;
+import domain.prefabs.Prefab;
+import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.ChunkManager;
 import ecs.Entity;
+import hxd.Rand;
 
 class World
 {
@@ -20,6 +23,7 @@ class World
 	public var ai(default, null):AIManager;
 	public var player(default, null):PlayerManager;
 	public var chunks(default, null):ChunkManager;
+	public var spawner(default, null):Spawner;
 	public var chunkSize(default, null):Int = 16;
 	public var chunkCountX(default, null):Int = 24;
 	public var chunkCountY(default, null):Int = 24;
@@ -27,6 +31,8 @@ class World
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
 	public var seed:Int = 123;
+
+	public var rand:Rand;
 
 	var visible:Array<Coordinate>;
 
@@ -39,13 +45,16 @@ class World
 		ai = new AIManager();
 		player = new PlayerManager();
 		chunks = new ChunkManager();
+		spawner = new Spawner();
 
 		map = new MapData();
 	}
 
 	public function initialize()
 	{
+		rand = new Rand(seed);
 		visible = new Array<Coordinate>();
+		spawner.initialize();
 		chunks.initialize();
 		map.initialize();
 		systems.initialize();

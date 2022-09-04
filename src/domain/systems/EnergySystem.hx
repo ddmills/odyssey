@@ -75,9 +75,9 @@ class EnergySystem extends System
 	{
 		if (type == ACT_MOVE)
 		{
-			var agility = Stats.Get(entity, AGILITY);
+			var finesse = Stats.Get(entity, FINESSE);
 
-			return 80 - (agility * 10);
+			return 80 - (finesse * 10);
 		}
 
 		if (type == ACT_WAIT)

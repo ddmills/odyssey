@@ -7,9 +7,9 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class ChestPrefab
+class ChestPrefab extends Prefab
 {
-	public static function Create()
+	public function Create(?options:Dynamic)
 	{
 		var chest = new Entity();
 
@@ -23,9 +23,9 @@ class ChestPrefab
 
 		chest.add(inventory);
 
-		inventory.addLoot(StickPrefab.Create());
-		inventory.addLoot(StickPrefab.Create());
-		inventory.addLoot(LockboxPrefab.Create());
+		inventory.addLoot(Spawner.Spawn(STICK));
+		inventory.addLoot(Spawner.Spawn(LOCKBOX));
+		inventory.addLoot(Spawner.Spawn(PISTOL));
 
 		return chest;
 	}

@@ -7,9 +7,9 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class StickPrefab
+class StickPrefab extends Prefab
 {
-	public static function Create()
+	public function Create(?options:Dynamic)
 	{
 		var stick = new Entity();
 

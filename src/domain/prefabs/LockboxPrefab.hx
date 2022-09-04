@@ -8,9 +8,9 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class LockboxPrefab
+class LockboxPrefab extends Prefab
 {
-	public static function Create()
+	public function Create(?options:Dynamic)
 	{
 		var lockbox = new Entity();
 
@@ -26,8 +26,7 @@ class LockboxPrefab
 
 		lockbox.add(inventory);
 
-		inventory.addLoot(StickPrefab.Create());
-		inventory.addLoot(PistolPrefab.Create());
+		inventory.addLoot(Spawner.Spawn(PISTOL));
 
 		return lockbox;
 	}

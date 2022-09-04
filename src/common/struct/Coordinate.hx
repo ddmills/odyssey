@@ -8,7 +8,7 @@ class Coordinate
 	public final y:Float;
 	public final space:Space;
 
-	public inline function new(x:Float, y:Float, space:Space)
+	public inline function new(x:Float, y:Float, space:Space = WORLD)
 	{
 		this.x = x;
 		this.y = y;

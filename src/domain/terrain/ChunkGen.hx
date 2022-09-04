@@ -1,11 +1,13 @@
 package domain.terrain;
 
+import common.struct.Coordinate;
 import core.Game;
 import domain.components.Energy;
 import domain.prefabs.CactusPrefab;
 import domain.prefabs.ChestPrefab;
 import domain.prefabs.LockboxPrefab;
 import domain.prefabs.SnakePrefab;
+import domain.prefabs.Spawner;
 import domain.prefabs.StickPrefab;
 import hxd.Rand;
 
@@ -22,37 +24,28 @@ class ChunkGen
 		{
 			var x = chunk.wx + i.x;
 			var y = chunk.wy + i.y;
+			var pos = new Coordinate(x, y);
 
 			if (r.bool(.015))
 			{
-				var snake = SnakePrefab.Create();
-				snake.x = x;
-				snake.y = y;
+				var snake = Spawner.Spawn(SNAKE, pos);
 				snake.get(Energy).consumeEnergy(r.integer(0, 50));
 			}
 			else if (r.bool(.01))
 			{
-				var chest = ChestPrefab.Create();
-				chest.x = x;
-				chest.y = y;
+				Spawner.Spawn(CHEST, pos);
 			}
 			else if (r.bool(.02))
 			{
-				var stick = StickPrefab.Create();
-				stick.x = x;
-				stick.y = y;
+				Spawner.Spawn(STICK, pos);
 			}
 			else if (r.bool(.025))
 			{
-				var cactus = CactusPrefab.Create(r);
-				cactus.x = x;
-				cactus.y = y;
+				Spawner.Spawn(CACTUS, pos);
 			}
 			else if (r.bool(.005))
 			{
-				var lockbox = LockboxPrefab.Create();
-				lockbox.x = x;
-				lockbox.y = y;
+				Spawner.Spawn(LOCKBOX, pos);
 			}
 		}
 	}

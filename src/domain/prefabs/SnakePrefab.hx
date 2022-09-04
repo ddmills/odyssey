@@ -2,19 +2,23 @@ package domain.prefabs;
 
 import data.TileResources;
 import domain.components.Energy;
+import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.components.Stats;
 import ecs.Entity;
 
-class SnakePrefab
+class SnakePrefab extends Prefab
 {
-	public static function Create()
+	public function Create(?options:Dynamic)
 	{
 		var snake = new Entity();
 
 		snake.add(new Sprite(TileResources.SNAKE_1, 0xDF9100, 0x000000, ACTORS));
 		snake.add(new Energy(-10));
+		snake.add(new Health());
+		snake.add(new Stats(2, 10, 3));
 		snake.add(new IsEnemy());
 		snake.add(new Moniker('Rattlesnake'));
 

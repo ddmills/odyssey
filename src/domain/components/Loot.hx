@@ -23,10 +23,10 @@ class Loot extends Component
 	{
 		pickupSound = SoundResources.LOOT_PICKUP_1;
 		dropSound = SoundResources.LOOT_DROP_1;
-		addHandler(GetInteractionsEvent, (evt) -> onGetInteractions(cast(evt, GetInteractionsEvent)));
-		addHandler(PickupEvent, (evt) -> onPickup(cast(evt, PickupEvent)));
-		addHandler(DropEvent, (evt) -> onDrop(cast(evt, DropEvent)));
-		addHandler(TakeEvent, (evt) -> onTake(cast(evt, TakeEvent)));
+		addHandler(GetInteractionsEvent, (evt) -> onGetInteractions(cast(evt)));
+		addHandler(PickupEvent, (evt) -> onPickup(cast(evt)));
+		addHandler(DropEvent, (evt) -> onDrop(cast(evt)));
+		addHandler(TakeEvent, (evt) -> onTake(cast(evt)));
 	}
 
 	private function onPickup(evt:PickupEvent)

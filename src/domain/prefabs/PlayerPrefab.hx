@@ -4,6 +4,7 @@ import core.Game;
 import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
+import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Loot;
@@ -13,9 +14,9 @@ import domain.components.Stats;
 import domain.components.Vision;
 import ecs.Entity;
 
-class PlayerPrefab
+class PlayerPrefab extends Prefab
 {
-	public static function Create()
+	public function Create(?options:Dynamic)
 	{
 		var player = new Entity();
 
@@ -37,11 +38,8 @@ class PlayerPrefab
 		player.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
 		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
-		player.add(new Stats());
-
-		player.get(Stats).grit = 5;
-		player.get(Stats).savvy = 3;
-		player.get(Stats).agility = 5;
+		player.add(new Health());
+		player.add(new Stats(5, 3, 5));
 
 		return player;
 	}
