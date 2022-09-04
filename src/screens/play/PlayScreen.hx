@@ -11,6 +11,7 @@ import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
+import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
 import screens.interaction.InteractionScreen;
@@ -84,7 +85,8 @@ class PlayScreen extends Screen
 			case CMD_MOVE_SE:
 				move(SOUTH_EAST);
 			case CMD_WAIT:
-				world.player.entity.get(Energy).consumeEnergy(50);
+				var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_WAIT);
+				world.player.entity.get(Energy).consumeEnergy(cost);
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:
@@ -108,7 +110,8 @@ class PlayScreen extends Screen
 			return;
 		}
 		world.player.entity.add(new Move(target.asWorld(), .16, LINEAR));
-		world.player.entity.get(Energy).consumeEnergy(50);
+		var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_MOVE);
+		world.player.entity.get(Energy).consumeEnergy(cost);
 		world.player.entity.get(Sprite).background = null;
 	}
 

@@ -1,8 +1,10 @@
 package domain.systems;
 
 import core.Frame;
+import data.EnergyActionType;
 import domain.components.Energy;
 import domain.components.IsPlayer;
+import domain.components.Stats;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
@@ -67,5 +69,22 @@ class EnergySystem extends System
 				world.ai.takeAction(entity);
 			}
 		}
+	}
+
+	public static function getEnergyCost(entity:Entity, type:EnergyActionType):Int
+	{
+		if (type == ACT_MOVE)
+		{
+			var agility = Stats.Get(entity, AGILITY);
+
+			return 80 - (agility * 10);
+		}
+
+		if (type == ACT_WAIT)
+		{
+			return 50;
+		}
+
+		return 50;
 	}
 }

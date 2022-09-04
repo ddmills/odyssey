@@ -9,6 +9,7 @@ import domain.components.IsPlayer;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.components.Stats;
 import domain.components.Vision;
 import ecs.Entity;
 
@@ -36,6 +37,11 @@ class PlayerPrefab
 		player.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
 		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
+		player.add(new Stats());
+
+		player.get(Stats).grit = 5;
+		player.get(Stats).savvy = 3;
+		player.get(Stats).agility = 5;
 
 		return player;
 	}
