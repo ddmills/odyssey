@@ -17,6 +17,7 @@ class EquipmentSlot extends Component
 	public var slotType:EquipmentSlotType;
 	public var content(get, never):Entity;
 	public var isEmpty(get, never):Bool;
+	public var displayName(get, never):String;
 
 	public function new(name:String, slotKey:String, slotType:EquipmentSlotType)
 	{
@@ -26,7 +27,7 @@ class EquipmentSlot extends Component
 		addHandler(QuerySkillModEvent, (evt) -> onQuerySkillMod(cast evt));
 	}
 
-	public function onQuerySkillMod(evt:QuerySkillModEvent)
+	private function onQuerySkillMod(evt:QuerySkillModEvent)
 	{
 		if (content == null)
 		{
@@ -76,5 +77,15 @@ class EquipmentSlot extends Component
 	function get_isEmpty():Bool
 	{
 		return content == null;
+	}
+
+	function get_displayName():String
+	{
+		if (isEmpty)
+		{
+			return '$name [empty]';
+		}
+
+		return '$name [${content.get(Moniker).baseName}]';
 	}
 }

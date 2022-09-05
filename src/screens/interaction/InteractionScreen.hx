@@ -159,6 +159,7 @@ class InteractionScreen extends Screen
 		else
 		{
 			var selectScreen = new EntitySelectScreen(interactables);
+			selectScreen.fetchEntities = () -> world.getEntitiesAt(pos).filter(hasInteractables);
 			selectScreen.targetPos = pos;
 			selectScreen.onSelect = (e) ->
 			{

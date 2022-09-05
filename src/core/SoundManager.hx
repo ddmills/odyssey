@@ -4,7 +4,11 @@ import hxd.res.Sound;
 
 class SoundManager
 {
-	public function new() {}
+	public function new()
+	{
+		var manager = hxd.snd.Manager.get();
+		manager.masterVolume = 0.5;
+	}
 
 	public function play(sound:Sound)
 	{

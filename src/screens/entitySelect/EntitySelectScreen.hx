@@ -11,9 +11,27 @@ class EntitySelectScreen extends ListSelectScreen
 {
 	public var onSelect:(e:Entity) -> Void;
 
+	private var entities:Array<Entity>;
+
+	public var fetchEntities:() -> Array<Entity>;
+
 	public function new(entities:Array<Entity>)
 	{
+		this.entities = entities;
+		fetchEntities = () -> entities;
 		super(entities.map(makeListItem));
+	}
+
+	function refreshList()
+	{
+		entities = fetchEntities();
+		setItems(entities.map(makeListItem));
+	}
+
+	override function onResume()
+	{
+		super.onResume();
+		refreshList();
 	}
 
 	function makeListItem(entity:Entity)

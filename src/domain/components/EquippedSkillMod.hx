@@ -33,7 +33,7 @@ class EquippedSkillMod extends Component
 		return mod == null ? 0 : mod;
 	}
 
-	public function onQuerySkillModEquipped(evt:QuerySkillModEquippedEvent)
+	private function onQuerySkillModEquipped(evt:QuerySkillModEquippedEvent)
 	{
 		var mod = get(evt.skill);
 		if (mod != 0)

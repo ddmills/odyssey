@@ -19,8 +19,9 @@ class InventoryScreen extends EntitySelectScreen
 
 		this.onSelect = (e) -> showInteractions(e);
 
-		var inventory = accessible.get(Inventory);
-		super(inventory.content);
+		super(accessible.get(Inventory).content);
+
+		fetchEntities = () -> accessible.get(Inventory).content;
 
 		title = '${accessible.get(Moniker).displayName} Inventory';
 	}
@@ -36,6 +37,7 @@ class InventoryScreen extends EntitySelectScreen
 			{
 				game.screens.pop();
 				entity.fireEvent(action.evt);
+				refreshList();
 				return;
 			},
 			getIcon: () -> null,

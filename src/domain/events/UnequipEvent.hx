@@ -3,7 +3,7 @@ package domain.events;
 import ecs.Entity;
 import ecs.EntityEvent;
 
-class TryUnequipEvent extends EntityEvent
+class UnequipEvent extends EntityEvent
 {
 	public var unequipper:Entity;
 

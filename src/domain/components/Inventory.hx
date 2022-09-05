@@ -76,9 +76,10 @@ class Inventory extends Component
 	function onStashInventory(evt:StashInventoryEvent)
 	{
 		executeOpenEffects();
-		var entities = evt.stasher.get(Inventory).content;
-		var screen = new EntitySelectScreen(entities);
+		var fetchEntities = () -> evt.stasher.get(Inventory).content;
+		var screen = new EntitySelectScreen(fetchEntities());
 		screen.onClosedlistener = executeCloseEffects;
+		screen.fetchEntities = fetchEntities;
 		screen.onSelect = (e:Entity) ->
 		{
 			e.fireEvent(new TakeEvent(entity));

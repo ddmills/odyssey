@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.SoundResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
@@ -22,6 +23,9 @@ class PonchoPrefab extends Prefab
 		skills.set(SKILL_MAX_HEALTH, 2);
 
 		poncho.add(skills);
+
+		poncho.get(Equipment).equipSound = SoundResources.CLOTH_EQUIP_1;
+		poncho.get(Equipment).unequipSound = SoundResources.CLOTH_UNEQUIP_1;
 
 		return poncho;
 	}

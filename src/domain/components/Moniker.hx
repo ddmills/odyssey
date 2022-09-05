@@ -4,10 +4,24 @@ import ecs.Component;
 
 class Moniker extends Component
 {
-	public var displayName = 'Hello world';
+	public var baseName = 'Hello world';
 
-	public function new(displayName:String)
+	public var displayName(get, never):String;
+
+	public function new(baseName:String)
 	{
-		this.displayName = displayName;
+		this.baseName = baseName;
+	}
+
+	function get_displayName():String
+	{
+		var equipped = entity.get(IsEquipped);
+
+		if (equipped != null)
+		{
+			return '$baseName [${equipped.slot.name}]';
+		}
+
+		return baseName;
 	}
 }

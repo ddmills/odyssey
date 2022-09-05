@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.SoundResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.Loot;
@@ -16,6 +17,10 @@ class PistolPrefab extends Prefab
 		pistol.add(new Moniker('Pistol'));
 		pistol.add(new Loot());
 		pistol.add(new Equipment([EQ_SLOT_HAND]));
+
+		pistol.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
+		pistol.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
+
 		return pistol;
 	}
 }

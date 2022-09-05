@@ -41,6 +41,7 @@ class TileResources
 
 	public static var PISTOL:Tile;
 	public static var PONCHO:Tile;
+	public static var DUSTER:Tile;
 
 	public static function Init()
 	{
@@ -85,5 +86,6 @@ class TileResources
 
 		PISTOL = hxd.Res.tiles.scroll.pistol.toTile();
 		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
+		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
 	}
 }

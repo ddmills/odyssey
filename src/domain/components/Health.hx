@@ -24,7 +24,6 @@ class Health extends Component
 
 	private function onSpawned(evt:SpawnedEvent)
 	{
-		trace(max);
 		value = max;
 	}
 }

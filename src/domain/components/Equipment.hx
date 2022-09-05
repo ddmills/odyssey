@@ -2,53 +2,44 @@ package domain.components;
 
 import core.Game;
 import data.EquipmentSlotType;
+import data.SoundResources;
+import domain.events.DropEvent;
+import domain.events.EquipEvent;
 import domain.events.QueryInteractionsEvent;
-import domain.events.TryEquipEvent;
-import domain.events.TryUnequipEvent;
+import domain.events.TakeEvent;
+import domain.events.UnequipEvent;
 import ecs.Component;
+import hxd.res.Sound;
 import screens.listSelect.ListSelectScreen;
 
 class Equipment extends Component
 {
 	public var slotTypes:Array<EquipmentSlotType>;
+	public var equipSound:Sound;
+	public var unequipSound:Sound;
 
 	public function new(slotTypes:Array<EquipmentSlotType>)
 	{
 		this.slotTypes = slotTypes;
+		equipSound = SoundResources.LOOT_PICKUP_1;
+		unequipSound = SoundResources.LOOT_DROP_1;
+
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
-		addHandler(TryEquipEvent, (evt) -> onTryEquip(cast evt));
-		addHandler(TryUnequipEvent, (evt) -> onTryUnequip(cast evt));
+		addHandler(EquipEvent, (evt) -> onEquip(cast evt));
+		addHandler(UnequipEvent, (evt) -> onUnequip(cast evt));
+		addHandler(DropEvent, (evt) -> onDrop(cast evt));
+		addHandler(TakeEvent, (evt) -> onTake(cast evt));
 	}
 
-	public function onTryEquip(evt:TryEquipEvent)
-	{
-		var slots = evt.equipper.getAll(EquipmentSlot).filter((s) ->
-		{
-			return slotTypes.contains(s.slotType);
-		});
-
-		var rows:Array<ListItem> = slots.map((slot) ->
-		{
-			return {
-				title: slot.name,
-				getIcon: () -> null,
-				onSelect: () ->
-				{
-					slot.unequip();
-					slot.equip(entity);
-					Game.instance.screens.pop();
-				},
-			};
-		});
-
-		var screen = new ListSelectScreen(rows);
-
-		Game.instance.screens.push(screen);
-	}
-
-	public function onTryUnequip(evt:TryUnequipEvent)
+	public function unequip()
 	{
 		var equipped = entity.get(IsEquipped);
+
+		if (equipped == null)
+		{
+			return;
+		}
+
 		var slot = equipped.holder.getAll(EquipmentSlot).find((s) -> s.slotKey == equipped.slotKey);
 
 		if (slot != null)
@@ -57,20 +48,61 @@ class Equipment extends Component
 		}
 	}
 
-	public function onQueryInteractions(evt:QueryInteractionsEvent)
+	private function onEquip(evt:EquipEvent)
+	{
+		var slots = evt.equipper.getAll(EquipmentSlot).filter((s) ->
+		{
+			return slotTypes.contains(s.slotType);
+		});
+
+		var slots = slots.map((slot) -> ({
+			title: slot.displayName,
+			getIcon: () -> null,
+			onSelect: () ->
+			{
+				slot.unequip();
+				slot.equip(entity);
+				Game.instance.sound.play(equipSound);
+				Game.instance.screens.pop();
+			},
+		}));
+		var screen = new ListSelectScreen(slots);
+
+		screen.title = 'Equip ${entity.get(Moniker).displayName}';
+
+		Game.instance.screens.push(screen);
+	}
+
+	private function onUnequip(evt:UnequipEvent)
+	{
+		unequip();
+		Game.instance.sound.play(unequipSound);
+	}
+
+	private function onDrop(evt:DropEvent)
+	{
+		unequip();
+	}
+
+	private function onTake(evt:TakeEvent)
+	{
+		unequip();
+	}
+
+	private function onQueryInteractions(evt:QueryInteractionsEvent)
 	{
 		if (entity.has(IsEquipped))
 		{
 			evt.add({
 				name: 'Unequip',
-				evt: new TryUnequipEvent(evt.interactor),
+				evt: new UnequipEvent(evt.interactor),
 			});
 		}
 		else
 		{
 			evt.add({
 				name: 'Equip',
-				evt: new TryEquipEvent(evt.interactor),
+				evt: new EquipEvent(evt.interactor),
 			});
 		}
 	}

@@ -5,11 +5,9 @@ import data.SoundResources;
 import domain.events.DropEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
-import domain.events.StashEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
-import format.swf.Data.SoundRate;
 import hxd.res.Sound;
 
 class Loot extends Component
@@ -32,7 +30,10 @@ class Loot extends Component
 
 	public function take(taker:Entity)
 	{
-		container.removeLoot(entity);
+		if (container != null)
+		{
+			container.removeLoot(entity);
+		}
 		taker.get(Inventory).addLoot(entity);
 	}
 

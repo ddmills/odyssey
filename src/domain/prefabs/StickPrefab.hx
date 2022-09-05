@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import core.Game;
 import data.TileResources;
+import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -18,6 +19,7 @@ class StickPrefab extends Prefab
 		stick.add(sprite);
 		stick.add(new Moniker('Stick'));
 		stick.add(new Loot());
+		stick.add(new Equipment([EQ_SLOT_HAND]));
 
 		return stick;
 	}

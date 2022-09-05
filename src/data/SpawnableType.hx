@@ -10,4 +10,5 @@ enum SpawnableType
 	SNAKE;
 	PONCHO;
 	STICK;
+	DUSTER;
 }

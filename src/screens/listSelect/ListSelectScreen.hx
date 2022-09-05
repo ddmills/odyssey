@@ -87,8 +87,10 @@ class ListSelectScreen extends Screen
 		game.render(OVERLAY, targetOb);
 	};
 
-	override function onEnter()
+	function setItems(items:Array<ListItem>)
 	{
+		this.items = items;
+		listOb.removeChildren();
 		var i = 0;
 		var rows = items.map((d) -> makeRow(d, i++));
 
@@ -105,7 +107,11 @@ class ListSelectScreen extends Screen
 		list.setItems(rows);
 
 		updateRows();
+	}
 
+	override function onEnter()
+	{
+		setItems(items);
 		ob.addChild(listOb);
 
 		ob.x = pos.x;
