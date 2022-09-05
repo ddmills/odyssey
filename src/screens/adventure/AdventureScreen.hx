@@ -1,4 +1,4 @@
-package screens.play;
+package screens.adventure;
 
 import common.struct.Coordinate;
 import core.Frame;
@@ -14,10 +14,11 @@ import domain.components.Sprite;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
-import screens.interaction.InteractionScreen;
+import screens.equipment.EquipmentScreen;
+import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
 
-class PlayScreen extends Screen
+class AdventureScreen extends Screen
 {
 	var clockText:h2d.Text;
 
@@ -28,11 +29,6 @@ class PlayScreen extends Screen
 
 	public override function onEnter()
 	{
-		game.camera.zoom = 2;
-
-		world.player.entity.x = 16;
-		world.player.entity.y = 16;
-
 		renderClock();
 	}
 
@@ -95,6 +91,8 @@ class PlayScreen extends Screen
 				onInteract(world.player.pos);
 			case CMD_INVENTORY:
 				game.screens.push(new InventoryScreen(world.player.entity, world.player.entity));
+			case CMD_EQUIPMENT:
+				game.screens.push(new EquipmentScreen(world.player.entity));
 			case _:
 		}
 
@@ -117,7 +115,7 @@ class PlayScreen extends Screen
 
 	private function onInteract(pos:Coordinate)
 	{
-		game.screens.push(new InteractionScreen(world.player.entity));
+		game.screens.push(new InspectScreen(world.player.entity));
 	}
 
 	private function renderClock()

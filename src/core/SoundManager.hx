@@ -7,7 +7,7 @@ class SoundManager
 	public function new()
 	{
 		var manager = hxd.snd.Manager.get();
-		manager.masterVolume = 0.5;
+		manager.masterVolume = 0.25;
 	}
 
 	public function play(sound:Sound)

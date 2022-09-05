@@ -38,6 +38,7 @@ class EntitySelectScreen extends ListSelectScreen
 	{
 		return {
 			title: entity.get(Moniker).displayName,
+			detail: null,
 			onSelect: () -> onSelect(entity),
 			getIcon: () ->
 			{

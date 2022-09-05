@@ -18,6 +18,7 @@ class EquipmentSlot extends Component
 	public var content(get, never):Entity;
 	public var isEmpty(get, never):Bool;
 	public var displayName(get, never):String;
+	public var contentDisplay(get, never):String;
 
 	public function new(name:String, slotKey:String, slotType:EquipmentSlotType)
 	{
@@ -81,11 +82,16 @@ class EquipmentSlot extends Component
 
 	function get_displayName():String
 	{
+		return '$name $contentDisplay';
+	}
+
+	function get_contentDisplay():String
+	{
 		if (isEmpty)
 		{
-			return '$name [empty]';
+			return '[empty]';
 		}
 
-		return '$name [${content.get(Moniker).baseName}]';
+		return '[${content.get(Moniker).baseName}]';
 	}
 }

@@ -55,9 +55,10 @@ class Equipment extends Component
 			return slotTypes.contains(s.slotType);
 		});
 
-		var slots = slots.map((slot) -> ({
+		var slots:Array<ListItem> = slots.map((slot) -> ({
 			title: slot.displayName,
-			getIcon: () -> null,
+			detail: null,
+			getIcon: null,
 			onSelect: () ->
 			{
 				slot.unequip();

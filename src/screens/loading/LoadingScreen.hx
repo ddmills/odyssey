@@ -1,7 +1,7 @@
 package screens.loading;
 
 import core.Screen;
-import screens.play.PlayScreen;
+import screens.adventure.AdventureScreen;
 
 class LoadingScreen extends Screen
 {
@@ -11,6 +11,10 @@ class LoadingScreen extends Screen
 	{
 		game.mount();
 		game.world.initialize();
-		game.screens.set(new PlayScreen());
+		game.camera.zoom = 2;
+
+		world.player.entity.x = 26;
+		world.player.entity.y = 37;
+		game.screens.set(new AdventureScreen());
 	}
 }

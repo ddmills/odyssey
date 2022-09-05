@@ -5,6 +5,7 @@ import common.struct.FloatPoint;
 import common.util.Timeout;
 import core.Frame;
 import core.Screen;
+import core.input.KeyCode;
 import screens.loading.LoadingScreen;
 
 class SplashScreen extends Screen
@@ -55,6 +56,11 @@ class SplashScreen extends Screen
 	}
 
 	override function onMouseUp(pos:Coordinate)
+	{
+		game.screens.set(new LoadingScreen());
+	}
+
+	override function onKeyDown(key:KeyCode)
 	{
 		game.screens.set(new LoadingScreen());
 	}

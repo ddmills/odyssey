@@ -2,10 +2,9 @@ package screens.inventory;
 
 import domain.components.Inventory;
 import domain.components.Moniker;
-import domain.events.QueryInteractionsEvent;
 import ecs.Entity;
 import screens.entitySelect.EntitySelectScreen;
-import screens.listSelect.ListSelectScreen;
+import screens.interaction.InteractionScreen;
 
 class InventoryScreen extends EntitySelectScreen
 {
@@ -17,35 +16,21 @@ class InventoryScreen extends EntitySelectScreen
 		this.accessor = accessor;
 		this.accessible = accessible;
 
-		this.onSelect = (e) -> showInteractions(e);
+		this.onSelect = (e) ->
+		{
+			var interactionScreen = new InteractionScreen(e, this.accessor);
+			interactionScreen.onClosedlistener = () ->
+			{
+				refreshList();
+			};
+			interactionScreen.cancelText = 'Back';
+			game.screens.push(interactionScreen);
+		};
 
 		super(accessible.get(Inventory).content);
 
 		fetchEntities = () -> accessible.get(Inventory).content;
 
 		title = '${accessible.get(Moniker).displayName} Inventory';
-	}
-
-	function showInteractions(entity:Entity)
-	{
-		var evt = new QueryInteractionsEvent(accessor);
-		entity.fireEvent(evt);
-
-		var items = evt.interactions.map((action) -> ({
-			title: action.name,
-			onSelect: () ->
-			{
-				game.screens.pop();
-				entity.fireEvent(action.evt);
-				refreshList();
-				return;
-			},
-			getIcon: () -> null,
-		}));
-
-		var s = new ListSelectScreen(items);
-		s.cancelText = 'Back';
-		s.title = entity.get(Moniker).displayName;
-		game.screens.push(s);
 	}
 }

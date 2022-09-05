@@ -18,7 +18,8 @@ import shaders.SpriteShader;
 typedef ListItem =
 {
 	title:String,
-	getIcon:() -> Null<Bitmap>,
+	?getIcon:() -> Bitmap,
+	?detail:String,
 	onSelect:() -> Void,
 }
 
@@ -27,6 +28,7 @@ typedef ListRow =
 	ob:Bitmap,
 	bullet:Bitmap,
 	text:Text,
+	detail:Text,
 	data:ListItem,
 	isCancel:Bool,
 }
@@ -34,7 +36,7 @@ typedef ListRow =
 class ListSelectScreen extends Screen
 {
 	private var _pos:Coordinate;
-	var w = 8;
+	var w = 24;
 
 	var ob:Object;
 	var listOb:Object;
@@ -99,7 +101,6 @@ class ListSelectScreen extends Screen
 			cancelRow = makeRow({
 				title: _cancelText,
 				onSelect: doCancel,
-				getIcon: () -> null,
 			}, i, true);
 			rows.push(cancelRow);
 		}
@@ -179,6 +180,7 @@ class ListSelectScreen extends Screen
 		{
 			var col = li.isSelected ? 0xffff00 : 0xf5f5f5;
 			li.item.text.color = col.toHxdColor();
+			li.item.detail.color = col.toHxdColor();
 			li.item.bullet.tile = li.isSelected ? TileResources.LIST_ARROW : TileResources.LIST_DASH;
 			li.item.bullet.getShader(SpriteShader).primary = col.toHxdColor();
 		});
@@ -191,16 +193,18 @@ class ListSelectScreen extends Screen
 		var left = 0;
 		var rowOb = new Bitmap(Tile.fromColor(Game.instance.CLEAR_COLOR, w * tw, th));
 		rowOb.y = idx * th;
+		listOb.addChild(rowOb);
 
 		var bullet = new Bitmap(TileResources.LIST_DASH);
 		bullet.addShader(new SpriteShader());
 		bullet.x = left;
 		bullet.y = 0;
 		left += tw;
+		rowOb.addChild(bullet);
 
-		var icon = item.getIcon();
-		if (icon != null)
+		if (item.getIcon != null)
 		{
+			var icon = item.getIcon();
 			icon.x = left + 8;
 			icon.y = 0;
 			left += 8 + tw;
@@ -214,6 +218,16 @@ class ListSelectScreen extends Screen
 		text.x = left;
 		text.setScale(1);
 		text.text = item.title;
+		rowOb.addChild(text);
+
+		var detail = new Text(TextResources.BIZCAT);
+		detail.color = 0xf5f5f5.toHxdColor();
+		left += tw * 12;
+		detail.y = 0;
+		detail.x = left;
+		detail.setScale(1);
+		detail.text = item.detail == null ? '' : item.detail;
+		rowOb.addChild(detail);
 
 		var interactive = new Interactive(w * tw, th);
 		interactive.onClick = (e) ->
@@ -227,16 +241,12 @@ class ListSelectScreen extends Screen
 			list.selectIdx(idx);
 			updateRows();
 		}
-
-		rowOb.addChild(bullet);
-
-		rowOb.addChild(text);
 		rowOb.addChild(interactive);
-		listOb.addChild(rowOb);
 
 		return {
 			ob: rowOb,
 			text: text,
+			detail: detail,
 			bullet: bullet,
 			isCancel: isCancel,
 			data: item,
