@@ -19,4 +19,9 @@ class QueryInteractionsEvent extends EntityEvent
 		this.interactor = interactor;
 		interactions = new Array();
 	}
+
+	public function add(interaction:EntityInteraction)
+	{
+		interactions.push(interaction);
+	}
 }

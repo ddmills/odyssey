@@ -15,7 +15,8 @@ class EquipmentSlot extends Component
 	public var name:String;
 	public var slotKey:String;
 	public var slotType:EquipmentSlotType;
-	public var content(get, set):Entity;
+	public var content(get, never):Entity;
+	public var isEmpty(get, never):Bool;
 
 	public function new(name:String, slotKey:String, slotType:EquipmentSlotType)
 	{
@@ -38,6 +39,28 @@ class EquipmentSlot extends Component
 		content.fireEvent(equipped);
 	}
 
+	public function unequip()
+	{
+		if (isEmpty)
+		{
+			return false;
+		}
+
+		var c = content;
+		_contentId = '';
+
+		c.remove(IsEquipped);
+
+		return true;
+	}
+
+	public function equip(equipment:Entity)
+	{
+		equipment.get(Loot).take(entity);
+		equipment.add(new IsEquipped(entity.id, slotKey));
+		_contentId = equipment.id;
+	}
+
 	function get_content():Entity
 	{
 		return entity.registry.getEntity(_contentId);
@@ -48,5 +71,10 @@ class EquipmentSlot extends Component
 		_contentId = value == null ? '' : value.id;
 
 		return value;
+	}
+
+	function get_isEmpty():Bool
+	{
+		return content == null;
 	}
 }

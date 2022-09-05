@@ -8,6 +8,7 @@ import domain.events.QueryInteractionsEvent;
 import domain.events.StashEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
+import ecs.Entity;
 import format.swf.Data.SoundRate;
 import hxd.res.Sound;
 
@@ -29,6 +30,12 @@ class Loot extends Component
 		addHandler(TakeEvent, (evt) -> onTake(cast evt));
 	}
 
+	public function take(taker:Entity)
+	{
+		container.removeLoot(entity);
+		taker.get(Inventory).addLoot(entity);
+	}
+
 	private function onPickup(evt:PickupEvent)
 	{
 		var targetInventory = evt.interactor.get(Inventory);
@@ -47,8 +54,7 @@ class Loot extends Component
 	private function onTake(evt:TakeEvent)
 	{
 		Game.instance.sound.play(pickupSound);
-		container.removeLoot(entity);
-		evt.taker.get(Inventory).addLoot(entity);
+		take(evt.taker);
 	}
 
 	private function onQueryInteractions(evt:QueryInteractionsEvent)

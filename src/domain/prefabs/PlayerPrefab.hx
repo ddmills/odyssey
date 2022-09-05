@@ -42,8 +42,6 @@ class PlayerPrefab extends Prefab
 		player.add(new Health());
 		player.add(new Stats(3, 2, 1));
 
-		body.content = Spawner.Spawn(PONCHO);
-
 		return player;
 	}
 }
