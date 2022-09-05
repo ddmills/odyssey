@@ -6,6 +6,7 @@ import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.components.Weapon;
 import ecs.Entity;
 
 class StickPrefab extends Prefab
@@ -20,6 +21,7 @@ class StickPrefab extends Prefab
 		stick.add(new Moniker('Stick'));
 		stick.add(new Loot());
 		stick.add(new Equipment([EQ_SLOT_HAND]));
+		stick.add(new Weapon(WPN_FAMILY_CUDGEL));
 
 		return stick;
 	}

@@ -15,12 +15,14 @@ import screens.listSelect.ListSelectScreen;
 class Equipment extends Component
 {
 	public var slotTypes:Array<EquipmentSlotType>;
+	public var extraSlotTypes:Array<EquipmentSlotType>;
 	public var equipSound:Sound;
 	public var unequipSound:Sound;
 
-	public function new(slotTypes:Array<EquipmentSlotType>)
+	public function new(slotTypes:Array<EquipmentSlotType>, ?extraSlotTypes:Array<EquipmentSlotType>)
 	{
 		this.slotTypes = slotTypes;
+		this.extraSlotTypes = extraSlotTypes == null ? [] : extraSlotTypes;
 		equipSound = SoundResources.LOOT_PICKUP_1;
 		unequipSound = SoundResources.LOOT_DROP_1;
 

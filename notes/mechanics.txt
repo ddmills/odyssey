@@ -1,0 +1,6 @@
+Dragging
+- on "Drag" command, ask for direction
+- find neighboring Draggable components
+- in Drag mode, it costs extra move
+- cannot attack
+- when you move, drag items follow

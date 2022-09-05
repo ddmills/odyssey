@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import ecs.Entity;
-import hxd.Rand;
 
 abstract class Prefab
 {

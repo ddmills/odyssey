@@ -39,9 +39,11 @@ class TileResources
 	public static var CHEST_SMALL_OPEN:Tile;
 	public static var CHEST_SMALL_CLOSED:Tile;
 
-	public static var PISTOL:Tile;
+	public static var NAVY_REVOLVER:Tile;
+	public static var RIFLE:Tile;
 	public static var PONCHO:Tile;
 	public static var DUSTER:Tile;
+	public static var LONG_JOHNS:Tile;
 
 	public static function Init()
 	{
@@ -84,8 +86,10 @@ class TileResources
 		CHEST_SMALL_CLOSED = chestSm[0][0];
 		CHEST_SMALL_OPEN = chestSm[0][1];
 
-		PISTOL = hxd.Res.tiles.scroll.pistol.toTile();
+		RIFLE = hxd.Res.tiles.scroll.rifle.toTile();
+		NAVY_REVOLVER = hxd.Res.tiles.scroll.pistol.toTile();
 		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
 		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
+		LONG_JOHNS = hxd.Res.tiles.scroll.longjohns.toTile();
 	}
 }

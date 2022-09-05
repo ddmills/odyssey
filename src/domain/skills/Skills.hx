@@ -12,6 +12,10 @@ class Skills
 	{
 		skills.set(SKILL_MAX_HEALTH, new MaxHealthSkill());
 		skills.set(SKILL_SPEED, new SpeedSkill());
+		skills.set(SKILL_UNARMED, new UnarmedSkill());
+		skills.set(SKILL_CUDGEL, new CudgelSkill());
+		skills.set(SKILL_RIFLE, new RifleSkill());
+		skills.set(SKILL_PISTOL, new PistolSkill());
 	}
 
 	public static function get(type:SkillType):Skill

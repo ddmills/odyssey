@@ -25,7 +25,7 @@ class ChestPrefab extends Prefab
 
 		inventory.addLoot(Spawner.Spawn(STICK));
 		inventory.addLoot(Spawner.Spawn(LOCKBOX));
-		inventory.addLoot(Spawner.Spawn(PISTOL));
+		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER));
 		inventory.addLoot(Spawner.Spawn(PONCHO));
 
 		return chest;

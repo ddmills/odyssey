@@ -9,9 +9,9 @@ import ecs.Entity;
 class Skill
 {
 	public var type:SkillType;
-	public var stat:StatType;
+	public var stat:Null<StatType>;
 
-	public function new(type:SkillType, stat:StatType)
+	public function new(type:SkillType, stat:Null<StatType>)
 	{
 		this.type = type;
 		this.stat = stat;

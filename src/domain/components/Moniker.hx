@@ -19,7 +19,7 @@ class Moniker extends Component
 
 		if (equipped != null)
 		{
-			return '$baseName [${equipped.slot.name}]';
+			return '$baseName ${equipped.slotDisplay}';
 		}
 
 		return baseName;

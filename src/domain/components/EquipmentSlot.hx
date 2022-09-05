@@ -15,16 +15,18 @@ class EquipmentSlot extends Component
 	public var name:String;
 	public var slotKey:String;
 	public var slotType:EquipmentSlotType;
+	public var isPrimary:Bool;
 	public var content(get, never):Entity;
 	public var isEmpty(get, never):Bool;
 	public var displayName(get, never):String;
 	public var contentDisplay(get, never):String;
 
-	public function new(name:String, slotKey:String, slotType:EquipmentSlotType)
+	public function new(name:String, slotKey:String, slotType:EquipmentSlotType, isPrimary:Bool = false)
 	{
 		this.name = name;
 		this.slotKey = slotKey;
 		this.slotType = slotType;
+		this.isPrimary = isPrimary;
 		addHandler(QuerySkillModEvent, (evt) -> onQuerySkillMod(cast evt));
 	}
 
@@ -50,29 +52,62 @@ class EquipmentSlot extends Component
 
 		var c = content;
 		_contentId = '';
+		var equipped = c.get(IsEquipped);
+		trace('unequip', c.get(Moniker));
+
+		if (equipped.extraSlotKey != null)
+		{
+			if (equipped.extraSlot == this)
+			{
+				equipped.slot.unequip();
+			}
+			else
+			{
+				equipped.extraSlot.unequip();
+			}
+		}
 
 		c.remove(IsEquipped);
 
 		return true;
 	}
 
+	public function unequipSecondary()
+	{
+		_contentId = '';
+		trace('unequip secondary');
+	}
+
+	public function equipSecondary(equipment:Entity)
+	{
+		unequip();
+		_contentId = equipment.id;
+	}
+
 	public function equip(equipment:Entity)
 	{
+		unequip();
+		var eq = equipment.get(Equipment);
+		var extraSlotKey:String = null;
+
+		if (eq.extraSlotTypes.length > 0)
+		{
+			var extraSlot = entity.getAll(EquipmentSlot)
+				.find((s) -> eq.extraSlotTypes.contains(s.slotType) && s.slotKey != slotKey);
+
+			extraSlotKey = extraSlot.slotKey;
+			extraSlot.equipSecondary(equipment);
+		}
+
 		equipment.get(Loot).take(entity);
-		equipment.add(new IsEquipped(entity.id, slotKey));
+		equipment.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
+
 		_contentId = equipment.id;
 	}
 
 	function get_content():Entity
 	{
 		return entity.registry.getEntity(_contentId);
-	}
-
-	function set_content(value:Entity):Entity
-	{
-		_contentId = value == null ? '' : value.id;
-
-		return value;
 	}
 
 	function get_isEmpty():Bool

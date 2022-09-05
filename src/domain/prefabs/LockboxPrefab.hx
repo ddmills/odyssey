@@ -26,7 +26,7 @@ class LockboxPrefab extends Prefab
 
 		lockbox.add(inventory);
 
-		inventory.addLoot(Spawner.Spawn(PISTOL));
+		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER));
 
 		return lockbox;
 	}

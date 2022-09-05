@@ -17,11 +17,13 @@ class Spawner
 		prefabs.set(CACTUS, new CactusPrefab());
 		prefabs.set(CHEST, new ChestPrefab());
 		prefabs.set(LOCKBOX, new LockboxPrefab());
-		prefabs.set(PISTOL, new PistolPrefab());
+		prefabs.set(NAVY_REVOLVER, new NavyRevoloverPrefab());
+		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
 		prefabs.set(STICK, new StickPrefab());
 		prefabs.set(PONCHO, new PonchoPrefab());
 		prefabs.set(DUSTER, new DusterPrefab());
+		prefabs.set(LONG_JOHNS, new LongJohnsPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

@@ -34,7 +34,7 @@ class ChunkGen
 			}
 			else if (r.bool(.02))
 			{
-				var items:Array<SpawnableType> = [CHEST, LOCKBOX, PISTOL, PONCHO, DUSTER];
+				var items:Array<SpawnableType> = [CHEST, LOCKBOX, NAVY_REVOLVER, RIFLE, PONCHO, DUSTER, LONG_JOHNS];
 				var loot = r.pick(items);
 				Spawner.Spawn(loot, pos);
 			}
