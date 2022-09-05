@@ -4,6 +4,6 @@ class UnarmedSkill extends Skill
 {
 	public function new()
 	{
-		super(SKILL_UNARMED, GRIT);
+		super(SKILL_UNARMED, [GRIT, FINESSE]);
 	}
 }

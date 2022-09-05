@@ -21,4 +21,9 @@ class RandExtensions
 	{
 		return Math.floor(r.rand() * array.length);
 	}
+
+	public static function roll(r:hxd.Rand, faces:Int, mod:Int = 0):Int
+	{
+		return r.integer(1, faces + 1) + mod;
+	}
 }

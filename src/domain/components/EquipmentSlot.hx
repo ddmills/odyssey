@@ -1,6 +1,8 @@
 package domain.components;
 
 import data.EquipmentSlotType;
+import data.WeaponFamilyType;
+import domain.events.MeleeEvent;
 import domain.events.QuerySkillModEquippedEvent;
 import domain.events.QuerySkillModEvent;
 import ecs.Component;
@@ -16,18 +18,39 @@ class EquipmentSlot extends Component
 	public var slotKey:String;
 	public var slotType:EquipmentSlotType;
 	public var isPrimary:Bool;
+	public var defaultWpn:WeaponFamilyType;
 	public var content(get, never):Entity;
 	public var isEmpty(get, never):Bool;
+	public var isExtraSlot(get, never):Bool;
 	public var displayName(get, never):String;
 	public var contentDisplay(get, never):String;
 
-	public function new(name:String, slotKey:String, slotType:EquipmentSlotType, isPrimary:Bool = false)
+	public function new(name:String, slotKey:String, slotType:EquipmentSlotType, isPrimary:Bool = false, ?defaultWpn:WeaponFamilyType)
 	{
 		this.name = name;
 		this.slotKey = slotKey;
 		this.slotType = slotType;
 		this.isPrimary = isPrimary;
+		this.defaultWpn = defaultWpn;
 		addHandler(QuerySkillModEvent, (evt) -> onQuerySkillMod(cast evt));
+		addHandler(MeleeEvent, (evt) -> onMelee(cast evt));
+	}
+
+	private function onMelee(evt:MeleeEvent)
+	{
+		if (isEmpty)
+		{
+			if (defaultWpn != null)
+			{
+				trace('use default weapon!', defaultWpn);
+			}
+			return;
+		}
+
+		if (isPrimary && !isExtraSlot)
+		{
+			content.fireEvent(evt);
+		}
 	}
 
 	private function onQuerySkillMod(evt:QuerySkillModEvent)
@@ -53,7 +76,6 @@ class EquipmentSlot extends Component
 		var c = content;
 		_contentId = '';
 		var equipped = c.get(IsEquipped);
-		trace('unequip', c.get(Moniker));
 
 		if (equipped.extraSlotKey != null)
 		{
@@ -75,7 +97,6 @@ class EquipmentSlot extends Component
 	public function unequipSecondary()
 	{
 		_contentId = '';
-		trace('unequip secondary');
 	}
 
 	public function equipSecondary(equipment:Entity)
@@ -128,5 +149,16 @@ class EquipmentSlot extends Component
 		}
 
 		return '[${content.get(Moniker).baseName}]';
+	}
+
+	function get_isExtraSlot():Bool
+	{
+		if (isEmpty)
+		{
+			return false;
+		}
+
+		var equipped = content.get(IsEquipped);
+		return equipped.extraSlot == this;
 	}
 }

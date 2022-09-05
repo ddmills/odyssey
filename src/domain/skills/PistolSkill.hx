@@ -4,6 +4,6 @@ class PistolSkill extends Skill
 {
 	public function new()
 	{
-		super(SKILL_PISTOL, null);
+		super(SKILL_PISTOL, [GRIT, FINESSE]);
 	}
 }

@@ -4,3 +4,47 @@ Dragging
 - in Drag mode, it costs extra move
 - cannot attack
 - when you move, drag items follow
+
+Fighting
+
+Level up grants you +2 points to spend in Grit, Finesse, or Savvy. You start with zero.
+
+STATS:
+- Grit      = (STR + CON). Affects health. Damage focused items.
+- Finesse   = (DEX). Affects dodge. Accuracy focused items.
+- Savvy     = (CHA + INT + WIS). Affects social/surviving and instruments.
+
+SKILLS (combat):
+- Shotguns, cudgels = Grit
+- Rifles, Blades    = Finesse
+- Pistols, Unarmed  = Finesse OR Grit (higher of the two)
+- Dodge             = Finesse
+- Health            = Grit
+
+WEAPON MATH:
+- ToHit          = d6 + Weapon Skill + Weapon Accuracy Mod
+- Damage         = Weapon Dmg Die + Weapon Skill
+- AC             = d6 + Dodge Skill
+- If ToHit > AC, then deal Damage
+- Maximum Health = 20 + ((Lvl + Grit) * 10)
+
+NOTES:
+- Items can grant bonus to skills. I,E, boots can grant +1 Dodge,
+- a Duster can grant +3 "Health" skill (+30hp)
+- Some gloves can grant +2 Unarmed Skill (etc.)
+- Finesse-based will typically have higher accuracy
+- Grit-based will typically have higher base damage
+- Some items may be special (Whips, Lassos)
+
+Example:
+- Player has 3 Grit
+- Player has +2 ShotgunSkill from hat
+- Player total ShotgunSkill is 3 + 2 = 5
+- Player is wielding a rusty shotgun with -2 accuracy and d10+0 dmg
+- Player ToHit = d6 + ShotgunSkill + Accuracy = d6 + (5 - 2) = = d6 + 3
+- Player Damage = d10 + ShotgunSkill = d10 + 5
+- Enemy has 2 Finesse
+- Enemy has +1 DodgeSkill from boots, +3 from Duster
+- Enemy total DodgeSkill is 2 + 1 + 3 = 6
+- hit = d6 + 3 > 6
+- dmg = d10 + 5

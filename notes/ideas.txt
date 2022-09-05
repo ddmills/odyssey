@@ -1,21 +1,31 @@
 Weapons
-- Lantern
-- Lasso
-- Dynamite
-- Revolvers
+
+- Pistols
 	- Navy Revolver
 	- Colt House Revolver
-- Pepper box
-- Long Rifles
+	- Pepper box
+- Rifles
+	- Repeater
+	- Rolling Block Rifle
 - Shotguns
 	- Coach Gun
-- Bladed
+- Blades
 	- Pocket Knife
 	- Bowie Knife
+	- Butcher Knife
 	- Arkansas toothpick
 	- Bayonet
 	- Cutlass
-	- Butcher Knife
+- Cudgels
+	- Plank
+	- Stick
+	- Billy Club
+- Special
+	- Lasso
+	- Whip
+- Items
+	- Lantern
+	- Dynamite
 
 - 12-Pounder “Napoleon” Gun (Cannon)
 - Gatling Gun

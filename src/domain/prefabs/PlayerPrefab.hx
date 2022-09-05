@@ -31,10 +31,9 @@ class PlayerPrefab extends Prefab
 		player.add(new Inventory());
 		player.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
 		player.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
-		player.add(new EquipmentSlot('Right arm', 'armRight', EQ_SLOT_ARM));
-		player.add(new EquipmentSlot('Left arm', 'armLeft', EQ_SLOT_ARM));
 		player.add(new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true));
-		player.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND));
+		player.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, true));
+		player.add(new EquipmentSlot('Holster', 'holster', EQ_SLOT_HOLSTER));
 		player.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
 		player.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		player.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));

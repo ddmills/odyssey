@@ -4,6 +4,6 @@ class MaxHealthSkill extends Skill
 {
 	public function new()
 	{
-		super(SKILL_MAX_HEALTH, GRIT);
+		super(SKILL_MAX_HEALTH, [GRIT]);
 	}
 }

@@ -10,4 +10,5 @@ enum EquipmentSlotType
 	EQ_SLOT_ARM;
 	EQ_SLOT_HAND;
 	EQ_SLOT_TAIL;
+	EQ_SLOT_HOLSTER;
 }

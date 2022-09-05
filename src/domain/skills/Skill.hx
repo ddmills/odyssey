@@ -9,12 +9,12 @@ import ecs.Entity;
 class Skill
 {
 	public var type:SkillType;
-	public var stat:Null<StatType>;
+	public var stats:Array<StatType>;
 
-	public function new(type:SkillType, stat:Null<StatType>)
+	public function new(type:SkillType, stats:Array<StatType>)
 	{
 		this.type = type;
-		this.stat = stat;
+		this.stats = stats;
 	}
 
 	public function getModifiers(entity:Entity):Array<SkillModifier>
@@ -33,9 +33,15 @@ class Skill
 
 	public function compute(entity:Entity):Int
 	{
-		var stat = stat != null ? Stats.Get(entity, stat) : 0;
+		var stat = getStat(entity);
+		var base = stat != null ? Stats.Get(entity, stat) : 0;
 		var modifier = getModifierSum(entity);
 
-		return stat + modifier;
+		return base + modifier;
+	}
+
+	function getStat(entity:Entity):Null<StatType>
+	{
+		return stats.max((s) -> Stats.Get(entity, s));
 	}
 }

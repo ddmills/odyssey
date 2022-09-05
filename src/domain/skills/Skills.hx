@@ -16,6 +16,9 @@ class Skills
 		skills.set(SKILL_CUDGEL, new CudgelSkill());
 		skills.set(SKILL_RIFLE, new RifleSkill());
 		skills.set(SKILL_PISTOL, new PistolSkill());
+		skills.set(SKILL_BLADE, new BladeSkill());
+		skills.set(SKILL_SHOTGUN, new ShotgunSkill());
+		skills.set(SKILL_DODGE, new DodgeSkill());
 	}
 
 	public static function get(type:SkillType):Skill

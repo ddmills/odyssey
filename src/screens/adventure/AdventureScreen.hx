@@ -7,10 +7,12 @@ import core.input.Command;
 import data.Cardinal;
 import domain.components.Blocker;
 import domain.components.Energy;
+import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Sprite;
+import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
@@ -103,10 +105,19 @@ class AdventureScreen extends Screen
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
 		var entities = world.getEntitiesAt(target);
+		var enemy = entities.find((e) -> e.has(IsEnemy));
+
+		if (enemy != null)
+		{
+			world.player.entity.fireEvent(new MeleeEvent(enemy, world.player.entity));
+			return;
+		}
+
 		if (entities.exists((e) -> e.has(Blocker) && !e.has(IsInventoried)))
 		{
 			return;
 		}
+
 		world.player.entity.add(new Move(target.asWorld(), .16, LINEAR));
 		var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_MOVE);
 		world.player.entity.get(Energy).consumeEnergy(cost);
