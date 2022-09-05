@@ -1,5 +1,6 @@
 package domain.components;
 
+import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.SpawnedEvent;
 import domain.skills.Skills;
@@ -10,6 +11,7 @@ class Health extends Component
 {
 	public var value(default, set):Int = 10;
 	public var max(get, never):Int;
+	public var corpsePrefab:SpawnableType;
 
 	public function new()
 	{

@@ -20,6 +20,7 @@ class Spawner
 		prefabs.set(NAVY_REVOLVER, new NavyRevoloverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
+		prefabs.set(SNAKE_CORPSE, new SnakeCorpsePrefab());
 		prefabs.set(STICK, new StickPrefab());
 		prefabs.set(PONCHO, new PonchoPrefab());
 		prefabs.set(DUSTER, new DusterPrefab());

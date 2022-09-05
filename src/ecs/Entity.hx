@@ -6,6 +6,7 @@ import common.util.Serial;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Sprite;
+import domain.terrain.Chunk;
 
 class Entity
 {
@@ -21,6 +22,7 @@ class Entity
 	public var pos(get, set):Coordinate;
 	public var x(get, set):Float;
 	public var y(get, set):Float;
+	public var chunk(get, never):Chunk;
 
 	private var components:Map<String, Array<Component>>;
 
@@ -54,6 +56,7 @@ class Entity
 				remove(c);
 			}
 		}
+		chunk.removeEntity(this);
 		registry.unregisterEntity(this);
 	}
 
@@ -245,5 +248,10 @@ class Entity
 	{
 		set_pos(new Coordinate(_x, value, WORLD));
 		return _y;
+	}
+
+	function get_chunk():Chunk
+	{
+		return Game.instance.world.chunks.getChunkById(pos.toChunkIdx());
 	}
 }

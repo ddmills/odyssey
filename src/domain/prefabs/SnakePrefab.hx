@@ -24,6 +24,8 @@ class SnakePrefab extends Prefab
 		snake.add(new Moniker('Rattlesnake'));
 		snake.add(new EquipmentSlot('head', 'face', EQ_SLOT_FACE, true));
 
+		snake.get(Health).corpsePrefab = SNAKE_CORPSE;
+
 		return snake;
 	}
 }

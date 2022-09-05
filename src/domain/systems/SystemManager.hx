@@ -8,6 +8,7 @@ class SystemManager
 	public var movement(default, null):MovementSystem;
 	public var sprites(default, null):SpriteSystem;
 	public var vision(default, null):VisionSystem;
+	public var death(default, null):DeathSystem;
 
 	public function new() {}
 
@@ -17,6 +18,7 @@ class SystemManager
 		movement = new MovementSystem();
 		sprites = new SpriteSystem();
 		vision = new VisionSystem();
+		death = new DeathSystem();
 	}
 
 	public function update(frame:Frame)
@@ -25,5 +27,6 @@ class SystemManager
 		movement.update(frame);
 		sprites.update(frame);
 		vision.update(frame);
+		death.update(frame);
 	}
 }
