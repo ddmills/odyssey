@@ -14,4 +14,6 @@ enum SpawnableType
 	STICK;
 	DUSTER;
 	LONG_JOHNS;
+	BULLET;
+	BLOOD_SPATTER;
 }

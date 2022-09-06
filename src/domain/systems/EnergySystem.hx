@@ -2,8 +2,10 @@ package domain.systems;
 
 import core.Frame;
 import data.EnergyActionType;
+import domain.components.Bullet;
 import domain.components.Energy;
 import domain.components.IsPlayer;
+import domain.components.Move;
 import domain.components.Stats;
 import domain.skills.Skills;
 import ecs.Entity;
@@ -15,12 +17,16 @@ class EnergySystem extends System
 	public var isPlayersTurn(default, null):Bool;
 
 	var query:Query;
+	var bullets:Query;
 
 	public function new()
 	{
 		isPlayersTurn = false;
 		query = new Query({
 			all: [Energy]
+		});
+		bullets = new Query({
+			all: [Bullet]
 		});
 	}
 
@@ -62,6 +68,11 @@ class EnergySystem extends System
 			if (entity.has(IsPlayer))
 			{
 				isPlayersTurn = true;
+				break;
+			}
+			else if (bullets.size > 0 && !game.commands.hasNext())
+			{
+				isPlayersTurn = false;
 				break;
 			}
 			else

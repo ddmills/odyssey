@@ -26,7 +26,7 @@ class PlayerPrefab extends Prefab
 		player.add(sprite);
 		player.add(new IsPlayer());
 		player.add(new Energy());
-		player.add(new Vision(6, 2));
+		player.add(new Vision(12, 2));
 		player.add(new Moniker('Cowboy'));
 		player.add(new Inventory());
 		player.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));

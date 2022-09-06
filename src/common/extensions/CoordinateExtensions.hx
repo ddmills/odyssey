@@ -1,6 +1,7 @@
 package common.extensions;
 
 import common.struct.Coordinate;
+import common.struct.FloatPoint;
 import common.util.Projection;
 import core.Game;
 
@@ -192,7 +193,7 @@ class CoordinateExtensions
 		return Math.sqrt(lengthSq(a));
 	}
 
-	static public inline function normalized(a:Coordinate):{x:Float, y:Float}
+	static public inline function normalized(a:Coordinate):FloatPoint
 	{
 		var k = lengthSq(a);
 		if (k < hxd.Math.EPSILON)
@@ -218,7 +219,7 @@ class CoordinateExtensions
 	/**
 	 * Returns normalized vector from a to b
 	**/
-	static public inline function direction(a:Coordinate, b:Coordinate):{x:Float, y:Float}
+	static public inline function direction(a:Coordinate, b:Coordinate):FloatPoint
 	{
 		return b.sub(a).normalized();
 	}

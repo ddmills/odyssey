@@ -45,6 +45,7 @@ class TileResources
 	public static var PONCHO:Tile;
 	public static var DUSTER:Tile;
 	public static var LONG_JOHNS:Tile;
+	public static var BLOOD_SPATTER:Tile;
 
 	public static function Init()
 	{
@@ -93,5 +94,6 @@ class TileResources
 		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
 		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
 		LONG_JOHNS = hxd.Res.tiles.scroll.longjohns.toTile();
+		BLOOD_SPATTER = hxd.Res.tiles.scroll.blood_spatter_1.toTile();
 	}
 }

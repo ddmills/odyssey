@@ -16,9 +16,11 @@ import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
 import screens.cursor.CursorScreen;
+import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
+import screens.shooting.ShootingScreen;
 
 class AdventureScreen extends Screen
 {
@@ -62,7 +64,7 @@ class AdventureScreen extends Screen
 		}
 	}
 
-	function handle(command:Command):Bool
+	function handle(command:Command)
 	{
 		switch (command.type)
 		{
@@ -88,17 +90,17 @@ class AdventureScreen extends Screen
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:
-				game.screens.push(new CursorScreen());
+				game.screens.push(new LookScreen());
 			case CMD_CONFIRM:
 				onInteract(world.player.pos);
 			case CMD_INVENTORY:
 				game.screens.push(new InventoryScreen(world.player.entity, world.player.entity));
 			case CMD_EQUIPMENT:
 				game.screens.push(new EquipmentScreen(world.player.entity));
+			case CMD_SHOOT:
+				game.screens.push(new ShootingScreen(world.player.entity));
 			case _:
 		}
-
-		return true;
 	}
 
 	private function move(dir:Cardinal)

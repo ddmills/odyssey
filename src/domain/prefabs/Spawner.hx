@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
 import domain.events.SpawnedEvent;
+import domain.prefabs.BloodSpatterPrefab.BloodSplatterPrefab;
 
 class Spawner
 {
@@ -25,6 +26,8 @@ class Spawner
 		prefabs.set(PONCHO, new PonchoPrefab());
 		prefabs.set(DUSTER, new DusterPrefab());
 		prefabs.set(LONG_JOHNS, new LongJohnsPrefab());
+		prefabs.set(BULLET, new BulletPrefab());
+		prefabs.set(BLOOD_SPATTER, new BloodSplatterPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

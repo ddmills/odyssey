@@ -10,13 +10,11 @@ import data.Cardinal;
 import data.TileResources;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
-import domain.components.Moniker;
 import domain.events.QueryInteractionsEvent;
 import ecs.Entity;
 import h2d.Bitmap;
 import h2d.Object;
 import screens.entitySelect.EntitySelectScreen;
-import screens.listSelect.ListSelectScreen;
 import shaders.SpriteShader;
 
 typedef TargetIndicator =

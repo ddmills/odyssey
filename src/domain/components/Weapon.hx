@@ -2,10 +2,9 @@ package domain.components;
 
 import data.WeaponFamilyType;
 import domain.events.MeleeEvent;
+import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Component;
-import hxd.Rand;
-import hxd.res.Sound;
 
 class Weapon extends Component
 {
@@ -19,11 +18,18 @@ class Weapon extends Component
 	{
 		this.family = family;
 		addHandler(MeleeEvent, (evt) -> onMelee(cast evt));
+		addHandler(ShootEvent, (evt) -> onShoot(cast evt));
 	}
 
 	public function onMelee(evt:MeleeEvent)
 	{
 		Weapons.Get(family).doMelee(evt.attacker, evt.defender, this);
+		evt.isHandled = true;
+	}
+
+	public function onShoot(evt:ShootEvent)
+	{
+		Weapons.Get(family).doRange(evt.attacker, evt.target, this);
 		evt.isHandled = true;
 	}
 }

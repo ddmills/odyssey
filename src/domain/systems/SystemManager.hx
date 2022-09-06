@@ -9,12 +9,14 @@ class SystemManager
 	public var sprites(default, null):SpriteSystem;
 	public var vision(default, null):VisionSystem;
 	public var death(default, null):DeathSystem;
+	public var bullets(default, null):BulletSystem;
 
 	public function new() {}
 
 	public function initialize()
 	{
 		energy = new EnergySystem();
+		bullets = new BulletSystem();
 		movement = new MovementSystem();
 		sprites = new SpriteSystem();
 		vision = new VisionSystem();
@@ -28,5 +30,6 @@ class SystemManager
 		movement.update(frame);
 		vision.update(frame);
 		sprites.update(frame);
+		bullets.update(frame);
 	}
 }

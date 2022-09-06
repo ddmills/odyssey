@@ -5,10 +5,9 @@ import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
+import core.input.Command;
 import data.Cardinal;
 import screens.console.ConsoleScreen;
-import screens.cursor.renderer.CursorRenderer;
-import screens.cursor.renderer.LookCursorRenderer;
 
 typedef CursorRenderOpts =
 {
@@ -21,31 +20,31 @@ class CursorScreen extends Screen
 {
 	public var start:Coordinate;
 	public var target:Coordinate;
-	public var renderer:CursorRenderer;
 
 	public function new()
 	{
 		inputDomain = INPUT_DOMAIN_DEFAULT;
 		start = world.player.pos.floor();
 		target = world.player.pos.floor();
-		renderer = new LookCursorRenderer();
 	}
 
 	public override function update(frame:Frame)
 	{
-		renderer.render({
+		// TODO remove duplication with adventure screen
+		render({
 			start: start,
 			end: target,
 			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
 		});
-		renderer.update(frame);
 		world.updateSystems();
-		handleInput();
-	}
-
-	public override function onDestroy()
-	{
-		renderer.cleanup();
+		if (world.systems.energy.isPlayersTurn)
+		{
+			var cmd = game.commands.peek();
+			if (cmd != null)
+			{
+				handleInput(game.commands.next());
+			}
+		}
 	}
 
 	public override function onMouseMove(pos:Coordinate, previous:Coordinate)
@@ -58,15 +57,10 @@ class CursorScreen extends Screen
 		target = target.add(dir.toOffset().asWorld());
 	}
 
-	private function handleInput()
+	function render(opts:CursorRenderOpts) {}
+
+	private function handleInput(command:Command)
 	{
-		var command = game.commands.next();
-
-		if (command == null)
-		{
-			return;
-		}
-
 		switch (command.type)
 		{
 			case CMD_MOVE_NW:

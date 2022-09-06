@@ -1,10 +1,14 @@
 package domain.components;
 
+import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Game;
+import data.Cardinal;
 import data.SoundResources;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.SpawnedEvent;
+import domain.prefabs.Spawner;
 import domain.skills.Skills;
 import ecs.Component;
 import hxd.Rand;
@@ -45,12 +49,9 @@ class Health extends Component
 			ac = 0;
 		}
 
-		var critTxt = evt.attack.isCritical ? '!' : '';
-		trace('attack (${evt.attack.damage}${critTxt}) ${evt.attack.toHit} >= $ac');
 		if (evt.attack.toHit >= ac)
 		{
 			value -= evt.attack.damage;
-			trace('HP $value/$max');
 			if (entity.has(IsPlayer) || evt.attack.attacker.has(IsPlayer))
 			{
 				var sound = r.pick([
@@ -60,7 +61,16 @@ class Health extends Component
 				]);
 				Game.instance.sound.play(sound);
 			}
+			makeBloodEffect(evt.attack.attacker.pos);
 		}
+	}
+
+	private function makeBloodEffect(source:Coordinate)
+	{
+		var degrees = entity.pos.sub(source).angle().toDegrees();
+		var cardinal = Cardinal.fromDegrees(degrees);
+		var spot = cardinal.toOffset().asWorld();
+		Spawner.Spawn(BLOOD_SPATTER, entity.pos.add(spot));
 	}
 
 	function set_value(value:Int):Int

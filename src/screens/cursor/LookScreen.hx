@@ -1,4 +1,4 @@
-package screens.cursor.renderer;
+package screens.cursor;
 
 import common.util.Timeout;
 import core.Frame;
@@ -11,7 +11,7 @@ import haxe.EnumTools.EnumValueTools;
 import screens.cursor.CursorScreen.CursorRenderOpts;
 import shaders.SpriteShader;
 
-class LookCursorRenderer extends CursorRenderer
+class LookScreen extends CursorScreen
 {
 	var ob:h2d.Object;
 	var lineOb:h2d.Object;
@@ -27,6 +27,7 @@ class LookCursorRenderer extends CursorRenderer
 
 	public function new()
 	{
+		super();
 		targetShader = new SpriteShader(COLOR_NEUTRAL);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
@@ -35,41 +36,38 @@ class LookCursorRenderer extends CursorRenderer
 		targetBm = new Bitmap(TileResources.CURSOR, ob);
 		targetBm.addShader(targetShader);
 		renderText();
-		game.render(OVERLAY, ob);
-		game.render(HUD, targetText);
+
 		timeout = new Timeout(.25);
 		timeout.onComplete = blink;
 	}
 
-	private function blink()
+	override function onEnter()
 	{
-		timeout.reset();
-		targetBm.visible = isBlinking ? !targetBm.visible : true;
+		super.onEnter();
+		game.render(OVERLAY, ob);
+		game.render(HUD, targetText);
 	}
 
-	public override function update(frame:Frame)
-	{
-		timeout.update();
-	}
-
-	public override function cleanup()
+	public override function onDestroy()
 	{
 		ob.remove();
 		targetText.remove();
 	}
 
-	public override function render(opts:CursorRenderOpts)
+	override function render(opts:CursorRenderOpts)
 	{
 		var end = opts.end.toPx();
 
-		if (end.x != targetBm.x || end.y != targetBm.y)
+		if (end.x == targetBm.x && end.y == targetBm.y)
 		{
-			targetBm.x = end.x;
-			targetBm.y = end.y;
-			targetBm.visible = true;
-			timeout.reset();
-			lineOb.removeChildren();
+			return;
 		}
+
+		targetBm.x = end.x;
+		targetBm.y = end.y;
+		targetBm.visible = true;
+		timeout.reset();
+		lineOb.removeChildren();
 
 		opts.line.each((p, idx) ->
 		{
@@ -122,6 +120,18 @@ class LookCursorRenderer extends CursorRenderer
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;
+	}
+
+	override function update(frame:Frame)
+	{
+		timeout.update();
+		super.update(frame);
+	}
+
+	private function blink()
+	{
+		timeout.reset();
+		targetBm.visible = isBlinking ? !targetBm.visible : true;
 	}
 
 	private function renderText()

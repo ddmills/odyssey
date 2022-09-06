@@ -18,21 +18,21 @@ enum abstract Cardinal(Int) to Int from Int
 
 		switch val
 		{
-			case 0:
-				return NORTH;
 			case 1:
-				return NORTH_EAST;
+				return NORTH;
 			case 2:
-				return EAST;
+				return NORTH_EAST;
 			case 3:
-				return SOUTH_EAST;
+				return EAST;
 			case 4:
-				return SOUTH;
+				return SOUTH_EAST;
 			case 5:
-				return SOUTH_WEST;
+				return SOUTH;
 			case 6:
-				return WEST;
+				return SOUTH_WEST;
 			case 7:
+				return WEST;
+			case 0:
 				return NORTH_WEST;
 			case _:
 				return WEST;
