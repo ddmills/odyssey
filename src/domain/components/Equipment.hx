@@ -65,7 +65,7 @@ class Equipment extends Component
 			{
 				slot.unequip();
 				slot.equip(entity);
-				Game.instance.sound.play(equipSound);
+				Game.instance.audio.play(equipSound);
 				Game.instance.screens.pop();
 			},
 		}));
@@ -79,7 +79,7 @@ class Equipment extends Component
 	private function onUnequip(evt:UnequipEvent)
 	{
 		unequip();
-		Game.instance.sound.play(unequipSound);
+		Game.instance.audio.play(unequipSound);
 	}
 
 	private function onDrop(evt:DropEvent)

@@ -2,7 +2,7 @@ package core;
 
 import hxd.res.Sound;
 
-class SoundManager
+class AudioManager
 {
 	public function new()
 	{

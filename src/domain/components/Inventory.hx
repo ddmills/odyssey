@@ -111,7 +111,7 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).overrideTile(openedTile);
 		}
-		Game.instance.sound.play(openedSound);
+		Game.instance.audio.play(openedSound);
 	}
 
 	private function executeCloseEffects()
@@ -120,6 +120,6 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).clearTileOverride();
 		}
-		Game.instance.sound.play(closedSound);
+		Game.instance.audio.play(closedSound);
 	}
 }

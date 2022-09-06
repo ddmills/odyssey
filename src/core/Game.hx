@@ -26,7 +26,7 @@ class Game
 	public var camera(default, null):Camera;
 	public var window(get, never):hxd.Window;
 	public var screens(default, null):ScreenManager;
-	public var sound(default, null):SoundManager;
+	public var audio(default, null):AudioManager;
 	public var input(default, null):InputManager;
 	public var commands(default, null):CommandManager;
 	public var console(default, null):Console;
@@ -41,7 +41,7 @@ class Game
 
 		frame = new Frame();
 		screens = new ScreenManager();
-		sound = new SoundManager();
+		audio = new AudioManager();
 		layers = new RenderLayerManager();
 		camera = new Camera();
 		input = new InputManager();

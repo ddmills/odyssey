@@ -18,7 +18,7 @@ class BulletSystem extends System
 			var sound = e.get(Bullet).impactSound;
 			if (sound != null)
 			{
-				game.sound.play(sound);
+				game.audio.play(sound);
 			}
 			e.destroy();
 		});

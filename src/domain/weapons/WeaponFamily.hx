@@ -61,7 +61,7 @@ class WeaponFamily
 			}
 
 			var shot = getSound();
-			Game.instance.sound.play(shot);
+			Game.instance.audio.play(shot);
 
 			var bullet = Spawner.Spawn(BULLET, attack.attacker.pos);
 			bullet.add(new Move(target.asWorld(), .6, LINEAR));

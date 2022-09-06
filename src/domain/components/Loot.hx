@@ -43,18 +43,18 @@ class Loot extends Component
 
 		targetInventory.addLoot(entity);
 
-		Game.instance.sound.play(pickupSound);
+		Game.instance.audio.play(pickupSound);
 	}
 
 	private function onDrop(evt:DropEvent)
 	{
 		container.dropLoot(entity, evt.pos);
-		Game.instance.sound.play(dropSound);
+		Game.instance.audio.play(dropSound);
 	}
 
 	private function onTake(evt:TakeEvent)
 	{
-		Game.instance.sound.play(pickupSound);
+		Game.instance.audio.play(pickupSound);
 		take(evt.taker);
 	}
 
