@@ -2,9 +2,12 @@ package domain.systems;
 
 import common.struct.Coordinate;
 import core.Frame;
+import domain.components.Energy;
+import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Moved;
+import domain.components.Sprite;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
@@ -50,9 +53,14 @@ class MovementSystem extends System
 		var move = entity.get(Move);
 		if (move != null)
 		{
-			entity.pos = move.goal;
 			entity.remove(Move);
-			entity.add(new Moved());
+			entity.pos = move.goal;
+
+			if (entity.x.floor() != move.goal.x.floor() || entity.y.floor() != move.goal.y.floor())
+			{
+				entity.add(new Moved());
+			}
+			entity.add(new MoveComplete());
 			return true;
 		}
 		return false;
@@ -62,6 +70,15 @@ class MovementSystem extends System
 	{
 		for (entity in completed)
 		{
+			if (entity.has(Sprite))
+			{
+				entity.get(Sprite).background = game.CLEAR_COLOR;
+			}
+			if (entity.has(IsPlayer))
+			{
+				var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
+				entity.get(Energy).consumeEnergy(cost);
+			}
 			entity.remove(MoveComplete);
 		}
 		for (entity in moved)
@@ -74,6 +91,11 @@ class MovementSystem extends System
 			var start = entity.pos;
 			var move = entity.get(Move);
 			var delta = getDelta(start, move.goal, move.speed, move.tween, frame.tmod);
+
+			if (entity.has(Sprite))
+			{
+				entity.get(Sprite).background = null;
+			}
 
 			var deltaSq = delta.lengthSq();
 			var distanceSq = start.distanceSq(move.goal, WORLD);

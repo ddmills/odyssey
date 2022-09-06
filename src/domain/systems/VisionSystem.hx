@@ -21,11 +21,6 @@ class VisionSystem extends System
 
 	public function new()
 	{
-		// vision needs to be recomputed if any of the following happens:
-		// - entity with Vision spawns
-		// - entity with Vision removed
-		// - entity Moved
-
 		var moved = new Query({
 			all: [Moved],
 			none: [IsInventoried],

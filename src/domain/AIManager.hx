@@ -32,11 +32,9 @@ class AIManager
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 
-		entity.add(new Move(goal, .1, LINEAR));
-
 		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
-
 		entity.get(Energy).consumeEnergy(cost);
+		entity.add(new Move(goal, .2, LINEAR));
 	}
 
 	public function tryAttackingNearby(entity:Entity):Bool

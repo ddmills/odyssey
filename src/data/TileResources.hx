@@ -8,6 +8,10 @@ class TileResources
 	public static var GRASS_2:Tile;
 	public static var GRASS_3:Tile;
 	public static var GRASS_4:Tile;
+	public static var SAND_1:Tile;
+	public static var SAND_2:Tile;
+	public static var SAND_3:Tile;
+	public static var SAND_4:Tile;
 	public static var HERO:Tile;
 	public static var SNAKE_1:Tile;
 	public static var SNAKE_CORPSE:Tile;
@@ -97,5 +101,11 @@ class TileResources
 		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
 		LONG_JOHNS = hxd.Res.tiles.scroll.longjohns.toTile();
 		BLOOD_SPATTER = hxd.Res.tiles.scroll.blood_spatter_1.toTile();
+
+		var sands = hxd.Res.tiles.scroll.sand.toTile().divide(4, 1);
+		SAND_1 = sands[0][0];
+		SAND_2 = sands[0][1];
+		SAND_3 = sands[0][2];
+		SAND_4 = sands[0][3];
 	}
 }

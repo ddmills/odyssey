@@ -1,5 +1,7 @@
 package screens.adventure;
 
+import common.algorithm.AStar;
+import common.algorithm.Distance;
 import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
@@ -11,11 +13,11 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.MoveComplete;
+import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
-import screens.cursor.CursorScreen;
 import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
@@ -41,11 +43,6 @@ class AdventureScreen extends Screen
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
 		clockText.text = world.clock.toString() + ' ' + world.player.pos.floor().toString();
-
-		if (world.player.entity.has(MoveComplete))
-		{
-			world.player.entity.get(Sprite).background = game.CLEAR_COLOR;
-		}
 
 		if (world.systems.energy.isPlayersTurn)
 		{
@@ -103,6 +100,16 @@ class AdventureScreen extends Screen
 		}
 	}
 
+	override function onMouseDown(pos:Coordinate)
+	{
+		var p = astar(pos);
+		if (p.success)
+		{
+			world.player.entity.remove(Path);
+			world.player.entity.add(new Path(p.path));
+		}
+	}
+
 	private function move(dir:Cardinal)
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
@@ -120,10 +127,7 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		world.player.entity.add(new Move(target.asWorld(), .16, LINEAR));
-		var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_MOVE);
-		world.player.entity.get(Energy).consumeEnergy(cost);
-		world.player.entity.get(Sprite).background = null;
+		world.player.entity.add(new Move(target.asWorld(), .15, LINEAR));
 	}
 
 	private function onInteract(pos:Coordinate)
@@ -140,5 +144,30 @@ class AdventureScreen extends Screen
 		clockText.x = 16;
 		clockText.y = 16;
 		game.render(HUD, clockText);
+	}
+
+	function astar(goal:Coordinate)
+	{
+		return AStar.GetPath({
+			start: world.player.pos.toWorld().toIntPoint(),
+			goal: goal.toWorld().toIntPoint(),
+			allowDiagonals: true,
+			cost: (a, b) ->
+			{
+				if (world.map.isOutOfBounds(b.x, b.y))
+				{
+					return Math.POSITIVE_INFINITY;
+				}
+
+				var entities = world.getEntitiesAt(b);
+
+				if (entities.exists((e) -> e.has(Blocker) || e.has(IsEnemy)))
+				{
+					return Math.POSITIVE_INFINITY;
+				}
+
+				return Distance.Diagonal(a, b);
+			}
+		});
 	}
 }

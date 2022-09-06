@@ -1,7 +1,5 @@
 - click to move
-	- in play screen
-	- when mouse moves, show path to mouse if valid
-	- on keyboard input, hide path to mouse
+	- [x] in play screen
 - ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
@@ -15,3 +13,5 @@
 	- [ ] hit bump fx
 	- [ ] hit color fx (blink)
 	- [ ] directional blood sprite
+- levelling
+	- [ ] screen to level up

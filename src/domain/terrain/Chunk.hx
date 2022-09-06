@@ -138,18 +138,35 @@ class Chunk
 
 	function getTerrainBitmap(wx:Float, wy:Float, type:TerrainType):Bitmap
 	{
+		var sands = [
+			TileResources.SAND_1,
+			TileResources.SAND_2,
+			TileResources.SAND_3,
+			TileResources.SAND_4,
+		];
 		var grasses = [
 			TileResources.GRASS_1,
 			TileResources.GRASS_2,
 			TileResources.GRASS_3,
 			TileResources.GRASS_4,
 		];
-		var colors = [0x47423a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
 
-		var tile = rand.pick(grasses);
-		var bm = new h2d.Bitmap(tile);
+		var bm = new h2d.Bitmap();
 
-		bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
+		if (type == GRASS)
+		{
+			var colors = [0x47423a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
+			bm.tile = rand.pick(grasses);
+			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
+		}
+
+		if (type == SAND)
+		{
+			var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
+			bm.tile = rand.pick(sands);
+			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
+		}
+
 		bm.visible = false;
 
 		return bm;
