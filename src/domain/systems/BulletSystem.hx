@@ -15,6 +15,11 @@ class BulletSystem extends System
 
 		query.onEntityAdded((e) ->
 		{
+			var sound = e.get(Bullet).impactSound;
+			if (sound != null)
+			{
+				game.sound.play(sound);
+			}
 			e.destroy();
 		});
 	}

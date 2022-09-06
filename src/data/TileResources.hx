@@ -41,6 +41,7 @@ class TileResources
 	public static var CHEST_SMALL_CLOSED:Tile;
 
 	public static var NAVY_REVOLVER:Tile;
+	public static var COACH_GUN:Tile;
 	public static var RIFLE:Tile;
 	public static var PONCHO:Tile;
 	public static var DUSTER:Tile;
@@ -91,6 +92,7 @@ class TileResources
 
 		RIFLE = hxd.Res.tiles.scroll.rifle.toTile();
 		NAVY_REVOLVER = hxd.Res.tiles.scroll.pistol.toTile();
+		COACH_GUN = hxd.Res.tiles.scroll.shotgun.toTile();
 		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
 		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
 		LONG_JOHNS = hxd.Res.tiles.scroll.longjohns.toTile();

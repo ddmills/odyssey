@@ -20,7 +20,7 @@ class DusterPrefab extends Prefab
 		duster.add(new Equipment([EQ_SLOT_BODY]));
 
 		var skills = new EquippedSkillMod();
-		skills.set(SKILL_MAX_HEALTH, 2);
+		skills.set(SKILL_FORTITUDE, 2);
 
 		duster.add(skills);
 

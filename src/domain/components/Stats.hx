@@ -38,4 +38,20 @@ class Stats extends Component
 
 		return stats.get(type);
 	}
+
+	public static function GetAll(e:Entity):Array<{stat:StatType, value:Int}>
+	{
+		var stats = e.get(Stats);
+
+		if (stats == null)
+		{
+			return [];
+		}
+
+		return [
+			{stat: GRIT, value: stats.grit},
+			{stat: SAVVY, value: stats.savvy},
+			{stat: FINESSE, value: stats.finesse},
+		];
+	}
 }

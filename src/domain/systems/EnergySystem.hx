@@ -87,7 +87,7 @@ class EnergySystem extends System
 	{
 		if (type == ACT_MOVE)
 		{
-			var speed = Skills.getValue(SKILL_SPEED, entity);
+			var speed = Skills.GetValue(SKILL_SPEED, entity);
 
 			return 80 - (speed * 10);
 		}

@@ -23,6 +23,27 @@ class SoundResources
 	public static var IMPACT_FLESH_2:Sound;
 	public static var IMPACT_FLESH_3:Sound;
 
+	public static var RELOAD_CLIP_1:Sound;
+	public static var RELOAD_CLIP_2:Sound;
+	public static var RELOAD_CLIP_3:Sound;
+	public static var RELOAD_CLIP_4:Sound;
+
+	public static var SHOT_SHOTGUN_1:Sound;
+	public static var SHOT_SHOTGUN_2:Sound;
+	public static var SHOT_SHOTGUN_3:Sound;
+	public static var SHOT_SHOTGUN_4:Sound;
+
+	public static var SHOT_PISTOL_1:Sound;
+	public static var SHOT_PISTOL_2:Sound;
+
+	// public static var SHOT_PISTOL_3:Sound;
+	// public static var SHOT_PISTOL_4:Sound;
+	public static var SHOT_RIFLE_1:Sound;
+
+	// public static var SHOT_RIFLE_2:Sound;
+	// public static var SHOT_RIFLE_3:Sound;
+	// public static var SHOT_RIFLE_4:Sound;
+
 	public static function Init()
 	{
 		if (hxd.res.Sound.supportedFormat(OggVorbis))
@@ -45,6 +66,19 @@ class SoundResources
 			IMPACT_FLESH_1 = hxd.Res.sound.impact_flesh_1;
 			IMPACT_FLESH_2 = hxd.Res.sound.impact_flesh_2;
 			IMPACT_FLESH_3 = hxd.Res.sound.impact_flesh_3;
+
+			SHOT_SHOTGUN_1 = hxd.Res.sound.shot_shotgun_1;
+			SHOT_SHOTGUN_2 = hxd.Res.sound.shot_shotgun_2;
+			SHOT_SHOTGUN_3 = hxd.Res.sound.shot_shotgun_3;
+			SHOT_SHOTGUN_4 = hxd.Res.sound.shot_shotgun_4;
+			SHOT_PISTOL_1 = hxd.Res.sound.shot_pistol_1;
+			SHOT_PISTOL_2 = hxd.Res.sound.shot_pistol_2;
+			// SHOT_PISTOL_3 = hxd.Res.sound.shot_pistol_3;
+			// SHOT_PISTOL_4 = hxd.Res.sound.shot_pistol_4;
+			SHOT_RIFLE_1 = hxd.Res.sound.shot_rifle_1;
+			// SHOT_RIFLE_2 = hxd.Res.sound.shot_rifle_2;
+			// SHOT_RIFLE_3 = hxd.Res.sound.shot_rifle_3;
+			// SHOT_RIFLE_4 = hxd.Res.sound.shot_rifle_4;
 		}
 	}
 }

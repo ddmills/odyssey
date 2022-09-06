@@ -15,5 +15,6 @@ enum SpawnableType
 	DUSTER;
 	LONG_JOHNS;
 	BULLET;
+	COACH_GUN;
 	BLOOD_SPATTER;
 }

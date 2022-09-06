@@ -20,7 +20,7 @@ class LongJohnsPrefab extends Prefab
 		longJohns.add(new Loot());
 		longJohns.add(new Equipment([EQ_SLOT_BODY], [EQ_SLOT_LEGS]));
 		var skills = new EquippedSkillMod();
-		skills.set(SKILL_MAX_HEALTH, 2);
+		skills.set(SKILL_FORTITUDE, 2);
 		longJohns.add(skills);
 		longJohns.get(Equipment).equipSound = SoundResources.CLOTH_EQUIP_1;
 		longJohns.get(Equipment).unequipSound = SoundResources.CLOTH_UNEQUIP_1;

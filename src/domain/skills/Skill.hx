@@ -40,7 +40,7 @@ class Skill
 		return base + modifier;
 	}
 
-	function getStat(entity:Entity):Null<StatType>
+	public function getStat(entity:Entity):Null<StatType>
 	{
 		return stats.max((s) -> Stats.Get(entity, s));
 	}

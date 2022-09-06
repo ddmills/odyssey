@@ -4,12 +4,7 @@ import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
 import domain.components.Energy;
-import domain.prefabs.CactusPrefab;
-import domain.prefabs.ChestPrefab;
-import domain.prefabs.LockboxPrefab;
-import domain.prefabs.SnakePrefab;
 import domain.prefabs.Spawner;
-import domain.prefabs.StickPrefab;
 import hxd.Rand;
 
 class ChunkGen
@@ -34,7 +29,17 @@ class ChunkGen
 			}
 			else if (r.bool(.02))
 			{
-				var items:Array<SpawnableType> = [CHEST, LOCKBOX, NAVY_REVOLVER, RIFLE, PONCHO, DUSTER, LONG_JOHNS, SNAKE_CORPSE];
+				var items:Array<SpawnableType> = [
+					CHEST,
+					LOCKBOX,
+					NAVY_REVOLVER,
+					RIFLE,
+					PONCHO,
+					DUSTER,
+					LONG_JOHNS,
+					SNAKE_CORPSE,
+					COACH_GUN
+				];
 				var loot = r.pick(items);
 				Spawner.Spawn(loot, pos);
 			}

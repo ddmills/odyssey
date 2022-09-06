@@ -27,7 +27,7 @@ class Health extends Component
 
 	public function get_max():Int
 	{
-		var skill = Skills.getValue(SKILL_MAX_HEALTH, entity);
+		var skill = Skills.GetValue(SKILL_FORTITUDE, entity);
 		var level = 0;
 
 		return 10 + level * 10 + skill * 10;
@@ -41,7 +41,7 @@ class Health extends Component
 	private function onAttacked(evt:AttackedEvent)
 	{
 		var r = Rand.create();
-		var dodge = Skills.getValue(SKILL_DODGE, entity);
+		var dodge = Skills.GetValue(SKILL_DODGE, entity);
 		var ac = r.roll(6, dodge);
 
 		if (evt.attack.isCritical)
@@ -52,15 +52,6 @@ class Health extends Component
 		if (evt.attack.toHit >= ac)
 		{
 			value -= evt.attack.damage;
-			if (entity.has(IsPlayer) || evt.attack.attacker.has(IsPlayer))
-			{
-				var sound = r.pick([
-					SoundResources.IMPACT_FLESH_1,
-					SoundResources.IMPACT_FLESH_2,
-					SoundResources.IMPACT_FLESH_3
-				]);
-				Game.instance.sound.play(sound);
-			}
 			makeBloodEffect(evt.attack.attacker.pos);
 		}
 	}

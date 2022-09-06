@@ -3,9 +3,9 @@ Fighting
 Level up grants you +2 points to spend in Grit, Finesse, or Savvy. You start with zero.
 
 STATS:
-- Grit      = (STR + CON). Affects health. Damage focused items.
-- Finesse   = (DEX). Affects dodge. Accuracy focused items.
-- Savvy     = (CHA + INT + WIS). Affects social/surviving and instruments.
+- Grit      = Affects health. Damage focused items.
+- Finesse   = Affects dodge. Accuracy focused items.
+- Savvy     = Affects social/surviving and instruments.
 
 SKILLS (combat):
 - Shotguns, cudgels = Grit
@@ -14,14 +14,21 @@ SKILLS (combat):
 - Dodge             = Finesse
 - Health            = Grit
 
+WEAPONS:
+- Damage    = Damage die (i.e, d6, d10)
+- DamageMod = Bonus number added to the damage roll
+- Accuracy  = Bonus number added to the "toHit" roll
+- Family    = What type of weapon (i.e, "Cudgel", "Pistol")
+
 WEAPON MATH:
-- ToHit          = d6 + Weapon Skill + Weapon Accuracy Mod
+- ToHit          = d6 + WeaponSkill + Weapon Accuracy Mod
+- Dodge          = d6 + DodgeSkill
 - Damage         = Weapon Dmg Die + Weapon Skill
-- AC             = d6 + Dodge Skill
-- If ToHit > AC, then deal Damage
-- Maximum Health = 20 + ((Lvl + Grit) * 10)
+- If ToHit >= Dodge, then deal Damage
+- Maximum Health = 10 + ((Lvl + Grit) * 10)
 
 NOTES:
+- Rolling a "6" on your ToHit roll will be a critical (cannot be dodged)
 - Items can grant bonus to skills. I,E, boots can grant +1 Dodge,
 - a Duster can grant +3 "Health" skill (+30hp)
 - Some gloves can grant +2 Unarmed Skill (etc.)
@@ -33,15 +40,15 @@ Example:
 - Player has 3 Grit
 - Player has +2 ShotgunSkill from hat
 - Player total ShotgunSkill is 3 + 2 = 5
-- Player is wielding a rusty shotgun with -2 accuracy and d10+0 dmg
-- Player ToHit = d6 + ShotgunSkill + Accuracy = d6 + (5 - 2) = = d6 + 3
+- Player is wielding a rusty shotgun with -2 WeaponAccuracy and d10+0 dmg
+- Player ToHit = d6 + ShotgunSkill + WeaponAccuracy = d6 + (5 - 2) = d6 + 3
 - Player Damage = d10 + ShotgunSkill = d10 + 5
 - Enemy has 2 Finesse
 - Enemy has +1 DodgeSkill from boots, +3 from Duster
 - Enemy total DodgeSkill is 2 + 1 + 3 = 6
-- hit = d6 + 3 > 6
+- Enemy dodge = d6 + DodgeSkill = d6 + 6
+- hit? = (toHit >= dodge) = (d6 + 3) > (d6 + 6)
 - dmg = d10 + 5
-
 
 Dragging
 - on "Drag" command, ask for direction
@@ -49,6 +56,14 @@ Dragging
 - in Drag mode, it costs extra move
 - cannot attack
 - when you move, drag items follow
+
+
+Combat 2
+- stat values correlates to a number of d10 dice equal to its value (STR 3 equals 3d10)
+- each die that rolls to exceed a threshold value (which can be influenced, but starts at... 7?), each die that succesfully equals or exceeds the threshold generates a success.
+- the side with the most successes wins, if defender wins they take no damage, if attacker wins they inflict damage.
+- damage could be modified by the number of extra successes over the defender
+- weapons themselves might hold threshold altering effects (a pistol might give +1 to dodging, reducing dodging thresholds to a 6 instead of 7)
 
 Mounts
 

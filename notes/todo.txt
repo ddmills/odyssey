@@ -2,11 +2,16 @@
 	- in play screen
 	- when mouse moves, show path to mouse if valid
 	- on keyboard input, hide path to mouse
-	- when esc pressed, hide path to mouse
 - ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
 	- [x] once item selected
 	- [x] show item actions
 - attacking
-	- [ ] melee
+	- [ ] rifle cone
+	- [ ] add weapon range
+	- [ ] dual wield
+	- [ ] melee SFX
+	- [ ] hit bump fx
+	- [ ] hit color fx (blink)
+	- [ ] directional blood sprite
