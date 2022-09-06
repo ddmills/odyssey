@@ -4,6 +4,7 @@ import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
+import domain.components.Inventory;
 import domain.components.IsEnemy;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -22,9 +23,12 @@ class SnakePrefab extends Prefab
 		snake.add(new Stats(0, 1, 2));
 		snake.add(new IsEnemy());
 		snake.add(new Moniker('Rattlesnake'));
-		snake.add(new EquipmentSlot('head', 'face', EQ_SLOT_FACE, true));
+		snake.add(new Inventory());
+		snake.add(new EquipmentSlot('head', 'face', EQ_SLOT_HAND, true));
 
 		snake.get(Health).corpsePrefab = SNAKE_CORPSE;
+
+		snake.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
 
 		return snake;
 	}

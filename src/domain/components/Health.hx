@@ -1,5 +1,7 @@
 package domain.components;
 
+import core.Game;
+import data.SoundResources;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.SpawnedEvent;
@@ -49,6 +51,15 @@ class Health extends Component
 		{
 			value -= evt.attack.damage;
 			trace('HP $value/$max');
+			if (entity.has(IsPlayer) || evt.attack.attacker.has(IsPlayer))
+			{
+				var sound = r.pick([
+					SoundResources.IMPACT_FLESH_1,
+					SoundResources.IMPACT_FLESH_2,
+					SoundResources.IMPACT_FLESH_3
+				]);
+				Game.instance.sound.play(sound);
+			}
 		}
 	}
 

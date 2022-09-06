@@ -69,6 +69,11 @@ class IterableExtensions
 		return Lambda.array(it);
 	}
 
+	public static inline function flatten<A>(it:Iterable<Iterable<A>>):Array<A>
+	{
+		return Lambda.flatten(it);
+	}
+
 	public static inline function exists<T>(it:Iterable<T>, fn:(value:T) -> Bool):Bool
 	{
 		return Lambda.exists(it, fn);

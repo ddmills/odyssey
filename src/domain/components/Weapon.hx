@@ -5,6 +5,7 @@ import domain.events.MeleeEvent;
 import domain.weapons.Weapons;
 import ecs.Component;
 import hxd.Rand;
+import hxd.res.Sound;
 
 class Weapon extends Component
 {
@@ -23,5 +24,6 @@ class Weapon extends Component
 	public function onMelee(evt:MeleeEvent)
 	{
 		Weapons.Get(family).doMelee(evt.attacker, evt.defender, this);
+		evt.isHandled = true;
 	}
 }

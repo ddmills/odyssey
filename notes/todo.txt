@@ -4,7 +4,9 @@
 	- on keyboard input, hide path to mouse
 	- when esc pressed, hide path to mouse
 - ground interact
-	- press spacebar to interact with ground
-	- all ground items show in list
-	- once item selected
-	- show item actions
+	- [x] press spacebar to interact with ground
+	- [x] all ground items show in list
+	- [x] once item selected
+	- [x] show item actions
+- attacking
+	- [ ] melee

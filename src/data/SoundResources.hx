@@ -19,6 +19,10 @@ class SoundResources
 	public static var CLOTH_EQUIP_1:Sound;
 	public static var CLOTH_UNEQUIP_1:Sound;
 
+	public static var IMPACT_FLESH_1:Sound;
+	public static var IMPACT_FLESH_2:Sound;
+	public static var IMPACT_FLESH_3:Sound;
+
 	public static function Init()
 	{
 		if (hxd.res.Sound.supportedFormat(OggVorbis))
@@ -37,6 +41,10 @@ class SoundResources
 
 			CLOTH_EQUIP_1 = hxd.Res.sound.cloth_equip_1;
 			CLOTH_UNEQUIP_1 = hxd.Res.sound.cloth_unequip;
+
+			IMPACT_FLESH_1 = hxd.Res.sound.impact_flesh_1;
+			IMPACT_FLESH_2 = hxd.Res.sound.impact_flesh_2;
+			IMPACT_FLESH_3 = hxd.Res.sound.impact_flesh_3;
 		}
 	}
 }

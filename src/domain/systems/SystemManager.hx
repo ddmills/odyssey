@@ -23,10 +23,10 @@ class SystemManager
 
 	public function update(frame:Frame)
 	{
+		death.update(frame);
 		energy.update(frame);
 		movement.update(frame);
-		sprites.update(frame);
 		vision.update(frame);
-		death.update(frame);
+		sprites.update(frame);
 	}
 }
