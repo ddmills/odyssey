@@ -26,7 +26,7 @@ class SnakePrefab extends Prefab
 		snake.add(new Inventory());
 		snake.add(new EquipmentSlot('head', 'face', EQ_SLOT_HAND, true));
 
-		snake.get(Health).corpsePrefab = SNAKE_CORPSE;
+		snake.get(Health).corpsePrefab = CORPSE_SNAKE;
 
 		snake.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
 

@@ -13,5 +13,8 @@
 	- [ ] hit bump fx
 	- [ ] hit color fx (blink)
 	- [ ] directional blood sprite
-- levelling
+	- [x] ranged enemy
+- leveling
 	- [ ] screen to level up
+- deploy to web
+	- [ ] compile JS

@@ -24,6 +24,7 @@ class CoachGunPrefab extends Prefab
 
 		rifle.get(Weapon).accuracy = -2;
 		rifle.get(Weapon).modifier = 5;
+		rifle.get(Weapon).baseCost = 80;
 
 		return rifle;
 	}

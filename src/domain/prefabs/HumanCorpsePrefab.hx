@@ -6,13 +6,13 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class SnakeCorpsePrefab extends Prefab
+class HumanCorpsePrefab extends Prefab
 {
 	public function Create(?options:Dynamic)
 	{
 		var corpse = new Entity();
-		corpse.add(new Sprite(TileResources.CORPSE_SNAKE, 0xDF9100, 0xAC1111, OBJECTS));
-		corpse.add(new Moniker('Snake corpse'));
+		corpse.add(new Sprite(TileResources.CORPSE_HUMAN, 0xDDDBD7, 0xAC1111, OBJECTS));
+		corpse.add(new Moniker('Human corpse'));
 		corpse.add(new Loot());
 
 		return corpse;

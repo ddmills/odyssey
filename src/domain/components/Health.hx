@@ -1,10 +1,7 @@
 package domain.components;
 
 import common.struct.Coordinate;
-import common.struct.IntPoint;
-import core.Game;
 import data.Cardinal;
-import data.SoundResources;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.SpawnedEvent;
@@ -53,6 +50,11 @@ class Health extends Component
 		{
 			value -= evt.attack.damage;
 			makeBloodEffect(evt.attack.attacker.pos);
+			evt.isHit = true;
+		}
+		else
+		{
+			evt.isHit = false;
 		}
 	}
 

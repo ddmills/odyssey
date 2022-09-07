@@ -7,6 +7,7 @@ import domain.components.Energy;
 import domain.components.Health;
 import domain.components.Move;
 import domain.events.MeleeEvent;
+import domain.events.ShootEvent;
 import domain.systems.EnergySystem;
 import ecs.Entity;
 import hxd.Rand;
@@ -29,12 +30,32 @@ class AIManager
 			return;
 		}
 
+		if (tryAttackingRange(entity))
+		{
+			return;
+		}
+
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 
 		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
 		entity.get(Energy).consumeEnergy(cost);
 		entity.add(new Move(goal, .2, LINEAR));
+	}
+
+	public function tryAttackingRange(entity:Entity):Bool
+	{
+		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 7);
+		var target = inRange.find((e) -> e.has(Health) && e.id != entity.id);
+
+		if (target == null)
+		{
+			return false;
+		}
+
+		var shot = new ShootEvent(target.pos.toIntPoint(), entity);
+		entity.fireEvent(shot);
+		return shot.isHandled;
 	}
 
 	public function tryAttackingNearby(entity:Entity):Bool

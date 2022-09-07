@@ -24,21 +24,8 @@ class ChunkGen
 
 			if (r.bool(.015))
 			{
-				var snake = Spawner.Spawn(SNAKE, pos);
-				snake.get(Energy).consumeEnergy(r.integer(0, 50));
-			}
-			else if (r.bool(.02))
-			{
 				var items:Array<SpawnableType> = [
-					CHEST,
-					LOCKBOX,
-					NAVY_REVOLVER,
-					RIFLE,
-					PONCHO,
-					DUSTER,
-					LONG_JOHNS,
-					SNAKE_CORPSE,
-					COACH_GUN
+					CHEST, LOCKBOX, NAVY_REVOLVER, RIFLE, PONCHO, DUSTER, LONG_JOHNS, CORPSE_SNAKE, COACH_GUN, SNAKE, THUG,
 				];
 				var loot = r.pick(items);
 				Spawner.Spawn(loot, pos);

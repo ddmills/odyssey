@@ -9,12 +9,11 @@ import core.input.Command;
 import data.Cardinal;
 import domain.components.Blocker;
 import domain.components.Energy;
+import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
-import domain.components.MoveComplete;
 import domain.components.Path;
-import domain.components.Sprite;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
@@ -27,6 +26,7 @@ import screens.shooting.ShootingScreen;
 class AdventureScreen extends Screen
 {
 	var clockText:h2d.Text;
+	var healthText:h2d.Text;
 
 	public function new()
 	{
@@ -43,6 +43,8 @@ class AdventureScreen extends Screen
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
 		clockText.text = world.clock.toString() + ' ' + world.player.pos.floor().toString();
+		var hp = world.player.entity.get(Health);
+		healthText.text = '${hp.value}/${hp.max}';
 
 		if (world.systems.energy.isPlayersTurn)
 		{
@@ -143,7 +145,16 @@ class AdventureScreen extends Screen
 		clockText.color = 0xf5f5f5.toHxdColor();
 		clockText.x = 16;
 		clockText.y = 16;
+
+		healthText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
+		healthText.setScale(1);
+		healthText.text = '';
+		healthText.color = 0xf5f5f5.toHxdColor();
+		healthText.x = 16;
+		healthText.y = 32;
+
 		game.render(HUD, clockText);
+		game.render(HUD, healthText);
 	}
 
 	function astar(goal:Coordinate)

@@ -21,7 +21,8 @@ class Spawner
 		prefabs.set(NAVY_REVOLVER, new NavyRevoloverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
-		prefabs.set(SNAKE_CORPSE, new SnakeCorpsePrefab());
+		prefabs.set(CORPSE_HUMAN, new HumanCorpsePrefab());
+		prefabs.set(CORPSE_SNAKE, new SnakeCorpsePrefab());
 		prefabs.set(STICK, new StickPrefab());
 		prefabs.set(PONCHO, new PonchoPrefab());
 		prefabs.set(DUSTER, new DusterPrefab());
@@ -29,6 +30,7 @@ class Spawner
 		prefabs.set(BULLET, new BulletPrefab());
 		prefabs.set(BLOOD_SPATTER, new BloodSplatterPrefab());
 		prefabs.set(COACH_GUN, new CoachGunPrefab());
+		prefabs.set(THUG, new ThugPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

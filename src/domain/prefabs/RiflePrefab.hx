@@ -23,6 +23,7 @@ class RiflePrefab extends Prefab
 		rifle.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
 
 		rifle.get(Weapon).accuracy = 3;
+		rifle.get(Weapon).baseCost = 110;
 
 		return rifle;
 	}

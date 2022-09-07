@@ -14,7 +14,8 @@ class TileResources
 	public static var SAND_4:Tile;
 	public static var HERO:Tile;
 	public static var SNAKE_1:Tile;
-	public static var SNAKE_CORPSE:Tile;
+	public static var CORPSE_SNAKE:Tile;
+	public static var CORPSE_HUMAN:Tile;
 	public static var STICK_1:Tile;
 	public static var EYE_OPEN:Tile;
 	public static var EYE_CLOSE:Tile;
@@ -51,6 +52,7 @@ class TileResources
 	public static var DUSTER:Tile;
 	public static var LONG_JOHNS:Tile;
 	public static var BLOOD_SPATTER:Tile;
+	public static var THUG_1:Tile;
 
 	public static function Init()
 	{
@@ -59,7 +61,8 @@ class TileResources
 		GRASS_3 = hxd.Res.tiles.scroll.grass_3.toTile();
 		GRASS_4 = hxd.Res.tiles.scroll.grass_4.toTile();
 		SNAKE_1 = hxd.Res.tiles.scroll.snake_1.toTile();
-		SNAKE_CORPSE = hxd.Res.tiles.scroll.snake_corpse.toTile();
+		CORPSE_SNAKE = hxd.Res.tiles.scroll.snake_corpse.toTile();
+		CORPSE_HUMAN = hxd.Res.tiles.scroll.corpse_human.toTile();
 		STICK_1 = hxd.Res.tiles.scroll.stick_1.toTile();
 		HERO = hxd.Res.tiles.scroll.hero.toTile();
 		EYE_OPEN = hxd.Res.tiles.scroll.eye.toTile();
@@ -107,5 +110,7 @@ class TileResources
 		SAND_2 = sands[0][1];
 		SAND_3 = sands[0][2];
 		SAND_4 = sands[0][3];
+
+		THUG_1 = hxd.Res.tiles.scroll.thug_1.toTile();
 	}
 }

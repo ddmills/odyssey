@@ -7,6 +7,7 @@ import data.SoundResources;
 import domain.components.Bullet;
 import domain.components.Energy;
 import domain.components.Health;
+import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.Weapon;
 import domain.events.AttackedEvent;
@@ -55,21 +56,28 @@ class WeaponFamily
 		getAttacks(attacker, weapon).each((attack:Attack) ->
 		{
 			var defender = Game.instance.world.getEntitiesAt(target).find((e) -> e.has(Health));
+			var isHit = false;
 			if (defender != null)
 			{
-				defender.fireEvent(new AttackedEvent(attack));
+				isHit = defender.fireEvent(new AttackedEvent(attack)).isHit;
 			}
-
-			var shot = getSound();
-			Game.instance.audio.play(shot);
 
 			var bullet = Spawner.Spawn(BULLET, attack.attacker.pos);
 			bullet.add(new Move(target.asWorld(), .6, LINEAR));
-			bullet.get(Bullet).impactSound = Rand.create().pick([
-				SoundResources.IMPACT_FLESH_1,
-				SoundResources.IMPACT_FLESH_2,
-				SoundResources.IMPACT_FLESH_3
-			]);
+
+			// if (attacker.has(IsPlayer) || defender.has(IsPlayer))
+			// {
+			var shot = getSound();
+			Game.instance.world.playAudio(attacker.pos.toIntPoint(), shot);
+			if (isHit)
+			{
+				bullet.get(Bullet).impactSound = Rand.create().pick([
+					SoundResources.IMPACT_FLESH_1,
+					SoundResources.IMPACT_FLESH_2,
+					SoundResources.IMPACT_FLESH_3
+				]);
+			}
+			// }
 		});
 		attacker.get(Energy).consumeEnergy(weapon.baseCost);
 	}

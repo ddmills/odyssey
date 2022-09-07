@@ -126,7 +126,7 @@ class Entity
 		}
 	}
 
-	public function fireEvent(evt:EntityEvent):EntityEvent
+	public function fireEvent<T:EntityEvent>(evt:T):T
 	{
 		components.each((a) -> a.each((c) -> c.onEvent(evt)));
 

@@ -5,15 +5,14 @@ import common.struct.IntPoint;
 import core.Game;
 import data.Cardinal;
 import domain.AIManager;
-import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.Visible;
-import domain.prefabs.Prefab;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.ChunkManager;
 import ecs.Entity;
 import hxd.Rand;
+import hxd.res.Sound;
 
 class World
 {
@@ -24,13 +23,14 @@ class World
 	public var player(default, null):PlayerManager;
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
-	public var chunkSize(default, null):Int = 16;
+	public var chunkSize(default, null):Int = 32;
 	public var chunkCountX(default, null):Int = 24;
 	public var chunkCountY(default, null):Int = 24;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
 	public var seed:Int = 123;
+	public var soundThreshold:Int = 16;
 
 	public var rand:Rand;
 
@@ -216,5 +216,18 @@ class World
 	function get_mapHeight():Int
 	{
 		return chunkCountY * chunkSize;
+	}
+
+	public function playAudio(pos:IntPoint, sound:Sound):Bool
+	{
+		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
+		{
+			game.audio.play(sound);
+			trace('PLAY!');
+			return true;
+		}
+
+		trace('HUSH!');
+		return false;
 	}
 }

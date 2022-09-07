@@ -12,7 +12,7 @@ class Weapon extends Component
 	public var die:Int = 6;
 	public var modifier:Int = 0;
 	public var accuracy:Int = 0;
-	public var baseCost:Int = 50;
+	public var baseCost:Int = 80;
 
 	public function new(family:WeaponFamilyType)
 	{
@@ -29,7 +29,11 @@ class Weapon extends Component
 
 	public function onShoot(evt:ShootEvent)
 	{
-		Weapons.Get(family).doRange(evt.attacker, evt.target, this);
-		evt.isHandled = true;
+		var f = Weapons.Get(family);
+		if (f.isRanged)
+		{
+			f.doRange(evt.attacker, evt.target, this);
+			evt.isHandled = true;
+		}
 	}
 }

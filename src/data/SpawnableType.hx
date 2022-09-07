@@ -9,7 +9,8 @@ enum SpawnableType
 	NAVY_REVOLVER;
 	RIFLE;
 	SNAKE;
-	SNAKE_CORPSE;
+	CORPSE_SNAKE;
+	CORPSE_HUMAN;
 	PONCHO;
 	STICK;
 	DUSTER;
@@ -17,4 +18,5 @@ enum SpawnableType
 	BULLET;
 	COACH_GUN;
 	BLOOD_SPATTER;
+	THUG;
 }
