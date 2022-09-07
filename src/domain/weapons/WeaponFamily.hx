@@ -48,11 +48,6 @@ class WeaponFamily
 
 	public function doRange(attacker:Entity, target:IntPoint, weapon:Weapon)
 	{
-		if (!isRanged)
-		{
-			trace('!');
-			return;
-		}
 		getAttacks(attacker, weapon).each((attack:Attack) ->
 		{
 			var defender = Game.instance.world.getEntitiesAt(target).find((e) -> e.has(Health));
@@ -65,8 +60,6 @@ class WeaponFamily
 			var bullet = Spawner.Spawn(BULLET, attack.attacker.pos);
 			bullet.add(new Move(target.asWorld(), .6, LINEAR));
 
-			// if (attacker.has(IsPlayer) || defender.has(IsPlayer))
-			// {
 			var shot = getSound();
 			Game.instance.world.playAudio(attacker.pos.toIntPoint(), shot);
 			if (isHit)
@@ -77,7 +70,6 @@ class WeaponFamily
 					SoundResources.IMPACT_FLESH_3
 				]);
 			}
-			// }
 		});
 		attacker.get(Energy).consumeEnergy(weapon.baseCost);
 	}

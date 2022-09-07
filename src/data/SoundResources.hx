@@ -80,5 +80,9 @@ class SoundResources
 			// SHOT_RIFLE_3 = hxd.Res.sound.shot_rifle_3;
 			// SHOT_RIFLE_4 = hxd.Res.sound.shot_rifle_4;
 		}
+		else
+		{
+			trace('OggVorbis NOT SUPPORTED');
+		}
 	}
 }

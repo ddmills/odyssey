@@ -15,6 +15,9 @@
 	- [ ] directional blood sprite
 	- [x] ranged enemy
 - leveling
+	- [ ] XP on kill
+	- [ ] Level up spend grit
 	- [ ] screen to level up
 - deploy to web
-	- [ ] compile JS
+	- [x] compile JS
+	- [ ] deploy it

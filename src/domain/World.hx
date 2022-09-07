@@ -223,11 +223,9 @@ class World
 		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
 		{
 			game.audio.play(sound);
-			trace('PLAY!');
 			return true;
 		}
 
-		trace('HUSH!');
 		return false;
 	}
 }

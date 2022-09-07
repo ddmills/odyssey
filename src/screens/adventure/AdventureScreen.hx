@@ -14,6 +14,7 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.Path;
+import domain.components.Sprite;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;

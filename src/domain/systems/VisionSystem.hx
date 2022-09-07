@@ -6,6 +6,7 @@ import core.Frame;
 import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.IsInventoried;
+import domain.components.Moniker;
 import domain.components.Moved;
 import domain.components.Sprite;
 import domain.components.Visible;
@@ -84,10 +85,13 @@ class VisionSystem extends System
 		shrouded.onEntityRemoved((entity) ->
 		{
 			var sprite = entity.get(Sprite);
-			sprite.isShrouded = false;
-			if (entity.has(Energy))
+			if (sprite != null)
 			{
-				sprite.visible = true;
+				sprite.isShrouded = false;
+				if (entity.has(Energy))
+				{
+					sprite.visible = true;
+				}
 			}
 		});
 	}

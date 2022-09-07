@@ -35,12 +35,15 @@ import shaders.SpriteShader;
 		_primary = primary;
 		_secondary = secondary;
 		this.layer = layer;
+		offsetX = 0;
+		offsetY = 0;
 
 		shader = new SpriteShader(_primary, _secondary);
-
 		ob = new Bitmap(tile);
 		ob.addShader(shader);
 		ob.visible = false;
+		ob.x = 0;
+		ob.y = 0;
 	}
 
 	public function getBitmapClone():Bitmap

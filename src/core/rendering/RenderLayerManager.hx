@@ -19,10 +19,9 @@ class RenderLayerManager
 	public var scroller(default, null):Layers;
 	public var screen(default, null):Layers;
 
-	var scrollerCount:Int = 0;
-	var screenCount:Int = 0;
-
-	var layers:Map<RenderLayerType, RenderLayer>;
+	private var scrollerCount:Int = 0;
+	private var screenCount:Int = 0;
+	private var layers:Map<RenderLayerType, RenderLayer>;
 
 	public function new()
 	{

@@ -12,7 +12,8 @@ class Entity
 {
 	public var cbits(default, null):Int;
 
-	var sprite:Sprite;
+	public var sprite:Sprite;
+
 	var _x:Float;
 	var _y:Float;
 
