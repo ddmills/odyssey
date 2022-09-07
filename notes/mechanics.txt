@@ -66,4 +66,4 @@ Combat 2
 - weapons themselves might hold threshold altering effects (a pistol might give +1 to dodging, reducing dodging thresholds to a 6 instead of 7)
 
 Mounts
-
+- While on a mount, your accuracy decreases

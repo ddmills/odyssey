@@ -7,6 +7,7 @@ import core.input.Command;
 import data.TileResources;
 import domain.components.EquipmentSlot;
 import domain.components.Weapon;
+import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Entity;
@@ -115,6 +116,11 @@ class ShootingScreen extends CursorScreen
 			tryShoot();
 			return;
 		}
+		if (command.type == CMD_RELOAD)
+		{
+			tryReload();
+			return;
+		}
 		super.handleInput(command);
 	}
 
@@ -138,6 +144,16 @@ class ShootingScreen extends CursorScreen
 		}
 
 		weapon.entity.fireEvent(new ShootEvent(target.toWorld().toIntPoint(), shooter));
+	}
+
+	function tryReload()
+	{
+		if (weapon == null)
+		{
+			return;
+		}
+
+		weapon.entity.fireEvent(new ReloadEvent(shooter));
 	}
 
 	public override function onDestroy()

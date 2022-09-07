@@ -10,6 +10,7 @@ class PistolWeaponFamily extends WeaponFamily
 	{
 		isRanged = true;
 		skill = SKILL_PISTOL;
+		ammo = AMMO_PISTOL;
 	}
 
 	public override function getSound():Sound

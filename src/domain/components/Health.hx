@@ -1,6 +1,7 @@
 package domain.components;
 
 import common.struct.Coordinate;
+import core.Game;
 import data.Cardinal;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
@@ -39,7 +40,7 @@ class Health extends Component
 	{
 		var r = Rand.create();
 		var dodge = Skills.GetValue(SKILL_DODGE, entity);
-		var ac = r.roll(6, dodge);
+		var ac = r.roll(Game.instance.DIE_SIZE, dodge);
 
 		if (evt.attack.isCritical)
 		{
@@ -62,11 +63,11 @@ class Health extends Component
 	{
 		var degrees = entity.pos.sub(source).angle().toDegrees();
 		var cardinal = Cardinal.fromDegrees(degrees);
-		var spot = cardinal.toOffset().asWorld();
-		Spawner.Spawn(BLOOD_SPATTER, entity.pos.add(spot));
+		var spot = cardinal.toOffset().asWorld().floor();
+		Spawner.Spawn(BLOOD_SPATTER, entity.pos.floor().add(spot));
 	}
 
-	function set_value(value:Int):Int
+	public function set_value(value:Int):Int
 	{
 		this.value = value.clamp(0, max);
 

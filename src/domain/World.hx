@@ -30,7 +30,7 @@ class World
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
 	public var seed:Int = 123;
-	public var soundThreshold:Int = 16;
+	public var soundThreshold:Int = 8;
 
 	public var rand:Rand;
 

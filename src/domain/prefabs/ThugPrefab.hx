@@ -38,7 +38,7 @@ class ThugPrefab extends Prefab
 
 		thug.get(Health).corpsePrefab = CORPSE_HUMAN;
 
-		rhand.equip(Spawner.Spawn(RIFLE));
+		rhand.equip(Spawner.Spawn(COACH_GUN));
 
 		return thug;
 	}

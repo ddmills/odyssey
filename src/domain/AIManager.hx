@@ -7,6 +7,7 @@ import domain.components.Energy;
 import domain.components.Health;
 import domain.components.Move;
 import domain.events.MeleeEvent;
+import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.systems.EnergySystem;
 import ecs.Entity;
@@ -30,6 +31,11 @@ class AIManager
 			return;
 		}
 
+		if (tryReloading(entity))
+		{
+			return;
+		}
+
 		if (tryAttackingRange(entity))
 		{
 			return;
@@ -41,6 +47,13 @@ class AIManager
 		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
 		entity.get(Energy).consumeEnergy(cost);
 		entity.add(new Move(goal, .2, LINEAR));
+	}
+
+	public function tryReloading(entity:Entity):Bool
+	{
+		var reload = new ReloadEvent(entity);
+		entity.fireEvent(reload);
+		return reload.isHandled;
 	}
 
 	public function tryAttackingRange(entity:Entity):Bool

@@ -11,6 +11,7 @@ import hxd.Window;
 
 class Game
 {
+	public var DIE_SIZE:Int = 10;
 	public var TILE_W:Int = 16;
 	public var TILE_H:Int = 16;
 

@@ -19,4 +19,5 @@ enum abstract CommandType(String) to String
 	var CMD_LOOK = 'look';
 	var CMD_INTERACT = 'interact';
 	var CMD_SHOOT = 'shoot';
+	var CMD_RELOAD = 'reload';
 }

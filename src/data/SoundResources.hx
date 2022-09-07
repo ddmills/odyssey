@@ -35,6 +35,7 @@ class SoundResources
 
 	public static var SHOT_PISTOL_1:Sound;
 	public static var SHOT_PISTOL_2:Sound;
+	public static var SHOOT_NO_AMMO_1:Sound;
 
 	// public static var SHOT_PISTOL_3:Sound;
 	// public static var SHOT_PISTOL_4:Sound;
@@ -60,6 +61,11 @@ class SoundResources
 			GUN_HANDLE_4 = hxd.Res.sound.gun_handle_4;
 			GUN_HANDLE_5 = hxd.Res.sound.gun_handle_5;
 
+			RELOAD_CLIP_1 = hxd.Res.sound.reload_clip_1;
+			RELOAD_CLIP_2 = hxd.Res.sound.reload_clip_2;
+			RELOAD_CLIP_3 = hxd.Res.sound.reload_clip_3;
+			RELOAD_CLIP_4 = hxd.Res.sound.reload_clip_4;
+
 			CLOTH_EQUIP_1 = hxd.Res.sound.cloth_equip_1;
 			CLOTH_UNEQUIP_1 = hxd.Res.sound.cloth_unequip;
 
@@ -79,6 +85,8 @@ class SoundResources
 			// SHOT_RIFLE_2 = hxd.Res.sound.shot_rifle_2;
 			// SHOT_RIFLE_3 = hxd.Res.sound.shot_rifle_3;
 			// SHOT_RIFLE_4 = hxd.Res.sound.shot_rifle_4;
+
+			SHOOT_NO_AMMO_1 = hxd.Res.sound.shoot_no_ammo_1;
 		}
 		else
 		{

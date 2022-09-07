@@ -2,6 +2,7 @@ package core;
 
 import core.input.Command;
 import data.Commands;
+import domain.components.Health;
 import domain.components.Stats;
 import domain.skills.Skills;
 import h2d.Console;
@@ -46,9 +47,17 @@ class ConsoleConfig
 			});
 		});
 
+		console.addCommand('heal', 'Heal the player', [], () ->
+		{
+			var player = Game.instance.world.player.entity;
+			var health = player.get(Health);
+			health.value = health.max;
+		});
+
 		console.addAlias('quit', 'exit');
-		console.addAlias('skills', 'stats');
 		console.addAlias('q', 'exit');
+		console.addAlias('skills', 'stats');
+		console.addAlias('hp', 'heal');
 
 		console.addCommand('ecount', 'Entity Count', [], () -> entityCountCmd(console));
 	}

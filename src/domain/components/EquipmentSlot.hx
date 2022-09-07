@@ -5,6 +5,7 @@ import data.WeaponFamilyType;
 import domain.events.MeleeEvent;
 import domain.events.QuerySkillModEquippedEvent;
 import domain.events.QuerySkillModEvent;
+import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import ecs.Component;
 import ecs.Entity;
@@ -36,6 +37,7 @@ class EquipmentSlot extends Component
 		addHandler(QuerySkillModEvent, (evt) -> onQuerySkillMod(cast evt));
 		addHandler(MeleeEvent, (evt) -> onMelee(cast evt));
 		addHandler(ShootEvent, (evt) -> onShoot(cast evt));
+		addHandler(ReloadEvent, (evt) -> onReload(cast evt));
 	}
 
 	private function onMelee(evt:MeleeEvent)
@@ -63,6 +65,19 @@ class EquipmentSlot extends Component
 			{
 				trace('use default weapon!', defaultWpn);
 			}
+			return;
+		}
+
+		if (isPrimary && !isExtraSlot)
+		{
+			content.fireEvent(evt);
+		}
+	}
+
+	private function onReload(evt:ReloadEvent)
+	{
+		if (isEmpty)
+		{
 			return;
 		}
 

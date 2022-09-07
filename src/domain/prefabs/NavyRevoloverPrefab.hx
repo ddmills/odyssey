@@ -18,11 +18,15 @@ class NavyRevoloverPrefab extends Prefab
 		pistol.add(new Moniker('Navy revolover'));
 		pistol.add(new Loot());
 		pistol.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_HOLSTER]));
-		pistol.add(new Weapon(WPN_FAMILY_PISTOL));
+
 		pistol.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
 		pistol.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
 
-		pistol.get(Weapon).baseCost = 60;
+		var weapon = new Weapon(WPN_FAMILY_PISTOL);
+		weapon.baseCost = 60;
+		weapon.ammo = 6;
+		weapon.ammoCapacity = 6;
+		pistol.add(weapon);
 
 		return pistol;
 	}

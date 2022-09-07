@@ -2,6 +2,7 @@ package domain.weapons;
 
 import common.struct.IntPoint;
 import core.Game;
+import data.AmmoType;
 import data.SkillType;
 import data.SoundResources;
 import domain.components.Bullet;
@@ -21,6 +22,7 @@ class WeaponFamily
 {
 	public var isRanged:Bool;
 	public var skill:SkillType;
+	public var ammo:Null<AmmoType>;
 
 	public function getSound():Sound
 	{
@@ -30,11 +32,11 @@ class WeaponFamily
 	public function getAttacks(attacker:Entity, weapon:Weapon):Array<Attack>
 	{
 		var r = Rand.create();
-		var roll = r.roll(6);
+		var roll = r.roll(Game.instance.DIE_SIZE);
 		var skill = Skills.GetValue(skill, attacker);
 		var toHit = weapon.accuracy + skill + roll;
 		var damage = r.roll(weapon.die, weapon.modifier) + skill;
-		var isCritical = roll == 6;
+		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
 		return [
 			{
@@ -46,10 +48,26 @@ class WeaponFamily
 		];
 	}
 
+	public function doRangeNoAmmo(attacker:Entity, weapon:Weapon)
+	{
+		if (attacker.has(IsPlayer))
+		{
+			Game.instance.world.playAudio(attacker.pos.toIntPoint(), SoundResources.SHOOT_NO_AMMO_1);
+		}
+	}
+
 	public function doRange(attacker:Entity, target:IntPoint, weapon:Weapon)
 	{
 		getAttacks(attacker, weapon).each((attack:Attack) ->
 		{
+			if (!weapon.isLoaded)
+			{
+				doRangeNoAmmo(attacker, weapon);
+				return;
+			}
+
+			weapon.ammo -= 1;
+
 			var defender = Game.instance.world.getEntitiesAt(target).find((e) -> e.has(Health));
 			var isHit = false;
 			if (defender != null)
@@ -78,11 +96,11 @@ class WeaponFamily
 	{
 		attacker.get(Energy).consumeEnergy(weapon.baseCost);
 		var r = Rand.create();
-		var roll = r.roll(6);
+		var roll = r.roll(Game.instance.DIE_SIZE);
 		var skill = Skills.GetValue(skill, attacker);
 		var toHit = weapon.accuracy + skill + roll;
 		var damage = r.roll(weapon.die, weapon.modifier) + skill;
-		var isCritical = roll == 6;
+		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
 		getAttacks(attacker, weapon).each((attack:Attack) ->
 		{
