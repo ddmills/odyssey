@@ -85,9 +85,9 @@ class ShootingScreen extends CursorScreen
 
 		if (defender != null)
 		{
-			var toHit = GameMath.GetToHit(shooter, defender, weapon);
-			var chance = toHit * 100;
-			hitChanceTxt.text = '$chance%';
+			var health = defender.get(Health).toString();
+			var chance = GameMath.GetHitChance(shooter, defender, weapon, true) * 100;
+			hitChanceTxt.text = '$chance% $health';
 			var pos = target.sub(new Coordinate(0, .5)).toScreen();
 			hitChanceTxt.x = pos.x;
 			hitChanceTxt.y = pos.y;

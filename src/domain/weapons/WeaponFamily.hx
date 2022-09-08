@@ -29,12 +29,33 @@ class WeaponFamily
 		return Rand.create().pick([SoundResources.SHOT_PISTOL_1, SoundResources.SHOT_PISTOL_2]);
 	}
 
-	public function getAttacks(attacker:Entity, weapon:Weapon):Array<Attack>
+	public function getRangedAttacks(attacker:Entity, target:IntPoint, weapon:Weapon):Array<Attack>
 	{
 		var r = Rand.create();
 		var roll = r.roll(Game.instance.DIE_SIZE);
+		var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon);
 		var skill = Skills.GetValue(skill, attacker);
-		var toHit = weapon.accuracy + skill + roll;
+		var damage = r.roll(weapon.die, weapon.modifier) + skill;
+		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
+
+		trace(toHit, damage);
+
+		return [
+			{
+				attacker: attacker,
+				toHit: toHit,
+				damage: damage,
+				isCritical: isCritical,
+			}
+		];
+	}
+
+	public function getMeleeAttacks(attacker:Entity, weapon:Weapon):Array<Attack>
+	{
+		var r = Rand.create();
+		var roll = r.roll(Game.instance.DIE_SIZE);
+		var toHit = roll + GameMath.GetMeleeAttackToHit(attacker, weapon);
+		var skill = Skills.GetValue(skill, attacker);
 		var damage = r.roll(weapon.die, weapon.modifier) + skill;
 		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
@@ -58,7 +79,7 @@ class WeaponFamily
 
 	public function doRange(attacker:Entity, target:IntPoint, weapon:Weapon)
 	{
-		getAttacks(attacker, weapon).each((attack:Attack) ->
+		getRangedAttacks(attacker, target, weapon).each((attack:Attack) ->
 		{
 			if (!weapon.isLoaded)
 			{
@@ -94,22 +115,11 @@ class WeaponFamily
 
 	public function doMelee(attacker:Entity, defender:Entity, weapon:Weapon)
 	{
-		attacker.get(Energy).consumeEnergy(weapon.baseCost);
-		var r = Rand.create();
-		var roll = r.roll(Game.instance.DIE_SIZE);
-		var skill = Skills.GetValue(skill, attacker);
-		var toHit = weapon.accuracy + skill + roll;
-		var damage = r.roll(weapon.die, weapon.modifier) + skill;
-		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
-
-		getAttacks(attacker, weapon).each((attack:Attack) ->
+		getMeleeAttacks(attacker, weapon).each((attack:Attack) ->
 		{
-			defender.fireEvent(new AttackedEvent({
-				attacker: attacker,
-				toHit: toHit,
-				damage: damage,
-				isCritical: isCritical,
-			}));
+			defender.fireEvent(new AttackedEvent(attack));
 		});
+
+		attacker.get(Energy).consumeEnergy(weapon.baseCost);
 	}
 }

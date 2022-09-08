@@ -31,6 +31,11 @@ class Health extends Component
 		return 10 + level * 10 + skill * 10;
 	}
 
+	public function toString():String
+	{
+		return '$value/$max';
+	}
+
 	private function onSpawned(evt:SpawnedEvent)
 	{
 		value = max;
