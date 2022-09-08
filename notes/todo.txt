@@ -21,3 +21,5 @@
 - deploy to web
 	- [x] compile JS
 	- [ ] deploy it
+- improvements
+	- [ ] make 'Move' an entity event

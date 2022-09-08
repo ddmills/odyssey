@@ -40,6 +40,11 @@ class IterableExtensions
 		return cur;
 	}
 
+	public static inline function avg<T>(it:Iterable<T>, fn:(value:T) -> Float):Float
+	{
+		return it.sum(fn) / it.count();
+	}
+
 	public static inline function sum<T>(it:Iterable<T>, fn:(value:T) -> Float):Float
 	{
 		return it.fold((it, res) -> fn(it) + res, 0);

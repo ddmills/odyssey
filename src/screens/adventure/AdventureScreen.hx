@@ -7,6 +7,7 @@ import core.Frame;
 import core.Screen;
 import core.input.Command;
 import data.Cardinal;
+import data.TextResources;
 import domain.components.Blocker;
 import domain.components.Energy;
 import domain.components.Health;
@@ -14,7 +15,6 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.Path;
-import domain.components.Sprite;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
@@ -37,6 +37,18 @@ class AdventureScreen extends Screen
 	public override function onEnter()
 	{
 		renderClock();
+	}
+
+	public override function onSuspend()
+	{
+		clockText.visible = false;
+		healthText.visible = false;
+	}
+
+	public override function onResume()
+	{
+		clockText.visible = true;
+		healthText.visible = true;
 	}
 
 	public override function update(frame:Frame)
@@ -140,15 +152,13 @@ class AdventureScreen extends Screen
 
 	private function renderClock()
 	{
-		clockText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
-		clockText.setScale(1);
+		clockText = new h2d.Text(TextResources.BIZCAT);
 		clockText.text = world.clock.toString();
 		clockText.color = 0xf5f5f5.toHxdColor();
 		clockText.x = 16;
 		clockText.y = 16;
 
-		healthText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
-		healthText.setScale(1);
+		healthText = new h2d.Text(TextResources.BIZCAT);
 		healthText.text = '';
 		healthText.color = 0xf5f5f5.toHxdColor();
 		healthText.x = 16;

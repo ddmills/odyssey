@@ -4,27 +4,32 @@ import common.struct.Coordinate;
 import common.util.Timeout;
 import core.Frame;
 import core.input.Command;
+import data.TextResources;
 import data.TileResources;
+import domain.GameMath;
 import domain.components.EquipmentSlot;
+import domain.components.Health;
 import domain.components.Weapon;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Entity;
 import h2d.Bitmap;
+import h2d.Text;
 import screens.cursor.CursorScreen;
 import shaders.SpriteShader;
 
 class ShootingScreen extends CursorScreen
 {
 	var shooter:Entity;
+	var hud:h2d.Object;
 	var ob:h2d.Object;
-	var lineOb:h2d.Object;
 	var targetBm:h2d.Bitmap;
 	var targetShader:SpriteShader;
 	var timeout:Timeout;
 	var isBlinking:Bool = false;
 	var weapon(get, never):Weapon;
+	var hitChanceTxt:Text;
 
 	var COLOR_DANGER = 0xb61111;
 	// var COLOR_NEUTRAL = 0xd4d4d4;
@@ -42,9 +47,17 @@ class ShootingScreen extends CursorScreen
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
-		lineOb = new h2d.Object(ob);
+		hud = new h2d.Object();
 		targetBm = new Bitmap(TileResources.CURSOR, ob);
 		targetBm.addShader(targetShader);
+
+		hitChanceTxt = new Text(TextResources.BIZCAT);
+		hitChanceTxt.text = 'Test';
+		hitChanceTxt.color = 0xf5f5f5.toHxdColor();
+		hitChanceTxt.x = 16;
+		hitChanceTxt.y = 16;
+
+		hud.addChild(hitChanceTxt);
 
 		timeout = new Timeout(.25);
 		timeout.onComplete = blink;
@@ -53,6 +66,7 @@ class ShootingScreen extends CursorScreen
 	override function onEnter()
 	{
 		super.onEnter();
+		game.render(HUD, hud);
 		game.render(OVERLAY, ob);
 	}
 
@@ -66,6 +80,23 @@ class ShootingScreen extends CursorScreen
 	{
 		timeout.update();
 		super.update(frame);
+
+		var defender = world.getEntitiesAt(target).find((e) -> e.has(Health));
+
+		if (defender != null)
+		{
+			var toHit = GameMath.GetToHit(shooter, defender, weapon);
+			var chance = toHit * 100;
+			hitChanceTxt.text = '$chance%';
+			var pos = target.sub(new Coordinate(0, .5)).toScreen();
+			hitChanceTxt.x = pos.x;
+			hitChanceTxt.y = pos.y;
+			hitChanceTxt.visible = true;
+		}
+		else
+		{
+			hitChanceTxt.visible = false;
+		}
 	}
 
 	override function render(opts:CursorRenderOpts)
@@ -80,33 +111,6 @@ class ShootingScreen extends CursorScreen
 		targetBm.y = end.y;
 		targetBm.visible = true;
 		timeout.reset();
-		lineOb.removeChildren();
-
-		var isBlocked = false;
-
-		// opts.line.each((p, idx) ->
-		// {
-		// 	if (idx == 0 || idx == opts.line.length - 1)
-		// 	{
-		// 		return;
-		// 	}
-		// 	var w = p.asWorld();
-		// 	var bm = new Bitmap(TileResources.DOT, lineOb);
-
-		// 	var entities = world.getEntitiesAt(p);
-		// 	if (entities.exists((e) -> e.has(Blocker)))
-		// 	{
-		// 		isBlocked = true;
-		// 	}
-		// 	var color = world.isVisible(w) ? COLOR_NEUTRAL : COLOR_SHROUD;
-		// 	color = isBlocked ? COLOR_DANGER : color;
-		// 	var shader = new SpriteShader(color);
-		// 	shader.isShrouded = 0;
-		// 	bm.addShader(shader);
-		// 	var px = w.toPx();
-		// 	bm.x = px.x;
-		// 	bm.y = px.y;
-		// });
 	}
 
 	override function handleInput(command:Command)
@@ -159,6 +163,7 @@ class ShootingScreen extends CursorScreen
 	public override function onDestroy()
 	{
 		ob.remove();
+		hud.remove();
 	}
 
 	function get_weapon():Weapon
