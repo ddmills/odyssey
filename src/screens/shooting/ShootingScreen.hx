@@ -48,7 +48,7 @@ class ShootingScreen extends CursorScreen
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
 		hud = new h2d.Object();
-		targetBm = new Bitmap(TileResources.CURSOR, ob);
+		targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
 		targetBm.addShader(targetShader);
 
 		hitChanceTxt = new Text(TextResources.BIZCAT);

@@ -1,6 +1,8 @@
 package domain.components;
 
 import core.rendering.RenderLayerManager.RenderLayerType;
+import data.TileKey;
+import data.TileResources;
 import ecs.Component;
 import h2d.Bitmap;
 import h2d.Tile;
@@ -8,48 +10,42 @@ import shaders.SpriteShader;
 
 @:structInit class Sprite extends Component
 {
-	private var _primary:Int;
-	private var _secondary:Int;
-	private var _outline:Int;
-	private var _background:Int;
-	private var _isShrouded:Bool;
+	@save public var tileKey(default, set):TileKey;
+	@save public var overrideTileKey(default, set):TileKey;
 
-	public var tile(default, null):Tile;
-	public var layer(default, null):RenderLayerType;
+	@save public var primary(default, set):Int;
+	@save public var secondary(default, set):Int;
+	@save public var outline(default, set):Int;
+	@save public var background(default, set):Null<Int>;
 
-	public var visible(get, set):Bool;
-	public var primary(default, set):Int;
-	public var secondary(default, set):Int;
-	public var outline(default, set):Int;
-	public var background(default, set):Null<Int>;
-	public var isShrouded(default, set):Bool;
-	public var offsetX(default, default):Float;
-	public var offsetY(default, default):Float;
+	@save public var layer(default, null):RenderLayerType;
+	@save public var isShrouded(default, set):Bool = false;
+	@save public var visible(get, set):Bool;
+	@save public var offsetX(default, set):Float = 0;
+	@save public var offsetY(default, set):Float = 0;
 
 	public var ob(default, null):Bitmap;
 	public var shader(default, null):SpriteShader;
+	public var tile(get, never):Tile;
 
-	public function new(tile:Tile, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
+	public function new(tileKey:TileKey, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
 	{
-		this.tile = tile;
-		_primary = primary;
-		_secondary = secondary;
-		this.layer = layer;
-		offsetX = 0;
-		offsetY = 0;
+		shader = new SpriteShader();
 
-		shader = new SpriteShader(_primary, _secondary);
-		ob = new Bitmap(tile);
+		this.tileKey = tileKey;
+		this.layer = layer;
+		ob = new Bitmap(this.tile);
 		ob.addShader(shader);
 		ob.visible = false;
-		ob.x = 0;
-		ob.y = 0;
+
+		this.primary = primary;
+		this.secondary = secondary;
 	}
 
 	public function getBitmapClone():Bitmap
 	{
 		var bm = new Bitmap(tile);
-		var sh = new SpriteShader(_primary, _secondary);
+		var sh = new SpriteShader(primary, secondary);
 		sh.isShrouded = isShrouded ? 1 : 0;
 		if (background == null)
 		{
@@ -67,19 +63,19 @@ import shaders.SpriteShader;
 	function set_primary(value:Int):Int
 	{
 		shader.primary = value.toHxdColor();
-		return _primary = value;
+		return value;
 	}
 
 	function set_secondary(value:Int):Int
 	{
 		shader.secondary = value.toHxdColor();
-		return _secondary = value;
+		return value;
 	}
 
 	function set_outline(value:Int):Int
 	{
 		shader.outline = value.toHxdColor();
-		return _outline = value;
+		return value;
 	}
 
 	function set_background(value:Null<Int>):Null<Int>
@@ -90,7 +86,7 @@ import shaders.SpriteShader;
 			shader.background = value.toHxdColor();
 		}
 		shader.clearBackground = clear ? 1 : 0;
-		return _background = value;
+		return value;
 	}
 
 	public function updatePos(px:Float, py:Float)
@@ -117,16 +113,48 @@ import shaders.SpriteShader;
 	function set_isShrouded(value:Bool):Bool
 	{
 		shader.isShrouded = value ? 1 : 0;
-		return _isShrouded = value;
+		return value;
 	}
 
-	public function overrideTile(tile:Tile)
+	function get_tile():Tile
 	{
-		ob.tile = tile;
+		if (overrideTileKey != null)
+		{
+			return TileResources.Get(overrideTileKey);
+		}
+
+		return TileResources.Get(tileKey);
 	}
 
-	public function clearTileOverride()
+	function set_offsetX(value:Float):Float
 	{
+		ob.x += offsetX;
+		ob.x -= value;
+		return value;
+	}
+
+	function set_offsetY(value:Float):Float
+	{
+		ob.y += offsetY;
+		ob.y -= value;
+		return value;
+	}
+
+	function set_tileKey(value:TileKey):TileKey
+	{
+		tileKey = value;
+		if (ob != null)
+		{
+			ob.tile = tile;
+		}
+		return value;
+	}
+
+	function set_overrideTileKey(value:TileKey):TileKey
+	{
+		overrideTileKey = value;
 		ob.tile = tile;
+
+		return value;
 	}
 }

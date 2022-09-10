@@ -79,7 +79,7 @@ class ListSelectScreen extends Screen
 
 		ob.addChild(titleOb);
 
-		targetOb = new Bitmap(TileResources.CURSOR, ob);
+		targetOb = new Bitmap(TileResources.Get(CURSOR), ob);
 		var shader = new SpriteShader(0xd4d4d4);
 		shader.isShrouded = 0;
 		shader.clearBackground = 0;
@@ -181,7 +181,7 @@ class ListSelectScreen extends Screen
 			var col = li.isSelected ? 0xffff00 : 0xf5f5f5;
 			li.item.text.color = col.toHxdColor();
 			li.item.detail.color = col.toHxdColor();
-			li.item.bullet.tile = li.isSelected ? TileResources.LIST_ARROW : TileResources.LIST_DASH;
+			li.item.bullet.tile = li.isSelected ? TileResources.Get(LIST_ARROW) : TileResources.Get(LIST_DASH);
 			li.item.bullet.getShader(SpriteShader).primary = col.toHxdColor();
 		});
 	}
@@ -195,7 +195,7 @@ class ListSelectScreen extends Screen
 		rowOb.y = idx * th;
 		listOb.addChild(rowOb);
 
-		var bullet = new Bitmap(TileResources.LIST_DASH);
+		var bullet = new Bitmap(TileResources.Get(LIST_DASH));
 		bullet.addShader(new SpriteShader());
 		bullet.x = left;
 		bullet.y = 0;

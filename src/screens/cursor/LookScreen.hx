@@ -33,7 +33,7 @@ class LookScreen extends CursorScreen
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
 		lineOb = new h2d.Object(ob);
-		targetBm = new Bitmap(TileResources.CURSOR, ob);
+		targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
 		targetBm.addShader(targetShader);
 		renderText();
 
@@ -76,7 +76,7 @@ class LookScreen extends CursorScreen
 				return;
 			}
 			var w = p.asWorld();
-			var bm = new Bitmap(TileResources.DOT, lineOb);
+			var bm = new Bitmap(TileResources.Get(DOT), lineOb);
 			var color = world.isVisible(w) ? COLOR_NEUTRAL : COLOR_SHROUD;
 			var shader = new SpriteShader(color);
 			shader.isShrouded = 0;

@@ -1,7 +1,7 @@
 package domain.prefabs;
 
 import core.Game;
-import data.TileResources;
+import data.TileKey;
 import domain.components.Blocker;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -12,11 +12,9 @@ class CactusPrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var r = Game.instance.world.rand;
-		var flowerTiles = [TileResources.CACTUS_1_FLOWER, TileResources.CACTUS_2_FLOWER];
-		var nonflowerTiles = [TileResources.CACTUS_1, TileResources.CACTUS_2];
 		var isFlowering = r.bool(.75);
 
-		var tile = isFlowering ? r.pick(flowerTiles) : r.pick(nonflowerTiles);
+		var tile:TileKey = isFlowering ? r.pick([CACTUS_1_FLOWER, CACTUS_2_FLOWER]) : r.pick([CACTUS_1, CACTUS_2]);
 
 		var cactus = new Entity();
 

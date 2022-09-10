@@ -1,6 +1,5 @@
 package domain.prefabs;
 
-import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -17,7 +16,7 @@ class ThugPistolPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(TileResources.THUG_2, 0xb3ab9b, 0x8A4F1F, ACTORS));
+		entity.add(new Sprite(THUG_2, 0xb3ab9b, 0x8A4F1F, ACTORS));
 		entity.add(new Energy());
 		entity.get(Energy).consumeEnergy(10);
 		entity.add(new Health());
@@ -26,20 +25,20 @@ class ThugPistolPrefab extends Prefab
 		entity.add(new Moniker('Thug'));
 		entity.add(new Inventory());
 
-		// var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);
+		var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);
 
-		// entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
-		// entity.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
-		// entity.add(rhand);
-		// entity.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, true));
-		// entity.add(new EquipmentSlot('Holster', 'holster', EQ_SLOT_HOLSTER));
-		// entity.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
-		// entity.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
-		// entity.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
+		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
+		entity.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
+		entity.add(rhand);
+		entity.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, true));
+		entity.add(new EquipmentSlot('Holster', 'holster', EQ_SLOT_HOLSTER));
+		entity.add(new EquipmentSlot('Body', 'body', EQ_SLOT_BODY));
+		entity.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
+		entity.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 
 		entity.get(Health).corpsePrefab = CORPSE_HUMAN;
 
-		// rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
+		rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
 
 		return entity;
 	}

@@ -1,7 +1,5 @@
 package domain.prefabs;
 
-import data.AudioResources;
-import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -14,7 +12,7 @@ class DusterPrefab extends Prefab
 	public function Create(?options:Dynamic):Entity
 	{
 		var duster = new Entity();
-		duster.add(new Sprite(TileResources.DUSTER, 0x97621C, 0x080604, OBJECTS));
+		duster.add(new Sprite(DUSTER, 0x97621C, 0x080604, OBJECTS));
 		duster.add(new Moniker('Duster'));
 		duster.add(new Loot());
 		duster.add(new Equipment([EQ_SLOT_BODY]));

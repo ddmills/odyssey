@@ -13,11 +13,11 @@ class ChestPrefab extends Prefab
 	{
 		var chest = new Entity();
 
-		chest.add(new Sprite(TileResources.CHEST_LARGE_CLOSED, 0x8D450B, 0xBED4E7, OBJECTS));
+		chest.add(new Sprite(CHEST_LARGE_CLOSED, 0x8D450B, 0xBED4E7, OBJECTS));
 		chest.add(new Moniker('Chest'));
 
 		var inventory = new Inventory();
-		inventory.openedTile = TileResources.CHEST_LARGE_OPEN;
+		inventory.openedTile = CHEST_LARGE_OPEN;
 		inventory.openedAudio = CHEST_OPEN;
 		inventory.closedAudio = CHEST_CLOSE;
 

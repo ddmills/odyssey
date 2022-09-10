@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import core.Game;
-import data.TileResources;
 import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -15,7 +14,7 @@ class StickPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		var sprite = new Sprite(TileResources.STICK_1, 0x885B07, 0x000000, OBJECTS);
+		var sprite = new Sprite(STICK_1, 0x885B07, 0x000000, OBJECTS);
 		sprite.background = Game.instance.CLEAR_COLOR;
 		entity.add(sprite);
 		entity.add(new Moniker('Stick'));

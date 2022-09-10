@@ -99,7 +99,7 @@ class InspectScreen extends Screen
 			{
 				var w = interactor.pos.add(p.asWorld());
 				var px = w.toPx();
-				var targetBm = new Bitmap(TileResources.CURSOR, ob);
+				var targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
 				targetBm.x = px.x;
 				targetBm.y = px.y;
 				var shader = new SpriteShader(0x6B6B6B);

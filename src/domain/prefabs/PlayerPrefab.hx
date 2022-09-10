@@ -2,13 +2,11 @@ package domain.prefabs;
 
 import core.Game;
 import data.SpawnableType;
-import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
-import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
@@ -22,7 +20,7 @@ class PlayerPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		var sprite = new Sprite(TileResources.HERO, 0xd8cfbd, 0x7e3e32, ACTORS);
+		var sprite = new Sprite(HERO, 0xd8cfbd, 0x7e3e32, ACTORS);
 		sprite.background = Game.instance.CLEAR_COLOR;
 
 		entity.add(sprite);

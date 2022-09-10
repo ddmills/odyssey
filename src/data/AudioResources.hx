@@ -4,37 +4,9 @@ import hxd.res.Sound;
 
 class AudioResources
 {
-	// @formatter:off
-	public static var audio:Map<AudioKey, Sound> = [
-		CHEST_OPEN => null,
-		CHEST_CLOSE => null,
-		LOOT_PICKUP_1 => null,
-		LOOT_DROP_1 => null,
-		GUN_HANDLE_1 => null,
-		GUN_HANDLE_2 => null,
-		GUN_HANDLE_3 => null,
-		GUN_HANDLE_4 => null,
-		GUN_HANDLE_5 => null,
-		CLOTH_EQUIP_1 => null,
-		CLOTH_UNEQUIP_1 => null,
-		IMPACT_FLESH_1 => null,
-		IMPACT_FLESH_2 => null,
-		IMPACT_FLESH_3 => null,
-		RELOAD_CLIP_1 => null,
-		RELOAD_CLIP_2 => null,
-		RELOAD_CLIP_3 => null,
-		RELOAD_CLIP_4 => null,
-		SHOT_SHOTGUN_1 => null,
-		SHOT_SHOTGUN_2 => null,
-		SHOT_SHOTGUN_3 => null,
-		SHOT_SHOTGUN_4 => null,
-		SHOT_PISTOL_1 => null,
-		SHOT_PISTOL_2 => null,
-		SHOOT_NO_AMMO_1 => null,
-		SHOT_RIFLE_1 => null,
-	];
-	// @formatter:on
-	public static function Get(type:AudioKey)
+	public static var audio:Map<AudioKey, Sound> = [];
+
+	public static function Get(type:AudioKey):Sound
 	{
 		return audio.get(type);
 	}

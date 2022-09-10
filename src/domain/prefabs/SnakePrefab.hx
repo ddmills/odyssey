@@ -1,6 +1,5 @@
 package domain.prefabs;
 
-import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -17,7 +16,7 @@ class SnakePrefab extends Prefab
 	{
 		var snake = new Entity();
 
-		snake.add(new Sprite(TileResources.SNAKE_1, 0xDF9100, 0x000000, ACTORS));
+		snake.add(new Sprite(SNAKE_1, 0xDF9100, 0x000000, ACTORS));
 		snake.add(new Energy());
 		snake.get(Energy).consumeEnergy(10);
 		snake.add(new Health());

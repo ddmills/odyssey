@@ -3,6 +3,7 @@ package domain.components;
 import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
+import data.TileKey;
 import domain.events.OpenInventoryEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.StashInventoryEvent;
@@ -17,7 +18,7 @@ class Inventory extends Component
 {
 	@save private var _contentIds:Array<String> = [];
 
-	public var openedTile:Tile;
+	public var openedTile:TileKey;
 
 	@save public var openedAudio:AudioKey;
 	@save public var closedAudio:AudioKey;
@@ -109,7 +110,7 @@ class Inventory extends Component
 	{
 		if (openedTile != null && entity.has(Sprite))
 		{
-			entity.get(Sprite).overrideTile(openedTile);
+			entity.get(Sprite).overrideTileKey = openedTile;
 		}
 		Game.instance.audio.play(openedAudio);
 	}
@@ -118,7 +119,7 @@ class Inventory extends Component
 	{
 		if (openedTile != null && entity.has(Sprite))
 		{
-			entity.get(Sprite).clearTileOverride();
+			entity.get(Sprite).overrideTileKey = null;
 		}
 		Game.instance.audio.play(closedAudio);
 	}

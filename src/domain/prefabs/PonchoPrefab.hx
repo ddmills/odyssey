@@ -1,7 +1,5 @@
 package domain.prefabs;
 
-import data.AudioResources;
-import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -14,7 +12,7 @@ class PonchoPrefab extends Prefab
 	public function Create(?options:Dynamic):Entity
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(TileResources.PONCHO, 0x3B7443, 0xDAC9BB, OBJECTS));
+		entity.add(new Sprite(PONCHO, 0x3B7443, 0xDAC9BB, OBJECTS));
 		entity.add(new Moniker('Poncho'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY]));

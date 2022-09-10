@@ -4,115 +4,70 @@ import h2d.Tile;
 
 class TileResources
 {
-	public static var GRASS_1:Tile;
-	public static var GRASS_2:Tile;
-	public static var GRASS_3:Tile;
-	public static var GRASS_4:Tile;
-	public static var SAND_1:Tile;
-	public static var SAND_2:Tile;
-	public static var SAND_3:Tile;
-	public static var SAND_4:Tile;
-	public static var HERO:Tile;
-	public static var SNAKE_1:Tile;
-	public static var CORPSE_SNAKE:Tile;
-	public static var CORPSE_HUMAN:Tile;
-	public static var STICK_1:Tile;
-	public static var EYE_OPEN:Tile;
-	public static var EYE_CLOSE:Tile;
-	public static var CURSOR:Tile;
+	public static var tiles:Map<TileKey, Tile> = [];
 
-	public static var CACTUS_1:Tile;
-	public static var CACTUS_2:Tile;
-	public static var CACTUS_1_FLOWER:Tile;
-	public static var CACTUS_2_FLOWER:Tile;
-
-	public static var DOT:Tile;
-	public static var ARROW_NW:Tile;
-	public static var ARROW_N:Tile;
-	public static var ARROW_NE:Tile;
-	public static var ARROW_W:Tile;
-	public static var ARROW_E:Tile;
-	public static var ARROW_SW:Tile;
-	public static var ARROW_S:Tile;
-	public static var ARROW_SE:Tile;
-
-	public static var LIST_DASH:Tile;
-	public static var LIST_ARROW:Tile;
-
-	public static var CHEST_LARGE_OPEN:Tile;
-	public static var CHEST_LARGE_CLOSED:Tile;
-
-	public static var CHEST_SMALL_OPEN:Tile;
-	public static var CHEST_SMALL_CLOSED:Tile;
-
-	public static var NAVY_REVOLVER:Tile;
-	public static var COACH_GUN:Tile;
-	public static var RIFLE:Tile;
-	public static var PONCHO:Tile;
-	public static var DUSTER:Tile;
-	public static var LONG_JOHNS:Tile;
-	public static var BLOOD_SPATTER:Tile;
-	public static var THUG_1:Tile;
-	public static var THUG_2:Tile;
+	public static function Get(key:TileKey):Tile
+	{
+		return tiles.get(key);
+	}
 
 	public static function Init()
 	{
-		GRASS_1 = hxd.Res.tiles.scroll.grass_1.toTile();
-		GRASS_2 = hxd.Res.tiles.scroll.grass_2.toTile();
-		GRASS_3 = hxd.Res.tiles.scroll.grass_3.toTile();
-		GRASS_4 = hxd.Res.tiles.scroll.grass_4.toTile();
-		SNAKE_1 = hxd.Res.tiles.scroll.snake_1.toTile();
-		CORPSE_SNAKE = hxd.Res.tiles.scroll.snake_corpse.toTile();
-		CORPSE_HUMAN = hxd.Res.tiles.scroll.corpse_human.toTile();
-		STICK_1 = hxd.Res.tiles.scroll.stick_1.toTile();
-		HERO = hxd.Res.tiles.scroll.hero.toTile();
-		EYE_OPEN = hxd.Res.tiles.scroll.eye.toTile();
-		EYE_CLOSE = hxd.Res.tiles.scroll.eye_closed.toTile();
-		CURSOR = hxd.Res.tiles.scroll.cursor.toTile();
+		var t = hxd.Res.tiles.scroll;
 
-		LIST_DASH = hxd.Res.tiles.scroll.list_dash.toTile();
-		LIST_ARROW = hxd.Res.tiles.scroll.list_arrow.toTile();
+		tiles.set(GRASS_1, t.grass_1.toTile());
+		tiles.set(GRASS_2, t.grass_2.toTile());
+		tiles.set(GRASS_3, t.grass_3.toTile());
+		tiles.set(GRASS_4, t.grass_4.toTile());
+		tiles.set(SNAKE_1, t.snake_1.toTile());
+		tiles.set(CORPSE_SNAKE, t.snake_corpse.toTile());
+		tiles.set(CORPSE_HUMAN, t.corpse_human.toTile());
+		tiles.set(STICK_1, t.stick_1.toTile());
+		tiles.set(HERO, t.hero.toTile());
+		tiles.set(EYE_OPEN, t.eye.toTile());
+		tiles.set(EYE_CLOSE, t.eye_closed.toTile());
+		tiles.set(CURSOR, t.cursor.toTile());
+		tiles.set(LIST_DASH, t.list_dash.toTile());
+		tiles.set(LIST_ARROW, t.list_arrow.toTile());
+		tiles.set(RIFLE, t.rifle.toTile());
+		tiles.set(NAVY_REVOLVER, t.pistol.toTile());
+		tiles.set(COACH_GUN, t.shotgun.toTile());
+		tiles.set(PONCHO, t.poncho.toTile());
+		tiles.set(DUSTER, t.duster.toTile());
+		tiles.set(LONG_JOHNS, t.longjohns.toTile());
+		tiles.set(BLOOD_SPATTER, t.blood_spatter_1.toTile());
+		tiles.set(THUG_1, t.thug_1.toTile());
+		tiles.set(THUG_2, t.thug_2.toTile());
 
 		var catus = hxd.Res.tiles.scroll.cacti.toTile().divide(4, 1);
-		CACTUS_1 = catus[0][0];
-		CACTUS_2 = catus[0][1];
-		CACTUS_1_FLOWER = catus[0][2];
-		CACTUS_2_FLOWER = catus[0][3];
+		tiles.set(CACTUS_1, catus[0][0]);
+		tiles.set(CACTUS_2, catus[0][1]);
+		tiles.set(CACTUS_1_FLOWER, catus[0][2]);
+		tiles.set(CACTUS_2_FLOWER, catus[0][3]);
 
 		var arrows = hxd.Res.tiles.scroll.arrows.toTile().divide(3, 3);
-		ARROW_NW = arrows[0][0];
-		ARROW_N = arrows[1][0];
-		ARROW_NE = arrows[2][0];
-		ARROW_W = arrows[0][1];
-		ARROW_E = arrows[2][1];
-		ARROW_SW = arrows[0][2];
-		ARROW_S = arrows[1][2];
-		ARROW_SE = arrows[2][2];
-		DOT = arrows[1][1];
+		tiles.set(ARROW_NW, arrows[0][0]);
+		tiles.set(ARROW_N, arrows[1][0]);
+		tiles.set(ARROW_NE, arrows[2][0]);
+		tiles.set(ARROW_W, arrows[0][1]);
+		tiles.set(ARROW_E, arrows[2][1]);
+		tiles.set(ARROW_SW, arrows[0][2]);
+		tiles.set(ARROW_S, arrows[1][2]);
+		tiles.set(ARROW_SE, arrows[2][2]);
+		tiles.set(DOT, arrows[1][1]);
 
-		var chestLg = hxd.Res.tiles.scroll.chest_large.toTile().divide(2, 1);
-		CHEST_LARGE_CLOSED = chestLg[0][0];
-		CHEST_LARGE_OPEN = chestLg[0][1];
+		var chestLg = t.chest_large.toTile().divide(2, 1);
+		tiles.set(CHEST_LARGE_CLOSED, chestLg[0][0]);
+		tiles.set(CHEST_LARGE_OPEN, chestLg[0][1]);
 
-		var chestSm = hxd.Res.tiles.scroll.chest_small.toTile().divide(2, 1);
-		CHEST_SMALL_CLOSED = chestSm[0][0];
-		CHEST_SMALL_OPEN = chestSm[0][1];
+		var chestSm = t.chest_small.toTile().divide(2, 1);
+		tiles.set(CHEST_SMALL_CLOSED, chestSm[0][0]);
+		tiles.set(CHEST_SMALL_OPEN, chestSm[0][1]);
 
-		RIFLE = hxd.Res.tiles.scroll.rifle.toTile();
-		NAVY_REVOLVER = hxd.Res.tiles.scroll.pistol.toTile();
-		COACH_GUN = hxd.Res.tiles.scroll.shotgun.toTile();
-		PONCHO = hxd.Res.tiles.scroll.poncho.toTile();
-		DUSTER = hxd.Res.tiles.scroll.duster.toTile();
-		LONG_JOHNS = hxd.Res.tiles.scroll.longjohns.toTile();
-		BLOOD_SPATTER = hxd.Res.tiles.scroll.blood_spatter_1.toTile();
-
-		var sands = hxd.Res.tiles.scroll.sand.toTile().divide(4, 1);
-		SAND_1 = sands[0][0];
-		SAND_2 = sands[0][1];
-		SAND_3 = sands[0][2];
-		SAND_4 = sands[0][3];
-
-		THUG_1 = hxd.Res.tiles.scroll.thug_1.toTile();
-		THUG_2 = hxd.Res.tiles.scroll.thug_2.toTile();
+		var sands = t.sand.toTile().divide(4, 1);
+		tiles.set(SAND_1, sands[0][0]);
+		tiles.set(SAND_2, sands[0][1]);
+		tiles.set(SAND_3, sands[0][2]);
+		tiles.set(SAND_4, sands[0][3]);
 	}
 }

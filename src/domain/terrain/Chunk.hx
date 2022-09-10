@@ -4,6 +4,7 @@ import common.struct.Grid;
 import common.struct.GridMap;
 import common.util.Projection;
 import core.Game;
+import data.TileKey;
 import data.TileResources;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -138,32 +139,22 @@ class Chunk
 
 	function getTerrainBitmap(wx:Float, wy:Float, type:TerrainType):Bitmap
 	{
-		var sands = [
-			TileResources.SAND_1,
-			TileResources.SAND_2,
-			TileResources.SAND_3,
-			TileResources.SAND_4,
-		];
-		var grasses = [
-			TileResources.GRASS_1,
-			TileResources.GRASS_2,
-			TileResources.GRASS_3,
-			TileResources.GRASS_4,
-		];
+		var sands:Array<TileKey> = [SAND_1, SAND_2, SAND_3, SAND_4,];
+		var grasses:Array<TileKey> = [GRASS_1, GRASS_2, GRASS_3, GRASS_4,];
 
 		var bm = new h2d.Bitmap();
 
 		if (type == GRASS)
 		{
 			var colors = [0x47423a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
-			bm.tile = rand.pick(grasses);
+			bm.tile = TileResources.Get(rand.pick(grasses));
 			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
 		}
 
 		if (type == SAND)
 		{
 			var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
-			bm.tile = rand.pick(sands);
+			bm.tile = TileResources.Get(rand.pick(sands));
 			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
 		}
 
