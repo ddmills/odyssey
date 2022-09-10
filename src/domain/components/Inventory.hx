@@ -2,6 +2,7 @@ package domain.components;
 
 import common.struct.Coordinate;
 import core.Game;
+import data.AudioKey;
 import domain.events.OpenInventoryEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.StashInventoryEvent;
@@ -9,7 +10,6 @@ import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
 import h2d.Tile;
-import hxd.res.Sound;
 import screens.entitySelect.EntitySelectScreen;
 import screens.inventory.InventoryScreen;
 
@@ -18,8 +18,9 @@ class Inventory extends Component
 	@save private var _contentIds:Array<String> = [];
 
 	public var openedTile:Tile;
-	public var openedSound:Sound;
-	public var closedSound:Sound;
+
+	@save public var openedAudio:AudioKey;
+	@save public var closedAudio:AudioKey;
 
 	public var content(get, never):Array<Entity>;
 
@@ -110,7 +111,7 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).overrideTile(openedTile);
 		}
-		Game.instance.audio.play(openedSound);
+		Game.instance.audio.play(openedAudio);
 	}
 
 	private function executeCloseEffects()
@@ -119,6 +120,6 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).clearTileOverride();
 		}
-		Game.instance.audio.play(closedSound);
+		Game.instance.audio.play(closedAudio);
 	}
 }

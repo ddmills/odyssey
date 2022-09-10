@@ -1,11 +1,11 @@
 package domain.components;
 
+import data.AudioKey;
 import ecs.Component;
-import hxd.res.Sound;
 
 class Bullet extends Component
 {
-	public var impactSound:Sound;
+	public var impactSound:AudioKey;
 
 	public function new() {}
 }

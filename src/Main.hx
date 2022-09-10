@@ -1,6 +1,6 @@
 import core.Game;
+import data.AudioResources;
 import data.Commands;
-import data.SoundResources;
 import data.TextResources;
 import data.TileResources;
 import domain.skills.Skills;
@@ -24,7 +24,7 @@ class Main extends hxd.App
 
 		TextResources.Init();
 		TileResources.Init();
-		SoundResources.Init();
+		AudioResources.Init();
 		Commands.Init();
 		Skills.Init();
 		Weapons.Init();

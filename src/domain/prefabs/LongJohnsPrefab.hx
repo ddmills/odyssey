@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
@@ -22,8 +22,8 @@ class LongJohnsPrefab extends Prefab
 		var skills = new EquippedSkillMod();
 		skills.set(SKILL_FORTITUDE, 2);
 		longJohns.add(skills);
-		longJohns.get(Equipment).equipSound = SoundResources.CLOTH_EQUIP_1;
-		longJohns.get(Equipment).unequipSound = SoundResources.CLOTH_UNEQUIP_1;
+		longJohns.get(Equipment).equipAudio = CLOTH_EQUIP_1;
+		longJohns.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;
 		return longJohns;
 	}
 }

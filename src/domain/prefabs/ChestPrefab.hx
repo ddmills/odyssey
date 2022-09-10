@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Inventory;
 import domain.components.Moniker;
@@ -18,8 +18,8 @@ class ChestPrefab extends Prefab
 
 		var inventory = new Inventory();
 		inventory.openedTile = TileResources.CHEST_LARGE_OPEN;
-		inventory.openedSound = SoundResources.CHEST_OPEN;
-		inventory.closedSound = SoundResources.CHEST_CLOSE;
+		inventory.openedAudio = CHEST_OPEN;
+		inventory.closedAudio = CHEST_CLOSE;
 
 		chest.add(inventory);
 

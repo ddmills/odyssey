@@ -1,8 +1,8 @@
 package domain.components;
 
 import core.Game;
+import data.AudioKey;
 import data.EquipmentSlotType;
-import data.SoundResources;
 import domain.events.DropEvent;
 import domain.events.EquipEvent;
 import domain.events.QueryInteractionsEvent;
@@ -17,15 +17,13 @@ class Equipment extends Component
 	@save public var slotTypes:Array<EquipmentSlotType> = [];
 	@save public var extraSlotTypes:Array<EquipmentSlotType> = [];
 
-	public var equipSound:Sound = SoundResources.LOOT_PICKUP_1;
-	public var unequipSound:Sound = SoundResources.LOOT_DROP_1;
+	public var equipAudio:AudioKey = LOOT_PICKUP_1;
+	public var unequipAudio:AudioKey = LOOT_DROP_1;
 
 	public function new(slotTypes:Array<EquipmentSlotType>, ?extraSlotTypes:Array<EquipmentSlotType>)
 	{
 		this.slotTypes = slotTypes;
 		this.extraSlotTypes = extraSlotTypes == null ? [] : extraSlotTypes;
-		equipSound = SoundResources.LOOT_PICKUP_1;
-		unequipSound = SoundResources.LOOT_DROP_1;
 
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(EquipEvent, (evt) -> onEquip(cast evt));
@@ -66,7 +64,7 @@ class Equipment extends Component
 			{
 				slot.unequip();
 				slot.equip(entity);
-				Game.instance.audio.play(equipSound);
+				Game.instance.audio.play(equipAudio);
 				Game.instance.screens.pop();
 			},
 		}));
@@ -80,7 +78,7 @@ class Equipment extends Component
 	private function onUnequip(evt:UnequipEvent)
 	{
 		unequip();
-		Game.instance.audio.play(unequipSound);
+		Game.instance.audio.play(unequipAudio);
 	}
 
 	private function onDrop(evt:DropEvent)

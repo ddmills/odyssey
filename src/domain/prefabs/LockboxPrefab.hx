@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Inventory;
 import domain.components.Loot;
@@ -21,8 +21,8 @@ class LockboxPrefab extends Prefab
 		var inventory = new Inventory();
 
 		inventory.openedTile = TileResources.CHEST_SMALL_OPEN;
-		inventory.openedSound = SoundResources.CHEST_OPEN;
-		inventory.closedSound = SoundResources.CHEST_CLOSE;
+		inventory.openedAudio = CHEST_OPEN;
+		inventory.closedAudio = CHEST_CLOSE;
 
 		lockbox.add(inventory);
 

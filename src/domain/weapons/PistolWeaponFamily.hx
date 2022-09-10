@@ -1,6 +1,7 @@
 package domain.weapons;
 
-import data.SoundResources;
+import data.AudioKey;
+import data.AudioResources;
 import hxd.Rand;
 import hxd.res.Sound;
 
@@ -13,8 +14,8 @@ class PistolWeaponFamily extends WeaponFamily
 		ammo = AMMO_PISTOL;
 	}
 
-	public override function getSound():Sound
+	public override function getSound():AudioKey
 	{
-		return Rand.create().pick([SoundResources.SHOT_PISTOL_1, SoundResources.SHOT_PISTOL_2]);
+		return Rand.create().pick([SHOT_PISTOL_1, SHOT_PISTOL_2]);
 	}
 }

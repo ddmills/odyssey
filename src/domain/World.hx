@@ -3,6 +3,7 @@ package domain;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Game;
+import data.AudioKey;
 import data.Cardinal;
 import domain.AIManager;
 import domain.components.Explored;
@@ -218,11 +219,11 @@ class World
 		return chunkCountY * chunkSize;
 	}
 
-	public function playAudio(pos:IntPoint, sound:Sound):Bool
+	public function playAudio(pos:IntPoint, key:AudioKey):Bool
 	{
 		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
 		{
-			game.audio.play(sound);
+			game.audio.play(key);
 			return true;
 		}
 

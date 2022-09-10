@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
@@ -24,8 +24,8 @@ class PonchoPrefab extends Prefab
 
 		entity.add(skills);
 
-		entity.get(Equipment).equipSound = SoundResources.CLOTH_EQUIP_1;
-		entity.get(Equipment).unequipSound = SoundResources.CLOTH_UNEQUIP_1;
+		entity.get(Equipment).equipAudio = CLOTH_EQUIP_1;
+		entity.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;
 
 		return entity;
 	}

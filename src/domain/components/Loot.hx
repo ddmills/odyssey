@@ -1,27 +1,26 @@
 package domain.components;
 
 import core.Game;
-import data.SoundResources;
+import data.AudioKey;
 import domain.events.DropEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
-import hxd.res.Sound;
 
 class Loot extends Component
 {
 	public var isInventoried(get, never):Bool;
 	public var container(get, never):Inventory;
 
-	public var pickupSound:Sound;
-	public var dropSound:Sound;
+	public var pickupSound:AudioKey;
+	public var dropSound:AudioKey;
 
 	public function new()
 	{
-		pickupSound = SoundResources.LOOT_PICKUP_1;
-		dropSound = SoundResources.LOOT_DROP_1;
+		pickupSound = LOOT_PICKUP_1;
+		dropSound = LOOT_DROP_1;
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(PickupEvent, (evt) -> onPickup(cast evt));
 		addHandler(DropEvent, (evt) -> onDrop(cast evt));

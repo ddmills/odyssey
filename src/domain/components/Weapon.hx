@@ -1,7 +1,8 @@
 package domain.components;
 
 import core.Game;
-import data.SoundResources;
+import data.AudioKey;
+import data.AudioResources;
 import data.WeaponFamilyType;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
@@ -22,7 +23,7 @@ class Weapon extends Component
 	@save public var range:Int = 6;
 	@save public var ammo:Int;
 	@save public var ammoCapacity:Int;
-
+	@save public var reloadAudio:AudioKey = RELOAD_CLIP_1;
 	public var isLoaded(get, never):Bool;
 
 	public function new(family:WeaponFamilyType)
@@ -53,7 +54,7 @@ class Weapon extends Component
 		{
 			if (evt.reloader.has(IsPlayer))
 			{
-				Game.instance.world.playAudio(evt.reloader.pos.toIntPoint(), SoundResources.RELOAD_CLIP_1);
+				Game.instance.world.playAudio(evt.reloader.pos.toIntPoint(), reloadAudio);
 			}
 			ammo = ammoCapacity;
 			evt.reloader.fireEvent(new ConsumeEnergyEvent(reloadCost));

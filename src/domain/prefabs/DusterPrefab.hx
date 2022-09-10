@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
@@ -24,8 +24,8 @@ class DusterPrefab extends Prefab
 
 		duster.add(skills);
 
-		duster.get(Equipment).equipSound = SoundResources.CLOTH_EQUIP_1;
-		duster.get(Equipment).unequipSound = SoundResources.CLOTH_UNEQUIP_1;
+		duster.get(Equipment).equipAudio = CLOTH_EQUIP_1;
+		duster.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;
 
 		return duster;
 	}

@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.SoundResources;
+import data.AudioResources;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.Loot;
@@ -18,8 +18,8 @@ class CoachGunPrefab extends Prefab
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));
-		entity.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
-		entity.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
+		entity.get(Equipment).equipAudio = GUN_HANDLE_1;
+		entity.get(Equipment).unequipAudio = GUN_HANDLE_4;
 
 		var weapon = new Weapon(WPN_FAMILY_SHOTGUN);
 		weapon.accuracy = -2;

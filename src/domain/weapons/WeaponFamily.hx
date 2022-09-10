@@ -3,8 +3,9 @@ package domain.weapons;
 import common.struct.IntPoint;
 import core.Game;
 import data.AmmoType;
+import data.AudioKey;
+import data.AudioResources;
 import data.SkillType;
-import data.SoundResources;
 import domain.components.Bullet;
 import domain.components.Energy;
 import domain.components.Health;
@@ -17,7 +18,6 @@ import domain.prefabs.Spawner;
 import domain.skills.Skills;
 import ecs.Entity;
 import hxd.Rand;
-import hxd.res.Sound;
 
 class WeaponFamily
 {
@@ -25,9 +25,9 @@ class WeaponFamily
 	public var skill:SkillType;
 	public var ammo:Null<AmmoType>;
 
-	public function getSound():Sound
+	public function getSound():AudioKey
 	{
-		return Rand.create().pick([SoundResources.SHOT_PISTOL_1, SoundResources.SHOT_PISTOL_2]);
+		return Rand.create().pick([SHOT_PISTOL_1, SHOT_PISTOL_2]);
 	}
 
 	public function getRangedAttacks(attacker:Entity, target:IntPoint, weapon:Weapon):Array<Attack>
@@ -74,7 +74,7 @@ class WeaponFamily
 	{
 		if (attacker.has(IsPlayer))
 		{
-			Game.instance.world.playAudio(attacker.pos.toIntPoint(), SoundResources.SHOOT_NO_AMMO_1);
+			Game.instance.world.playAudio(attacker.pos.toIntPoint(), SHOOT_NO_AMMO_1);
 		}
 	}
 
@@ -104,11 +104,7 @@ class WeaponFamily
 			Game.instance.world.playAudio(attacker.pos.toIntPoint(), shot);
 			if (isHit)
 			{
-				bullet.get(Bullet).impactSound = Rand.create().pick([
-					SoundResources.IMPACT_FLESH_1,
-					SoundResources.IMPACT_FLESH_2,
-					SoundResources.IMPACT_FLESH_3
-				]);
+				bullet.get(Bullet).impactSound = Rand.create().pick([IMPACT_FLESH_1, IMPACT_FLESH_2, IMPACT_FLESH_3]);
 			}
 		});
 

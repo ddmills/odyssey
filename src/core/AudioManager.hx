@@ -1,6 +1,7 @@
 package core;
 
-import hxd.res.Sound;
+import data.AudioKey;
+import data.AudioResources;
 
 class AudioManager
 {
@@ -10,8 +11,9 @@ class AudioManager
 		manager.masterVolume = 0.25;
 	}
 
-	public function play(sound:Sound)
+	public function play(key:AudioKey)
 	{
+		var sound = AudioResources.Get(key);
 		if (sound == null)
 		{
 			return;
