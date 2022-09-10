@@ -1,21 +1,19 @@
 package core;
 
-import common.struct.Coordinate;
 import common.util.Serial;
 import core.input.Command;
 import data.Commands;
-import data.TileKey;
+import data.save.SaveChunk;
 import domain.components.Health;
-import domain.components.Sprite;
 import domain.components.Stats;
 import domain.skills.Skills;
-import ecs.Entity;
 import h2d.Console;
 import haxe.EnumTools;
-import haxe.rtti.Meta;
 
 class ConsoleConfig
 {
+	static var SAVE_DATA:String;
+
 	public static function Config(console:Console)
 	{
 		console.log('Type "help" for list of commands.');
@@ -34,16 +32,39 @@ class ConsoleConfig
 			});
 		});
 
-		console.addCommand('save', 'save', [], () ->
+		console.addCommand('save', 'save', [{name: 'chunk index', t: AInt}], (idx:Int) ->
 		{
-			var p = Game.instance.world.player.entity;
-			var data = p.save();
-			var save = Serial.Serialize(data);
-			trace(save);
-			var deser = Serial.Deserialize(save);
-			deser.id = 'test';
-			var c = Entity.Load(deser);
-			c.pos = new Coordinate(28, 37, WORLD);
+			// var p = Game.instance.world.player.entity;
+			// var data = p.save();
+			// var save = Serial.Serialize(data);
+			// trace(save);
+			// var deser = Serial.Deserialize(save);
+			// deser.id = 'test';
+			// var c = Entity.Load(deser);
+			// c.pos = new Coordinate(28, 37, WORLD);
+			trace('saving...', idx);
+			var chunk = Game.instance.world.chunks.getChunkById(idx);
+			var data = chunk.save();
+
+			SAVE_DATA = Serial.Serialize(data);
+			chunk.unload();
+		});
+
+		console.addCommand('load', 'load', [{name: 'chunk index', t: AInt}], (idx:Int) ->
+		{
+			// var p = Game.instance.world.player.entity;
+			// var data = p.save();
+			// var save = Serial.Serialize(data);
+			// trace(save);
+			// var deser = Serial.Deserialize(save);
+			// deser.id = 'test';
+			// var c = Entity.Load(deser);
+			// c.pos = new Coordinate(28, 37, WORLD);
+			trace('loading...', idx);
+			var chunk = Game.instance.world.chunks.getChunkById(idx);
+			var data:SaveChunk = Serial.Deserialize(SAVE_DATA);
+			chunk.load(data);
+			Game.instance.world.reapplyVisible();
 		});
 
 		console.addCommand('stats', 'List player stats & skills', [], () ->

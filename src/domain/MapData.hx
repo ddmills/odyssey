@@ -1,6 +1,7 @@
 package domain;
 
 import common.struct.Grid;
+import common.struct.IntPoint;
 import core.Game;
 import domain.terrain.MapTile;
 import domain.terrain.TerrainType;
@@ -47,9 +48,9 @@ class MapData
 		}
 	}
 
-	public function getTerrain(wx:Float, wy:Float):TerrainType
+	public function getTerrain(pos:IntPoint):TerrainType
 	{
-		return tiles.get(wx.floor(), wy.floor()).terrain;
+		return tiles.get(pos.x, pos.y).terrain;
 	}
 
 	function generateTerrain()

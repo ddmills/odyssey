@@ -9,7 +9,7 @@ import h2d.Bitmap;
 import h2d.Tile;
 import shaders.SpriteShader;
 
-@:structInit class Sprite extends Component
+class Sprite extends Component
 {
 	@save public var tileKey(default, set):TileKey;
 	@save public var overrideTileKey(default, set):TileKey;

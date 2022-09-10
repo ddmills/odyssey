@@ -23,6 +23,7 @@ class Entity
 	public var x(get, set):Float;
 	public var y(get, set):Float;
 	public var chunk(get, never):Chunk;
+	public var isDestroyed(default, null):Bool;
 
 	private var components:Map<String, Array<Component>>;
 
@@ -34,6 +35,7 @@ class Entity
 		_y = 0;
 		cbits = 0;
 		components = new Map();
+		isDestroyed = false;
 		if (register)
 		{
 			setId(UniqueId.Create());
@@ -60,6 +62,7 @@ class Entity
 				remove(c);
 			}
 		}
+		isDestroyed = true;
 		chunk.removeEntity(this);
 		registry.unregisterEntity(this);
 	}

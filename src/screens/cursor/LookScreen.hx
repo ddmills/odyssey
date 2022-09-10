@@ -86,7 +86,7 @@ class LookScreen extends CursorScreen
 			bm.y = px.y;
 		});
 
-		var terrain = EnumValueTools.getName(world.map.getTerrain(opts.end.x, opts.end.y));
+		var terrain = EnumValueTools.getName(world.map.getTerrain(opts.end.toIntPoint()));
 
 		if (world.isVisible(opts.end))
 		{

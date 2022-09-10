@@ -23,8 +23,7 @@ class ChunkManager
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
 		for (i in 0...chunks.size)
 		{
-			var coord = chunks.coord(i);
-			var chunk = new Chunk(i, coord.x, coord.y, chunkSize);
+			var chunk = new Chunk(i, chunkSize);
 
 			chunks.setIdx(i, chunk);
 		}
@@ -33,6 +32,11 @@ class ChunkManager
 	public inline function getChunkIdx(cx:Float, cy:Float)
 	{
 		return chunks.idx(cx.floor(), cy.floor());
+	}
+
+	public inline function getChunkPos(idx:Int)
+	{
+		return chunks.coord(idx);
 	}
 
 	public inline function getChunkById(chunkIdx:Int):Chunk

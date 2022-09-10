@@ -25,11 +25,11 @@
 - improvements
 	- [ ] make 'Move' an entity event
 - Saving/Loading
-	- [ ] Component and entity .save() and .load()
+	- [x] Component and entity .save() and .load()
 	- [ ] component and entity save flags
-	- [ ] haxe macro/metadata flags
-	- [ ] entity clone()
+	- [x] haxe macro/metadata flags
+	- [x] entity clone()
 	- [ ] no-arg component constructors
 	- [ ] Save map data (?)
-	- [ ] save/load chunks
-	- [ ] unload chunks
+	- [x] save/load chunks
+	- [ ] dynamic unload/load chunks

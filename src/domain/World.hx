@@ -5,6 +5,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.AudioKey;
 import data.Cardinal;
+import data.save.SaveGame.SaveWorld;
 import domain.AIManager;
 import domain.components.Explored;
 import domain.components.Visible;
@@ -67,6 +68,24 @@ class World
 		systems.update(game.frame);
 	}
 
+	public function playAudio(pos:IntPoint, key:AudioKey):Bool
+	{
+		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
+		{
+			game.audio.play(key);
+			return true;
+		}
+
+		return false;
+	}
+
+	public function save():SaveWorld
+	{
+		var s = new SaveWorld();
+
+		return s;
+	}
+
 	public overload extern inline function getEntitiesAt(pos:IntPoint):Array<Entity>
 	{
 		var w = pos.asWorld();
@@ -76,7 +95,7 @@ class World
 		{
 			return new Array<Entity>();
 		}
-		var local = w.toChunkLocal(chunk.cx, chunk.cy);
+		var local = w.toChunkLocal();
 		var ids = chunk.getEntityIdsAt(local.x, local.y);
 
 		return ids.map((id:String) -> game.registry.getEntity(id));
@@ -123,6 +142,11 @@ class World
 		];
 	}
 
+	public function reapplyVisible()
+	{
+		setVisible(visible);
+	}
+
 	public function setVisible(values:Array<Coordinate>)
 	{
 		for (value in visible)
@@ -131,7 +155,7 @@ class World
 			var chunk = chunks.getChunk(c.x, c.y);
 			if (chunk != null)
 			{
-				var local = value.toChunkLocal(chunk.cx, chunk.cy);
+				var local = value.toChunkLocal();
 
 				chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
 				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
@@ -149,7 +173,7 @@ class World
 			var chunk = chunks.getChunk(c.x, c.y);
 			if (chunk != null)
 			{
-				var local = value.toChunkLocal(chunk.cx, chunk.cy);
+				var local = value.toChunkLocal();
 
 				chunk.setExplore(local.x.floor(), local.y.floor(), true, true);
 				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
@@ -176,7 +200,7 @@ class World
 		{
 			return false;
 		}
-		var local = coord.toChunkLocal(c.x, c.y);
+		var local = coord.toChunkLocal();
 		return chunk.exploration.get(local.x.floor(), local.y.floor());
 	}
 
@@ -191,7 +215,7 @@ class World
 		var chunk = chunks.getChunk(c.x, c.y);
 		if (chunk != null)
 		{
-			var local = coord.toChunkLocal(c.x, c.y);
+			var local = coord.toChunkLocal();
 			chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
 
 			for (entity in getEntitiesAt(coord.toWorld().toIntPoint()))
@@ -217,16 +241,5 @@ class World
 	function get_mapHeight():Int
 	{
 		return chunkCountY * chunkSize;
-	}
-
-	public function playAudio(pos:IntPoint, key:AudioKey):Bool
-	{
-		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
-		{
-			game.audio.play(key);
-			return true;
-		}
-
-		return false;
 	}
 }

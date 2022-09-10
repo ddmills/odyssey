@@ -18,6 +18,8 @@ import domain.components.Sprite;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
+import h2d.Object;
+import h2d.Text;
 import screens.console.ConsoleScreen;
 import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
@@ -25,10 +27,18 @@ import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
 import screens.shooting.ShootingScreen;
 
+typedef HudText =
+{
+	ob:Object,
+	clock:Text,
+	health:Text,
+	wpos:Text,
+	cpos:Text,
+}
+
 class AdventureScreen extends Screen
 {
-	var clockText:h2d.Text;
-	var healthText:h2d.Text;
+	var hudText:HudText;
 
 	public function new()
 	{
@@ -42,23 +52,25 @@ class AdventureScreen extends Screen
 
 	public override function onSuspend()
 	{
-		clockText.visible = false;
-		healthText.visible = false;
+		hudText.ob.visible = false;
 	}
 
 	public override function onResume()
 	{
-		clockText.visible = true;
-		healthText.visible = true;
+		hudText.ob.visible = true;
 	}
 
 	public override function update(frame:Frame)
 	{
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
-		clockText.text = world.clock.toString() + ' ' + world.player.pos.floor().toString();
+		hudText.clock.text = world.clock.toString();
 		var hp = world.player.entity.get(Health);
-		healthText.text = '${hp.value}/${hp.max}';
+		hudText.health.text = '${hp.value}/${hp.max}';
+
+		var mpos = game.input.mouse;
+		hudText.wpos.text = mpos.toWorld().toIntPoint().toString();
+		hudText.cpos.text = mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
 
 		if (world.systems.energy.isPlayersTurn)
 		{
@@ -153,20 +165,35 @@ class AdventureScreen extends Screen
 
 	private function renderClock()
 	{
-		clockText = new h2d.Text(TextResources.BIZCAT);
-		clockText.text = world.clock.toString();
-		clockText.color = 0xf5f5f5.toHxdColor();
-		clockText.x = 16;
-		clockText.y = 16;
+		var ob = new Object();
+		ob.x = 16;
+		ob.y = 16;
 
-		healthText = new h2d.Text(TextResources.BIZCAT);
-		healthText.text = '';
-		healthText.color = 0xf5f5f5.toHxdColor();
-		healthText.x = 16;
-		healthText.y = 32;
+		var clock = new Text(TextResources.BIZCAT, ob);
+		clock.color = 0xf5f5f5.toHxdColor();
+		clock.y = 0;
 
-		game.render(HUD, clockText);
-		game.render(HUD, healthText);
+		var health = new Text(TextResources.BIZCAT, ob);
+		health.color = 0xf5f5f5.toHxdColor();
+		health.y = 16;
+
+		var cpos = new Text(TextResources.BIZCAT, ob);
+		cpos.color = 0xf5f5f5.toHxdColor();
+		cpos.y = 32;
+
+		var wpos = new Text(TextResources.BIZCAT, ob);
+		wpos.color = 0xf5f5f5.toHxdColor();
+		wpos.y = 48;
+
+		hudText = {
+			ob: ob,
+			clock: clock,
+			health: health,
+			cpos: cpos,
+			wpos: wpos,
+		};
+
+		game.render(HUD, ob);
 	}
 
 	function astar(goal:Coordinate)

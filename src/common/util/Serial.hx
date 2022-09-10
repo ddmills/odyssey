@@ -21,10 +21,10 @@ class Serial
 	/**
 	 * Deserialize a string to a value of type T
 	 */
-	public static function Deserialize<T>(serialized:String):T
+	public static function Deserialize(serialized:String)
 	{
 		var uns = new Unserializer(serialized);
-		var value:T = uns.unserialize();
+		var value = uns.unserialize();
 
 		return value;
 	}

@@ -1,5 +1,9 @@
 package common.struct;
 
+import common.struct.Grid.GridItem;
+import common.struct.Grid.GridIterator;
+import common.struct.Grid.GridSave;
+
 @:generic class GridMap<T:(String)>
 {
 	var hash:Map<T, Int>;
@@ -104,5 +108,33 @@ package common.struct;
 	{
 		grid.clear();
 		hash.clear();
+	}
+
+	public function save<V>(fn:(Array<T>) -> V):GridSave<V>
+	{
+		return {
+			width: width,
+			height: height,
+			data: grid.map((item:GridItem<Array<T>>) -> fn(item.value))
+		}
+	}
+
+	public function load<V>(save:GridSave<V>, fn:(V) -> Array<T>)
+	{
+		width = save.width;
+		height = save.height;
+		for (i => d in save.data)
+		{
+			var values = fn(d);
+			for (v in values)
+			{
+				setIdx(i, v);
+			}
+		}
+	}
+
+	public function iterator()
+	{
+		return new GridIterator(grid);
 	}
 }

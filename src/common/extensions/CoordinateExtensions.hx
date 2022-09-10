@@ -114,7 +114,7 @@ class CoordinateExtensions
 		}
 	}
 
-	static public inline function toChunkLocal(a:Coordinate, chunkX:Float, chunkY:Float):Coordinate
+	static public inline function toChunkLocal(a:Coordinate):Coordinate
 	{
 		var chunk = a.toChunk().floor();
 		return a.sub(chunk);

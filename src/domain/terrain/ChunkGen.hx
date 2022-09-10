@@ -18,9 +18,7 @@ class ChunkGen
 		var r = new Rand(seed + chunk.chunkId);
 		for (i in chunk.exploration)
 		{
-			var x = chunk.wx + i.x;
-			var y = chunk.wy + i.y;
-			var pos = new Coordinate(x, y);
+			var pos = chunk.worldPos.add(i.pos).asWorld();
 
 			if (r.bool(.015))
 			{

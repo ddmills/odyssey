@@ -45,4 +45,9 @@ package common.struct;
 	{
 		return new IntPoint(this.x + x, this.y + y);
 	}
+
+	public overload extern inline function multiply(v:Int):IntPoint
+	{
+		return new IntPoint(x * v, y * v);
+	}
 }
