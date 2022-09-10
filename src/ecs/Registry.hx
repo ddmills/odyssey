@@ -1,7 +1,5 @@
 package ecs;
 
-import common.util.Serial;
-
 class Registry
 {
 	var cbit:Int;

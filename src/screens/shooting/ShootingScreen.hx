@@ -83,7 +83,7 @@ class ShootingScreen extends CursorScreen
 
 		var defender = world.getEntitiesAt(target).find((e) -> e.has(Health));
 
-		if (defender != null)
+		if (defender != null && weapon != null)
 		{
 			var health = defender.get(Health).toString();
 			var chance = GameMath.GetHitChance(shooter, defender, weapon, true) * 100;

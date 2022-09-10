@@ -25,11 +25,6 @@ abstract class Component
 		return Type.getClassName(Type.getClass(this));
 	}
 
-	inline function get_entity():String
-	{
-		return Type.getClassName(Type.getClass(this));
-	}
-
 	private function addHandler<T:EntityEvent>(type:Class<T>, fn:(EntityEvent) -> Void)
 	{
 		var className = Type.getClassName(type);

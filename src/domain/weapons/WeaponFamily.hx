@@ -4,10 +4,8 @@ import common.struct.IntPoint;
 import core.Game;
 import data.AmmoType;
 import data.AudioKey;
-import data.AudioResources;
 import data.SkillType;
 import domain.components.Bullet;
-import domain.components.Energy;
 import domain.components.Health;
 import domain.components.IsPlayer;
 import domain.components.Move;
@@ -38,8 +36,6 @@ class WeaponFamily
 		var skill = Skills.GetValue(skill, attacker);
 		var damage = r.roll(weapon.die, weapon.modifier) + skill;
 		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
-
-		trace(toHit, damage);
 
 		return [
 			{

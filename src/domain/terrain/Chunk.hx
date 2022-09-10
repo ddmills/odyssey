@@ -7,6 +7,7 @@ import core.Game;
 import data.TileKey;
 import data.TileResources;
 import data.save.SaveChunk;
+import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
 import hxd.Rand;
@@ -74,7 +75,6 @@ class Chunk
 			{
 				setExplore(e.x, e.y, e.value, false);
 			}
-
 			entities.load(save.entities, (edata) ->
 			{
 				return edata.map((data) ->
@@ -96,6 +96,7 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
+			trace('Cannot save an unloaded chunk');
 			return null;
 		}
 
@@ -122,15 +123,17 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
+			trace('Cannot unload an already unloaded chunk');
 			return;
 		}
 
 		tiles.remove();
 		tiles.removeChildren();
 		bitmaps.clear();
+
 		for (ids in entities)
 		{
-			for (id in ids.value)
+			for (id in ids.value.copy())
 			{
 				var e = Game.instance.registry.getEntity(id);
 				if (e != null)
@@ -139,6 +142,7 @@ class Chunk
 				}
 			}
 		}
+
 		isLoaded = false;
 	}
 
@@ -192,6 +196,14 @@ class Chunk
 
 	public function setEntityPosition(entity:Entity)
 	{
+		if (!isLoaded)
+		{
+			trace('PLACING ENTITY IN UNLOADED CHUNK');
+			if (entity.has(Moniker))
+			{
+				trace(entity.get(Moniker).displayName);
+			}
+		}
 		var local = entity.pos.toChunkLocal().toWorld();
 		entities.set(local.x.floor(), local.y.floor(), entity.id);
 	}
@@ -205,7 +217,7 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
-			load();
+			Game.instance.world.chunks.load(chunkId);
 			return;
 		}
 		var idx = exploration.idx(x, y);

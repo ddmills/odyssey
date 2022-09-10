@@ -3,10 +3,12 @@ package domain.terrain;
 import common.struct.Grid;
 import common.util.Projection;
 import core.Game;
+import data.save.SaveChunk;
 
 class ChunkManager
 {
 	var chunks:Grid<Chunk>;
+	var chunkSaveData:Map<Int, SaveChunk>;
 
 	public var chunkGen(default, null):ChunkGen;
 	public var chunkCountX(get, null):Int;
@@ -21,11 +23,57 @@ class ChunkManager
 	public function initialize()
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
+		chunkSaveData = new Map();
 		for (i in 0...chunks.size)
 		{
 			var chunk = new Chunk(i, chunkSize);
 
 			chunks.setIdx(i, chunk);
+		}
+	}
+
+	public function loadChunks(curChunk:Int)
+	{
+		var curChunkPos = getChunkPos(curChunk);
+		var loaded = chunks.filter((item) -> item.value.isLoaded).map((item) -> item.value.chunkId);
+		var activeChunkIdxs = [];
+
+		for (x in [-1, 0, 1])
+		{
+			for (y in [-1, 0, 1])
+			{
+				var chunkPos = curChunkPos.add(x, y);
+				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)
+				{
+					activeChunkIdxs.push(getChunkIdx(chunkPos.x, chunkPos.y));
+				}
+			}
+		}
+
+		for (chunkIdx in loaded)
+		{
+			if (!activeChunkIdxs.has(chunkIdx))
+			{
+				trace('UNLOAD', chunkIdx);
+				var chunk = getChunkById(chunkIdx);
+				var data = chunk.save();
+				chunk.unload();
+				chunkSaveData.set(chunkIdx, data);
+			}
+		}
+	}
+
+	public function load(chunkIdx:Int)
+	{
+		var chunk = getChunkById(chunkIdx);
+		if (chunkSaveData.exists(chunkIdx))
+		{
+			trace('LOAD CHUNK', chunkIdx);
+			chunk.load(chunkSaveData.get(chunkIdx));
+		}
+		else
+		{
+			chunk.load();
 		}
 	}
 
