@@ -3,6 +3,7 @@ package domain.components;
 import data.EquipmentSlotType;
 import data.WeaponFamilyType;
 import domain.events.MeleeEvent;
+import domain.events.MovedEvent;
 import domain.events.QuerySkillModEquippedEvent;
 import domain.events.QuerySkillModEvent;
 import domain.events.ReloadEvent;
@@ -38,6 +39,15 @@ class EquipmentSlot extends Component
 		addHandler(MeleeEvent, (evt) -> onMelee(cast evt));
 		addHandler(ShootEvent, (evt) -> onShoot(cast evt));
 		addHandler(ReloadEvent, (evt) -> onReload(cast evt));
+		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
+	}
+
+	function onMoved(evt:MovedEvent)
+	{
+		if (!isEmpty)
+		{
+			content.fireEvent(evt);
+		}
 	}
 
 	private function onMelee(evt:MeleeEvent)

@@ -4,13 +4,13 @@ import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
 import data.TileKey;
+import domain.events.MovedEvent;
 import domain.events.OpenInventoryEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.StashInventoryEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
-import h2d.Tile;
 import screens.entitySelect.EntitySelectScreen;
 import screens.inventory.InventoryScreen;
 
@@ -30,6 +30,7 @@ class Inventory extends Component
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast evt));
 		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast evt));
+		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
 	}
 
 	public function addLoot(loot:Entity)
@@ -64,6 +65,14 @@ class Inventory extends Component
 		return _contentIds
 			.map((id) -> entity.registry.getEntity(id))
 			.filter((e) -> e != null);
+	}
+
+	function onMoved(evt:MovedEvent)
+	{
+		for (e in content)
+		{
+			e.fireEvent(evt);
+		}
 	}
 
 	function onOpenInventory(evt:OpenInventoryEvent)

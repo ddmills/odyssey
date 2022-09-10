@@ -8,6 +8,7 @@ import data.Cardinal;
 import data.save.SaveGame.SaveWorld;
 import domain.AIManager;
 import domain.components.Explored;
+import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
@@ -160,7 +161,7 @@ class World
 				chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
 				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
 				{
-					if (entity.has(Visible))
+					if (entity.has(Visible) && !entity.has(IsInventoried))
 					{
 						entity.remove(Visible);
 					}

@@ -11,13 +11,15 @@ class AudioManager
 		manager.masterVolume = 0.25;
 	}
 
-	public function play(key:AudioKey)
+	public function play(key:Null<AudioKey>)
 	{
 		var sound = AudioResources.Get(key);
+
 		if (sound == null)
 		{
 			return;
 		}
+
 		sound.play();
 	}
 }

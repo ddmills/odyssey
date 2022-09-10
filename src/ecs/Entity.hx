@@ -5,6 +5,7 @@ import common.util.BitUtil;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Sprite;
+import domain.events.MovedEvent;
 import domain.terrain.Chunk;
 
 class Entity
@@ -229,6 +230,9 @@ class Entity
 		{
 			nextChunk.setEntityPosition(this);
 		}
+
+		fireEvent(new MovedEvent(this, w));
+
 		return w;
 	}
 

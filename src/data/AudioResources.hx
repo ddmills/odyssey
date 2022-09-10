@@ -8,6 +8,10 @@ class AudioResources
 
 	public static function Get(type:AudioKey):Sound
 	{
+		if (type == null)
+		{
+			return null;
+		}
 		return audio.get(type);
 	}
 
