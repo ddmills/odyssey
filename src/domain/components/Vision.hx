@@ -4,12 +4,12 @@ import ecs.Component;
 
 class Vision extends Component
 {
-	public var range:Int;
+	@save public var range:Int;
 
 	/**
 	 * Bonus vision is grants extra range, but only marks tiles as "Explored" rather than visible
 	 */
-	public var bonus:Int;
+	@save public var bonus:Int;
 
 	public function new(range:Int = 6, bonus:Int = 0)
 	{

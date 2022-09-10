@@ -15,7 +15,7 @@ import screens.inventory.InventoryScreen;
 
 class Inventory extends Component
 {
-	private var _contentIds:Array<String>;
+	@save private var _contentIds:Array<String> = [];
 
 	public var openedTile:Tile;
 	public var openedSound:Sound;
@@ -25,7 +25,6 @@ class Inventory extends Component
 
 	public function new()
 	{
-		_contentIds = new Array();
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast evt));
 		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast evt));

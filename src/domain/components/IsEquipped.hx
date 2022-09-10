@@ -5,30 +5,31 @@ import ecs.Entity;
 
 class IsEquipped extends Component
 {
-	private var _holderId:String;
+	@save private var holderId:String;
+
+	@save public var slotKey(default, null):String;
+	@save public var extraSlotKey(default, null):String;
 
 	public var holder(get, set):Null<Entity>;
 	public var slot(get, never):EquipmentSlot;
 	public var extraSlot(get, never):EquipmentSlot;
-	public var slotKey(default, null):String;
-	public var extraSlotKey(default, null):String;
 	public var slotDisplay(get, never):String;
 
 	public function new(holderId:String, slotKey:String, ?extraSlotKey:String)
 	{
-		_holderId = holderId;
+		this.holderId = holderId;
 		this.slotKey = slotKey;
 		this.extraSlotKey = extraSlotKey;
 	}
 
 	function get_holder():Null<Entity>
 	{
-		return entity.registry.getEntity(_holderId);
+		return entity.registry.getEntity(holderId);
 	}
 
 	function set_holder(value:Entity):Entity
 	{
-		_holderId = value.id;
+		holderId = value.id;
 
 		return value;
 	}

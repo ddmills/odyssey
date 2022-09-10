@@ -5,7 +5,7 @@ import ecs.Entity;
 
 class IsInventoried extends Component
 {
-	private var _holderId:String;
+	@save private var _holderId:String;
 
 	public var holder(get, set):Null<Entity>;
 

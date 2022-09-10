@@ -1,12 +1,15 @@
 package core;
 
+import common.util.Serial;
 import core.input.Command;
 import data.Commands;
 import domain.components.Health;
 import domain.components.Stats;
 import domain.skills.Skills;
+import ecs.Entity;
 import h2d.Console;
 import haxe.EnumTools;
+import haxe.rtti.Meta;
 
 class ConsoleConfig
 {
@@ -26,6 +29,21 @@ class ConsoleConfig
 			{
 				console.log('${cmd.friendlyKey()} - ${cmd.name}', 0xffff00);
 			});
+		});
+
+		console.addCommand('save', 'save', [], () ->
+		{
+			var e = new Entity();
+			e.add(new Health());
+			e.get(Health).value = 3;
+			e.get(Health).corpsePrefab = CORPSE_HUMAN;
+
+			var data = e.save();
+			e.destroy();
+
+			var loaded = Entity.Load(data);
+			trace(loaded.get(Health).value); // 3
+			trace(loaded.get(Health).corpsePrefab); // CORPSE_HUMAN
 		});
 
 		console.addCommand('stats', 'List player stats & skills', [], () ->

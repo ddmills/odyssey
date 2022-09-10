@@ -14,10 +14,11 @@ class RiflePrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(TileResources.RIFLE, 0xA5CACA, 0x5F3C1F, OBJECTS));
+		entity.add(new Sprite(TileResources.RIFLE, 0xA5CACA, 0x885B07, OBJECTS));
 		entity.add(new Moniker('Rifle'));
 		entity.add(new Loot());
-		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));
+		entity.add(new Equipment([EQ_SLOT_HAND]));
+		entity.get(Equipment).extraSlotTypes = [EQ_SLOT_HAND];
 		entity.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
 		entity.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
 
@@ -27,6 +28,7 @@ class RiflePrefab extends Prefab
 		weapon.baseCost = 110;
 		weapon.ammo = 1;
 		weapon.ammoCapacity = 1;
+		weapon.range = 12;
 		entity.add(weapon);
 
 		return entity;

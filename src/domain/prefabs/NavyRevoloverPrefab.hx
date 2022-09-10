@@ -13,21 +13,21 @@ class NavyRevoloverPrefab extends Prefab
 {
 	public function Create(?options:Dynamic)
 	{
-		var pistol = new Entity();
-		pistol.add(new Sprite(TileResources.NAVY_REVOLVER, 0xA5CACA, 0x5F3C1F, OBJECTS));
-		pistol.add(new Moniker('Navy revolover'));
-		pistol.add(new Loot());
-		pistol.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_HOLSTER]));
-
-		pistol.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
-		pistol.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
+		var entity = new Entity();
+		entity.add(new Sprite(TileResources.NAVY_REVOLVER, 0xA5CACA, 0x885B07, OBJECTS));
+		entity.add(new Moniker('Navy revolover'));
+		entity.add(new Loot());
+		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_HOLSTER]));
+		entity.get(Equipment).equipSound = SoundResources.GUN_HANDLE_1;
+		entity.get(Equipment).unequipSound = SoundResources.GUN_HANDLE_4;
 
 		var weapon = new Weapon(WPN_FAMILY_PISTOL);
 		weapon.baseCost = 60;
 		weapon.ammo = 6;
 		weapon.ammoCapacity = 6;
-		pistol.add(weapon);
+		weapon.range = 8;
+		entity.add(weapon);
 
-		return pistol;
+		return entity;
 	}
 }

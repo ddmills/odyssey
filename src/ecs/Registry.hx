@@ -1,5 +1,7 @@
 package ecs;
 
+import common.util.Serial;
+
 class Registry
 {
 	var cbit:Int;
@@ -73,6 +75,11 @@ class Registry
 	@:allow(ecs.Entity)
 	function registerEntity(entity:Entity)
 	{
+		if (entityMap.exists(entity.id))
+		{
+			trace('Given entity id (${entity.id}) is already registered');
+			return;
+		}
 		size++;
 		entityMap.set(entity.id, entity);
 	}

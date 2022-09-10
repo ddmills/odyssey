@@ -7,13 +7,14 @@
 	- [x] show item actions
 - attacking
 	- [ ] rifle cone
-	- [ ] add weapon range
+	- [x] add weapon range
 	- [ ] dual wield
 	- [ ] melee SFX
 	- [ ] hit bump fx
 	- [ ] hit color fx (blink)
 	- [ ] directional blood sprite
 	- [x] ranged enemy
+	- [ ] cover
 - leveling
 	- [ ] XP on kill
 	- [ ] Level up spend grit
@@ -23,3 +24,12 @@
 	- [ ] deploy it
 - improvements
 	- [ ] make 'Move' an entity event
+- Saving/Loading
+	- [ ] Component and entity .save() and .load()
+	- [ ] component and entity save flags
+	- [ ] haxe macro/metadata flags
+	- [ ] entity clone()
+	- [ ] no-arg component constructors
+	- [ ] Save map data (?)
+	- [ ] save/load chunks
+	- [ ] unload chunks

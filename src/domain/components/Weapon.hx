@@ -3,6 +3,7 @@ package domain.components;
 import core.Game;
 import data.SoundResources;
 import data.WeaponFamilyType;
+import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.ReloadEvent;
@@ -12,15 +13,15 @@ import ecs.Component;
 
 class Weapon extends Component
 {
-	public var family:WeaponFamilyType;
-	public var die:Int = 6;
-	public var modifier:Int = 0;
-	public var accuracy:Int = 0;
-	public var baseCost:Int = 80;
-	public var reloadCost:Int = 100;
-	public var range:Int = 6;
-	public var ammo:Int;
-	public var ammoCapacity:Int;
+	@save public var family:WeaponFamilyType;
+	@save public var die:Int = 6;
+	@save public var modifier:Int = 0;
+	@save public var accuracy:Int = 0;
+	@save public var baseCost:Int = 80;
+	@save public var reloadCost:Int = 100;
+	@save public var range:Int = 6;
+	@save public var ammo:Int;
+	@save public var ammoCapacity:Int;
 
 	public var isLoaded(get, never):Bool;
 
@@ -55,7 +56,7 @@ class Weapon extends Component
 				Game.instance.world.playAudio(evt.reloader.pos.toIntPoint(), SoundResources.RELOAD_CLIP_1);
 			}
 			ammo = ammoCapacity;
-			evt.reloader.get(Energy).consumeEnergy(reloadCost);
+			evt.reloader.fireEvent(new ConsumeEnergyEvent(reloadCost));
 			evt.isHandled = true;
 		}
 	}

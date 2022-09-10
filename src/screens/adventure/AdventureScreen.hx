@@ -15,6 +15,7 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Move;
 import domain.components.Path;
+import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import screens.console.ConsoleScreen;
@@ -98,7 +99,7 @@ class AdventureScreen extends Screen
 				move(SOUTH_EAST);
 			case CMD_WAIT:
 				var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_WAIT);
-				world.player.entity.get(Energy).consumeEnergy(cost);
+				world.player.entity.fireEvent(new ConsumeEnergyEvent(cost));
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:

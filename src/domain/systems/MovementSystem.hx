@@ -8,6 +8,7 @@ import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Moved;
 import domain.components.Sprite;
+import domain.events.ConsumeEnergyEvent;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
@@ -77,7 +78,7 @@ class MovementSystem extends System
 			if (entity.has(IsPlayer))
 			{
 				var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
-				entity.get(Energy).consumeEnergy(cost);
+				entity.fireEvent(new ConsumeEnergyEvent(cost));
 			}
 			entity.remove(MoveComplete);
 		}

@@ -2,7 +2,6 @@ package ecs;
 
 import common.struct.Coordinate;
 import common.util.BitUtil;
-import common.util.Serial;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Sprite;
@@ -27,19 +26,23 @@ class Entity
 
 	private var components:Map<String, Array<Component>>;
 
-	public function new()
+	private var isCandidacyEnabled = true;
+
+	public function new(register = true)
 	{
 		_x = 0;
 		_y = 0;
 		cbits = 0;
 		components = new Map();
-		genId();
+		if (register)
+		{
+			setId(UniqueId.Create());
+		}
 	}
 
-	@:allow(ecs.Entity)
-	function genId()
+	public function setId(value:String)
 	{
-		id = UniqueId.Create();
+		id = value;
 		registry.registerEntity(this);
 	}
 
@@ -84,7 +87,10 @@ class Entity
 
 		cbits = BitUtil.addBit(cbits, component.bit);
 		component._attach(this);
-		registry.candidacy(this);
+		if (isCandidacyEnabled)
+		{
+			registry.candidacy(this);
+		}
 		if (Std.isOfType(component, Sprite))
 		{
 			sprite = cast component;
@@ -120,7 +126,10 @@ class Entity
 		}
 
 		component._remove();
-		registry.candidacy(this);
+		if (isCandidacyEnabled)
+		{
+			registry.candidacy(this);
+		}
 		if (Std.isOfType(component, Sprite))
 		{
 			sprite = null;
@@ -180,15 +189,6 @@ class Entity
 	inline function get_registry():Registry
 	{
 		return Game.instance.registry;
-	}
-
-	public function clone():Entity
-	{
-		var output = Serial.Serialize(this);
-		var clone:Entity = Serial.Deserialize(output);
-		clone.genId();
-
-		return clone;
 	}
 
 	function get_pos():Coordinate
@@ -255,4 +255,73 @@ class Entity
 	{
 		return Game.instance.world.chunks.getChunkById(pos.toChunkIdx());
 	}
+
+	public function clone(newId:String = null):Entity
+	{
+		var saved = save();
+		saved.id = UniqueId.Create();
+		return Entity.Load(saved);
+	}
+
+	public function save():EntitySaveData
+	{
+		var cdata = components.flatten().map((c) -> ({
+			type: c.type,
+			data: c.save(),
+		}));
+
+		return {
+			id: id,
+			pos: {
+				x: x,
+				y: y,
+			},
+			components: cdata,
+		}
+	}
+
+	public static function Load(data:EntitySaveData):Entity
+	{
+		var entity = new Entity(false);
+		entity.isCandidacyEnabled = false;
+		entity.setId(data.id);
+
+		for (cdata in data.components)
+		{
+			var clazz = Type.resolveClass(cdata.type);
+			if (clazz == null)
+			{
+				trace('Component not found ($clazz)');
+				continue;
+			}
+			var c = cast(Type.createInstance(clazz, []), Component);
+
+			c.load(cdata.data);
+
+			entity.add(c);
+		}
+
+		entity.isCandidacyEnabled = true;
+		entity.registry.candidacy(entity);
+
+		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
+
+		return entity;
+	}
+}
+
+typedef ComponentSaveData =
+{
+	type:String,
+	data:Dynamic,
+}
+
+typedef EntitySaveData =
+{
+	id:String,
+	pos:
+	{
+		x:Float, y:Float,
+	},
+	components:Array<ComponentSaveData>,
 }

@@ -14,7 +14,7 @@ class CoachGunPrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(TileResources.COACH_GUN, 0xA5CACA, 0x5F3C1F, OBJECTS));
+		entity.add(new Sprite(TileResources.COACH_GUN, 0xA5CACA, 0x885B07, OBJECTS));
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));
@@ -27,6 +27,7 @@ class CoachGunPrefab extends Prefab
 		weapon.baseCost = 80;
 		weapon.ammo = 3;
 		weapon.ammoCapacity = 3;
+		weapon.range = 6;
 		entity.add(weapon);
 
 		return entity;

@@ -1,6 +1,7 @@
 package ecs;
 
 import core.Game;
+import haxe.rtti.Meta;
 
 abstract class Component
 {
@@ -83,4 +84,40 @@ abstract class Component
 	{
 		return Reflect.field(Type.getClass(this), 'allowMultiple'); // return allowMultiple;
 	}
+
+	public function save():Array<ComponentFields>
+	{
+		var fields = Meta.getFields(Type.getClass(this));
+
+		var data = [];
+		for (field in Reflect.fields(fields))
+		{
+			var metas = Reflect.field(fields, field);
+			var tags = Reflect.fields(metas);
+			if (tags.contains('save'))
+			{
+				var value = Reflect.field(this, field);
+				data.push({
+					f: field,
+					v: value,
+				});
+			}
+		}
+
+		return data;
+	}
+
+	public function load(data:Array<ComponentFields>)
+	{
+		for (field in data)
+		{
+			Reflect.setField(this, field.f, field.v);
+		}
+	}
+}
+
+typedef ComponentFields =
+{
+	f:String,
+	v:Dynamic,
 }

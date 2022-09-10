@@ -13,16 +13,16 @@ class StickPrefab extends Prefab
 {
 	public function Create(?options:Dynamic)
 	{
-		var stick = new Entity();
+		var entity = new Entity();
 
 		var sprite = new Sprite(TileResources.STICK_1, 0x885B07, 0x000000, OBJECTS);
 		sprite.background = Game.instance.CLEAR_COLOR;
-		stick.add(sprite);
-		stick.add(new Moniker('Stick'));
-		stick.add(new Loot());
-		stick.add(new Equipment([EQ_SLOT_HAND]));
-		stick.add(new Weapon(WPN_FAMILY_CUDGEL));
+		entity.add(sprite);
+		entity.add(new Moniker('Stick'));
+		entity.add(new Loot());
+		entity.add(new Equipment([EQ_SLOT_HAND]));
+		entity.add(new Weapon(WPN_FAMILY_CUDGEL));
 
-		return stick;
+		return entity;
 	}
 }

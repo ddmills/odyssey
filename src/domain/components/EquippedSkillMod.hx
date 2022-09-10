@@ -8,7 +8,7 @@ class EquippedSkillMod extends Component
 {
 	static var allowMultiple = true;
 
-	public var mods:Map<SkillType, Int> = new Map();
+	@save public var mods:Map<SkillType, Int> = new Map();
 
 	public function new()
 	{

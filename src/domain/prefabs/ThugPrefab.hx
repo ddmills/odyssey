@@ -17,8 +17,9 @@ class ThugPrefab extends Prefab
 	{
 		var thug = new Entity();
 
-		thug.add(new Sprite(TileResources.THUG_1, 0xb3ab9b, 0x7e3e32, ACTORS));
-		thug.add(new Energy(-10));
+		thug.add(new Sprite(TileResources.THUG_1, 0xb3ab9b, 0x8A4F1F, ACTORS));
+		thug.add(new Energy());
+		thug.get(Energy).consumeEnergy(10);
 		thug.add(new Health());
 		thug.add(new Stats(3, 0, 0));
 		thug.add(new IsEnemy());

@@ -6,6 +6,7 @@ import data.Cardinal;
 import domain.components.Energy;
 import domain.components.Health;
 import domain.components.Move;
+import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
@@ -45,7 +46,7 @@ class AIManager
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
 
-		entity.get(Energy).consumeEnergy(cost);
+		entity.fireEvent(new ConsumeEnergyEvent(cost));
 		entity.add(new Move(goal, .2, LINEAR));
 	}
 

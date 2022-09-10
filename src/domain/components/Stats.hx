@@ -6,9 +6,9 @@ import ecs.Entity;
 
 class Stats extends Component
 {
-	public var grit:Int;
-	public var savvy:Int;
-	public var finesse:Int;
+	@save public var grit:Int;
+	@save public var savvy:Int;
+	@save public var finesse:Int;
 
 	public function get(stat:StatType)
 	{

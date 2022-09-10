@@ -53,6 +53,7 @@ class TileResources
 	public static var LONG_JOHNS:Tile;
 	public static var BLOOD_SPATTER:Tile;
 	public static var THUG_1:Tile;
+	public static var THUG_2:Tile;
 
 	public static function Init()
 	{
@@ -112,5 +113,6 @@ class TileResources
 		SAND_4 = sands[0][3];
 
 		THUG_1 = hxd.Res.tiles.scroll.thug_1.toTile();
+		THUG_2 = hxd.Res.tiles.scroll.thug_2.toTile();
 	}
 }

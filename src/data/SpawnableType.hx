@@ -19,4 +19,5 @@ enum SpawnableType
 	COACH_GUN;
 	BLOOD_SPATTER;
 	THUG;
+	THUG_2;
 }

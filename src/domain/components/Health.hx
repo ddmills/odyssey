@@ -13,9 +13,12 @@ import hxd.Rand;
 
 class Health extends Component
 {
-	public var value(default, set):Int = 10;
+	@save private var _value:Int = 10;
+
+	@save public var corpsePrefab:SpawnableType;
+
+	public var value(get, set):Int;
 	public var max(get, never):Int;
-	public var corpsePrefab:SpawnableType;
 
 	public function new()
 	{
@@ -74,13 +77,18 @@ class Health extends Component
 
 	public function set_value(value:Int):Int
 	{
-		this.value = value.clamp(0, max);
+		_value = value.clamp(0, max);
 
-		if (this.value <= 0)
+		if (_value <= 0)
 		{
 			entity.add(new IsDead());
 		}
 
-		return this.value;
+		return _value;
+	}
+
+	inline function get_value():Int
+	{
+		return _value;
 	}
 }

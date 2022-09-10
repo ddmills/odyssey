@@ -12,6 +12,7 @@ import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.Weapon;
 import domain.events.AttackedEvent;
+import domain.events.ConsumeEnergyEvent;
 import domain.prefabs.Spawner;
 import domain.skills.Skills;
 import ecs.Entity;
@@ -110,7 +111,8 @@ class WeaponFamily
 				]);
 			}
 		});
-		attacker.get(Energy).consumeEnergy(weapon.baseCost);
+
+		attacker.fireEvent(new ConsumeEnergyEvent(weapon.baseCost));
 	}
 
 	public function doMelee(attacker:Entity, defender:Entity, weapon:Weapon)
@@ -120,6 +122,6 @@ class WeaponFamily
 			defender.fireEvent(new AttackedEvent(attack));
 		});
 
-		attacker.get(Energy).consumeEnergy(weapon.baseCost);
+		attacker.fireEvent(new ConsumeEnergyEvent(weapon.baseCost));
 	}
 }

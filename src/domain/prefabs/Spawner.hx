@@ -31,6 +31,7 @@ class Spawner
 		prefabs.set(BLOOD_SPATTER, new BloodSplatterPrefab());
 		prefabs.set(COACH_GUN, new CoachGunPrefab());
 		prefabs.set(THUG, new ThugPrefab());
+		prefabs.set(THUG_2, new ThugPistolPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

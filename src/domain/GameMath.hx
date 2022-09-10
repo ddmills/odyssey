@@ -11,9 +11,14 @@ import ecs.Entity;
 
 class GameMath
 {
+	public static function GetTargetDistance(source:IntPoint, target:IntPoint)
+	{
+		return Distance.Euclidean(source, target).ciel();
+	}
+
 	public static function GetRangePenalty(source:IntPoint, target:IntPoint, weaponRange:Int)
 	{
-		var distance = Distance.Euclidean(source, target);
+		var distance = GetTargetDistance(source, target);
 		return (distance - weaponRange).ciel().clamp(0, 50);
 	}
 
@@ -58,7 +63,7 @@ class GameMath
 		var faces = [for (i in 0...dieSize) (i + 1)];
 		var critAllowed = attacker.has(IsPlayer);
 
-		var chance = faces.avg((d) ->
+		return faces.avg((d) ->
 		{
 			if (critAllowed && d == dieSize)
 			{
@@ -68,7 +73,5 @@ class GameMath
 
 			return n;
 		});
-
-		return chance;
 	}
 }

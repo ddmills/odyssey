@@ -4,13 +4,11 @@ import ecs.Component;
 
 class Energy extends Component
 {
-	public var value(default, null):Int;
+	@save public var value(default, null):Int = 5;
+
 	public var hasEnergy(get, never):Bool;
 
-	public function new(value:Int = 0)
-	{
-		this.value = value;
-	}
+	public function new() {}
 
 	public function addEnergy(value:Int)
 	{

@@ -12,10 +12,10 @@ enum Tween
 
 class Move extends Component
 {
-	public var goal:Coordinate;
-	public var tween:Tween;
-	public var speed:Float;
-	public var epsilon:Float;
+	@save public var goal:Coordinate;
+	@save public var tween:Tween;
+	@save public var speed:Float;
+	@save public var epsilon:Float;
 
 	public function new(goal:Coordinate, speed:Float = 0.05, tween:Tween = LINEAR, epsilon:Float = .005)
 	{

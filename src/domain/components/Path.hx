@@ -5,8 +5,8 @@ import ecs.Component;
 
 class Path extends Component
 {
-	var instructions:Array<IntPoint>;
-	var curIdx:Int;
+	@save var instructions:Array<IntPoint>;
+	@save var curIdx:Int;
 
 	public var length(get, never):Int;
 	public var remaining(get, never):Int;

@@ -4,7 +4,7 @@ import ecs.Component;
 
 class Moniker extends Component
 {
-	public var baseName = 'Hello world';
+	@save public var baseName = 'Hello world';
 
 	public var displayName(get, never):String;
 
