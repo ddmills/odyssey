@@ -1,9 +1,12 @@
 package core;
 
+import common.struct.Coordinate;
 import common.util.Serial;
 import core.input.Command;
 import data.Commands;
+import data.TileKey;
 import domain.components.Health;
+import domain.components.Sprite;
 import domain.components.Stats;
 import domain.skills.Skills;
 import ecs.Entity;
@@ -33,17 +36,14 @@ class ConsoleConfig
 
 		console.addCommand('save', 'save', [], () ->
 		{
-			var e = new Entity();
-			e.add(new Health());
-			e.get(Health).value = 3;
-			e.get(Health).corpsePrefab = CORPSE_HUMAN;
-
-			var data = e.save();
-			e.destroy();
-
-			var loaded = Entity.Load(data);
-			trace(loaded.get(Health).value); // 3
-			trace(loaded.get(Health).corpsePrefab); // CORPSE_HUMAN
+			var p = Game.instance.world.player.entity;
+			var data = p.save();
+			var save = Serial.Serialize(data);
+			trace(save);
+			var deser = Serial.Deserialize(save);
+			deser.id = 'test';
+			var c = Entity.Load(deser);
+			c.pos = new Coordinate(28, 37, WORLD);
 		});
 
 		console.addCommand('stats', 'List player stats & skills', [], () ->

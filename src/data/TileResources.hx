@@ -8,6 +8,10 @@ class TileResources
 
 	public static function Get(key:TileKey):Tile
 	{
+		if (key == null)
+		{
+			return null;
+		}
 		return tiles.get(key);
 	}
 

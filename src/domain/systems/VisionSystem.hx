@@ -6,7 +6,6 @@ import core.Frame;
 import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.IsInventoried;
-import domain.components.Moniker;
 import domain.components.Moved;
 import domain.components.Sprite;
 import domain.components.Visible;
@@ -58,14 +57,14 @@ class VisionSystem extends System
 		});
 		vis.onEntityAdded((entity) ->
 		{
-			entity.get(Sprite).visible = true;
+			entity.get(Sprite).isVisible = true;
 		});
 		vis.onEntityRemoved((entity) ->
 		{
 			var sprite = entity.get(Sprite);
 			if (sprite != null)
 			{
-				sprite.visible = false;
+				sprite.isVisible = false;
 			}
 		});
 
@@ -79,7 +78,7 @@ class VisionSystem extends System
 			sprite.isShrouded = true;
 			if (entity.has(Energy))
 			{
-				sprite.visible = false;
+				sprite.isVisible = false;
 			}
 		});
 		shrouded.onEntityRemoved((entity) ->
@@ -90,7 +89,7 @@ class VisionSystem extends System
 				sprite.isShrouded = false;
 				if (entity.has(Energy))
 				{
-					sprite.visible = true;
+					sprite.isVisible = true;
 				}
 			}
 		});

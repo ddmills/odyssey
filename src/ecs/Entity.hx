@@ -295,16 +295,14 @@ class Entity
 				continue;
 			}
 			var c = cast(Type.createInstance(clazz, []), Component);
-
 			c.load(cdata.data);
 
 			entity.add(c);
 		}
 
+		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
 		entity.isCandidacyEnabled = true;
 		entity.registry.candidacy(entity);
-
-		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
 
 		return entity;
 	}

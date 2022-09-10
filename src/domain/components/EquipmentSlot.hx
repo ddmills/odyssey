@@ -14,13 +14,13 @@ class EquipmentSlot extends Component
 {
 	static var allowMultiple = true;
 
-	private var _contentId:String = '';
+	@save public var contentId:String = '';
+	@save public var name:String;
+	@save public var slotKey:String;
+	@save public var slotType:EquipmentSlotType;
+	@save public var isPrimary:Bool;
+	@save public var defaultWpn:WeaponFamilyType;
 
-	public var name:String;
-	public var slotKey:String;
-	public var slotType:EquipmentSlotType;
-	public var isPrimary:Bool;
-	public var defaultWpn:WeaponFamilyType;
 	public var content(get, never):Entity;
 	public var isEmpty(get, never):Bool;
 	public var isExtraSlot(get, never):Bool;
@@ -108,7 +108,7 @@ class EquipmentSlot extends Component
 		}
 
 		var c = content;
-		_contentId = '';
+		contentId = '';
 		var equipped = c.get(IsEquipped);
 
 		if (equipped.extraSlotKey != null)
@@ -130,13 +130,13 @@ class EquipmentSlot extends Component
 
 	public function unequipSecondary()
 	{
-		_contentId = '';
+		contentId = '';
 	}
 
 	public function equipSecondary(equipment:Entity)
 	{
 		unequip();
-		_contentId = equipment.id;
+		contentId = equipment.id;
 	}
 
 	public function equip(equipment:Entity)
@@ -157,12 +157,12 @@ class EquipmentSlot extends Component
 		equipment.get(Loot).take(entity);
 		equipment.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
 
-		_contentId = equipment.id;
+		contentId = equipment.id;
 	}
 
 	function get_content():Entity
 	{
-		return entity.registry.getEntity(_contentId);
+		return entity.registry.getEntity(contentId);
 	}
 
 	function get_isEmpty():Bool

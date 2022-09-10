@@ -1,5 +1,6 @@
 package domain.components;
 
+import core.Game;
 import core.rendering.RenderLayerManager.RenderLayerType;
 import data.TileKey;
 import data.TileResources;
@@ -20,13 +21,13 @@ import shaders.SpriteShader;
 
 	@save public var layer(default, null):RenderLayerType;
 	@save public var isShrouded(default, set):Bool = false;
-	@save public var visible(get, set):Bool;
+	@save public var isVisible(default, set):Bool = false;
 	@save public var offsetX(default, set):Float = 0;
 	@save public var offsetY(default, set):Float = 0;
 
 	public var ob(default, null):Bitmap;
-	public var shader(default, null):SpriteShader;
 	public var tile(get, never):Tile;
+	public var shader(default, null):SpriteShader;
 
 	public function new(tileKey:TileKey, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
 	{
@@ -34,12 +35,13 @@ import shaders.SpriteShader;
 
 		this.tileKey = tileKey;
 		this.layer = layer;
+		this.primary = primary;
+		this.secondary = secondary;
+		this.outline = Game.instance.CLEAR_COLOR;
+
 		ob = new Bitmap(this.tile);
 		ob.addShader(shader);
 		ob.visible = false;
-
-		this.primary = primary;
-		this.secondary = secondary;
 	}
 
 	public function getBitmapClone():Bitmap
@@ -62,24 +64,28 @@ import shaders.SpriteShader;
 
 	function set_primary(value:Int):Int
 	{
+		primary = value;
 		shader.primary = value.toHxdColor();
 		return value;
 	}
 
 	function set_secondary(value:Int):Int
 	{
+		secondary = value;
 		shader.secondary = value.toHxdColor();
 		return value;
 	}
 
 	function set_outline(value:Int):Int
 	{
+		outline = value;
 		shader.outline = value.toHxdColor();
 		return value;
 	}
 
 	function set_background(value:Null<Int>):Null<Int>
 	{
+		background = value;
 		var clear = value != null;
 		if (clear)
 		{
@@ -95,13 +101,9 @@ import shaders.SpriteShader;
 		ob.y = py - offsetY;
 	}
 
-	inline function get_visible():Bool
+	inline function set_isVisible(value:Bool):Bool
 	{
-		return ob.visible;
-	}
-
-	inline function set_visible(value:Bool):Bool
-	{
+		isVisible = value;
 		return ob.visible = value;
 	}
 
@@ -112,6 +114,7 @@ import shaders.SpriteShader;
 
 	function set_isShrouded(value:Bool):Bool
 	{
+		isShrouded = true;
 		shader.isShrouded = value ? 1 : 0;
 		return value;
 	}
@@ -128,6 +131,7 @@ import shaders.SpriteShader;
 
 	function set_offsetX(value:Float):Float
 	{
+		offsetX = value;
 		ob.x += offsetX;
 		ob.x -= value;
 		return value;
@@ -135,12 +139,13 @@ import shaders.SpriteShader;
 
 	function set_offsetY(value:Float):Float
 	{
+		offsetY = value;
 		ob.y += offsetY;
 		ob.y -= value;
 		return value;
 	}
 
-	function set_tileKey(value:TileKey):TileKey
+	public function set_tileKey(value:TileKey):TileKey
 	{
 		tileKey = value;
 		if (ob != null)

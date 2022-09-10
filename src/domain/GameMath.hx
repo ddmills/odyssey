@@ -32,7 +32,6 @@ class GameMath
 		}
 
 		var rangePenalty = GetRangePenalty(attacker.pos.toIntPoint(), target, weapon.range);
-		trace(rangePenalty);
 
 		return Skills.GetValue(wpnFamily.skill, attacker) + weapon.accuracy - rangePenalty;
 	}

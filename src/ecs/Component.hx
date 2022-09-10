@@ -111,7 +111,7 @@ abstract class Component
 	{
 		for (field in data)
 		{
-			Reflect.setField(this, field.f, field.v);
+			Reflect.setProperty(this, field.f, field.v);
 		}
 	}
 }
