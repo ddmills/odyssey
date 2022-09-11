@@ -119,7 +119,7 @@ class Inventory extends Component
 	{
 		if (openedTile != null && entity.has(Sprite))
 		{
-			entity.get(Sprite).overrideTileKey = openedTile;
+			entity.get(Sprite).tileKeyOverride = openedTile;
 		}
 		Game.instance.audio.play(openedAudio);
 	}
@@ -128,7 +128,7 @@ class Inventory extends Component
 	{
 		if (openedTile != null && entity.has(Sprite))
 		{
-			entity.get(Sprite).overrideTileKey = null;
+			entity.get(Sprite).tileKeyOverride = null;
 		}
 		Game.instance.audio.play(closedAudio);
 	}

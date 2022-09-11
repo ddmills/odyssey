@@ -12,18 +12,28 @@ import shaders.SpriteShader;
 class Sprite extends Component
 {
 	@save public var tileKey(default, set):TileKey;
-	@save public var overrideTileKey(default, set):TileKey;
+	@save public var tileKeyOverride(default, set):TileKey;
 
 	@save public var primary(default, set):Int;
 	@save public var secondary(default, set):Int;
 	@save public var outline(default, set):Int;
 	@save public var background(default, set):Null<Int>;
 
+	@save public var primaryOverride(default, set):Null<Int>;
+	@save public var secondaryOverride(default, set):Null<Int>;
+	@save public var outlineOverride(default, set):Null<Int>;
+	@save public var backgroundOverride(default, set):Null<Int>;
+
 	@save public var layer(default, null):RenderLayerType;
 	@save public var isShrouded(default, set):Bool = false;
 	@save public var isVisible(default, set):Bool = false;
 	@save public var offsetX(default, set):Float = 0;
 	@save public var offsetY(default, set):Float = 0;
+
+	public var primaryColor(get, never):Int;
+	public var secondaryColor(get, never):Int;
+	public var outlineColor(get, never):Int;
+	public var backgroundColor(get, never):Null<Int>;
 
 	public var ob(default, null):Bitmap;
 	public var tile(get, never):Tile;
@@ -121,9 +131,9 @@ class Sprite extends Component
 
 	function get_tile():Tile
 	{
-		if (overrideTileKey != null)
+		if (tileKeyOverride != null)
 		{
-			return TileResources.Get(overrideTileKey);
+			return TileResources.Get(tileKeyOverride);
 		}
 
 		return TileResources.Get(tileKey);
@@ -155,11 +165,59 @@ class Sprite extends Component
 		return value;
 	}
 
-	function set_overrideTileKey(value:TileKey):TileKey
+	function set_tileKeyOverride(value:TileKey):TileKey
 	{
-		overrideTileKey = value;
+		tileKeyOverride = value;
 		ob.tile = tile;
 
 		return value;
+	}
+
+	function set_primaryOverride(value:Int):Int
+	{
+		primaryOverride = value;
+		shader.primary = primaryColor.toHxdColor();
+		return value;
+	}
+
+	function set_secondaryOverride(value:Int):Int
+	{
+		secondaryOverride = value;
+		shader.secondary = secondaryColor.toHxdColor();
+		return value;
+	}
+
+	function set_outlineOverride(value:Int):Int
+	{
+		outlineOverride = value;
+		shader.outline = outlineColor.toHxdColor();
+		return value;
+	}
+
+	function set_backgroundOverride(value:Null<Int>):Null<Int>
+	{
+		backgroundOverride = value;
+		shader.background = backgroundColor.toHxdColor();
+		return value;
+	}
+
+	function get_primaryColor():Int
+	{
+		return primaryOverride == null ? primary : primaryOverride;
+	}
+
+	function get_secondaryColor():Int
+	{
+		return secondaryOverride == null ? secondary : secondaryOverride;
+	}
+
+	function get_outlineColor():Int
+	{
+		return outlineOverride == null ? outline : outlineOverride;
+	}
+
+	function get_backgroundColor():Null<Int>
+	{
+		return backgroundOverride == null ? background : backgroundOverride;
 	}
 }

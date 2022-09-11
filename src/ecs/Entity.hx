@@ -87,6 +87,7 @@ class Entity
 			{
 				remove(type);
 			}
+			components.set(component.type, [component]);
 		}
 
 		cbits = BitUtil.addBit(cbits, component.bit);

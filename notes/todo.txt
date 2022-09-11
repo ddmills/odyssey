@@ -11,10 +11,11 @@
 	- [ ] dual wield
 	- [ ] melee SFX
 	- [ ] hit bump fx
-	- [ ] hit color fx (blink)
+	- [x] hit color fx (blink)
 	- [ ] directional blood sprite
 	- [x] ranged enemy
 	- [ ] cover
+	- [ ] use TAB on shooting screen to switch targets fast
 - leveling
 	- [x] XP on kill
 	- [x] Level up spend points on stats
@@ -24,6 +25,7 @@
 	- [ ] deploy it
 - improvements
 	- [ ] make 'Move' an entity event
+	- [ ] always spawn to a location, or load chunk on entity added
 - Saving/Loading
 	- [x] Component and entity .save() and .load()
 	- [ ] component and entity save flags

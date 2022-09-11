@@ -198,11 +198,12 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
-			trace('PLACING ENTITY IN UNLOADED CHUNK');
-			if (entity.has(Moniker))
-			{
-				trace(entity.get(Moniker).displayName);
-			}
+			// TODO: put these somewhere on spawn
+			// trace('PLACING ENTITY IN UNLOADED CHUNK');
+			// if (entity.has(Moniker))
+			// {
+			// 	trace(entity.get(Moniker).displayName);
+			// }
 		}
 		var local = entity.pos.toChunkLocal().toWorld();
 		entities.set(local.x.floor(), local.y.floor(), entity.id);

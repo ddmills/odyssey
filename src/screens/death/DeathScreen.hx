@@ -32,5 +32,6 @@ class DeathScreen extends Screen
 	{
 		text.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;
+		world.updateSystems();
 	}
 }

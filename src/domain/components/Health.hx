@@ -61,6 +61,7 @@ class Health extends Component
 		{
 			value -= evt.attack.damage;
 			makeBloodEffect(evt.attack.attacker.pos);
+			entity.add(new HitBlink());
 			evt.isHit = true;
 		}
 		else
