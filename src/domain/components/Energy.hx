@@ -1,5 +1,6 @@
 package domain.components;
 
+import domain.events.ConsumeEnergyEvent;
 import ecs.Component;
 
 class Energy extends Component
@@ -8,7 +9,15 @@ class Energy extends Component
 
 	public var hasEnergy(get, never):Bool;
 
-	public function new() {}
+	public function new()
+	{
+		addHandler(ConsumeEnergyEvent, (evt) -> onConsumeEnergy(cast evt));
+	}
+
+	function onConsumeEnergy(evt:ConsumeEnergyEvent)
+	{
+		consumeEnergy(evt.value);
+	}
 
 	public function addEnergy(value:Int)
 	{

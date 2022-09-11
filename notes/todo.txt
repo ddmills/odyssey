@@ -6,7 +6,7 @@
 	- [x] once item selected
 	- [x] show item actions
 - attacking
-	- [ ] rifle cone
+	- [ ] shotgun cone
 	- [x] add weapon range
 	- [ ] dual wield
 	- [ ] melee SFX
@@ -34,3 +34,8 @@
 	- [x] save/load chunks
 	- [x] dynamic unload/load chunks
 	- [ ] save load files
+- Death screen
+	- [x] show on death
+	- [ ] show game data
+	- [ ] ability to start a new game
+- FOV system

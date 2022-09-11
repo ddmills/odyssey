@@ -4,10 +4,12 @@ import core.Frame;
 import domain.components.Health;
 import domain.components.IsDead;
 import domain.components.IsInventoried;
+import domain.components.IsPlayer;
 import domain.prefabs.Spawner;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
+import screens.death.DeathScreen;
 
 class DeathSystem extends System
 {
@@ -33,7 +35,14 @@ class DeathSystem extends System
 					Spawner.Spawn(health.corpsePrefab, e.pos);
 				}
 			}
-			e.destroy();
+			if (e.has(IsPlayer))
+			{
+				game.screens.push(new DeathScreen());
+			}
+			else
+			{
+				e.destroy();
+			}
 		});
 	}
 }

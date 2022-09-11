@@ -1,9 +1,7 @@
 package domain;
 
-import common.struct.IntPoint;
 import core.Game;
 import data.Cardinal;
-import domain.components.Energy;
 import domain.components.Health;
 import domain.components.Move;
 import domain.events.ConsumeEnergyEvent;
@@ -47,7 +45,7 @@ class AIManager
 		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
 
 		entity.fireEvent(new ConsumeEnergyEvent(cost));
-		entity.add(new Move(goal, .2, LINEAR));
+		entity.add(new Move(goal, .5, LINEAR));
 	}
 
 	public function tryReloading(entity:Entity):Bool
