@@ -5,6 +5,7 @@ import core.Game;
 import data.Cardinal;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
+import domain.events.EnemyKilledEvent;
 import domain.events.SpawnedEvent;
 import domain.prefabs.Spawner;
 import domain.skills.Skills;
@@ -29,9 +30,10 @@ class Health extends Component
 	public function get_max():Int
 	{
 		var skill = Skills.GetValue(SKILL_FORTITUDE, entity);
-		var level = 0;
+		var lvlComp = entity.get(Level);
+		var level = lvlComp == null ? 0 : lvlComp.level;
 
-		return 10 + level * 10 + skill * 10;
+		return GameMath.GetMaxHealth(level, skill);
 	}
 
 	public function toString():String
@@ -64,6 +66,11 @@ class Health extends Component
 		else
 		{
 			evt.isHit = false;
+		}
+
+		if (_value <= 0)
+		{
+			evt.attack.attacker.fireEvent(new EnemyKilledEvent(entity));
 		}
 	}
 

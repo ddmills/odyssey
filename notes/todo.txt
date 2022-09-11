@@ -30,6 +30,7 @@
 	- [x] haxe macro/metadata flags
 	- [x] entity clone()
 	- [ ] no-arg component constructors
-	- [ ] Save map data (?)
+	- [x] Save map data (?)
 	- [x] save/load chunks
-	- [ ] dynamic unload/load chunks
+	- [x] dynamic unload/load chunks
+	- [ ] save load files

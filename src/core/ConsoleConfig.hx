@@ -5,6 +5,7 @@ import core.input.Command;
 import data.Commands;
 import data.save.SaveChunk;
 import domain.components.Health;
+import domain.components.Level;
 import domain.components.Stats;
 import domain.skills.Skills;
 import h2d.Console;
@@ -91,6 +92,13 @@ class ConsoleConfig
 			var player = Game.instance.world.player.entity;
 			var health = player.get(Health);
 			health.value = health.max;
+		});
+
+		console.addCommand('xp', 'Grant xp', [{name: 'amount', t: AInt}], (xp:Int) ->
+		{
+			var player = Game.instance.world.player.entity;
+			var level = player.get(Level);
+			level.xp += xp;
 		});
 
 		console.addAlias('quit', 'exit');

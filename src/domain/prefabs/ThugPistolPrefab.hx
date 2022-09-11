@@ -5,6 +5,7 @@ import domain.components.EquipmentSlot;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsEnemy;
+import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
@@ -19,6 +20,7 @@ class ThugPistolPrefab extends Prefab
 		entity.add(new Sprite(THUG_2, 0xb3ab9b, 0x8A4F1F, ACTORS));
 		entity.add(new Energy());
 		entity.get(Energy).consumeEnergy(10);
+		entity.add(new Level(1));
 		entity.add(new Health());
 		entity.add(new Stats(0, 0, 3));
 		entity.add(new IsEnemy());

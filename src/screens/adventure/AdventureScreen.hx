@@ -8,13 +8,14 @@ import core.Screen;
 import core.input.Command;
 import data.Cardinal;
 import data.TextResources;
+import domain.GameMath;
 import domain.components.Blocker;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
+import domain.components.Level;
 import domain.components.Move;
 import domain.components.Path;
-import domain.components.Sprite;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
@@ -34,6 +35,7 @@ typedef HudText =
 	health:Text,
 	wpos:Text,
 	cpos:Text,
+	xp:Text,
 }
 
 class AdventureScreen extends Screen
@@ -43,6 +45,8 @@ class AdventureScreen extends Screen
 	public function new()
 	{
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
+		trace(GameMath.GetXpGain(2, 3));
+		trace(GameMath.GetXpGain(4, 1));
 	}
 
 	public override function onEnter()
@@ -71,6 +75,9 @@ class AdventureScreen extends Screen
 		var mpos = game.input.mouse;
 		hudText.wpos.text = mpos.toWorld().toIntPoint().toString();
 		hudText.cpos.text = mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
+
+		var lvl = world.player.entity.get(Level);
+		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';
 
 		if (world.systems.energy.isPlayersTurn)
 		{
@@ -185,12 +192,17 @@ class AdventureScreen extends Screen
 		wpos.color = 0xf5f5f5.toHxdColor();
 		wpos.y = 48;
 
+		var xp = new Text(TextResources.BIZCAT, ob);
+		xp.color = 0xf5f5f5.toHxdColor();
+		xp.y = 64;
+
 		hudText = {
 			ob: ob,
 			clock: clock,
 			health: health,
 			cpos: cpos,
 			wpos: wpos,
+			xp: xp,
 		};
 
 		game.render(HUD, ob);

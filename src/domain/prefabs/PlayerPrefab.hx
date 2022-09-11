@@ -7,6 +7,7 @@ import domain.components.EquipmentSlot;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
+import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
@@ -26,6 +27,7 @@ class PlayerPrefab extends Prefab
 		entity.add(sprite);
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
+		entity.add(new Level());
 		entity.add(new Vision(12, 2));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());

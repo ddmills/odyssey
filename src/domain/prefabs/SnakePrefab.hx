@@ -5,6 +5,7 @@ import domain.components.EquipmentSlot;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsEnemy;
+import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
@@ -18,6 +19,7 @@ class SnakePrefab extends Prefab
 
 		snake.add(new Sprite(SNAKE_1, 0xDF9100, 0x000000, ACTORS));
 		snake.add(new Energy());
+		snake.add(new Level(1));
 		snake.get(Energy).consumeEnergy(10);
 		snake.add(new Health());
 		snake.add(new Stats(0, 1, 2));

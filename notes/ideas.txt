@@ -31,8 +31,9 @@ Weapons
 - Gatling Gun
 - Henry Repeating Rifle
 
-https://en.wikipedia.org/wiki/List_of_weapons_in_the_American_Civil_War
-https://www2.palomar.edu/users/scrouthamel/wildlife.htm
+weapons https://en.wikipedia.org/wiki/List_of_weapons_in_the_American_Civil_War
+biomes https://www2.palomar.edu/users/scrouthamel/wildlife.htm
+slang https://www.legendsofamerica.com/we-slang/13/
 
 Buildings
 - Blacksmith

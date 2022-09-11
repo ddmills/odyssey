@@ -11,6 +11,27 @@ import ecs.Entity;
 
 class GameMath
 {
+	public static var XP_REQ_CAP = 3000;
+	public static var XP_LVL_INTENSITY = 10;
+	public static var XP_BASE_GAIN = 100;
+	public static var XP_SPREAD = 3;
+	public static var XP_POWER = 2.5;
+
+	public static function GetMaxHealth(level:Int, fortitudeSkill:Int):Int
+	{
+		return 10 + level * 10 + fortitudeSkill * 10;
+	}
+
+	public static function GetLevelXpReq(level:Int):Int
+	{
+		return ((level * XP_REQ_CAP) / (level + XP_LVL_INTENSITY)).floor();
+	}
+
+	public static function GetXpGain(level:Int, enemy:Int):Int
+	{
+		return (Math.pow(Math.max(0, ((XP_SPREAD + 1) + (enemy - level))) / (XP_SPREAD + 1), XP_POWER) * XP_BASE_GAIN).floor();
+	}
+
 	public static function GetTargetDistance(source:IntPoint, target:IntPoint)
 	{
 		return Distance.Euclidean(source, target).ciel();
