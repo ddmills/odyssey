@@ -16,6 +16,7 @@ enum abstract CommandType(String) to String
 	var CMD_CONSOLE = 'open console';
 	var CMD_INVENTORY = 'open inventory';
 	var CMD_EQUIPMENT = 'open equipment';
+	var CMD_CHARACTER = 'open character';
 	var CMD_LOOK = 'look';
 	var CMD_INTERACT = 'interact';
 	var CMD_SHOOT = 'shoot';

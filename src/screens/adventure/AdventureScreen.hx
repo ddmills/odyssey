@@ -21,6 +21,7 @@ import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import h2d.Object;
 import h2d.Text;
+import screens.character.CharacterScreen;
 import screens.console.ConsoleScreen;
 import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
@@ -51,7 +52,7 @@ class AdventureScreen extends Screen
 
 	public override function onEnter()
 	{
-		renderClock();
+		renderText();
 	}
 
 	public override function onSuspend()
@@ -129,6 +130,8 @@ class AdventureScreen extends Screen
 				game.screens.push(new InventoryScreen(world.player.entity, world.player.entity));
 			case CMD_EQUIPMENT:
 				game.screens.push(new EquipmentScreen(world.player.entity));
+			case CMD_CHARACTER:
+				game.screens.push(new CharacterScreen(world.player.entity));
 			case CMD_SHOOT:
 				game.screens.push(new ShootingScreen(world.player.entity));
 			case _:
@@ -170,7 +173,7 @@ class AdventureScreen extends Screen
 		game.screens.push(new InspectScreen(world.player.entity));
 	}
 
-	private function renderClock()
+	private function renderText()
 	{
 		var ob = new Object();
 		ob.x = 16;

@@ -1,14 +1,45 @@
 package domain.components;
 
 import data.StatType;
+import domain.events.LevelUpEvent;
 import ecs.Component;
 import ecs.Entity;
 
 class Stats extends Component
 {
-	@save public var grit:Int;
-	@save public var savvy:Int;
-	@save public var finesse:Int;
+	@save public var grit:Int = 0;
+	@save public var savvy:Int = 0;
+	@save public var finesse:Int = 0;
+	@save public var unspentStatPoints:Int = 2;
+
+	public function new(grit:Int = 0, savvy:Int = 0, finesse:Int = 0)
+	{
+		this.grit = grit;
+		this.savvy = savvy;
+		this.finesse = finesse;
+		addHandler(LevelUpEvent, (evt) -> onLevelUp(cast evt));
+	}
+
+	public function incrementStat(stat:StatType)
+	{
+		if (unspentStatPoints <= 0)
+		{
+			return false;
+		}
+
+		switch stat
+		{
+			case GRIT:
+				grit++;
+			case SAVVY:
+				savvy++;
+			case FINESSE:
+				finesse++;
+		}
+		unspentStatPoints--;
+
+		return true;
+	}
 
 	public function get(stat:StatType)
 	{
@@ -18,13 +49,6 @@ class Stats extends Component
 			case SAVVY: savvy;
 			case FINESSE: finesse;
 		}
-	}
-
-	public function new(grit:Int = 0, savvy:Int = 0, finesse:Int = 0)
-	{
-		this.grit = grit;
-		this.savvy = savvy;
-		this.finesse = finesse;
 	}
 
 	public static function Get(e:Entity, type:StatType):Int
@@ -53,5 +77,10 @@ class Stats extends Component
 			{stat: SAVVY, value: stats.savvy},
 			{stat: FINESSE, value: stats.finesse},
 		];
+	}
+
+	function onLevelUp(evt:LevelUpEvent)
+	{
+		unspentStatPoints++;
 	}
 }

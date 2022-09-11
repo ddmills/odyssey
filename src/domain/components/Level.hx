@@ -1,6 +1,7 @@
 package domain.components;
 
 import domain.events.EnemyKilledEvent;
+import domain.events.LevelUpEvent;
 import ecs.Component;
 
 class Level extends Component
@@ -30,8 +31,8 @@ class Level extends Component
 
 	function levelUp()
 	{
-		trace('LEVEL UP');
 		level++;
+		entity.fireEvent(new LevelUpEvent(level));
 	}
 
 	function set_xp(value:Int):Int

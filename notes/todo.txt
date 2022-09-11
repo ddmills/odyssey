@@ -16,9 +16,9 @@
 	- [x] ranged enemy
 	- [ ] cover
 - leveling
-	- [ ] XP on kill
-	- [ ] Level up spend grit
-	- [ ] screen to level up
+	- [x] XP on kill
+	- [x] Level up spend points on stats
+	- [x] screen to level up
 - deploy to web
 	- [x] compile JS
 	- [ ] deploy it

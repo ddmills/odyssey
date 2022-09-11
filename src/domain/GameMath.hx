@@ -34,7 +34,7 @@ class GameMath
 
 	public static function GetTargetDistance(source:IntPoint, target:IntPoint)
 	{
-		return Distance.Euclidean(source, target).ciel();
+		return Distance.Diagonal(source, target).floor();
 	}
 
 	public static function GetRangePenalty(source:IntPoint, target:IntPoint, weaponRange:Int)
