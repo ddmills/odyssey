@@ -5,6 +5,7 @@ import common.struct.Coordinate;
 import core.Frame;
 import domain.components.Energy;
 import domain.components.Explored;
+import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Moved;
 import domain.components.Sprite;
@@ -23,17 +24,17 @@ class VisionSystem extends System
 	{
 		var moved = new Query({
 			all: [Moved],
-			none: [IsInventoried],
+			none: [IsInventoried, IsDestroyed],
 		});
 
 		visibles = new Query({
 			all: [Sprite, Visible],
-			none: [IsInventoried],
+			none: [IsInventoried, IsDestroyed],
 		});
 
 		visions = new Query({
 			all: [Vision],
-			none: [IsInventoried],
+			none: [IsInventoried, IsDestroyed],
 		});
 
 		moved.onEntityAdded((entity) ->
@@ -54,6 +55,7 @@ class VisionSystem extends System
 		var vis = new Query({
 			all: [Sprite],
 			any: [Visible, Explored],
+			none: [IsDestroyed],
 		});
 		vis.onEntityAdded((entity) ->
 		{
@@ -70,7 +72,7 @@ class VisionSystem extends System
 
 		var shrouded = new Query({
 			all: [Sprite, Explored],
-			none: [Visible],
+			none: [Visible, IsInventoried, IsDestroyed],
 		});
 		shrouded.onEntityAdded((entity) ->
 		{

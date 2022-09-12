@@ -17,12 +17,13 @@ class InteractionScreen extends ListSelectScreen
 		this.interactable = interactable;
 		this.interactor = interactor;
 		super([]);
-		title = interactable.get(Moniker).displayName;
 		refreshList();
 	}
 
 	public function refreshList()
 	{
+		title = interactable.get(Moniker).displayName;
+
 		if (interactable.has(IsInventoried))
 		{
 			targetPos = interactable.get(IsInventoried).holder.pos;

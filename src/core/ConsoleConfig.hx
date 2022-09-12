@@ -15,27 +15,29 @@ class ConsoleConfig
 {
 	static var SAVE_DATA:String;
 
+	static var game(get, never):Game;
+
 	public static function Config(console:Console)
 	{
 		console.log('Type "help" for list of commands.');
 
 		console.addCommand('exit', 'Close the console', [], () ->
 		{
-			Game.instance.screens.pop();
+			game.screens.pop();
 		});
 
 		console.addCommand('cmds', 'List available commands on current screen', [], () ->
 		{
-			console.log('Available commands', 0xffff00);
-			Commands.GetForDomains([INPUT_DOMAIN_DEFAULT, Game.instance.screens.previous.inputDomain]).each((cmd:Command) ->
+			console.log('Available commands', game.TEXT_COLOR_FOCUS);
+			Commands.GetForDomains([INPUT_DOMAIN_DEFAULT, game.screens.previous.inputDomain]).each((cmd:Command) ->
 			{
-				console.log('${cmd.friendlyKey()} - ${cmd.name}', 0xffff00);
+				console.log('${cmd.friendlyKey()} - ${cmd.name}', game.TEXT_COLOR_FOCUS);
 			});
 		});
 
 		console.addCommand('save', 'save', [{name: 'chunk index', t: AInt}], (idx:Int) ->
 		{
-			// var p = Game.instance.world.player.entity;
+			// var p = game.world.player.entity;
 			// var data = p.save();
 			// var save = Serial.Serialize(data);
 			// trace(save);
@@ -44,7 +46,7 @@ class ConsoleConfig
 			// var c = Entity.Load(deser);
 			// c.pos = new Coordinate(28, 37, WORLD);
 			trace('saving...', idx);
-			var chunk = Game.instance.world.chunks.getChunkById(idx);
+			var chunk = game.world.chunks.getChunkById(idx);
 			var data = chunk.save();
 
 			SAVE_DATA = Serial.Serialize(data);
@@ -53,7 +55,7 @@ class ConsoleConfig
 
 		console.addCommand('load', 'load', [{name: 'chunk index', t: AInt}], (idx:Int) ->
 		{
-			// var p = Game.instance.world.player.entity;
+			// var p = game.world.player.entity;
 			// var data = p.save();
 			// var save = Serial.Serialize(data);
 			// trace(save);
@@ -62,23 +64,23 @@ class ConsoleConfig
 			// var c = Entity.Load(deser);
 			// c.pos = new Coordinate(28, 37, WORLD);
 			trace('loading...', idx);
-			var chunk = Game.instance.world.chunks.getChunkById(idx);
+			var chunk = game.world.chunks.getChunkById(idx);
 			var data:SaveChunk = Serial.Deserialize(SAVE_DATA);
 			chunk.load(data);
-			Game.instance.world.reapplyVisible();
+			game.world.reapplyVisible();
 		});
 
 		console.addCommand('stats', 'List player stats & skills', [], () ->
 		{
-			var player = Game.instance.world.player.entity;
-			console.log('STATS', 0xffff00);
+			var player = game.world.player.entity;
+			console.log('STATS', game.TEXT_COLOR_FOCUS);
 			Stats.GetAll(player).each((sv) ->
 			{
 				var name = EnumValueTools.getName(sv.stat) + ' ';
 				console.log('${name.pad(31, '.')} ${sv.value}');
 			});
 
-			console.log('SKILLS', 0xffff00);
+			console.log('SKILLS', game.TEXT_COLOR_FOCUS);
 			Skills.GetAll(player).each((sv:SkillValue) ->
 			{
 				var name = EnumValueTools.getName(sv.skill) + ' ';
@@ -89,14 +91,14 @@ class ConsoleConfig
 
 		console.addCommand('heal', 'Heal the player', [], () ->
 		{
-			var player = Game.instance.world.player.entity;
+			var player = game.world.player.entity;
 			var health = player.get(Health);
 			health.value = health.max;
 		});
 
 		console.addCommand('xp', 'Grant xp', [{name: 'amount', t: AInt}], (xp:Int) ->
 		{
-			var player = Game.instance.world.player.entity;
+			var player = game.world.player.entity;
 			var level = player.get(Level);
 			level.xp += xp;
 		});
@@ -111,6 +113,11 @@ class ConsoleConfig
 
 	static function entityCountCmd(console:Console)
 	{
-		console.log('Entities: ${Game.instance.registry.size}', 0xffff00);
+		console.log('Entities: ${game.registry.size}', game.TEXT_COLOR_FOCUS);
+	}
+
+	static function get_game():Game
+	{
+		return Game.instance;
 	}
 }

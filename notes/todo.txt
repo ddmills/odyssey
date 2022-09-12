@@ -23,6 +23,13 @@
 - deploy to web
 	- [x] compile JS
 	- [ ] deploy it
+- stackables
+	- [x] component
+	- [x] drop (amount)
+	- [x] prompt screen
+	- [ ] combine stackables on ground
+	- [ ] equip/unequip x 1
+	- [ ] display for x 1
 - improvements
 	- [ ] make 'Move' an entity event
 	- [ ] always spawn to a location, or load chunk on entity added
@@ -40,4 +47,5 @@
 	- [x] show on death
 	- [ ] show game data
 	- [ ] ability to start a new game
+- rename TextResources to FontResources
 - FOV system

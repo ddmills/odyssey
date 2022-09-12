@@ -1,5 +1,6 @@
 package domain.components;
 
+import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
 import domain.events.DropEvent;
@@ -8,6 +9,7 @@ import domain.events.QueryInteractionsEvent;
 import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
+import screens.prompt.NumberPromptScreen;
 
 class Loot extends Component
 {
@@ -27,34 +29,129 @@ class Loot extends Component
 		addHandler(TakeEvent, (evt) -> onTake(cast evt));
 	}
 
-	public function take(taker:Entity)
+	public function take(taker:Entity, ?quantity:Int)
 	{
+		Game.instance.audio.play(pickupSound);
+		var stack = entity.get(Stackable);
+		if (stack == null || quantity == null || quantity >= stack.quantity)
+		{
+			if (container != null)
+			{
+				container.removeLoot(entity);
+			}
+			taker.get(Inventory).addLoot(entity);
+			return;
+		}
+
 		if (container != null)
 		{
-			container.removeLoot(entity);
+			var loot = container.removeLoot(entity, quantity, false);
+			taker.get(Inventory).addLoot(loot);
 		}
+		else
+		{
+			// this comes when equipping off ground?
+			// todo take single?? when? from equipment slot equip? does this work?
+			trace('todo');
+			var clone = entity.clone();
+			clone.get(Stackable).quantity -= quantity;
+			stack.quantity = quantity;
+			taker.get(Inventory).addLoot(entity);
+		}
+	}
+
+	public function drop(pos:Coordinate, ?quantity:Int)
+	{
+		container.dropLoot(entity, pos, quantity);
+		Game.instance.audio.play(dropSound);
+	}
+
+	public function pickup(taker:Entity, ?quantity:Int)
+	{
+		var stack = entity.get(Stackable);
+		if (stack == null || quantity == null || quantity >= stack.quantity)
+		{
+			taker.get(Inventory).addLoot(entity);
+			Game.instance.audio.play(pickupSound);
+			return;
+		}
+
+		var clone = entity.clone();
+		clone.get(Stackable).quantity -= quantity;
+		stack.quantity = quantity;
 		taker.get(Inventory).addLoot(entity);
 	}
 
 	private function onPickup(evt:PickupEvent)
 	{
-		var targetInventory = evt.interactor.get(Inventory);
+		var stack = entity.get(Stackable);
 
-		targetInventory.addLoot(entity);
+		if (stack == null || stack.quantity == 1)
+		{
+			pickup(evt.interactor);
+			return;
+		}
 
-		Game.instance.audio.play(pickupSound);
+		var s = new NumberPromptScreen();
+		s.title = 'How many to pickup? (${stack.quantity} total)';
+		s.value = stack.quantity;
+		s.onAccept = (_) ->
+		{
+			if (s.value > 0)
+			{
+				pickup(evt.interactor, s.value);
+			}
+			Game.instance.screens.pop();
+		}
+		Game.instance.screens.push(s);
 	}
 
 	private function onDrop(evt:DropEvent)
 	{
-		container.dropLoot(entity, evt.pos);
-		Game.instance.audio.play(dropSound);
+		var stack = entity.get(Stackable);
+
+		if (stack == null || stack.quantity == 1)
+		{
+			drop(evt.pos);
+			return;
+		}
+
+		var s = new NumberPromptScreen();
+		s.title = 'How many to drop? (${stack.quantity} total)';
+		s.value = stack.quantity;
+		s.onAccept = (_) ->
+		{
+			if (s.value > 0)
+			{
+				drop(evt.pos, s.value);
+			}
+			Game.instance.screens.pop();
+		}
+		Game.instance.screens.push(s);
 	}
 
 	private function onTake(evt:TakeEvent)
 	{
-		Game.instance.audio.play(pickupSound);
-		take(evt.taker);
+		var stack = entity.get(Stackable);
+
+		if (stack == null || stack.quantity == 1)
+		{
+			take(evt.taker);
+			return;
+		}
+
+		var s = new NumberPromptScreen();
+		s.title = 'How many to take? (${stack.quantity} total)';
+		s.value = stack.quantity;
+		s.onAccept = (_) ->
+		{
+			if (s.value > 0)
+			{
+				take(evt.taker, s.value);
+			}
+			Game.instance.screens.pop();
+		}
+		Game.instance.screens.push(s);
 	}
 
 	private function onQueryInteractions(evt:QueryInteractionsEvent)

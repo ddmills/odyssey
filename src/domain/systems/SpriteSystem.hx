@@ -1,6 +1,7 @@
 package domain.systems;
 
 import core.Frame;
+import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -15,7 +16,7 @@ class SpriteSystem extends System
 	{
 		query = new Query({
 			all: [Sprite],
-			none: [IsInventoried]
+			none: [IsInventoried, IsDestroyed]
 		});
 
 		query.onEntityAdded((entity) -> renderEntity(entity));

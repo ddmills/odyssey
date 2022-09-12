@@ -164,7 +164,7 @@ class EquipmentSlot extends Component
 			extraSlot.equipSecondary(equipment);
 		}
 
-		equipment.get(Loot).take(entity);
+		equipment.get(Loot).take(entity, 1); // TODO, equip stackables!?
 		equipment.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
 
 		contentId = equipment.id;

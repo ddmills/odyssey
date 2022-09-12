@@ -3,6 +3,7 @@ package domain.components;
 import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
+import data.StackableType;
 import data.TileKey;
 import domain.events.MovedEvent;
 import domain.events.OpenInventoryEvent;
@@ -13,6 +14,7 @@ import ecs.Component;
 import ecs.Entity;
 import screens.entitySelect.EntitySelectScreen;
 import screens.inventory.InventoryScreen;
+import screens.prompt.NumberPromptScreen;
 
 class Inventory extends Component
 {
@@ -35,6 +37,17 @@ class Inventory extends Component
 
 	public function addLoot(loot:Entity)
 	{
+		if (loot.has(Stackable))
+		{
+			var existing = getStackable(loot.get(Stackable).stackType);
+
+			if (existing != null)
+			{
+				loot.get(Stackable).addOther(existing.get(Stackable));
+				_contentIds.remove(existing.id);
+			}
+		}
+
 		if (loot.has(IsInventoried))
 		{
 			loot.remove(IsInventoried);
@@ -43,21 +56,62 @@ class Inventory extends Component
 		_contentIds.push(loot.id);
 	}
 
-	public function removeLoot(loot:Entity)
+	public function removeLoot(loot:Entity, ?quantity:Int, ?removeClone:Bool = true)
 	{
 		loot.remove(IsInventoried);
 		_contentIds.remove(loot.id);
+
+		if (!loot.has(Stackable))
+		{
+			return loot;
+		}
+
+		var stack = loot.get(Stackable);
+
+		if (quantity == null || quantity >= stack.quantity)
+		{
+			return loot;
+		}
+
+		var clone = loot.clone();
+		if (removeClone)
+		{
+			clone.get(Stackable).quantity = quantity;
+			stack.quantity -= quantity;
+
+			addLoot(loot);
+
+			return clone;
+		}
+		else
+		{
+			clone.get(Stackable).quantity -= quantity;
+			stack.quantity = quantity;
+
+			addLoot(clone);
+
+			return loot;
+		}
 	}
 
-	public function dropLoot(loot:Entity, pos:Coordinate = null)
+	public function dropLoot(loot:Entity, pos:Coordinate = null, ?quantity:Int)
 	{
-		removeLoot(loot);
-		loot.pos = pos == null ? entity.pos : pos;
+		var l = removeLoot(loot, quantity);
+		l.pos = pos == null ? entity.pos : pos;
+		return l;
 	}
 
 	public function hasLoot(loot:Entity):Bool
 	{
 		return _contentIds.contains(loot.id);
+	}
+
+	function getStackable(stackType:StackableType)
+	{
+		return content.find((e) ->
+		{
+			return e.has(Stackable) && e.get(Stackable).stackType == stackType;
+		});
 	}
 
 	function get_content():Array<Entity>
@@ -92,9 +146,28 @@ class Inventory extends Component
 		screen.fetchEntities = fetchEntities;
 		screen.onSelect = (e:Entity) ->
 		{
-			e.fireEvent(new TakeEvent(entity));
-			Game.instance.screens.pop();
-			return;
+			var stack = e.get(Stackable);
+			if (stack == null || stack.quantity == 1)
+			{
+				e.get(Loot).take(entity);
+				Game.instance.screens.pop();
+			}
+			else
+			{
+				var s = new NumberPromptScreen();
+				s.title = 'How many to stash? (${stack.quantity} total)';
+				s.value = stack.quantity;
+				s.onAccept = (_) ->
+				{
+					if (s.value > 0)
+					{
+						e.get(Loot).take(entity, s.value);
+					}
+					Game.instance.screens.pop();
+					Game.instance.screens.pop();
+				}
+				Game.instance.screens.push(s);
+			}
 		};
 		Game.instance.screens.push(screen);
 	}

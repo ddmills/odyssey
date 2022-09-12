@@ -9,9 +9,11 @@ import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Level;
 import domain.components.Moniker;
+import domain.components.Moved;
 import domain.components.Sprite;
 import domain.components.Stats;
 import domain.components.Vision;
+import domain.events.SpawnedEvent;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -49,6 +51,12 @@ class PlayerPrefab extends Prefab
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
 		rhand.equip(Spawner.Spawn(Rand.create().pick(wpns)));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
+
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
 
 		return entity;
 	}

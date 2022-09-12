@@ -124,7 +124,7 @@ class AdventureScreen extends Screen
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:
 				game.screens.push(new LookScreen());
-			case CMD_CONFIRM:
+			case CMD_INTERACT:
 				onInteract(world.player.pos);
 			case CMD_INVENTORY:
 				game.screens.push(new InventoryScreen(world.player.entity, world.player.entity));
@@ -180,23 +180,23 @@ class AdventureScreen extends Screen
 		ob.y = 16;
 
 		var clock = new Text(TextResources.BIZCAT, ob);
-		clock.color = 0xf5f5f5.toHxdColor();
+		clock.color = game.TEXT_COLOR.toHxdColor();
 		clock.y = 0;
 
 		var health = new Text(TextResources.BIZCAT, ob);
-		health.color = 0xf5f5f5.toHxdColor();
+		health.color = game.TEXT_COLOR.toHxdColor();
 		health.y = 16;
 
 		var cpos = new Text(TextResources.BIZCAT, ob);
-		cpos.color = 0xf5f5f5.toHxdColor();
+		cpos.color = game.TEXT_COLOR.toHxdColor();
 		cpos.y = 32;
 
 		var wpos = new Text(TextResources.BIZCAT, ob);
-		wpos.color = 0xf5f5f5.toHxdColor();
+		wpos.color = game.TEXT_COLOR.toHxdColor();
 		wpos.y = 48;
 
 		var xp = new Text(TextResources.BIZCAT, ob);
-		xp.color = 0xf5f5f5.toHxdColor();
+		xp.color = game.TEXT_COLOR.toHxdColor();
 		xp.y = 64;
 
 		hudText = {

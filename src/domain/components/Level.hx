@@ -26,7 +26,6 @@ class Level extends Component
 		}
 
 		xp += GameMath.GetXpGain(level, evt.enemy.get(Level).level);
-		trace('xp gained!');
 	}
 
 	function levelUp()

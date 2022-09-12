@@ -3,6 +3,7 @@ package domain.systems;
 import core.Frame;
 import core.Game;
 import domain.components.HitBlink;
+import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -17,7 +18,7 @@ class HitBlinkSystem extends System
 	{
 		query = new Query({
 			all: [HitBlink, Sprite],
-			none: [IsInventoried],
+			none: [IsInventoried, IsDestroyed],
 		});
 
 		query.onEntityAdded((e) ->

@@ -52,8 +52,7 @@ class ShootingScreen extends CursorScreen
 		targetBm.addShader(targetShader);
 
 		hitChanceTxt = new Text(TextResources.BIZCAT);
-		hitChanceTxt.text = 'Test';
-		hitChanceTxt.color = 0xf5f5f5.toHxdColor();
+		hitChanceTxt.color = game.TEXT_COLOR.toHxdColor();
 		hitChanceTxt.x = 16;
 		hitChanceTxt.y = 16;
 

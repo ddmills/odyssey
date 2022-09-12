@@ -3,6 +3,7 @@ package domain.systems;
 import core.Frame;
 import domain.components.Health;
 import domain.components.IsDead;
+import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
 import domain.prefabs.Spawner;
@@ -19,7 +20,7 @@ class DeathSystem extends System
 	{
 		query = new Query({
 			all: [IsDead],
-			none: [IsInventoried],
+			none: [IsInventoried, IsDestroyed],
 		});
 	}
 
@@ -41,7 +42,7 @@ class DeathSystem extends System
 			}
 			else
 			{
-				e.destroy();
+				e.add(new IsDestroyed());
 			}
 		});
 	}

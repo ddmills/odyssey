@@ -137,7 +137,7 @@ class LookScreen extends CursorScreen
 	private function renderText()
 	{
 		targetText = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
-		targetText.color = 0xf5f5f5.toHxdColor();
+		targetText.color = game.TEXT_COLOR.toHxdColor();
 		targetText.y = 64;
 		targetText.textAlign = Center;
 	}

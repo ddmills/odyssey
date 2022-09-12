@@ -16,12 +16,20 @@ class Moniker extends Component
 	function get_displayName():String
 	{
 		var equipped = entity.get(IsEquipped);
+		var stacks = entity.get(Stackable);
+
+		var base = baseName;
+
+		if (stacks != null)
+		{
+			base += ' ${stacks.displayName}';
+		}
 
 		if (equipped != null)
 		{
-			return '$baseName ${equipped.slotDisplay}';
+			base += ' ${equipped.slotDisplay}';
 		}
 
-		return baseName;
+		return base;
 	}
 }

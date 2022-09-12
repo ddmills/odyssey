@@ -12,7 +12,7 @@ class DeathScreen extends Screen
 	public function new()
 	{
 		text = new Text(TextResources.BIZCAT);
-		text.color = 0xf5f5f5.toHxdColor();
+		text.color = game.TEXT_COLOR.toHxdColor();
 		text.text = 'You died. Game over';
 		text.textAlign = Center;
 		text.y = 32;

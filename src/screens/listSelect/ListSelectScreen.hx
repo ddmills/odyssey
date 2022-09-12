@@ -68,11 +68,11 @@ class ListSelectScreen extends Screen
 		onCancel = () -> game.screens.pop();
 		_pos = new Coordinate(16, 16, SCREEN);
 
-		var titleBkg = new Bitmap(Tile.fromColor(Game.instance.CLEAR_COLOR, w * game.TILE_W, game.TILE_H));
+		var titleBkg = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * game.TILE_W, game.TILE_H));
 		ob.addChild(titleBkg);
 
 		titleOb = new Text(TextResources.BIZCAT);
-		titleOb.color = 0xf5f5f5.toHxdColor();
+		titleOb.color = game.TEXT_COLOR.toHxdColor();
 		titleOb.text = 'Select';
 
 		_cancelText = 'Cancel';
@@ -178,7 +178,7 @@ class ListSelectScreen extends Screen
 	{
 		list.data.each((li:SelectableListItem<ListRow>) ->
 		{
-			var col = li.isSelected ? 0xffff00 : 0xf5f5f5;
+			var col = li.isSelected ? game.TEXT_COLOR_FOCUS : game.TEXT_COLOR;
 			li.item.text.color = col.toHxdColor();
 			li.item.detail.color = col.toHxdColor();
 			li.item.bullet.tile = li.isSelected ? TileResources.Get(LIST_ARROW) : TileResources.Get(LIST_DASH);
@@ -191,7 +191,7 @@ class ListSelectScreen extends Screen
 		var tw = game.TILE_W;
 		var th = game.TILE_H;
 		var left = 0;
-		var rowOb = new Bitmap(Tile.fromColor(Game.instance.CLEAR_COLOR, w * tw, th));
+		var rowOb = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * tw, th));
 		rowOb.y = idx * th;
 		listOb.addChild(rowOb);
 
@@ -212,7 +212,7 @@ class ListSelectScreen extends Screen
 		}
 
 		var text = new Text(TextResources.BIZCAT);
-		text.color = 0xf5f5f5.toHxdColor();
+		text.color = game.TEXT_COLOR.toHxdColor();
 		left += 8;
 		text.y = 0;
 		text.x = left;
@@ -221,7 +221,7 @@ class ListSelectScreen extends Screen
 		rowOb.addChild(text);
 
 		var detail = new Text(TextResources.BIZCAT);
-		detail.color = 0xf5f5f5.toHxdColor();
+		detail.color = game.TEXT_COLOR.toHxdColor();
 		left += tw * 12;
 		detail.y = 0;
 		detail.x = left;
