@@ -1,6 +1,7 @@
 package domain.components;
 
 import domain.events.MovedEvent;
+import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
 

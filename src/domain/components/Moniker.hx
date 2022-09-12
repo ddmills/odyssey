@@ -18,18 +18,18 @@ class Moniker extends Component
 		var equipped = entity.get(IsEquipped);
 		var stacks = entity.get(Stackable);
 
-		var base = baseName;
+		var name = baseName;
 
-		if (stacks != null)
+		if (stacks != null && stacks.displayName.length > 0)
 		{
-			base += ' ${stacks.displayName}';
+			name += ' ${stacks.displayName}';
 		}
 
-		if (equipped != null)
+		if (equipped != null && equipped.slotDisplay.length > 0)
 		{
-			base += ' ${equipped.slotDisplay}';
+			name += ' ${equipped.slotDisplay}';
 		}
 
-		return base;
+		return name;
 	}
 }

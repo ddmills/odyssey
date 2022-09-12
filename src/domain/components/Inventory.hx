@@ -37,7 +37,12 @@ class Inventory extends Component
 
 	public function addLoot(loot:Entity)
 	{
-		if (loot.has(Stackable))
+		if (loot.has(IsInventoried))
+		{
+			loot.remove(IsInventoried);
+		}
+
+		if (loot.has(Stackable) && !loot.has(IsEquipped))
 		{
 			var existing = getStackable(loot.get(Stackable).stackType);
 
@@ -48,10 +53,6 @@ class Inventory extends Component
 			}
 		}
 
-		if (loot.has(IsInventoried))
-		{
-			loot.remove(IsInventoried);
-		}
 		loot.add(new IsInventoried(entity.id));
 		_contentIds.push(loot.id);
 	}
@@ -61,15 +62,14 @@ class Inventory extends Component
 		loot.remove(IsInventoried);
 		_contentIds.remove(loot.id);
 
-		if (!loot.has(Stackable))
-		{
-			return loot;
-		}
-
 		var stack = loot.get(Stackable);
 
-		if (quantity == null || quantity >= stack.quantity)
+		if (stack == null || quantity == null || quantity >= stack.quantity)
 		{
+			if (loot.has(IsEquipped))
+			{
+				loot.get(IsEquipped).slot.unequip();
+			}
 			return loot;
 		}
 
@@ -106,11 +106,37 @@ class Inventory extends Component
 		return _contentIds.contains(loot.id);
 	}
 
+	public function combineStackables(stackType:StackableType, targetStackableId:String)
+	{
+		var loose = content.filter((e) ->
+		{
+			return e.has(Stackable) && e.get(Stackable).stackType == stackType && !e.has(IsEquipped);
+		});
+		var target = loose.find((e) -> e.id == targetStackableId);
+
+		if (target == null)
+		{
+			return;
+		}
+
+		var stack = target.get(Stackable);
+		for (e in loose)
+		{
+			if (e.id == targetStackableId)
+			{
+				continue;
+			}
+			stack.addOther(e.get(Stackable));
+			e.remove(IsInventoried);
+			_contentIds.remove(e.id);
+		}
+	}
+
 	function getStackable(stackType:StackableType)
 	{
 		return content.find((e) ->
 		{
-			return e.has(Stackable) && e.get(Stackable).stackType == stackType;
+			return e.has(Stackable) && e.get(Stackable).stackType == stackType && !e.has(IsEquipped);
 		});
 	}
 
@@ -149,6 +175,10 @@ class Inventory extends Component
 			var stack = e.get(Stackable);
 			if (stack == null || stack.quantity == 1)
 			{
+				if (e.has(IsEquipped))
+				{
+					e.get(IsEquipped).slot.unequip(false);
+				}
 				e.get(Loot).take(entity);
 				Game.instance.screens.pop();
 			}

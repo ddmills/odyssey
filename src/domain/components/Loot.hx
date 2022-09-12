@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
 import domain.events.DropEvent;
+import domain.events.EquipEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.TakeEvent;
@@ -29,9 +30,10 @@ class Loot extends Component
 		addHandler(TakeEvent, (evt) -> onTake(cast evt));
 	}
 
-	public function take(taker:Entity, ?quantity:Int)
+	public function take(taker:Entity, ?quantity:Int, ?addToInventory:Bool = true)
 	{
 		Game.instance.audio.play(pickupSound);
+
 		var stack = entity.get(Stackable);
 		if (stack == null || quantity == null || quantity >= stack.quantity)
 		{
@@ -39,14 +41,21 @@ class Loot extends Component
 			{
 				container.removeLoot(entity);
 			}
-			taker.get(Inventory).addLoot(entity);
-			return;
+			if (addToInventory)
+			{
+				taker.get(Inventory).addLoot(entity);
+			}
+			return entity;
 		}
 
 		if (container != null)
 		{
 			var loot = container.removeLoot(entity, quantity, false);
-			taker.get(Inventory).addLoot(loot);
+			if (addToInventory)
+			{
+				taker.get(Inventory).addLoot(loot);
+			}
+			return loot;
 		}
 		else
 		{
@@ -56,7 +65,11 @@ class Loot extends Component
 			var clone = entity.clone();
 			clone.get(Stackable).quantity -= quantity;
 			stack.quantity = quantity;
-			taker.get(Inventory).addLoot(entity);
+			if (addToInventory)
+			{
+				taker.get(Inventory).addLoot(entity);
+			}
+			return entity;
 		}
 	}
 

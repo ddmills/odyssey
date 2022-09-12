@@ -110,7 +110,7 @@ class EquipmentSlot extends Component
 		content.fireEvent(equipped);
 	}
 
-	public function unequip()
+	public function unequip(combineStackables:Bool = true)
 	{
 		if (isEmpty)
 		{
@@ -134,6 +134,11 @@ class EquipmentSlot extends Component
 		}
 
 		c.remove(IsEquipped);
+
+		if (combineStackables && c.has(Stackable) && c.has(IsInventoried))
+		{
+			c.get(IsInventoried).holder.get(Inventory).combineStackables(c.get(Stackable).stackType, c.id);
+		}
 
 		return true;
 	}
@@ -164,10 +169,19 @@ class EquipmentSlot extends Component
 			extraSlot.equipSecondary(equipment);
 		}
 
-		equipment.get(Loot).take(entity, 1); // TODO, equip stackables!?
-		equipment.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
-
-		contentId = equipment.id;
+		if (equipment.has(Stackable))
+		{
+			var clone = equipment.get(Loot).take(entity, 1, false); // TODO, equip stackables!?
+			clone.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
+			entity.get(Inventory).addLoot(clone);
+			contentId = clone.id;
+		}
+		else
+		{
+			equipment.get(Loot).take(entity);
+			equipment.add(new IsEquipped(entity.id, slotKey, extraSlotKey));
+			contentId = equipment.id;
+		}
 	}
 
 	function get_content():Entity

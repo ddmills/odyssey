@@ -25,6 +25,10 @@ class Stackable extends Component
 
 	function get_displayName():String
 	{
-		return 'x $quantity';
+		if (quantity > 1)
+		{
+			return 'x $quantity';
+		}
+		return '';
 	}
 }

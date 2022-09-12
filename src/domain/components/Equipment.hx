@@ -6,10 +6,8 @@ import data.EquipmentSlotType;
 import domain.events.DropEvent;
 import domain.events.EquipEvent;
 import domain.events.QueryInteractionsEvent;
-import domain.events.TakeEvent;
 import domain.events.UnequipEvent;
 import ecs.Component;
-import hxd.res.Sound;
 import screens.listSelect.ListSelectScreen;
 
 class Equipment extends Component
@@ -28,8 +26,6 @@ class Equipment extends Component
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(EquipEvent, (evt) -> onEquip(cast evt));
 		addHandler(UnequipEvent, (evt) -> onUnequip(cast evt));
-		addHandler(DropEvent, (evt) -> onDrop(cast evt));
-		addHandler(TakeEvent, (evt) -> onTake(cast evt));
 	}
 
 	public function unequip()
@@ -79,16 +75,6 @@ class Equipment extends Component
 	{
 		unequip();
 		Game.instance.audio.play(unequipAudio);
-	}
-
-	private function onDrop(evt:DropEvent)
-	{
-		unequip();
-	}
-
-	private function onTake(evt:TakeEvent)
-	{
-		unequip();
 	}
 
 	private function onQueryInteractions(evt:QueryInteractionsEvent)
