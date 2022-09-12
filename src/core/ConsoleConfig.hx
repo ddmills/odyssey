@@ -6,6 +6,7 @@ import data.Commands;
 import data.save.SaveChunk;
 import domain.components.Health;
 import domain.components.Level;
+import domain.components.Sprite;
 import domain.components.Stats;
 import domain.skills.Skills;
 import h2d.Console;
@@ -37,14 +38,15 @@ class ConsoleConfig
 
 		console.addCommand('save', 'save', [{name: 'chunk index', t: AInt}], (idx:Int) ->
 		{
-			// var p = game.world.player.entity;
-			// var data = p.save();
-			// var save = Serial.Serialize(data);
-			// trace(save);
-			// var deser = Serial.Deserialize(save);
-			// deser.id = 'test';
-			// var c = Entity.Load(deser);
-			// c.pos = new Coordinate(28, 37, WORLD);
+			// var s = game.world.player.entity.get(Sprite);
+			// trace(s.save());
+			// var c = game.world.player.entity.clone();
+
+			// c.x += 3;
+			// trace('primary', c.get(Sprite).primary);
+			// trace('primaryOverride', c.get(Sprite).primaryOverride);
+			// trace('primaryColor', c.get(Sprite).primaryColor);
+
 			trace('saving...', idx);
 			var chunk = game.world.chunks.getChunkById(idx);
 			var data = chunk.save();

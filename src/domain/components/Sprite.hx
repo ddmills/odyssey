@@ -19,10 +19,10 @@ class Sprite extends Component
 	@save public var outline(default, set):Int;
 	@save public var background(default, set):Null<Int>;
 
-	@save public var primaryOverride(default, set):Null<Int>;
-	@save public var secondaryOverride(default, set):Null<Int>;
-	@save public var outlineOverride(default, set):Null<Int>;
-	@save public var backgroundOverride(default, set):Null<Int>;
+	@save public var primaryOverride(default, set):Null<Int> = null;
+	@save public var secondaryOverride(default, set):Null<Int> = null;
+	@save public var outlineOverride(default, set):Null<Int> = null;
+	@save public var backgroundOverride(default, set):Null<Int> = null;
 
 	@save public var layer(default, null):RenderLayerType;
 	@save public var isShrouded(default, set):Bool = false;
@@ -124,7 +124,7 @@ class Sprite extends Component
 
 	function set_isShrouded(value:Bool):Bool
 	{
-		isShrouded = true;
+		isShrouded = value;
 		shader.isShrouded = value ? 1 : 0;
 		return value;
 	}
@@ -173,21 +173,21 @@ class Sprite extends Component
 		return value;
 	}
 
-	function set_primaryOverride(value:Int):Int
+	function set_primaryOverride(value:Null<Int>):Null<Int>
 	{
 		primaryOverride = value;
 		shader.primary = primaryColor.toHxdColor();
 		return value;
 	}
 
-	function set_secondaryOverride(value:Int):Int
+	function set_secondaryOverride(value:Null<Int>):Null<Int>
 	{
 		secondaryOverride = value;
 		shader.secondary = secondaryColor.toHxdColor();
 		return value;
 	}
 
-	function set_outlineOverride(value:Int):Int
+	function set_outlineOverride(value:Null<Int>):Null<Int>
 	{
 		outlineOverride = value;
 		shader.outline = outlineColor.toHxdColor();
