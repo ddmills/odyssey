@@ -32,8 +32,6 @@ class Loot extends Component
 
 	public function take(taker:Entity, ?quantity:Int, ?addToInventory:Bool = true)
 	{
-		Game.instance.audio.play(pickupSound);
-
 		var stack = entity.get(Stackable);
 		if (stack == null || quantity == null || quantity >= stack.quantity)
 		{
@@ -107,7 +105,7 @@ class Loot extends Component
 
 		var s = new NumberPromptScreen();
 		s.title = 'How many to pickup? (${stack.quantity} total)';
-		s.value = stack.quantity;
+		s.setValue(stack.quantity);
 		s.onAccept = (_) ->
 		{
 			if (s.value > 0)
@@ -131,7 +129,7 @@ class Loot extends Component
 
 		var s = new NumberPromptScreen();
 		s.title = 'How many to drop? (${stack.quantity} total)';
-		s.value = stack.quantity;
+		s.setValue(stack.quantity);
 		s.onAccept = (_) ->
 		{
 			if (s.value > 0)
@@ -149,17 +147,19 @@ class Loot extends Component
 
 		if (stack == null || stack.quantity == 1)
 		{
+			Game.instance.audio.play(pickupSound);
 			take(evt.taker);
 			return;
 		}
 
 		var s = new NumberPromptScreen();
 		s.title = 'How many to take? (${stack.quantity} total)';
-		s.value = stack.quantity;
+		s.setValue(stack.quantity);
 		s.onAccept = (_) ->
 		{
 			if (s.value > 0)
 			{
+				Game.instance.audio.play(pickupSound);
 				take(evt.taker, s.value);
 			}
 			Game.instance.screens.pop();

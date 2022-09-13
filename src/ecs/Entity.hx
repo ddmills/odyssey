@@ -56,13 +56,15 @@ class Entity
 
 	public function destroy()
 	{
-		for (component in components)
+		isCandidacyEnabled = false;
+		for (component in components.copy())
 		{
-			for (c in component)
+			for (c in component.copy())
 			{
 				remove(c);
 			}
 		}
+		isCandidacyEnabled = true;
 		isDestroyed = true;
 		chunk.removeEntity(this);
 		registry.unregisterEntity(this);
@@ -143,7 +145,13 @@ class Entity
 
 	public function fireEvent<T:EntityEvent>(evt:T):T
 	{
-		components.each((a) -> a.each((c) -> c.onEvent(evt)));
+		components.each((a) ->
+		{
+			a.each((c) ->
+			{
+				c.onEvent(evt);
+			});
+		});
 
 		return evt;
 	}
@@ -303,6 +311,7 @@ class Entity
 				continue;
 			}
 			var c = cast(Type.createInstance(clazz, []), Component);
+			c._attach(entity);
 			c.load(cdata.data);
 
 			entity.add(c);

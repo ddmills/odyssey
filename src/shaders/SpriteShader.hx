@@ -46,6 +46,13 @@ class SpriteShader extends hxsl.Shader
 				{
 					pixelColor.a = 1;
 					pixelColor.rgb = background;
+					if (isShrouded == 1)
+					{
+						var color = pixelColor.rgb;
+						var lum = vec3(0.299, 0.587, 0.114);
+						var gray = vec3(dot(lum, color));
+						pixelColor.rgb = mix(color, gray, .25) * .5;
+					}
 				}
 			}
 		};

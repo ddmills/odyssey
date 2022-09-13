@@ -169,19 +169,30 @@ class Chunk
 		var grasses:Array<TileKey> = [GRASS_1, GRASS_2, GRASS_3, GRASS_4,];
 
 		var bm = new h2d.Bitmap();
+		var showTile = rand.bool(.85);
 
 		if (type == GRASS)
 		{
-			var colors = [0x47423a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
+			var colors = [0x3f473a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
+			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
+			shader.background = rand.pick(colors).toHxdColor();
+			shader.clearBackground = 0;
+
 			bm.tile = TileResources.Get(rand.pick(grasses));
-			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
+			bm.alpha = showTile ? 1 : 0;
+			bm.addShader(shader);
 		}
 
 		if (type == SAND)
 		{
 			var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
+			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
+			shader.background = rand.pick(colors).toHxdColor();
+			shader.clearBackground = 0;
+
 			bm.tile = TileResources.Get(rand.pick(sands));
-			bm.addShader(new SpriteShader(rand.pick(colors), rand.pick(colors)));
+			bm.alpha = showTile ? 1 : 0;
+			bm.addShader(shader);
 		}
 
 		bm.visible = false;

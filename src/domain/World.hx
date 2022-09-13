@@ -15,7 +15,6 @@ import domain.systems.SystemManager;
 import domain.terrain.ChunkManager;
 import ecs.Entity;
 import hxd.Rand;
-import hxd.res.Sound;
 
 class World
 {

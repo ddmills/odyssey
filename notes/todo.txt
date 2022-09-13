@@ -28,8 +28,8 @@
 	- [x] drop (amount)
 	- [x] prompt screen
 	- [ ] combine stackables on ground
-	- [ ] equip/unequip x 1
-	- [ ] display for x 1
+	- [x] equip/unequip x 1
+	- [x] display for x 1
 - improvements
 	- [ ] make 'Move' an entity event
 	- [ ] always spawn to a location, or load chunk on entity added
@@ -43,6 +43,7 @@
 	- [x] save/load chunks
 	- [x] dynamic unload/load chunks
 	- [ ] save load files
+	- [ ] out of bounds entity destroy (no chunk)
 - Death screen
 	- [x] show on death
 	- [ ] show game data

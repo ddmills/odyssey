@@ -19,8 +19,8 @@ class Query
 	var all:Int;
 	var none:Int;
 	var isDisposed:Bool;
-
 	var cache:Map<String, Entity>;
+
 	var onAddListeners:Array<(Entity) -> Void>;
 	var onRemoveListeners:Array<(Entity) -> Void>;
 
@@ -100,7 +100,7 @@ class Query
 
 	public inline function iterator():Iterator<Entity>
 	{
-		return cache.iterator();
+		return new QueryIterator(this.cache);
 	}
 
 	public function onEntityAdded(fn:(Entity) -> Void)
@@ -131,5 +131,42 @@ class Query
 		}
 
 		return components.fold((c, s) -> BitUtil.addBit(s, registry.getBit(c)), 0);
+	}
+}
+
+class QueryIterator
+{
+	var entities:Array<Entity> = [];
+	var i:Int = 0;
+
+	public inline function new(cache:Map<String, Entity>)
+	{
+		for (e in cache) // todo: fix double iteration
+		{
+			entities.push(e);
+		}
+	}
+
+	public inline function hasNext()
+	{
+		if (i >= entities.length)
+		{
+			return false;
+		}
+
+		var next = entities[i];
+
+		if (next.isDestroyed)
+		{
+			i++;
+			return hasNext();
+		}
+
+		return true;
+	}
+
+	public inline function next():Entity
+	{
+		return entities[i++];
 	}
 }

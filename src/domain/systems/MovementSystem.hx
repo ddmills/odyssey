@@ -6,6 +6,7 @@ import domain.components.Energy;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
+import domain.components.Moniker;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Moved;
@@ -28,10 +29,12 @@ class MovementSystem extends System
 			none: [MoveComplete, IsDestroyed, IsInventoried]
 		});
 		completed = new Query({
-			all: [MoveComplete]
+			all: [MoveComplete],
+			none: [IsDestroyed],
 		});
 		moved = new Query({
-			all: [Moved]
+			all: [Moved],
+			none: [IsDestroyed],
 		});
 	}
 
@@ -74,10 +77,6 @@ class MovementSystem extends System
 	{
 		for (entity in completed)
 		{
-			if (entity.has(Sprite))
-			{
-				entity.get(Sprite).background = game.CLEAR_COLOR;
-			}
 			if (entity.has(IsPlayer))
 			{
 				var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
@@ -94,6 +93,7 @@ class MovementSystem extends System
 		{
 			var start = entity.pos;
 			var move = entity.get(Move);
+
 			var delta = getDelta(start, move.goal, move.speed, move.tween, frame.tmod);
 
 			if (entity.has(Sprite))

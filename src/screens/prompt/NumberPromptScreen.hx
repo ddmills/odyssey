@@ -6,6 +6,12 @@ class NumberPromptScreen extends PromptScreen
 	public var max:Int = 99999999;
 	public var min:Int = 0;
 
+	public function setValue(v:Int)
+	{
+		value = v;
+		obs.input.text = value.toString();
+	}
+
 	public function new()
 	{
 		super();

@@ -24,12 +24,12 @@ class PlayerPrefab extends Prefab
 		var entity = new Entity();
 
 		var sprite = new Sprite(HERO, 0xd8cfbd, 0x7e3e32, ACTORS);
-		sprite.background = Game.instance.CLEAR_COLOR;
+		// sprite.background = Game.instance.CLEAR_COLOR;
 
 		entity.add(sprite);
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
-		entity.add(new Level());
+		entity.add(new Level(20));
 		entity.add(new Vision(12, 2));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());

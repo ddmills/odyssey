@@ -19,7 +19,6 @@ class CactusPrefab extends Prefab
 		var cactus = new Entity();
 
 		var sprite = new Sprite(tile, 0x6C793D, 0xAA0F69, OBJECTS);
-		sprite.background = Game.instance.CLEAR_COLOR;
 
 		cactus.add(sprite);
 		cactus.add(new Blocker());

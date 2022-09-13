@@ -17,7 +17,7 @@ class Move extends Component
 	@save public var speed:Float;
 	@save public var epsilon:Float;
 
-	public function new(goal:Coordinate, speed:Float = 0.05, tween:Tween = LINEAR, epsilon:Float = .005)
+	public function new(goal:Coordinate, speed:Float = 0.05, tween:Tween = LINEAR, epsilon:Float = .0075)
 	{
 		this.goal = goal;
 		this.tween = tween;

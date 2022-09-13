@@ -85,6 +85,7 @@ class Registry
 	@:allow(ecs.Entity)
 	function unregisterEntity(entity:Entity)
 	{
+		candidacy(entity);
 		size--;
 		entityMap.remove(entity.id);
 	}

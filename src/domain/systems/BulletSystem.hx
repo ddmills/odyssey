@@ -1,6 +1,7 @@
 package domain.systems;
 
 import domain.components.Bullet;
+import domain.components.IsDestroyed;
 import domain.components.MoveComplete;
 import ecs.Query;
 import ecs.System;
@@ -20,7 +21,7 @@ class BulletSystem extends System
 			{
 				world.playAudio(e.pos.toIntPoint(), sound);
 			}
-			e.destroy();
+			e.add(new IsDestroyed());
 		});
 	}
 }

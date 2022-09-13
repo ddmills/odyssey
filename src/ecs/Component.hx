@@ -5,9 +5,7 @@ import haxe.rtti.Meta;
 
 abstract class Component
 {
-	private var _bit:Int = 0;
-
-	public var bit(get, null):Int;
+	public var bit(get, null):Int = 0;
 	public var type(get, null):String;
 	public var entity(default, null):Entity;
 	public var isAttached(get, null):Bool;
@@ -33,14 +31,14 @@ abstract class Component
 
 	function get_bit():Int
 	{
-		if (_bit > 0)
+		if (bit > 0)
 		{
-			return _bit;
+			return bit;
 		}
 
-		_bit = Game.instance.registry.register(Type.getClass(this));
+		bit = Game.instance.registry.register(Type.getClass(this));
 
-		return _bit;
+		return bit;
 	}
 
 	function onRemove() {}
@@ -51,7 +49,7 @@ abstract class Component
 		var cls = Type.getClass(evt);
 		var className = Type.getClassName(cls);
 		var handler = handlers.get(className);
-		if (handler != null)
+		if (handler != null && isAttached)
 		{
 			handler(evt);
 		}

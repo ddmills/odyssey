@@ -14,7 +14,7 @@ class CoachGunPrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(COACH_GUN, 0xA5CACA, 0x885B07, OBJECTS));
+		entity.add(new Sprite(COACH_GUN, 0xA5CACA, 0x814B0D, OBJECTS));
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));

@@ -43,7 +43,6 @@ class Level extends Component
 			levelUp();
 		}
 
-		trace(level, '$xp/$nextLevelXpReq');
 		return xp;
 	}
 

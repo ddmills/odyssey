@@ -186,7 +186,7 @@ class Inventory extends Component
 			{
 				var s = new NumberPromptScreen();
 				s.title = 'How many to stash? (${stack.quantity} total)';
-				s.value = stack.quantity;
+				s.setValue(stack.quantity);
 				s.onAccept = (_) ->
 				{
 					if (s.value > 0)
@@ -224,7 +224,7 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).tileKeyOverride = openedTile;
 		}
-		Game.instance.audio.play(openedAudio);
+		Game.instance.world.playAudio(entity.pos.toIntPoint(), openedAudio);
 	}
 
 	private function executeCloseEffects()
@@ -233,6 +233,6 @@ class Inventory extends Component
 		{
 			entity.get(Sprite).tileKeyOverride = null;
 		}
-		Game.instance.audio.play(closedAudio);
+		Game.instance.world.playAudio(entity.pos.toIntPoint(), closedAudio);
 	}
 }
