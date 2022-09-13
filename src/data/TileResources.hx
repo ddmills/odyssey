@@ -34,7 +34,10 @@ class TileResources
 		tiles.set(LIST_DASH, t.list_dash.toTile());
 		tiles.set(LIST_ARROW, t.list_arrow.toTile());
 		tiles.set(RIFLE, t.rifle.toTile());
-		tiles.set(NAVY_REVOLVER, t.pistol.toTile());
+		tiles.set(PISTOL_1, t.pistol_1.toTile());
+		tiles.set(PISTOL_2, t.pistol_2.toTile());
+		tiles.set(PISTOL_3, t.pistol_3.toTile());
+		tiles.set(PISTOL_4, t.pistol_4.toTile());
 		tiles.set(COACH_GUN, t.shotgun.toTile());
 		tiles.set(PONCHO, t.poncho.toTile());
 		tiles.set(DUSTER, t.duster.toTile());

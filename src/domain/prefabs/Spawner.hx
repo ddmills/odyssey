@@ -19,6 +19,8 @@ class Spawner
 		prefabs.set(CHEST, new ChestPrefab());
 		prefabs.set(LOCKBOX, new LockboxPrefab());
 		prefabs.set(NAVY_REVOLVER, new NavyRevoloverPrefab());
+		prefabs.set(SNUB_NOSE_REVOLVER, new SnubNoseRevolverPrefab());
+		prefabs.set(REVOLVER, new RevoloverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
 		prefabs.set(CORPSE_HUMAN, new HumanCorpsePrefab());

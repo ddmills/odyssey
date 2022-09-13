@@ -53,3 +53,6 @@
 - [ ] rename TextResources to FontResources
 - [ ] FOV system
 - [x] ammo
+- [ ] add items
+	- tin can
+	- frying pan
