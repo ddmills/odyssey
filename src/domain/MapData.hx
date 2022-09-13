@@ -26,6 +26,8 @@ class MapData
 		tiles = new Grid(world.mapWidth, world.mapHeight);
 		tiles.fillFn((idx) -> new MapTile(idx, this));
 
+		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
+
 		generateHeight();
 		generateTerrain();
 	}

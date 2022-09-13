@@ -30,12 +30,12 @@ class AIManager
 			return;
 		}
 
-		if (tryReloading(entity))
+		if (tryAttackingRange(entity))
 		{
 			return;
 		}
 
-		if (tryAttackingRange(entity))
+		if (tryReloading(entity))
 		{
 			return;
 		}

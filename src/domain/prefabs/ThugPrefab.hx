@@ -43,6 +43,10 @@ class ThugPrefab extends Prefab
 
 		rhand.equip(Spawner.Spawn(COACH_GUN));
 
+		var inv = entity.get(Inventory);
+		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
+		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
+
 		return entity;
 	}
 }

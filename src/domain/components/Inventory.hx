@@ -5,6 +5,7 @@ import core.Game;
 import data.AudioKey;
 import data.StackableType;
 import data.TileKey;
+import domain.events.GetAmmoEvent;
 import domain.events.MovedEvent;
 import domain.events.OpenInventoryEvent;
 import domain.events.QueryInteractionsEvent;
@@ -33,6 +34,7 @@ class Inventory extends Component
 		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast evt));
 		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast evt));
 		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
+		addHandler(GetAmmoEvent, (evt) -> onGetAmmo(cast evt));
 	}
 
 	public function addLoot(loot:Entity)
@@ -145,6 +147,27 @@ class Inventory extends Component
 		return _contentIds
 			.map((id) -> entity.registry.getEntity(id))
 			.filter((e) -> e != null);
+	}
+
+	public function onGetAmmo(evt:GetAmmoEvent)
+	{
+		if (evt.isHandled)
+		{
+			return;
+		}
+
+		var ammo = content.find((e) -> e.has(Ammo) && e.get(Ammo).ammoType == evt.ammoType);
+
+		if (ammo == null)
+		{
+			return;
+		}
+
+		var clone = removeLoot(ammo, evt.amountRequested);
+		evt.amount = clone.get(Stackable).quantity;
+		evt.isHandled = true;
+
+		clone.destroy();
 	}
 
 	function onMoved(evt:MovedEvent)

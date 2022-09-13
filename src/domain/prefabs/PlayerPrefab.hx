@@ -52,11 +52,9 @@ class PlayerPrefab extends Prefab
 		rhand.equip(Spawner.Spawn(Rand.create().pick(wpns)));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
 
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(PISTOL_AMMO));
+		entity.get(Inventory).addLoot(Spawner.Spawn(RIFLE_AMMO));
+		entity.get(Inventory).addLoot(Spawner.Spawn(SHOTGUN_AMMO));
 
 		return entity;
 	}

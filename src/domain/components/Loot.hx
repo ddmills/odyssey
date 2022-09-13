@@ -103,18 +103,7 @@ class Loot extends Component
 			return;
 		}
 
-		var s = new NumberPromptScreen();
-		s.title = 'How many to pickup? (${stack.quantity} total)';
-		s.setValue(stack.quantity);
-		s.onAccept = (_) ->
-		{
-			if (s.value > 0)
-			{
-				pickup(evt.interactor, s.value);
-			}
-			Game.instance.screens.pop();
-		}
-		Game.instance.screens.push(s);
+		pickup(evt.interactor, stack.quantity);
 	}
 
 	private function onDrop(evt:DropEvent)

@@ -3,4 +3,7 @@ package data;
 enum StackableType
 {
 	STACK_STICK;
+	STACK_AMMO_PISTOL;
+	STACK_AMMO_RIFLE;
+	STACK_AMMO_SHOTGUN;
 }

@@ -20,4 +20,7 @@ enum SpawnableType
 	BLOOD_SPATTER;
 	THUG;
 	THUG_2;
+	PISTOL_AMMO;
+	RIFLE_AMMO;
+	SHOTGUN_AMMO;
 }

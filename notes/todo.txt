@@ -1,11 +1,12 @@
-- click to move
+- [ ] click to move
 	- [x] in play screen
-- ground interact
+- [ ] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
 	- [x] once item selected
 	- [x] show item actions
-- attacking
+	- [x] dont ask quantity when pickup stack from ground
+- [ ] attacking
 	- [ ] shotgun cone
 	- [x] add weapon range
 	- [ ] dual wield
@@ -16,24 +17,25 @@
 	- [x] ranged enemy
 	- [ ] cover
 	- [ ] use TAB on shooting screen to switch targets fast
-- leveling
+- [x] leveling
 	- [x] XP on kill
 	- [x] Level up spend points on stats
 	- [x] screen to level up
-- deploy to web
+- [ ] deploy to web
 	- [x] compile JS
 	- [ ] deploy it
-- stackables
+- [ ] stackables
 	- [x] component
 	- [x] drop (amount)
 	- [x] prompt screen
 	- [ ] combine stackables on ground
 	- [x] equip/unequip x 1
 	- [x] display for x 1
-- improvements
+- [ ] improvements
 	- [ ] make 'Move' an entity event
 	- [ ] always spawn to a location, or load chunk on entity added
-- Saving/Loading
+	- [x] entity move order issues
+- [ ] Saving/Loading
 	- [x] Component and entity .save() and .load()
 	- [ ] component and entity save flags
 	- [x] haxe macro/metadata flags
@@ -44,9 +46,10 @@
 	- [x] dynamic unload/load chunks
 	- [ ] save load files
 	- [ ] out of bounds entity destroy (no chunk)
-- Death screen
+- [ ] Death screen
 	- [x] show on death
 	- [ ] show game data
 	- [ ] ability to start a new game
-- rename TextResources to FontResources
-- FOV system
+- [ ] rename TextResources to FontResources
+- [ ] FOV system
+- [x] ammo

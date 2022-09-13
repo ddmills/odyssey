@@ -42,6 +42,10 @@ class ThugPistolPrefab extends Prefab
 
 		rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
 
+		var inv = entity.get(Inventory);
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
+
 		return entity;
 	}
 }

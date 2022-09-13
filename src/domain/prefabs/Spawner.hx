@@ -32,6 +32,9 @@ class Spawner
 		prefabs.set(COACH_GUN, new CoachGunPrefab());
 		prefabs.set(THUG, new ThugPrefab());
 		prefabs.set(THUG_2, new ThugPistolPrefab());
+		prefabs.set(PISTOL_AMMO, new PistolAmmoPrefab());
+		prefabs.set(RIFLE_AMMO, new RifleAmmoPrefab());
+		prefabs.set(SHOTGUN_AMMO, new ShotgunAmmoPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

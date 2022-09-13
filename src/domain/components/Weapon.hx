@@ -2,9 +2,9 @@ package domain.components;
 
 import core.Game;
 import data.AudioKey;
-import data.AudioResources;
 import data.WeaponFamilyType;
 import domain.events.ConsumeEnergyEvent;
+import domain.events.GetAmmoEvent;
 import domain.events.MeleeEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.ReloadEvent;
@@ -52,11 +52,20 @@ class Weapon extends Component
 
 		if (f.isRanged && ammo < ammoCapacity)
 		{
+			var ammoEvent = new GetAmmoEvent(f.ammo, ammoCapacity - ammo);
+			evt.reloader.fireEvent(ammoEvent);
+
+			if (ammoEvent.amount <= 0)
+			{
+				evt.isHandled = false;
+				return;
+			}
+
 			if (evt.reloader.has(IsPlayer))
 			{
 				Game.instance.world.playAudio(evt.reloader.pos.toIntPoint(), reloadAudio);
 			}
-			ammo = ammoCapacity;
+			ammo += ammoEvent.amount;
 			evt.reloader.fireEvent(new ConsumeEnergyEvent(reloadCost));
 			evt.isHandled = true;
 		}

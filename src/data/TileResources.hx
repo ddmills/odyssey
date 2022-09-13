@@ -43,6 +43,7 @@ class TileResources
 		tiles.set(THUG_1, t.thug_1.toTile());
 		tiles.set(THUG_2, t.thug_2.toTile());
 		tiles.set(TEXT_CURSOR, t.text_cursor.toTile());
+		tiles.set(CARTON_1, t.carton_1.toTile());
 
 		var catus = hxd.Res.tiles.scroll.cacti.toTile().divide(4, 1);
 		tiles.set(CACTUS_1, catus[0][0]);

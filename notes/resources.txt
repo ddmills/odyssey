@@ -6,3 +6,13 @@
 - https://github.com/Tecate/bitmap-fonts
 - https://int10h.org/oldschool-pc-fonts/
 
+### Dialog
+- https://docs.yarnspinner.dev/
+- keep dialog short
+- create optional "discoverable" dialog
+- https://gamedesignlounge.com/video-game-dialogue-writing/
+- https://lib.haxe.org/p/hxyarn/0.1.2/
+
+### Designing NPCs
+- each npc should have a motivation
+- be consistent with motivation

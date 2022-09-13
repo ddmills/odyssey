@@ -10,10 +10,10 @@ class Stackable extends Component
 
 	public var displayName(get, never):String;
 
-	public function new(stackType:StackableType)
+	public function new(stackType:StackableType, quantity:Int = 1)
 	{
 		this.stackType = stackType;
-		quantity = 1;
+		this.quantity = quantity;
 	}
 
 	public function addOther(other:Stackable)

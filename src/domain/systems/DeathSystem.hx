@@ -2,6 +2,7 @@ package domain.systems;
 
 import core.Frame;
 import domain.components.Health;
+import domain.components.HitBlink;
 import domain.components.IsDead;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
@@ -33,7 +34,8 @@ class DeathSystem extends System
 				var health = e.get(Health);
 				if (health.corpsePrefab != null)
 				{
-					Spawner.Spawn(health.corpsePrefab, e.pos);
+					var corpse = Spawner.Spawn(health.corpsePrefab, e.pos);
+					corpse.add(new HitBlink());
 				}
 			}
 			if (e.has(IsPlayer))

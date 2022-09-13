@@ -70,11 +70,6 @@ class EnergySystem extends System
 				isPlayersTurn = true;
 				break;
 			}
-			else if (bullets.size > 0 && !game.commands.hasNext())
-			{
-				isPlayersTurn = false;
-				break;
-			}
 			else
 			{
 				isPlayersTurn = false;

@@ -11,7 +11,7 @@ class ShotgunWeaponFamily extends WeaponFamily
 	{
 		isRanged = true;
 		skill = SKILL_SHOTGUN;
-		ammo = AMMO_PISTOL;
+		ammo = AMMO_SHOTGUN;
 	}
 
 	public override function getSound():AudioKey

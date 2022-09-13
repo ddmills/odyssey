@@ -47,4 +47,5 @@ enum TileKey
 	BLOOD_SPATTER;
 	THUG_1;
 	THUG_2;
+	CARTON_1;
 }
