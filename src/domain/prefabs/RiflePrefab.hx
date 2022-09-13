@@ -27,6 +27,8 @@ class RiflePrefab extends Prefab
 		weapon.ammo = 1;
 		weapon.ammoCapacity = 1;
 		weapon.range = 12;
+		weapon.reloadAudio = RELOAD_CLIP_3;
+		weapon.unloadAudio = UNLOAD_CLIP_3;
 		entity.add(weapon);
 
 		return entity;

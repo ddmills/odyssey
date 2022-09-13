@@ -37,6 +37,11 @@ class AudioResources
 			audio.set(RELOAD_CLIP_2, r.reload_clip_2);
 			audio.set(RELOAD_CLIP_3, r.reload_clip_3);
 			audio.set(RELOAD_CLIP_4, r.reload_clip_4);
+			audio.set(RELOAD_CLIP_5, r.reload_clip_5);
+
+			audio.set(UNLOAD_CLIP_1, r.unload_clip_1);
+			audio.set(UNLOAD_CLIP_2, r.unload_clip_2);
+			audio.set(UNLOAD_CLIP_3, r.unload_clip_3);
 
 			audio.set(CLOTH_EQUIP_1, r.cloth_equip_1);
 			audio.set(CLOTH_UNEQUIP_1, r.cloth_unequip);
