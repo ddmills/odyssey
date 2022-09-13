@@ -5,6 +5,7 @@ import domain.components.EquipmentSlot;
 import domain.components.Sprite;
 import ecs.Entity;
 import h2d.Bitmap;
+import screens.interaction.InteractionScreen;
 import screens.listSelect.ListSelectScreen;
 
 class EquipmentScreen extends ListSelectScreen
@@ -16,6 +17,7 @@ class EquipmentScreen extends ListSelectScreen
 		this.target = target;
 		super([]);
 		title = 'Equipment';
+		cancelText = 'Back';
 	}
 
 	function refreshList()
@@ -53,7 +55,24 @@ class EquipmentScreen extends ListSelectScreen
 
 				return slot.content.get(Sprite).getBitmapClone();
 			},
-			onSelect: () -> {},
+			onSelect: () ->
+			{
+				if (!slot.isEmpty)
+				{
+					showInteractions(slot.content);
+				}
+			}
 		};
+	}
+
+	private function showInteractions(e:Entity)
+	{
+		var interactionScreen = new InteractionScreen(e, target);
+		interactionScreen.onClosedlistener = () ->
+		{
+			refreshList();
+		};
+		interactionScreen.cancelText = 'Back';
+		game.screens.push(interactionScreen);
 	}
 }

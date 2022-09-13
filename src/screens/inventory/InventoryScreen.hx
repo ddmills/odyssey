@@ -28,6 +28,7 @@ class InventoryScreen extends EntitySelectScreen
 		};
 
 		super(accessible.get(Inventory).content);
+		cancelText = 'Back';
 
 		fetchEntities = () -> accessible.get(Inventory).content;
 

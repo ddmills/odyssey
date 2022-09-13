@@ -17,6 +17,7 @@ class InteractionScreen extends ListSelectScreen
 		this.interactable = interactable;
 		this.interactor = interactor;
 		super([]);
+		cancelText = 'Back';
 		refreshList();
 	}
 

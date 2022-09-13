@@ -16,3 +16,9 @@
 ### Designing NPCs
 - each npc should have a motivation
 - be consistent with motivation
+
+### SFX
+- https://www.asoundeffect.com/sound-library/wild-west-adventure/
+- https://www.asoundeffect.com/sound-library/western-black-powder-guns/?ref=isp_rel_prd&isp_ref_pos=4
+- https://www.asoundeffect.com/sound-library/black-powder-weapons/?ref=isp_rel_prd&isp_ref_pos=1#
+-
