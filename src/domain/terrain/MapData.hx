@@ -2,10 +2,14 @@ package domain.terrain;
 
 import common.struct.Grid;
 import common.struct.IntPoint;
+import common.struct.WeightedTable;
 import core.Game;
+import data.BiomeType;
+import data.biomes.GrassBiomeColors;
 import domain.terrain.MapTile;
 import domain.terrain.TerrainType;
 import hxd.Perlin;
+import hxd.Rand;
 
 class MapData
 {
@@ -55,17 +59,44 @@ class MapData
 		}
 	}
 
-	public function getTerrain(pos:IntPoint):TerrainType
+	public function getPredominantBiome(pos:IntPoint):BiomeType
 	{
 		var weights = weights.getWeights(pos);
-		if (weights.get(DESERT) > weights.get(PRAIRIE))
+		var t = new WeightedTable<BiomeType>();
+
+		for (b => w in weights)
 		{
-			return SAND;
+			t.add(b, (w * 100).round());
 		}
-		else
+
+		var r = new Rand(seed + tiles.idx(pos.x, pos.y));
+		return t.pick(r);
+	}
+
+	public function getTerrain(pos:IntPoint):TerrainType
+	{
+		var biome = getPredominantBiome(pos);
+
+		return switch biome
 		{
-			return GRASS;
+			case DESERT: SAND;
+			case _: GRASS;
 		}
+	}
+
+	public function getColor(pos:IntPoint):Array<Int>
+	{
+		var biome = getPredominantBiome(pos);
+		return GrassBiomeColors.colors.get(biome);
+		// var weights = weights.getWeights(pos);
+		// if (weights.get(DESERT) > weights.get(PRAIRIE))
+		// {
+		// 	return GrassBiomeColors.colors.get(DESERT);
+		// }
+		// else
+		// {
+		// 	return GrassBiomeColors.colors.get(PRAIRIE);
+		// }
 	}
 
 	function generateTerrain()

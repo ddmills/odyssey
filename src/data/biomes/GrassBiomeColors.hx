@@ -1,0 +1,15 @@
+package data.biomes;
+
+class GrassBiomeColors
+{
+	// @formatter:off
+	public static var colors:Map<BiomeType, Array<Int>> = [
+		PRAIRIE => [0x455e35, 0x304723, 0x46502F, 0x44572e, 0x495228],
+		FOREST => [0x3a4743, 0x2f5539, 0x354B3E, 0x17331a],
+		DESERT => [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83],
+		TUNDRA => [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83],
+		SWAMP => [0x5f8173, 0x365857, 0x808f89],
+		MOUNTAIN => [0x5f8173, 0x365857, 0x808f89],
+	];
+	// @formatter:on
+}

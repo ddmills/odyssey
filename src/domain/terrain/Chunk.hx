@@ -171,9 +171,12 @@ class Chunk
 		var bm = new h2d.Bitmap();
 		var showTile = rand.bool(.85);
 
+		var pos = new IntPoint(wx.floor(), wy.floor());
+		var colors = Game.instance.world.map.getColor(pos);
+
 		if (type == GRASS)
 		{
-			var colors = [0x3f473a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
+			// var colors = [0x3f473a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
 			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
 			shader.background = rand.pick(colors).toHxdColor();
 			shader.clearBackground = 0;
@@ -185,7 +188,7 @@ class Chunk
 
 		if (type == SAND)
 		{
-			var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
+			// var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
 			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
 			shader.background = rand.pick(colors).toHxdColor();
 			shader.clearBackground = 0;
