@@ -118,6 +118,17 @@ class LookScreen extends CursorScreen
 			isBlinking = false;
 		}
 
+		var ipos = target.toIntPoint();
+		var weights = world.map.weights.getWeights(ipos);
+		var bprairie = (weights.get(PRAIRIE) * 100).round();
+		var bdesert = (weights.get(DESERT) * 100).round();
+		var bforest = (weights.get(FOREST) * 100).round();
+		var bswamp = (weights.get(SWAMP) * 100).round();
+		var btundra = (weights.get(TUNDRA) * 100).round();
+		var bmountain = (weights.get(MOUNTAIN) * 100).round();
+
+		targetText.text = 'p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
+
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;
 	}

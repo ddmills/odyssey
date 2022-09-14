@@ -36,6 +36,8 @@ weapons https://en.wikipedia.org/wiki/List_of_weapons_in_the_American_Civil_War
 biomes https://www2.palomar.edu/users/scrouthamel/wildlife.htm
 slang https://www.legendsofamerica.com/we-slang/13/
 drugs https://www.legendsofamerica.com/we-drugs/
+remedies https://www.legendsofamerica.com/we-oldremedies/
+
 
 Buildings
 - Blacksmith
@@ -65,24 +67,3 @@ Buildings
 	- Coffins
 	- Nails
 
-
-Words
-- Preacher
-- Reverend
-
-Titles
-- Butcher
-- Bad News
-- The Gray
-- No Name
-- One Punch
-- Two Shoes
-- Snake Eye
-- Big Fist
-- The Quick
-- Fang
-- Bullet Tooth
-- Icepick
-- Gold Tooth
-- Big Toe
-- Tin Pan

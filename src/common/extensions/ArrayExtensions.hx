@@ -23,4 +23,15 @@ class ArrayExtensions
 			}) == null;
 		});
 	}
+
+	public static function findRemove<T>(a:Array<T>, fn:(a:T) -> Bool):Null<T>
+	{
+		var idx = a.findIdx(fn);
+		if (idx >= 0)
+		{
+			var e = a.splice(idx, 1);
+			return e[0];
+		}
+		return null;
+	}
 }

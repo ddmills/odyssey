@@ -1,4 +1,4 @@
-package domain;
+package domain.terrain;
 
 import common.struct.Grid;
 import common.struct.IntPoint;
@@ -16,18 +16,23 @@ class MapData
 
 	public var tiles:Grid<MapTile>;
 
-	public function new() {}
+	public var weights:MapWeights;
+
+	public function new()
+	{
+		weights = new MapWeights();
+		hxdPerlin = new Perlin();
+	}
 
 	public function initialize()
 	{
-		hxdPerlin = new Perlin();
 		hxdPerlin.normalize = true;
 		heightZoom = 78;
 		tiles = new Grid(world.mapWidth, world.mapHeight);
 		tiles.fillFn((idx) -> new MapTile(idx, this));
 
 		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
-
+		weights.initialize();
 		generateHeight();
 		generateTerrain();
 	}
@@ -52,7 +57,15 @@ class MapData
 
 	public function getTerrain(pos:IntPoint):TerrainType
 	{
-		return tiles.get(pos.x, pos.y).terrain;
+		var weights = weights.getWeights(pos);
+		if (weights.get(DESERT) > weights.get(PRAIRIE))
+		{
+			return SAND;
+		}
+		else
+		{
+			return GRASS;
+		}
 	}
 
 	function generateTerrain()

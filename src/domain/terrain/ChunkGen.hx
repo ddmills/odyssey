@@ -1,6 +1,7 @@
 package domain.terrain;
 
 import common.struct.Coordinate;
+import common.struct.WeightedTable;
 import core.Game;
 import data.SpawnableType;
 import domain.components.Energy;
@@ -11,7 +12,27 @@ class ChunkGen
 {
 	private var seed(get, null):Int;
 
-	public function new() {}
+	var table:WeightedTable<SpawnableType>;
+
+	public function new()
+	{
+		table = new WeightedTable();
+		table.add(SNAKE, 15);
+		table.add(STICK, 3);
+		table.add(CHEST, 3);
+		table.add(LOCKBOX, 1);
+		table.add(SNUB_NOSE_REVOLVER, 1);
+		table.add(REVOLVER, 1);
+		table.add(NAVY_REVOLVER, 1);
+		table.add(RIFLE, 4);
+		table.add(PONCHO, 1);
+		table.add(DUSTER, 2);
+		table.add(LONG_JOHNS, 3);
+		table.add(COACH_GUN, 3);
+		table.add(THUG, 8);
+		table.add(THUG_2, 8);
+		table.add(CACTUS, 124);
+	}
 
 	public function generate(chunk:Chunk)
 	{
@@ -20,21 +41,10 @@ class ChunkGen
 		{
 			var pos = chunk.worldPos.add(i.pos).asWorld();
 
-			if (r.bool(.015))
+			if (r.bool(.04))
 			{
-				var items:Array<SpawnableType> = [
-					CHEST, LOCKBOX, SNUB_NOSE_REVOLVER, REVOLVER, NAVY_REVOLVER, RIFLE, PONCHO, DUSTER, LONG_JOHNS, COACH_GUN, SNAKE, THUG, THUG_2,
-				];
-				var loot = r.pick(items);
+				var loot = table.pick(r);
 				Spawner.Spawn(loot, pos);
-			}
-			else if (r.bool(.02))
-			{
-				Spawner.Spawn(STICK, pos);
-			}
-			else if (r.bool(.025))
-			{
-				Spawner.Spawn(CACTUS, pos);
 			}
 		}
 	}

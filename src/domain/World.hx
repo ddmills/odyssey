@@ -13,6 +13,7 @@ import domain.components.Visible;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.ChunkManager;
+import domain.terrain.MapData;
 import ecs.Entity;
 import hxd.Rand;
 
