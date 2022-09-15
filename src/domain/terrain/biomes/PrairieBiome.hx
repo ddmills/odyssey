@@ -3,6 +3,7 @@ package domain.terrain.biomes;
 import common.struct.IntPoint;
 import common.util.Colors;
 import data.TileKey;
+import domain.prefabs.Spawner;
 
 class PrairieBiome extends BiomeGenerator
 {
@@ -79,11 +80,21 @@ class PrairieBiome extends BiomeGenerator
 
 			tile.bgTileKey = WATER_1;
 			tile.color = Colors.Mix(0x225699, 0x152e5f, r.rand());
+			tile.terrain = TERRAIN_WATER;
 		}
 		else
 		{
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
+			tile.terrain = TERRAIN_GRASS;
+		}
+	}
+
+	override function spawnEntity(tile:MapTile)
+	{
+		if (tile.terrain == TERRAIN_GRASS && r.bool(.005))
+		{
+			Spawner.Spawn(OAK_TREE, tile.pos.asWorld());
 		}
 	}
 }

@@ -7,7 +7,6 @@ import common.struct.WeightedTable;
 import core.Game;
 import data.BiomeType;
 import domain.terrain.MapTile;
-import domain.terrain.TerrainType;
 import domain.terrain.biomes.BiomeGenerators;
 import hxd.Rand;
 
@@ -20,14 +19,10 @@ class MapData
 	var r:Rand;
 
 	public var tiles:Grid<MapTile>;
-
-	public var weights:MapWeights;
-
 	public var biomes:BiomeGenerators;
 
 	public function new()
 	{
-		weights = new MapWeights();
 		perlin = new Perlin();
 		biomes = new BiomeGenerators();
 	}
@@ -42,22 +37,24 @@ class MapData
 		tiles.fillFn((idx) -> new MapTile(idx, this));
 
 		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
-		weights.initialize();
 		generateTerrain();
+		trace('generating map done');
 	}
 
-	public function pickPredominantBiome(pos:IntPoint):BiomeType
+	private function assignBiome(tile:MapTile):BiomeType
 	{
-		var tile = getTile(pos);
 		var table = new WeightedTable<BiomeType>();
 
 		for (b => w in tile.biomes)
 		{
-			// increasing the exponent will increase biome intensity/falloff
-			table.add(b, (w.pow(3) * 100).round());
+			if (w > .05)
+			{
+				// increasing the exponent will increase biome intensity/falloff
+				table.add(b, (w.pow(3) * 100).round());
+			}
 		}
 
-		var r = new Rand(seed + tiles.idx(pos.x, pos.y));
+		var r = new Rand(seed + tile.idx);
 		return table.pick(r);
 	}
 
@@ -78,9 +75,9 @@ class MapData
 			var tile = t.value;
 			tile.height = perlin.get(tile.x, tile.y, heightZoom);
 			tile.biomes = biomes.getRelativeWeights(t.pos);
-			tile.predominantBiome = pickPredominantBiome(t.pos);
+			tile.biomeKey = assignBiome(tile);
 
-			var biome = biomes.get(tile.predominantBiome);
+			var biome = biomes.get(tile.biomeKey);
 
 			biome.assignTileData(tile);
 		}

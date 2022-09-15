@@ -37,6 +37,9 @@ class Spawner
 		prefabs.set(PISTOL_AMMO, new PistolAmmoPrefab());
 		prefabs.set(RIFLE_AMMO, new RifleAmmoPrefab());
 		prefabs.set(SHOTGUN_AMMO, new ShotgunAmmoPrefab());
+		prefabs.set(BALD_CYPRESS, new BaldCypressPrefab());
+		prefabs.set(PINE_TREE, new PineTreePrefab());
+		prefabs.set(OAK_TREE, new OakTreePrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

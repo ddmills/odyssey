@@ -3,6 +3,7 @@ package domain.terrain;
 import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
+import common.util.Colors;
 import core.Game;
 import data.TileKey;
 import data.TileResources;
@@ -169,7 +170,11 @@ class Chunk
 		var pos = new IntPoint(wx.floor(), wy.floor());
 		var color = Game.instance.world.map.getColor(pos);
 		var shader = new SpriteShader(color);
-		shader.background = color.toHxdColor();
+		// var tile = Game.instance.world.map.getTile(pos);
+
+		// var biome = Game.instance.world.map.biomes.get(tile.biomeKey);
+		// shader.background = Colors.Mix(color, 0x000000, .9).toHxdColor();
+
 		shader.clearBackground = 0;
 
 		var mapTile = Game.instance.world.map.tiles.get(pos.x, pos.y);

@@ -1,7 +1,9 @@
 package domain.terrain.biomes;
 
+import common.struct.IntPoint;
 import common.util.Colors;
 import data.TileKey;
+import domain.prefabs.Spawner;
 
 class SwampBiome extends BiomeGenerator
 {
@@ -50,12 +52,29 @@ class SwampBiome extends BiomeGenerator
 			var range = 1 - ((1 - h) * (1 / (1 - cutoff)));
 
 			tile.bgTileKey = WATER_1;
-			tile.color = Colors.Mix(0x2F584E, 0x09141B, range);
+			tile.color = Colors.Mix(0x2B4E6E, 0x09141B, range);
+			tile.terrain = TERRAIN_WATER;
 		}
 		else
 		{
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
+			tile.terrain = TERRAIN_MUD;
+		}
+	}
+
+	private function getHeight(p:IntPoint):Float
+	{
+		return perlin.get(p.x, p.y, 16, 8);
+	}
+
+	override function spawnEntity(tile:MapTile)
+	{
+		if (tile.isWater && r.bool(.25))
+		{
+			// var h = g
+
+			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
 		}
 	}
 }

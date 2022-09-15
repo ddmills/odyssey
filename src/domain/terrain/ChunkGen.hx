@@ -1,10 +1,8 @@
 package domain.terrain;
 
-import common.struct.Coordinate;
 import common.struct.WeightedTable;
 import core.Game;
 import data.SpawnableType;
-import domain.components.Energy;
 import domain.prefabs.Spawner;
 import hxd.Rand;
 
@@ -31,6 +29,7 @@ class ChunkGen
 		table.add(COACH_GUN, 3);
 		table.add(THUG, 8);
 		table.add(THUG_2, 8);
+		// table.add(BALD_CYPRESS, 300);
 		// table.add(CACTUS, 124);
 	}
 
@@ -39,17 +38,20 @@ class ChunkGen
 		var r = new Rand(seed + chunk.chunkId);
 		for (i in chunk.exploration)
 		{
-			var pos = chunk.worldPos.add(i.pos).asWorld();
+			var pos = chunk.worldPos.add(i.pos);
+			var t = Game.instance.world.map.getTile(pos);
 
-			if (r.bool(.008))
-			{
-				var loot = table.pick(r);
-				Spawner.Spawn(loot, pos);
-			}
+			t.biome.spawnEntity(t);
+
+			// if (r.bool(.005))
+			// {
+			// 	var loot = table.pick(r);
+			// 	Spawner.Spawn(loot, pos);
+			// }
 		}
 	}
 
-	function get_seed():Int
+	inline function get_seed():Int
 	{
 		return Game.instance.world.seed;
 	}

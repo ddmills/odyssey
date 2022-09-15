@@ -7,6 +7,7 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
 import h2d.Bitmap;
+import haxe.EnumTools.EnumValueTools;
 import screens.cursor.CursorScreen.CursorRenderOpts;
 import shaders.SpriteShader;
 
@@ -115,7 +116,10 @@ class LookScreen extends CursorScreen
 		}
 
 		var ipos = target.toIntPoint();
-		var weights = world.map.weights.getWeights(ipos);
+		var tile = world.map.getTile(ipos);
+		var biome = tile.biomeKey;
+		var terrain = tile.terrain;
+		var weights = world.map.biomes.getRelativeWeights(ipos);
 		var bprairie = (weights.get(PRAIRIE) * 100).round();
 		var bdesert = (weights.get(DESERT) * 100).round();
 		var bforest = (weights.get(FOREST) * 100).round();
@@ -123,7 +127,7 @@ class LookScreen extends CursorScreen
 		var btundra = (weights.get(TUNDRA) * 100).round();
 		var bmountain = (weights.get(MOUNTAIN) * 100).round();
 
-		targetText.text = 'p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
+		targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

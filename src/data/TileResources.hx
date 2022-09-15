@@ -93,5 +93,26 @@ class TileResources
 		tiles.set(SWAMP_3, swamp[0][2]);
 		tiles.set(SWAMP_4, swamp[0][3]);
 		tiles.set(SWAMP_5, swamp[0][4]);
+
+		var baldCypressV1 = t.bald_cypress_v1.toTile().divide(3, 1);
+		tiles.set(BALD_CYPRESS_V1_1, baldCypressV1[0][0]);
+		tiles.set(BALD_CYPRESS_V1_2, baldCypressV1[0][1]);
+		tiles.set(BALD_CYPRESS_V1_3, baldCypressV1[0][2]);
+
+		var baldCypressV2 = t.bald_cypress_v2.toTile().divide(3, 1);
+		tiles.set(BALD_CYPRESS_V2_1, baldCypressV2[0][0]);
+		tiles.set(BALD_CYPRESS_V2_2, baldCypressV2[0][1]);
+		tiles.set(BALD_CYPRESS_V2_3, baldCypressV2[0][2]);
+
+		var pineTrees = t.pine_trees_v1.toTile().divide(4, 1);
+		tiles.set(PINE_TREE_1, pineTrees[0][0]);
+		tiles.set(PINE_TREE_2, pineTrees[0][1]);
+		tiles.set(PINE_TREE_3, pineTrees[0][2]);
+		tiles.set(PINE_TREE_4, pineTrees[0][3]);
+
+		var oakTrees = t.oak_trees_v1.toTile().divide(3, 1);
+		tiles.set(OAK_TREE_1, oakTrees[0][0]);
+		tiles.set(OAK_TREE_2, oakTrees[0][1]);
+		tiles.set(OAK_TREE_3, oakTrees[0][2]);
 	}
 }

@@ -78,6 +78,10 @@ class MapScreen extends Screen
 
 	override function onKeyDown(key:KeyCode)
 	{
-		game.screens.pop();
+		if (key == KEY_M)
+		{
+			game.input.next();
+			game.screens.pop();
+		}
 	}
 }

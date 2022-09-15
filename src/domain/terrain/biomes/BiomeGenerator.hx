@@ -4,6 +4,7 @@ import common.rand.Perlin;
 import common.struct.IntPoint;
 import data.BiomeType;
 import data.TileKey;
+import domain.prefabs.Spawner;
 import hxd.Rand;
 
 class BiomeGenerator
@@ -47,10 +48,13 @@ class BiomeGenerator
 	{
 		tile.bgTileKey = getBackgroundTileKey(tile);
 		tile.color = r.pick(colors);
+		tile.terrain = TERRAIN_GRASS;
 	}
 
 	public function getWeight(pos:IntPoint):Float
 	{
 		return baseWeightMap.getWeight(pos);
 	}
+
+	public function spawnEntity(tile:MapTile) {}
 }

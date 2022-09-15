@@ -168,6 +168,13 @@ class AdventureScreen extends Screen
 			return;
 		}
 
+		var tile = world.map.getTile(target);
+
+		if (tile.isImpassable)
+		{
+			return;
+		}
+
 		world.player.entity.add(new Move(target.asWorld(), .15, LINEAR));
 	}
 

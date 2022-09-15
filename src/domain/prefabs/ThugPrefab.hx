@@ -1,6 +1,5 @@
 package domain.prefabs;
 
-import data.TileResources;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;

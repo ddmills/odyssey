@@ -3,6 +3,7 @@ package domain.terrain;
 import common.struct.IntPoint;
 import data.BiomeType;
 import data.TileKey;
+import domain.terrain.biomes.BiomeGenerator;
 
 @:structInit class MapTile
 {
@@ -13,10 +14,12 @@ import data.TileKey;
 	public var islandId:Int;
 	public var settlementId:Int;
 	public var biomes:Map<BiomeType, Float> = new Map();
-	public var predominantBiome:BiomeType;
+	public var biomeKey:BiomeType;
+	public var biome(get, never):BiomeGenerator;
 	public var color:Int;
 	public var bgTileKey:TileKey;
 	public var isWater(get, never):Bool;
+	public var isImpassable(get, never):Bool;
 
 	public var x(get, never):Int;
 	public var y(get, never):Int;
@@ -51,5 +54,15 @@ import data.TileKey;
 	function get_pos():IntPoint
 	{
 		return map.tiles.coord(idx);
+	}
+
+	function get_biome():BiomeGenerator
+	{
+		return map.biomes.get(biomeKey);
+	}
+
+	function get_isImpassable():Bool
+	{
+		return isWater || terrain == TERRAIN_ROCKFACE;
 	}
 }
