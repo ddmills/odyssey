@@ -1,62 +1,47 @@
 package domain.terrain;
 
+import common.rand.Perlin;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import core.Game;
 import data.BiomeType;
-import data.biomes.GrassBiomeColors;
 import domain.terrain.MapTile;
 import domain.terrain.TerrainType;
-import hxd.Perlin;
+import domain.terrain.biomes.BiomeGenerators;
 import hxd.Rand;
 
 class MapData
 {
-	var hxdPerlin:Perlin;
+	var perlin:Perlin;
 	var world(get, never):World;
 	var seed(get, never):Int;
-	var heightZoom:Int;
+	var heightZoom:Int = 78;
 
 	public var tiles:Grid<MapTile>;
 
 	public var weights:MapWeights;
 
+	public var biomes:BiomeGenerators;
+
 	public function new()
 	{
 		weights = new MapWeights();
-		hxdPerlin = new Perlin();
+		perlin = new Perlin();
+		biomes = new BiomeGenerators();
 	}
 
 	public function initialize()
 	{
-		hxdPerlin.normalize = true;
-		heightZoom = 78;
+		perlin.seed = seed;
+		biomes.initialize(seed);
+
 		tiles = new Grid(world.mapWidth, world.mapHeight);
 		tiles.fillFn((idx) -> new MapTile(idx, this));
 
 		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
 		weights.initialize();
-		generateHeight();
 		generateTerrain();
-	}
-
-	function perlin(x:Float, y:Float, octaves:Int)
-	{
-		var n = hxdPerlin.perlin(seed, x, y, 8);
-
-		return (n + 1) / 2;
-	}
-
-	function generateHeight()
-	{
-		for (tile in tiles)
-		{
-			var x = tile.x / heightZoom;
-			var y = tile.y / heightZoom;
-
-			tile.value.height = perlin(x, y, 8);
-		}
 	}
 
 	public function getPredominantBiome(pos:IntPoint):BiomeType
@@ -66,44 +51,39 @@ class MapData
 
 		for (b => w in weights)
 		{
-			t.add(b, (w * 100).round());
+			// increasing the exponent will increase biome intensity/falloff
+			t.add(b, (w.pow(3) * 100).round());
 		}
 
 		var r = new Rand(seed + tiles.idx(pos.x, pos.y));
 		return t.pick(r);
 	}
 
-	public function getTerrain(pos:IntPoint):TerrainType
+	public function getTile(pos:IntPoint):MapTile
 	{
-		var biome = getPredominantBiome(pos);
-
-		return switch biome
-		{
-			case DESERT: SAND;
-			case _: GRASS;
-		}
+		return tiles.get(pos.x, pos.y);
 	}
 
-	public function getColor(pos:IntPoint):Array<Int>
+	public function getColor(pos:IntPoint):Int
 	{
-		var biome = getPredominantBiome(pos);
-		return GrassBiomeColors.colors.get(biome);
-		// var weights = weights.getWeights(pos);
-		// if (weights.get(DESERT) > weights.get(PRAIRIE))
-		// {
-		// 	return GrassBiomeColors.colors.get(DESERT);
-		// }
-		// else
-		// {
-		// 	return GrassBiomeColors.colors.get(PRAIRIE);
-		// }
+		return tiles.get(pos.x, pos.y).color;
 	}
 
 	function generateTerrain()
 	{
-		for (tile in tiles)
+		var r = new Rand(seed);
+		for (t in tiles)
 		{
-			tile.value.terrain = heightToTerrain(tile.value.height);
+			var tile = t.value;
+			tile.height = perlin.get(tile.x, tile.y, heightZoom);
+			tile.terrain = heightToTerrain(tile.height);
+			tile.biomes = weights.getWeights(t.pos);
+			tile.predominantBiome = getPredominantBiome(t.pos);
+
+			var biome = biomes.get(tile.predominantBiome);
+
+			tile.color = r.pick(biome.colors);
+			tile.bgTileKey = biome.getBackgroundTileKey(tile);
 		}
 	}
 

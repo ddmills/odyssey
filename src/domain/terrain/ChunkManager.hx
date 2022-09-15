@@ -24,6 +24,7 @@ class ChunkManager
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
 		chunkSaveData = new Map();
+
 		for (i in 0...chunks.size)
 		{
 			var chunk = new Chunk(i, chunkSize);

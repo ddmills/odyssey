@@ -7,7 +7,6 @@ import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
 import h2d.Bitmap;
-import haxe.EnumTools.EnumValueTools;
 import screens.cursor.CursorScreen.CursorRenderOpts;
 import shaders.SpriteShader;
 
@@ -86,11 +85,8 @@ class LookScreen extends CursorScreen
 			bm.y = px.y;
 		});
 
-		var terrain = EnumValueTools.getName(world.map.getTerrain(opts.end.toIntPoint()));
-
 		if (world.isVisible(opts.end))
 		{
-			targetText.text = '[$terrain]';
 			var entities = world.getEntitiesAt(opts.end)
 				.filter((e) -> !e.has(IsInventoried));
 
@@ -108,12 +104,12 @@ class LookScreen extends CursorScreen
 			if (named != null)
 			{
 				var moniker = named.get(Moniker);
-				targetText.text = '${moniker.displayName} [$terrain]';
+				targetText.text = moniker.displayName;
 			}
 		}
 		else
 		{
-			targetText.text = world.isExplored(opts.end) ? '[$terrain]' : '[UNKNOWN]';
+			targetText.text = '';
 			targetShader.primary = COLOR_SHROUD.toHxdColor();
 			isBlinking = false;
 		}

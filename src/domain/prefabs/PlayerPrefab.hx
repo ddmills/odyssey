@@ -29,7 +29,7 @@ class PlayerPrefab extends Prefab
 		entity.add(sprite);
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
-		entity.add(new Level(20));
+		entity.add(new Level(120));
 		entity.add(new Vision(12, 2));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());

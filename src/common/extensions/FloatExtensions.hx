@@ -22,6 +22,11 @@ class FloatExtensions
 		return Math.round(n);
 	}
 
+	static public inline function pow(n:Float, exp:Float):Float
+	{
+		return Math.pow(n, exp);
+	}
+
 	static public inline function clamp(n:Float, min:Float, max:Float):Float
 	{
 		if (n > max)
@@ -53,5 +58,10 @@ class FloatExtensions
 	static public inline function toRadians(n:Float):Float
 	{
 		return n / (180 / Math.PI);
+	}
+
+	static public inline function nthRoot(n:Float, root:Float):Float
+	{
+		return Math.pow(n, 1 / root);
 	}
 }

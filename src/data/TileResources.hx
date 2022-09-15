@@ -78,5 +78,19 @@ class TileResources
 		tiles.set(SAND_2, sands[0][1]);
 		tiles.set(SAND_3, sands[0][2]);
 		tiles.set(SAND_4, sands[0][3]);
+
+		var grassv2 = t.grasses_2.toTile().divide(5, 1);
+		tiles.set(GRASS_V2_1, grassv2[0][0]);
+		tiles.set(GRASS_V2_2, grassv2[0][1]);
+		tiles.set(GRASS_V2_3, grassv2[0][2]);
+		tiles.set(GRASS_V2_4, grassv2[0][3]);
+		tiles.set(GRASS_V2_5, grassv2[0][4]);
+
+		var swamp = t.swamp.toTile().divide(5, 1);
+		tiles.set(SWAMP_1, swamp[0][0]);
+		tiles.set(SWAMP_2, swamp[0][1]);
+		tiles.set(SWAMP_3, swamp[0][2]);
+		tiles.set(SWAMP_4, swamp[0][3]);
+		tiles.set(SWAMP_5, swamp[0][4]);
 	}
 }

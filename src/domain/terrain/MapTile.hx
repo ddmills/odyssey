@@ -1,5 +1,8 @@
 package domain.terrain;
 
+import data.BiomeType;
+import data.TileKey;
+
 @:structInit class MapTile
 {
 	public var idx(default, null):Int;
@@ -8,6 +11,10 @@ package domain.terrain;
 	public var terrain:TerrainType;
 	public var islandId:Int;
 	public var settlementId:Int;
+	public var biomes:Map<BiomeType, Float> = new Map();
+	public var predominantBiome:BiomeType;
+	public var color:Int;
+	public var bgTileKey:TileKey;
 
 	public var x(get, never):Int;
 	public var y(get, never):Int;

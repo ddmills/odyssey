@@ -152,8 +152,7 @@ class Chunk
 		{
 			var p = worldPos.add(t.pos);
 
-			var terrain = Game.instance.world.map.getTerrain(p);
-			var bm = getTerrainBitmap(p.x, p.y, terrain);
+			var bm = getGroundBitmap(p.x, p.y);
 
 			bm.x = t.x * Game.instance.TILE_W;
 			bm.y = t.y * Game.instance.TILE_H;
@@ -163,41 +162,24 @@ class Chunk
 		}
 	}
 
-	function getTerrainBitmap(wx:Float, wy:Float, type:TerrainType):Bitmap
+	function getGroundBitmap(wx:Float, wy:Float):Bitmap
 	{
-		var sands:Array<TileKey> = [SAND_1, SAND_2, SAND_3, SAND_4,];
-		var grasses:Array<TileKey> = [GRASS_1, GRASS_2, GRASS_3, GRASS_4,];
-
 		var bm = new h2d.Bitmap();
-		var showTile = rand.bool(.85);
 
 		var pos = new IntPoint(wx.floor(), wy.floor());
-		var colors = Game.instance.world.map.getColor(pos);
+		var color = Game.instance.world.map.getColor(pos);
+		var shader = new SpriteShader(color);
+		shader.background = color.toHxdColor();
+		shader.clearBackground = 0;
 
-		if (type == GRASS)
+		var mapTile = Game.instance.world.map.tiles.get(pos.x, pos.y);
+
+		if (mapTile.bgTileKey != null)
 		{
-			// var colors = [0x3f473a, 0x5f523a, 0x4F502F, 0x57482e, 0x495228];
-			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
-			shader.background = rand.pick(colors).toHxdColor();
-			shader.clearBackground = 0;
-
-			bm.tile = TileResources.Get(rand.pick(grasses));
-			bm.alpha = showTile ? 1 : 0;
-			bm.addShader(shader);
+			bm.tile = TileResources.Get(mapTile.bgTileKey);
 		}
 
-		if (type == SAND)
-		{
-			// var colors = [0xa09687, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83];
-			var shader = new SpriteShader(rand.pick(colors), rand.pick(colors));
-			shader.background = rand.pick(colors).toHxdColor();
-			shader.clearBackground = 0;
-
-			bm.tile = TileResources.Get(rand.pick(sands));
-			bm.alpha = showTile ? 1 : 0;
-			bm.addShader(shader);
-		}
-
+		bm.addShader(shader);
 		bm.visible = false;
 
 		return bm;

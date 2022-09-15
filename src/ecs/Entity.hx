@@ -66,7 +66,10 @@ class Entity
 		}
 		isCandidacyEnabled = true;
 		isDestroyed = true;
-		chunk.removeEntity(this);
+		if (chunk != null) // TODO never null
+		{
+			chunk.removeEntity(this);
+		}
 		registry.unregisterEntity(this);
 	}
 

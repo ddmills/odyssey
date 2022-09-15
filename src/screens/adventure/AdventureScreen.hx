@@ -27,6 +27,7 @@ import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
+import screens.map.MapScreen;
 import screens.shooting.ShootingScreen;
 
 typedef HudText =
@@ -132,6 +133,8 @@ class AdventureScreen extends Screen
 				game.screens.push(new EquipmentScreen(world.player.entity));
 			case CMD_CHARACTER:
 				game.screens.push(new CharacterScreen(world.player.entity));
+			case CMD_MAP:
+				game.screens.push(new MapScreen());
 			case CMD_SHOOT:
 				game.screens.push(new ShootingScreen(world.player.entity));
 			case _:
