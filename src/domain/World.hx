@@ -32,7 +32,7 @@ class World
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
-	public var seed:Int = 123;
+	public var seed:Int = 321;
 	public var soundThreshold:Int = 8;
 
 	public var rand:Rand;
@@ -41,7 +41,6 @@ class World
 
 	public function new()
 	{
-		seed = 1234;
 		systems = new SystemManager();
 
 		clock = new Clock();

@@ -61,4 +61,5 @@ enum TileKey
 	THUG_1;
 	THUG_2;
 	CARTON_1;
+	WATER_1;
 }

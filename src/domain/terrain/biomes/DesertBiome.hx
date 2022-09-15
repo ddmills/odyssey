@@ -6,7 +6,8 @@ class DesertBiome extends BiomeGenerator
 {
 	public function new(seed:Int)
 	{
-		super(seed, DESERT, [0x947c39, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83]);
+		var weights = new MapWeight(hxd.Res.images.map.weight_desert);
+		super(seed, DESERT, weights, [0x947c39, 0x8a6b4f, 0x887F6B, 0x8a7d6e, 0x928C83]);
 	}
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey

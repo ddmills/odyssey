@@ -31,7 +31,7 @@ class ChunkGen
 		table.add(COACH_GUN, 3);
 		table.add(THUG, 8);
 		table.add(THUG_2, 8);
-		table.add(CACTUS, 124);
+		// table.add(CACTUS, 124);
 	}
 
 	public function generate(chunk:Chunk)
@@ -41,7 +41,7 @@ class ChunkGen
 		{
 			var pos = chunk.worldPos.add(i.pos).asWorld();
 
-			if (r.bool(.04))
+			if (r.bool(.008))
 			{
 				var loot = table.pick(r);
 				Spawner.Spawn(loot, pos);

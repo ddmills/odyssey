@@ -11,8 +11,8 @@ import h2d.Tile;
 class MapScreen extends Screen
 {
 	var ob:Object;
-	var granularity = 6;
-	var tileSize = 16;
+	var granularity = 2;
+	var tileSize = 5;
 
 	public function new()
 	{

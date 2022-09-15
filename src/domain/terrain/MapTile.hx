@@ -1,5 +1,6 @@
 package domain.terrain;
 
+import common.struct.IntPoint;
 import data.BiomeType;
 import data.TileKey;
 
@@ -15,9 +16,11 @@ import data.TileKey;
 	public var predominantBiome:BiomeType;
 	public var color:Int;
 	public var bgTileKey:TileKey;
+	public var isWater(get, never):Bool;
 
 	public var x(get, never):Int;
 	public var y(get, never):Int;
+	public var pos(get, never):IntPoint;
 
 	public function new(idx:Int, map:MapData)
 	{
@@ -33,5 +36,20 @@ import data.TileKey;
 	inline function get_y():Int
 	{
 		return map.tiles.y(idx);
+	}
+
+	function get_isBlocker():Bool
+	{
+		return terrain == TERRAIN_ROCKFACE;
+	}
+
+	function get_isWater():Bool
+	{
+		return terrain == TERRAIN_WATER || terrain == TERRAIN_RIVER;
+	}
+
+	function get_pos():IntPoint
+	{
+		return map.tiles.coord(idx);
 	}
 }

@@ -1,12 +1,14 @@
 package domain.terrain.biomes;
 
+import common.util.Colors;
 import data.TileKey;
 
 class SwampBiome extends BiomeGenerator
 {
 	public function new(seed:Int)
 	{
-		super(seed, SWAMP, [0x365857, 0x462f43, 0x365857, 0x568160]);
+		var weights = new MapWeight(hxd.Res.images.map.weight_swamp);
+		super(seed, SWAMP, weights, [0x365857, 0x462f43, 0x365857, 0x568160]);
 	}
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
@@ -35,5 +37,25 @@ class SwampBiome extends BiomeGenerator
 		}
 
 		return SWAMP_1;
+	}
+
+	override function assignTileData(tile:MapTile)
+	{
+		var h = perlin.get(tile.x, tile.y, 16, 8);
+		var cutoff = .4;
+
+		if (h < cutoff)
+		{
+			// todo, there has to be a better way to write this formula lol
+			var range = 1 - ((1 - h) * (1 / (1 - cutoff)));
+
+			tile.bgTileKey = WATER_1;
+			tile.color = Colors.Mix(0x2F584E, 0x09141B, range);
+		}
+		else
+		{
+			tile.bgTileKey = getBackgroundTileKey(tile);
+			tile.color = r.pick(colors);
+		}
 	}
 }

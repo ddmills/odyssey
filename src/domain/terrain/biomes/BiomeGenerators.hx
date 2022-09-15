@@ -1,5 +1,6 @@
 package domain.terrain.biomes;
 
+import common.struct.IntPoint;
 import data.BiomeType;
 
 class BiomeGenerators
@@ -22,5 +23,25 @@ class BiomeGenerators
 	public function get(type:BiomeType):BiomeGenerator
 	{
 		return biomes.get(type);
+	}
+
+	public function getRelativeWeights(pos:IntPoint):Map<BiomeType, Float>
+	{
+		var weights = new Map<BiomeType, Float>();
+		var sum = 0.0;
+
+		for (biome in biomes)
+		{
+			var weight = biome.getWeight(pos);
+			weights.set(biome.type, weight);
+			sum += weight;
+		}
+
+		for (type => weight in weights)
+		{
+			weights.set(type, weight / sum);
+		}
+
+		return weights;
 	}
 }

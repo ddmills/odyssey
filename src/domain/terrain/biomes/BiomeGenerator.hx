@@ -1,6 +1,7 @@
 package domain.terrain.biomes;
 
 import common.rand.Perlin;
+import common.struct.IntPoint;
 import data.BiomeType;
 import data.TileKey;
 import hxd.Rand;
@@ -14,11 +15,14 @@ class BiomeGenerator
 	public var r:Rand;
 	public var perlin:Perlin;
 
-	public function new(seed:Int, type:BiomeType, colors:Array<Int>)
+	public var baseWeightMap:MapWeight;
+
+	public function new(seed:Int, type:BiomeType, baseWeightMap:MapWeight, colors:Array<Int>)
 	{
 		this.seed = seed;
 		this.type = type;
 		this.colors = colors;
+		this.baseWeightMap = baseWeightMap;
 
 		r = new Rand(seed);
 		perlin = new Perlin(seed);
@@ -32,5 +36,21 @@ class BiomeGenerator
 	function get_naturalColor():Int
 	{
 		return colors[0];
+	}
+
+	public function getTerrain(tile:MapTile):TerrainType
+	{
+		return TERRAIN_GRASS;
+	}
+
+	public function assignTileData(tile:MapTile)
+	{
+		tile.bgTileKey = getBackgroundTileKey(tile);
+		tile.color = r.pick(colors);
+	}
+
+	public function getWeight(pos:IntPoint):Float
+	{
+		return baseWeightMap.getWeight(pos);
 	}
 }

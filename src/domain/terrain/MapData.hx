@@ -17,6 +17,7 @@ class MapData
 	var world(get, never):World;
 	var seed(get, never):Int;
 	var heightZoom:Int = 78;
+	var r:Rand;
 
 	public var tiles:Grid<MapTile>;
 
@@ -33,6 +34,7 @@ class MapData
 
 	public function initialize()
 	{
+		r = new Rand(seed + 1992);
 		perlin.seed = seed;
 		biomes.initialize(seed);
 
@@ -44,19 +46,19 @@ class MapData
 		generateTerrain();
 	}
 
-	public function getPredominantBiome(pos:IntPoint):BiomeType
+	public function pickPredominantBiome(pos:IntPoint):BiomeType
 	{
-		var weights = weights.getWeights(pos);
-		var t = new WeightedTable<BiomeType>();
+		var tile = getTile(pos);
+		var table = new WeightedTable<BiomeType>();
 
-		for (b => w in weights)
+		for (b => w in tile.biomes)
 		{
 			// increasing the exponent will increase biome intensity/falloff
-			t.add(b, (w.pow(3) * 100).round());
+			table.add(b, (w.pow(3) * 100).round());
 		}
 
 		var r = new Rand(seed + tiles.idx(pos.x, pos.y));
-		return t.pick(r);
+		return table.pick(r);
 	}
 
 	public function getTile(pos:IntPoint):MapTile
@@ -71,19 +73,16 @@ class MapData
 
 	function generateTerrain()
 	{
-		var r = new Rand(seed);
 		for (t in tiles)
 		{
 			var tile = t.value;
 			tile.height = perlin.get(tile.x, tile.y, heightZoom);
-			tile.terrain = heightToTerrain(tile.height);
-			tile.biomes = weights.getWeights(t.pos);
-			tile.predominantBiome = getPredominantBiome(t.pos);
+			tile.biomes = biomes.getRelativeWeights(t.pos);
+			tile.predominantBiome = pickPredominantBiome(t.pos);
 
 			var biome = biomes.get(tile.predominantBiome);
 
-			tile.color = r.pick(biome.colors);
-			tile.bgTileKey = biome.getBackgroundTileKey(tile);
+			biome.assignTileData(tile);
 		}
 	}
 
@@ -100,15 +99,5 @@ class MapData
 	inline function get_seed():Int
 	{
 		return world.seed;
-	}
-
-	function heightToTerrain(h:Float)
-	{
-		if (h < .45)
-		{
-			return SAND;
-		}
-
-		return GRASS;
 	}
 }
