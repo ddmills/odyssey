@@ -1,6 +1,7 @@
 package domain.terrain;
 
 import common.struct.IntPoint;
+import core.Game;
 import data.BiomeType;
 import data.TileKey;
 import domain.terrain.biomes.BiomeGenerator;
@@ -18,6 +19,7 @@ import domain.terrain.biomes.BiomeGenerator;
 	public var biome(get, never):BiomeGenerator;
 	public var color:Int;
 	public var bgTileKey:TileKey;
+	public var bgColor:Int;
 	public var isWater(get, never):Bool;
 	public var isImpassable(get, never):Bool;
 
@@ -29,6 +31,7 @@ import domain.terrain.biomes.BiomeGenerator;
 	{
 		this.idx = idx;
 		this.map = map;
+		bgColor = Game.instance.CLEAR_COLOR;
 	}
 
 	inline function get_x():Int

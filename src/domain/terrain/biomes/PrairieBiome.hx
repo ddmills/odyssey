@@ -75,18 +75,19 @@ class PrairieBiome extends BiomeGenerator
 
 		if (isWater)
 		{
-			// todo, there has to be a better way to write this formula lol
-			// var range = 1 - ((1 - h) * (1 / (1 - cutoff)));
-
 			tile.bgTileKey = WATER_1;
 			tile.color = Colors.Mix(0x225699, 0x152e5f, r.rand());
 			tile.terrain = TERRAIN_WATER;
+			tile.bgColor = 0x061016;
 		}
 		else
 		{
+			var h = getHeight(tile.pos);
+
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
 			tile.terrain = TERRAIN_GRASS;
+			tile.bgColor = Colors.Mix(0x090A09, 0x0B0E09, h);
 		}
 	}
 

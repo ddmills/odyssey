@@ -190,6 +190,8 @@ class ListSelectScreen extends Screen
 	{
 		var tw = game.TILE_W;
 		var th = game.TILE_H;
+		var fontHeight = 16;
+		var fontOffset = ((game.TILE_H - fontHeight) / 2).floor();
 		var left = 0;
 		var rowOb = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * tw, th));
 		rowOb.y = idx * th;
@@ -198,7 +200,7 @@ class ListSelectScreen extends Screen
 		var bullet = new Bitmap(TileResources.Get(LIST_DASH));
 		bullet.addShader(new SpriteShader());
 		bullet.x = left;
-		bullet.y = 0;
+		bullet.y = fontOffset;
 		left += tw;
 		rowOb.addChild(bullet);
 
@@ -214,7 +216,7 @@ class ListSelectScreen extends Screen
 		var text = new Text(TextResources.BIZCAT);
 		text.color = game.TEXT_COLOR.toHxdColor();
 		left += 8;
-		text.y = 0;
+		text.y = fontOffset;
 		text.x = left;
 		text.setScale(1);
 		text.text = item.title;
@@ -223,7 +225,7 @@ class ListSelectScreen extends Screen
 		var detail = new Text(TextResources.BIZCAT);
 		detail.color = game.TEXT_COLOR.toHxdColor();
 		left += tw * 12;
-		detail.y = 0;
+		detail.y = fontOffset;
 		detail.x = left;
 		detail.setScale(1);
 		detail.text = item.detail == null ? '' : item.detail;

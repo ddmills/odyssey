@@ -12,6 +12,6 @@ class MountainBiome extends BiomeGenerator
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
-		return SWAMP_V2_2;
+		return TERRAIN_BASIC_4;
 	}
 }

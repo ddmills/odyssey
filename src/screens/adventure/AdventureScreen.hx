@@ -6,8 +6,10 @@ import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import core.input.KeyCode;
 import data.Cardinal;
 import data.TextResources;
+import data.TileKey;
 import domain.GameMath;
 import domain.components.Blocker;
 import domain.components.Health;
@@ -16,6 +18,7 @@ import domain.components.IsInventoried;
 import domain.components.Level;
 import domain.components.Move;
 import domain.components.Path;
+import domain.components.Sprite;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
@@ -98,6 +101,27 @@ class AdventureScreen extends Screen
 		}
 	}
 
+	override function onKeyDown(key:KeyCode)
+	{
+		var tk:TileKey = switch key
+		{
+			case KEY_NUM_1: PERSON_1;
+			case KEY_NUM_2: PERSON_2;
+			case KEY_NUM_3: PERSON_3;
+			case KEY_NUM_4: PERSON_4;
+			case KEY_NUM_5: PERSON_5;
+			case KEY_NUM_6: PERSON_6;
+			case KEY_NUM_7: PERSON_7;
+			case _: null;
+		}
+
+		if (tk != null)
+		{
+			var sprite = world.player.entity.get(Sprite);
+			sprite.tileKey = tk;
+		}
+	}
+
 	function handle(command:Command)
 	{
 		switch (command.type)
@@ -170,7 +194,7 @@ class AdventureScreen extends Screen
 
 		var tile = world.map.getTile(target);
 
-		if (tile.isImpassable)
+		if (tile == null || tile.isImpassable)
 		{
 			return;
 		}

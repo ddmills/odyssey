@@ -1,7 +1,7 @@
 package domain.prefabs;
 
-import core.Game;
 import data.SpawnableType;
+import data.TileKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -9,11 +9,9 @@ import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Level;
 import domain.components.Moniker;
-import domain.components.Moved;
 import domain.components.Sprite;
 import domain.components.Stats;
 import domain.components.Vision;
-import domain.events.SpawnedEvent;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -21,12 +19,12 @@ class PlayerPrefab extends Prefab
 {
 	public function Create(?options:Dynamic)
 	{
+		var r = Rand.create();
 		var entity = new Entity();
 
-		var sprite = new Sprite(HERO, 0xd8cfbd, 0x7e3e32, ACTORS);
-		// sprite.background = Game.instance.CLEAR_COLOR;
+		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7]);
 
-		entity.add(sprite);
+		entity.add(new Sprite(tkey, 0x968a8a, 0x1A6C85, ACTORS));
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));
@@ -35,6 +33,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
 		entity.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
+
 		var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);
 
 		entity.add(rhand);
@@ -49,7 +48,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new Stats(3, 2, 1));
 
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
-		rhand.equip(Spawner.Spawn(Rand.create().pick(wpns)));
+		rhand.equip(Spawner.Spawn(r.pick(wpns)));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
 
 		entity.get(Inventory).addLoot(Spawner.Spawn(PISTOL_AMMO));

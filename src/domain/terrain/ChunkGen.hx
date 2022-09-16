@@ -15,22 +15,23 @@ class ChunkGen
 	public function new()
 	{
 		table = new WeightedTable();
-		table.add(SNAKE, 15);
+		table.add(SNAKE, 3);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(LOCKBOX, 1);
 		table.add(SNUB_NOSE_REVOLVER, 1);
 		table.add(REVOLVER, 1);
 		table.add(NAVY_REVOLVER, 1);
+		table.add(RIFLE_AMMO, 2);
+		table.add(PISTOL_AMMO, 2);
+		table.add(SHOTGUN_AMMO, 2);
 		table.add(RIFLE, 4);
 		table.add(PONCHO, 1);
 		table.add(DUSTER, 2);
 		table.add(LONG_JOHNS, 3);
 		table.add(COACH_GUN, 3);
-		table.add(THUG, 8);
-		table.add(THUG_2, 8);
-		// table.add(BALD_CYPRESS, 300);
-		// table.add(CACTUS, 124);
+		table.add(THUG, 4);
+		table.add(THUG_2, 4);
 	}
 
 	public function generate(chunk:Chunk)
@@ -41,13 +42,15 @@ class ChunkGen
 			var pos = chunk.worldPos.add(i.pos);
 			var t = Game.instance.world.map.getTile(pos);
 
-			t.biome.spawnEntity(t);
-
-			// if (r.bool(.005))
-			// {
-			// 	var loot = table.pick(r);
-			// 	Spawner.Spawn(loot, pos);
-			// }
+			if (r.bool(.005))
+			{
+				var loot = table.pick(r);
+				Spawner.Spawn(loot, pos.asWorld());
+			}
+			else
+			{
+				t.biome.spawnEntity(t);
+			}
 		}
 	}
 

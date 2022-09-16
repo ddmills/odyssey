@@ -18,7 +18,7 @@ class CactusPrefab extends Prefab
 
 		var cactus = new Entity();
 
-		var sprite = new Sprite(tile, 0x6C793D, 0xAA0F69, OBJECTS);
+		var sprite = new Sprite(tile, 0x5A6E10, 0xAA0F69, OBJECTS);
 
 		cactus.add(sprite);
 		cactus.add(new Blocker());

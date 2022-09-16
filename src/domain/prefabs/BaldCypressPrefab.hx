@@ -13,14 +13,7 @@ class BaldCypressPrefab extends Prefab
 	{
 		var entity = new Entity();
 		var r = Game.instance.world.rand;
-		var tileKey:TileKey = r.pick([
-			BALD_CYPRESS_V1_1,
-			BALD_CYPRESS_V1_2,
-			BALD_CYPRESS_V1_3,
-			// BALD_CYPRESS_V2_1,
-			// BALD_CYPRESS_V2_2,
-			// BALD_CYPRESS_V2_3,
-		]);
+		var tileKey:TileKey = r.pick([TREE_BALD_CYPRESS_1, TREE_BALD_CYPRESS_2, TREE_BALD_CYPRESS_3]);
 
 		entity.add(new Sprite(tileKey, 0x66594f, 0x8c8f7f));
 		entity.add(new Moniker('Bald cypress tree'));

@@ -21,6 +21,7 @@ class ForestBiome extends BiomeGenerator
 		tile.bgTileKey = getBackgroundTileKey(tile);
 		tile.color = r.pick(colors);
 		tile.terrain = TERRAIN_GRASS;
+		tile.bgColor = 0x0B110C;
 	}
 
 	override function spawnEntity(tile:MapTile)

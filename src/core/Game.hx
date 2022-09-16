@@ -20,6 +20,7 @@ class Game
 	public var CLEAR_COLOR:Int = 0x111113;
 	public var TEXT_COLOR:Int = 0xC5D7DB;
 	public var TEXT_COLOR_FOCUS:Int = 0xece358;
+	public var SHOW_BG_COLORS:Bool = false;
 
 	public static var instance:Game;
 
@@ -56,6 +57,7 @@ class Game
 		ConsoleConfig.Config(console);
 
 		app.s2d.addChild(layers.root);
+		app.s2d.scaleMode = Fixed(800, 600, 1, Left, Top);
 	}
 
 	public static function Create(app:hxd.App)

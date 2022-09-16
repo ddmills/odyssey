@@ -4,9 +4,12 @@ import common.struct.IntPoint;
 import common.util.Colors;
 import data.TileKey;
 import domain.prefabs.Spawner;
+import hxd.Rand;
 
 class SwampBiome extends BiomeGenerator
 {
+	var waterLine = .38;
+
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_swamp);
@@ -15,6 +18,12 @@ class SwampBiome extends BiomeGenerator
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
+		var grass = r.bool(.05);
+		if (grass)
+		{
+			return GRASS_V1_3;
+		}
+
 		var p = perlin.get(tile.x, tile.y, 6);
 		var h = p.pow(2);
 
@@ -33,6 +42,11 @@ class SwampBiome extends BiomeGenerator
 			return SWAMP_V2_1;
 		}
 
+		if (h > .4)
+		{
+			return TERRAIN_BASIC_4;
+		}
+
 		if (h > .35)
 		{
 			return TERRAIN_BASIC_3;
@@ -44,22 +58,23 @@ class SwampBiome extends BiomeGenerator
 	override function assignTileData(tile:MapTile)
 	{
 		var h = perlin.get(tile.x, tile.y, 16, 8);
-		var cutoff = .4;
 
-		if (h < cutoff)
+		if (h < waterLine)
 		{
 			// todo, there has to be a better way to write this formula lol
-			var range = 1 - ((1 - h) * (1 / (1 - cutoff)));
+			var range = 1 - ((1 - h) * (1 / (1 - waterLine)));
 
 			tile.bgTileKey = WATER_1;
 			tile.color = Colors.Mix(0x2B4E6E, 0x09141B, range);
 			tile.terrain = TERRAIN_WATER;
+			tile.bgColor = 0x09141B;
 		}
 		else
 		{
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
 			tile.terrain = TERRAIN_MUD;
+			tile.bgColor = Colors.Mix(0x0A0B0C, 0x130C12, h);
 		}
 	}
 
@@ -70,10 +85,16 @@ class SwampBiome extends BiomeGenerator
 
 	override function spawnEntity(tile:MapTile)
 	{
-		if (tile.isWater && r.bool(.25))
+		var h = perlin.get(tile.x, tile.y, 16, 8);
+
+		if (h < waterLine && r.bool(.125))
 		{
 			// var h = g
 
+			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
+		}
+		else if (r.bool(.05))
+		{
 			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
 		}
 	}

@@ -13,7 +13,7 @@ class PineTreePrefab extends Prefab
 	{
 		var entity = new Entity();
 		var r = Game.instance.world.rand;
-		var tileKey:TileKey = r.pick([PINE_TREE_1, PINE_TREE_2, PINE_TREE_3, PINE_TREE_4,]);
+		var tileKey:TileKey = r.pick([TREE_PINE_1, TREE_PINE_2, TREE_PINE_3, TREE_PINE_4,]);
 
 		entity.add(new Sprite(tileKey, 0x235331, 0x8D450B));
 		entity.add(new Moniker('Pine tree'));

@@ -12,10 +12,10 @@ class SplashScreen extends Screen
 {
 	var title:h2d.Text;
 	var next:h2d.Text;
-	var duration:Int;
+	var duration:Float;
 	var timeout:Timeout;
 
-	public function new(duration:Int = 3)
+	public function new(duration:Float = 3)
 	{
 		this.duration = duration;
 		timeout = new Timeout(2);
@@ -41,6 +41,13 @@ class SplashScreen extends Screen
 	override function update(frame:Frame)
 	{
 		timeout.update();
+		duration -= frame.dt;
+
+		if (duration <= 0)
+		{
+			okay();
+			return;
+		}
 
 		title.textAlign = Center;
 		title.x = camera.width / 2;
@@ -57,10 +64,15 @@ class SplashScreen extends Screen
 
 	override function onMouseUp(pos:Coordinate)
 	{
-		game.screens.set(new LoadingScreen());
+		okay();
 	}
 
 	override function onKeyDown(key:KeyCode)
+	{
+		okay();
+	}
+
+	function okay()
 	{
 		game.screens.set(new LoadingScreen());
 	}

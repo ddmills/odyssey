@@ -51,8 +51,8 @@ class Camera
 	{
 		var p = Projection.worldToPx(value, y);
 
-		scroller.x = -(p.x * zoom);
-		scroller.y = -(p.y * zoom);
+		scroller.x = -(p.x * zoom).floor();
+		scroller.y = -(p.y * zoom).floor();
 
 		return value;
 	}
@@ -61,8 +61,8 @@ class Camera
 	{
 		var p = Projection.worldToPx(x, value);
 
-		scroller.x = -(p.x * zoom);
-		scroller.y = -(p.y * zoom);
+		scroller.x = -(p.x * zoom).floor();
+		scroller.y = -(p.y * zoom).floor();
 
 		return value;
 	}

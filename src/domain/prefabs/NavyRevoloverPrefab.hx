@@ -12,7 +12,7 @@ class NavyRevoloverPrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(PISTOL_4, 0xA5CACA, 0x814B0D, OBJECTS));
+		entity.add(new Sprite(PISTOL_3, 0xA5CACA, 0x814B0D, OBJECTS));
 		entity.add(new Moniker('Navy revolover'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_HOLSTER]));

@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.TileKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -10,14 +11,18 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
 import ecs.Entity;
+import hxd.Rand;
 
 class ThugPistolPrefab extends Prefab
 {
 	public function Create(?options:Dynamic)
 	{
+		var r = Rand.create();
 		var entity = new Entity();
 
-		entity.add(new Sprite(THUG_2, 0xb3ab9b, 0x8A4F1F, ACTORS));
+		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
+
+		entity.add(new Sprite(tkey, 0x968a8a, 0x8A4F1F, ACTORS));
 		entity.add(new Energy());
 		entity.get(Energy).consumeEnergy(10);
 		entity.add(new Level(1));

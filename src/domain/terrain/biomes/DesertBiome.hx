@@ -13,7 +13,7 @@ class DesertBiome extends BiomeGenerator
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
-		return r.pick([SAND_1, SAND_2, SAND_3, SAND_4]);
+		return r.pick([TERRAIN_BASIC_2, TERRAIN_BASIC_3, TERRAIN_BASIC_4]);
 	}
 
 	override function assignTileData(tile:MapTile)
@@ -21,6 +21,12 @@ class DesertBiome extends BiomeGenerator
 		tile.bgTileKey = getBackgroundTileKey(tile);
 		tile.color = r.pick(colors);
 		tile.terrain = TERRAIN_SAND;
+		if (r.bool(.02))
+		{
+			tile.bgTileKey = GRASS_V2_1;
+			tile.terrain = TERRAIN_GRASS;
+		}
+		tile.bgColor = 0x16120C;
 	}
 
 	override function spawnEntity(tile:MapTile)

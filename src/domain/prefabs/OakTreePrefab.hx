@@ -13,7 +13,7 @@ class OakTreePrefab extends Prefab
 	{
 		var entity = new Entity();
 		var r = Game.instance.world.rand;
-		var tileKey:TileKey = r.pick([OAK_TREE_1, OAK_TREE_2, OAK_TREE_3]);
+		var tileKey:TileKey = r.pick([TREE_OAK_1, TREE_OAK_2, TREE_OAK_3]);
 
 		entity.add(new Sprite(tileKey, 0x235331, 0x8D450B));
 		entity.add(new Moniker('Oak tree'));

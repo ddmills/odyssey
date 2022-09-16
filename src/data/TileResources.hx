@@ -29,22 +29,22 @@ class TileResources
 		tiles.set(GRASS_V2_3, grass[1][2]);
 		tiles.set(GRASS_V2_4, grass[1][3]);
 
+		var water = t.water.toTile().divide(4, 1);
+		tiles.set(WATER_1, water[0][0]);
+		tiles.set(WATER_2, water[0][1]);
+		tiles.set(WATER_3, water[0][2]);
+		tiles.set(WATER_4, water[0][3]);
+
 		tiles.set(SNAKE_1, t.snake_1.toTile());
 		tiles.set(CORPSE_SNAKE, t.snake_corpse.toTile());
 		tiles.set(CORPSE_HUMAN, t.corpse_human.toTile());
 		tiles.set(STICK_1, t.stick_1.toTile());
-		tiles.set(HERO, t.hero.toTile());
 		tiles.set(EYE_OPEN, t.eye.toTile());
 		tiles.set(EYE_CLOSE, t.eye_closed.toTile());
-		tiles.set(CURSOR, t.cursor.toTile());
+		tiles.set(CURSOR, t.cursor_2.toTile());
 		tiles.set(LIST_DASH, t.list_dash.toTile());
 		tiles.set(LIST_ARROW, t.list_arrow.toTile());
-		tiles.set(RIFLE, t.rifle.toTile());
-		tiles.set(PISTOL_1, t.pistol_1.toTile());
-		tiles.set(PISTOL_2, t.pistol_2.toTile());
-		tiles.set(PISTOL_3, t.pistol_3.toTile());
-		tiles.set(PISTOL_4, t.pistol_4.toTile());
-		tiles.set(COACH_GUN, t.shotgun.toTile());
+
 		tiles.set(PONCHO, t.poncho.toTile());
 		tiles.set(DUSTER, t.duster.toTile());
 		tiles.set(LONG_JOHNS, t.longjohns.toTile());
@@ -53,7 +53,6 @@ class TileResources
 		tiles.set(THUG_2, t.thug_2.toTile());
 		tiles.set(TEXT_CURSOR, t.text_cursor.toTile());
 		tiles.set(CARTON_1, t.carton_1.toTile());
-		tiles.set(WATER_1, t.water_1.toTile());
 
 		var catus = hxd.Res.tiles.scroll.cacti.toTile().divide(4, 1);
 		tiles.set(CACTUS_1, catus[0][0]);
@@ -80,11 +79,11 @@ class TileResources
 		tiles.set(CHEST_SMALL_CLOSED, chestSm[0][0]);
 		tiles.set(CHEST_SMALL_OPEN, chestSm[0][1]);
 
-		var sands = t.sand.toTile().divide(4, 1);
-		tiles.set(SAND_1, sands[0][0]);
-		tiles.set(SAND_2, sands[0][1]);
-		tiles.set(SAND_3, sands[0][2]);
-		tiles.set(SAND_4, sands[0][3]);
+		// var sands = t.sand.toTile().divide(4, 1);
+		// tiles.set(SAND_1, sands[0][0]);
+		// tiles.set(SAND_2, sands[0][1]);
+		// tiles.set(SAND_3, sands[0][2]);
+		// tiles.set(SAND_4, sands[0][3]);
 
 		var basic = t.terrain_basic.toTile().divide(4, 1);
 		tiles.set(TERRAIN_BASIC_1, basic[0][0]);
@@ -102,25 +101,39 @@ class TileResources
 		tiles.set(SWAMP_V2_3, mud[1][2]);
 		tiles.set(SWAMP_V2_4, mud[1][3]);
 
-		var baldCypressV1 = t.bald_cypress_v1.toTile().divide(3, 1);
-		tiles.set(BALD_CYPRESS_V1_1, baldCypressV1[0][0]);
-		tiles.set(BALD_CYPRESS_V1_2, baldCypressV1[0][1]);
-		tiles.set(BALD_CYPRESS_V1_3, baldCypressV1[0][2]);
+		var baldCypressV1 = t.tree_bald_cypress.toTile().divide(3, 1);
+		tiles.set(TREE_BALD_CYPRESS_1, baldCypressV1[0][0]);
+		tiles.set(TREE_BALD_CYPRESS_2, baldCypressV1[0][1]);
+		tiles.set(TREE_BALD_CYPRESS_3, baldCypressV1[0][2]);
 
-		var baldCypressV2 = t.bald_cypress_v2.toTile().divide(3, 1);
-		tiles.set(BALD_CYPRESS_V2_1, baldCypressV2[0][0]);
-		tiles.set(BALD_CYPRESS_V2_2, baldCypressV2[0][1]);
-		tiles.set(BALD_CYPRESS_V2_3, baldCypressV2[0][2]);
+		var pineTrees = t.tree_pine.toTile().divide(4, 1);
+		tiles.set(TREE_PINE_1, pineTrees[0][0]);
+		tiles.set(TREE_PINE_2, pineTrees[0][1]);
+		tiles.set(TREE_PINE_3, pineTrees[0][2]);
+		tiles.set(TREE_PINE_4, pineTrees[0][3]);
 
-		var pineTrees = t.pine_trees_v1.toTile().divide(4, 1);
-		tiles.set(PINE_TREE_1, pineTrees[0][0]);
-		tiles.set(PINE_TREE_2, pineTrees[0][1]);
-		tiles.set(PINE_TREE_3, pineTrees[0][2]);
-		tiles.set(PINE_TREE_4, pineTrees[0][3]);
+		var oakTrees = t.tree_oak.toTile().divide(4, 1);
+		tiles.set(TREE_OAK_1, oakTrees[0][0]);
+		tiles.set(TREE_OAK_2, oakTrees[0][1]);
+		tiles.set(TREE_OAK_3, oakTrees[0][2]);
+		tiles.set(TREE_OAK_4, oakTrees[0][3]);
 
-		var oakTrees = t.oak_trees_v1.toTile().divide(3, 1);
-		tiles.set(OAK_TREE_1, oakTrees[0][0]);
-		tiles.set(OAK_TREE_2, oakTrees[0][1]);
-		tiles.set(OAK_TREE_3, oakTrees[0][2]);
+		var guns = t.guns_png.toTile().divide(4, 4);
+		tiles.set(RIFLE, guns[0][0]);
+		tiles.set(PISTOL_1, guns[1][0]);
+		tiles.set(PISTOL_2, guns[1][1]);
+		tiles.set(PISTOL_3, guns[1][2]);
+		tiles.set(PISTOL_4, guns[1][3]);
+		tiles.set(SHOTGUN_1, guns[2][0]);
+
+		var people = t.people_png.toTile().divide(4, 4);
+		tiles.set(PERSON_1, people[0][0]);
+		tiles.set(PERSON_2, people[0][1]);
+		tiles.set(PERSON_3, people[0][2]);
+		tiles.set(PERSON_4, people[0][3]);
+		tiles.set(PERSON_5, people[1][0]);
+		tiles.set(PERSON_6, people[1][1]);
+		tiles.set(PERSON_7, people[1][2]);
+		tiles.set(PERSON_8, people[1][3]);
 	}
 }
