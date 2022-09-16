@@ -1,5 +1,6 @@
 package domain.systems;
 
+import core.Frame;
 import domain.components.IsPlayer;
 import domain.components.Moved;
 import ecs.Query;
@@ -17,5 +18,10 @@ class ChunkSystem extends System
 		{
 			world.chunks.loadChunks(e.pos.toChunkIdx());
 		});
+	}
+
+	override function update(frame:Frame)
+	{
+		world.chunks.update();
 	}
 }

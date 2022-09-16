@@ -9,6 +9,8 @@ class ChunkManager
 {
 	var chunks:Grid<Chunk>;
 	var chunkSaveData:Map<Int, SaveChunk>;
+	private var chunksToUnload:Array<Int>;
+	private var activeChunkIdxs:Array<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
 	public var chunkCountX(get, null):Int;
@@ -24,6 +26,7 @@ class ChunkManager
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
 		chunkSaveData = new Map();
+		chunksToUnload = [];
 
 		for (i in 0...chunks.size)
 		{
@@ -46,7 +49,9 @@ class ChunkManager
 				var chunkPos = curChunkPos.add(x, y);
 				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)
 				{
-					activeChunkIdxs.push(getChunkIdx(chunkPos.x, chunkPos.y));
+					var chunkIdx = getChunkIdx(chunkPos.x, chunkPos.y);
+					activeChunkIdxs.push(chunkIdx);
+					chunksToUnload.remove(chunkIdx);
 				}
 			}
 		}
@@ -55,12 +60,22 @@ class ChunkManager
 		{
 			if (!activeChunkIdxs.has(chunkIdx))
 			{
-				trace('UNLOAD', chunkIdx);
-				var chunk = getChunkById(chunkIdx);
-				var data = chunk.save();
-				chunk.unload();
-				chunkSaveData.set(chunkIdx, data);
+				chunksToUnload.push(chunkIdx);
 			}
+		}
+	}
+
+	public function update()
+	{
+		var chunkIdx = chunksToUnload.pop();
+
+		if (chunkIdx > 0)
+		{
+			trace('UNLOAD', chunkIdx);
+			var chunk = getChunkById(chunkIdx);
+			var data = chunk.save();
+			chunk.unload();
+			chunkSaveData.set(chunkIdx, data);
 		}
 	}
 
