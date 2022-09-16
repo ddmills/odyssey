@@ -13,7 +13,7 @@ class ForestBiome extends BiomeGenerator
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
-		return r.pick([GRASS_1, GRASS_2, GRASS_3]);
+		return r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
 	}
 
 	override function assignTileData(tile:MapTile)

@@ -21,25 +21,25 @@ class PrairieBiome extends BiomeGenerator
 
 		if (h > .7)
 		{
-			return GRASS_4;
+			return GRASS_V2_4;
 		}
 
 		if (h > .6)
 		{
-			return GRASS_3;
+			return GRASS_V2_3;
 		}
 
 		if (h > .5)
 		{
-			return GRASS_V2_3;
+			return GRASS_V2_2;
 		}
 
 		if (h > .4)
 		{
-			return GRASS_V2_2;
+			return GRASS_V2_1;
 		}
 
-		return GRASS_V2_1;
+		return TERRAIN_BASIC_3;
 	}
 
 	override function getTerrain(tile:MapTile):TerrainType

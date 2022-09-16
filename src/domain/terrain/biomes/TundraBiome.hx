@@ -12,6 +12,6 @@ class TundraBiome extends BiomeGenerator
 
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
-		return SWAMP_1;
+		return DOT;
 	}
 }

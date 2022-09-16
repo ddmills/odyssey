@@ -19,10 +19,16 @@ class TileResources
 	{
 		var t = hxd.Res.tiles.scroll;
 
-		tiles.set(GRASS_1, t.grass_1.toTile());
-		tiles.set(GRASS_2, t.grass_2.toTile());
-		tiles.set(GRASS_3, t.grass_3.toTile());
-		tiles.set(GRASS_4, t.grass_4.toTile());
+		var grass = t.grass_png.toTile().divide(4, 4);
+		tiles.set(GRASS_V1_1, grass[0][0]);
+		tiles.set(GRASS_V1_2, grass[0][1]);
+		tiles.set(GRASS_V1_3, grass[0][2]);
+		tiles.set(GRASS_V1_4, grass[0][3]);
+		tiles.set(GRASS_V2_1, grass[1][0]);
+		tiles.set(GRASS_V2_2, grass[1][1]);
+		tiles.set(GRASS_V2_3, grass[1][2]);
+		tiles.set(GRASS_V2_4, grass[1][3]);
+
 		tiles.set(SNAKE_1, t.snake_1.toTile());
 		tiles.set(CORPSE_SNAKE, t.snake_corpse.toTile());
 		tiles.set(CORPSE_HUMAN, t.corpse_human.toTile());
@@ -80,19 +86,21 @@ class TileResources
 		tiles.set(SAND_3, sands[0][2]);
 		tiles.set(SAND_4, sands[0][3]);
 
-		var grassv2 = t.grasses_2.toTile().divide(5, 1);
-		tiles.set(GRASS_V2_1, grassv2[0][0]);
-		tiles.set(GRASS_V2_2, grassv2[0][1]);
-		tiles.set(GRASS_V2_3, grassv2[0][2]);
-		tiles.set(GRASS_V2_4, grassv2[0][3]);
-		tiles.set(GRASS_V2_5, grassv2[0][4]);
+		var basic = t.terrain_basic.toTile().divide(4, 1);
+		tiles.set(TERRAIN_BASIC_1, basic[0][0]);
+		tiles.set(TERRAIN_BASIC_2, basic[0][1]);
+		tiles.set(TERRAIN_BASIC_3, basic[0][2]);
+		tiles.set(TERRAIN_BASIC_4, basic[0][3]);
 
-		var swamp = t.swamp.toTile().divide(5, 1);
-		tiles.set(SWAMP_1, swamp[0][0]);
-		tiles.set(SWAMP_2, swamp[0][1]);
-		tiles.set(SWAMP_3, swamp[0][2]);
-		tiles.set(SWAMP_4, swamp[0][3]);
-		tiles.set(SWAMP_5, swamp[0][4]);
+		var mud = t.mud.toTile().divide(4, 2);
+		tiles.set(SWAMP_V1_1, mud[0][0]);
+		tiles.set(SWAMP_V1_2, mud[0][1]);
+		tiles.set(SWAMP_V1_3, mud[0][2]);
+		tiles.set(SWAMP_V1_4, mud[0][3]);
+		tiles.set(SWAMP_V2_1, mud[1][0]);
+		tiles.set(SWAMP_V2_2, mud[1][1]);
+		tiles.set(SWAMP_V2_3, mud[1][2]);
+		tiles.set(SWAMP_V2_4, mud[1][3]);
 
 		var baldCypressV1 = t.bald_cypress_v1.toTile().divide(3, 1);
 		tiles.set(BALD_CYPRESS_V1_1, baldCypressV1[0][0]);

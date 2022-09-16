@@ -20,25 +20,25 @@ class SwampBiome extends BiomeGenerator
 
 		if (h > .65)
 		{
-			return SWAMP_5;
+			return SWAMP_V2_3;
 		}
 
 		if (h > .5)
 		{
-			return SWAMP_4;
+			return SWAMP_V2_2;
 		}
 
 		if (h > .46)
 		{
-			return SWAMP_3;
+			return SWAMP_V2_1;
 		}
 
 		if (h > .35)
 		{
-			return SWAMP_2;
+			return TERRAIN_BASIC_3;
 		}
 
-		return SWAMP_1;
+		return TERRAIN_BASIC_2;
 	}
 
 	override function assignTileData(tile:MapTile)
