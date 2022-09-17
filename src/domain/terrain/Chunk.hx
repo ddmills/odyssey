@@ -3,12 +3,9 @@ package domain.terrain;
 import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
-import common.util.Colors;
 import core.Game;
-import data.TileKey;
 import data.TileResources;
 import data.save.SaveChunk;
-import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
 import hxd.Rand;
@@ -74,7 +71,7 @@ class Chunk
 			exploration.load(save.explored, (v) -> v);
 			for (e in exploration)
 			{
-				setExplore(e.x, e.y, e.value, false);
+				setExplore(e.pos, e.value, false);
 			}
 			entities.load(save.entities, (edata) ->
 			{
@@ -216,14 +213,14 @@ class Chunk
 		return entities.get(x.floor(), y.floor());
 	}
 
-	public function setExplore(x:Int, y:Int, isExplored:Bool, isVisible:Bool)
+	public function setExplore(pos:IntPoint, isExplored:Bool, isVisible:Bool)
 	{
 		if (!isLoaded)
 		{
 			Game.instance.world.chunks.load(chunkId);
 			return;
 		}
-		var idx = exploration.idx(x, y);
+		var idx = exploration.idx(pos.x, pos.y);
 		if (idx < 0)
 		{
 			return;
@@ -231,7 +228,7 @@ class Chunk
 
 		exploration.setIdx(idx, isExplored);
 
-		var bm = bitmaps.get(x, y);
+		var bm = bitmaps.get(pos.x, pos.y);
 
 		if (bm == null)
 		{

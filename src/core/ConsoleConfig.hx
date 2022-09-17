@@ -69,7 +69,6 @@ class ConsoleConfig
 			var chunk = game.world.chunks.getChunkById(idx);
 			var data:SaveChunk = Serial.Deserialize(SAVE_DATA);
 			chunk.load(data);
-			game.world.reapplyVisible();
 		});
 
 		console.addCommand('stats', 'List player stats & skills', [], () ->

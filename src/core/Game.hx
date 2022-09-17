@@ -17,7 +17,7 @@ class Game
 
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
-	public var CLEAR_COLOR:Int = 0x111113;
+	public var CLEAR_COLOR:Int = 0x131114;
 	public var TEXT_COLOR:Int = 0xC5D7DB;
 	public var TEXT_COLOR_FOCUS:Int = 0xece358;
 	public var SHOW_BG_COLORS:Bool = false;

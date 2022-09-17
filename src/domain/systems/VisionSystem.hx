@@ -1,8 +1,8 @@
 package domain.systems;
 
-import common.algorithm.Bresenham;
-import common.struct.Coordinate;
+import common.algorithm.Shadowcast;
 import core.Frame;
+import domain.components.Collider;
 import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.IsDestroyed;
@@ -42,15 +42,15 @@ class VisionSystem extends System
 			recompute = true;
 		});
 
-		visions.onEntityAdded((entity) ->
-		{
-			recompute = true;
-		});
+		// visions.onEntityAdded((entity) ->
+		// {
+		// 	recompute = true;
+		// });
 
-		visions.onEntityRemoved((entity) ->
-		{
-			recompute = true;
-		});
+		// visions.onEntityRemoved((entity) ->
+		// {
+		// 	recompute = true;
+		// });
 
 		var vis = new Query({
 			all: [Sprite],
@@ -97,37 +97,39 @@ class VisionSystem extends System
 		});
 	}
 
+	function initialize()
+	{
+		recompute = true;
+	}
+
 	function computeVision()
 	{
-		var visible = new Map<String, Coordinate>();
-
-		visibles.each((e) -> e.remove(Visible));
-
-		for (entity in visions)
+		for (entity in visibles)
 		{
-			var vision = entity.get(Vision);
-			var pos = entity.pos.toIntPoint();
-
-			if (vision.bonus > 0)
-			{
-				var exploreCircle = Bresenham.getCircle(pos, vision.range + vision.bonus, true);
-				for (point in exploreCircle)
-				{
-					world.explore(new Coordinate(point.x, point.y, WORLD));
-				}
-			}
-
-			var visCircle = Bresenham.getCircle(pos, vision.range, true);
-			var vis = Coordinate.FromPoints(visCircle, WORLD);
-			for (coord in vis)
-			{
-				visible.set(coord.toString(), coord);
-			}
+			entity.remove(Visible);
 		}
 
-		var tiles = visible.map((vis) -> vis);
+		world.clearVisible();
+		Shadowcast.Compute({
+			start: world.player.pos.toIntPoint(),
+			distance: world.player.entity.get(Vision).range,
+			decay: 0,
+			isBlocker: (p) ->
+			{
+				if (world.map.tiles.isOutOfBounds(p.x, p.y))
+				{
+					return false;
+				}
 
-		world.setVisible(tiles);
+				var entities = world.getEntitiesAt(p.asWorld());
+
+				return entities.exists((e) -> e.has(Collider));
+			},
+			onLight: (pos, brightness) ->
+			{
+				world.setVisible(pos.asWorld());
+			}
+		});
 	}
 
 	public override function update(frame:Frame)

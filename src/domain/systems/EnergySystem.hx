@@ -5,8 +5,6 @@ import data.EnergyActionType;
 import domain.components.Bullet;
 import domain.components.Energy;
 import domain.components.IsPlayer;
-import domain.components.Move;
-import domain.components.Stats;
 import domain.skills.Skills;
 import ecs.Entity;
 import ecs.Query;

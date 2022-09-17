@@ -27,8 +27,8 @@ class World
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
 	public var chunkSize(default, null):Int = 16;
-	public var chunkCountX(default, null):Int = 16;
-	public var chunkCountY(default, null):Int = 16;
+	public var chunkCountX(default, null):Int = 12;
+	public var chunkCountY(default, null):Int = 12;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
@@ -61,6 +61,7 @@ class World
 		map.initialize();
 		systems.initialize();
 		player.initialize();
+		systems.initialize();
 	}
 
 	public function updateSystems()
@@ -144,20 +145,23 @@ class World
 
 	public function reapplyVisible()
 	{
-		setVisible(visible);
+		for (pos in visible)
+		{
+			setVisible(pos);
+		}
 	}
 
-	public function setVisible(values:Array<Coordinate>)
+	public function clearVisible()
 	{
 		for (value in visible)
 		{
 			var c = value.toChunk();
 			var chunk = chunks.getChunk(c.x, c.y);
-			if (chunk != null)
+			if (chunk != null && chunk.isLoaded)
 			{
-				var local = value.toChunkLocal();
+				var local = value.toChunkLocal().toIntPoint();
 
-				chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
+				chunk.setExplore(local, true, false);
 				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
 				{
 					if (entity.has(Visible) && !entity.has(IsInventoried))
@@ -167,29 +171,31 @@ class World
 				}
 			}
 		}
-		for (value in values)
-		{
-			var c = value.toChunk();
-			var chunk = chunks.getChunk(c.x, c.y);
-			if (chunk != null)
-			{
-				var local = value.toChunkLocal();
+		visible = [];
+	}
 
-				chunk.setExplore(local.x.floor(), local.y.floor(), true, true);
-				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
+	public function setVisible(pos:Coordinate)
+	{
+		var c = pos.toChunk();
+		var chunk = chunks.getChunk(c.x, c.y);
+		if (chunk != null)
+		{
+			var local = pos.toChunkLocal().toIntPoint();
+
+			chunk.setExplore(local, true, true);
+			for (entity in getEntitiesAt(pos.toWorld().toIntPoint()))
+			{
+				if (!entity.has(Visible))
 				{
-					if (!entity.has(Visible))
-					{
-						entity.add(new Visible());
-					}
-					if (!entity.has(Explored))
-					{
-						entity.add(new Explored());
-					}
+					entity.add(new Visible());
+				}
+				if (!entity.has(Explored))
+				{
+					entity.add(new Explored());
 				}
 			}
 		}
-		visible = values;
+		visible.push(pos);
 	}
 
 	public function isExplored(coord:Coordinate)
@@ -215,8 +221,8 @@ class World
 		var chunk = chunks.getChunk(c.x, c.y);
 		if (chunk != null)
 		{
-			var local = coord.toChunkLocal();
-			chunk.setExplore(local.x.floor(), local.y.floor(), true, false);
+			var local = coord.toChunkLocal().toIntPoint();
+			chunk.setExplore(local, true, false);
 
 			for (entity in getEntitiesAt(coord.toWorld().toIntPoint()))
 			{

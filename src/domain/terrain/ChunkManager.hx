@@ -1,6 +1,7 @@
 package domain.terrain;
 
 import common.struct.Grid;
+import common.struct.Set;
 import common.util.Projection;
 import core.Game;
 import data.save.SaveChunk;
@@ -9,8 +10,7 @@ class ChunkManager
 {
 	var chunks:Grid<Chunk>;
 	var chunkSaveData:Map<Int, SaveChunk>;
-	private var chunksToUnload:Array<Int>;
-	private var activeChunkIdxs:Array<Int>;
+	private var chunksToUnload:Set<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
 	public var chunkCountX(get, null):Int;
@@ -26,7 +26,7 @@ class ChunkManager
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
 		chunkSaveData = new Map();
-		chunksToUnload = [];
+		chunksToUnload = new Set();
 
 		for (i in 0...chunks.size)
 		{
@@ -40,7 +40,7 @@ class ChunkManager
 	{
 		var curChunkPos = getChunkPos(curChunk);
 		var loaded = chunks.filter((item) -> item.value.isLoaded).map((item) -> item.value.chunkId);
-		var activeChunkIdxs = [];
+		var activeChunkIdxs = new Set<Int>();
 
 		for (x in [-1, 0, 1])
 		{
@@ -50,7 +50,7 @@ class ChunkManager
 				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)
 				{
 					var chunkIdx = getChunkIdx(chunkPos.x, chunkPos.y);
-					activeChunkIdxs.push(chunkIdx);
+					activeChunkIdxs.add(chunkIdx);
 					chunksToUnload.remove(chunkIdx);
 				}
 			}
@@ -60,7 +60,7 @@ class ChunkManager
 		{
 			if (!activeChunkIdxs.has(chunkIdx))
 			{
-				chunksToUnload.push(chunkIdx);
+				chunksToUnload.add(chunkIdx);
 			}
 		}
 	}
@@ -69,7 +69,7 @@ class ChunkManager
 	{
 		var chunkIdx = chunksToUnload.pop();
 
-		if (chunkIdx > 0)
+		if (chunkIdx != null)
 		{
 			trace('UNLOAD', chunkIdx);
 			var chunk = getChunkById(chunkIdx);

@@ -9,10 +9,12 @@ class SpriteShader extends hxsl.Shader
 			var pixelColor:Vec4;
 			@param var primary:Vec3;
 			@param var secondary:Vec3;
-			@param var outline:Vec4;
+			@param var outline:Vec3;
 			@param var background:Vec3;
 			@param var clearBackground:Int;
 			@param var isShrouded:Int;
+			@param var shroudColor:Vec3;
+			@param var shroudIntensity:Float;
 			function fragment()
 			{
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
@@ -21,9 +23,8 @@ class SpriteShader extends hxsl.Shader
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
-						var lum = vec3(0.299, 0.587, 0.114);
-						var gray = vec3(dot(lum, color));
-						pixelColor.rgb = mix(color, gray, .25) * .5;
+						var gray = vec3(dot(shroudColor, color));
+						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
 					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1)
@@ -32,14 +33,13 @@ class SpriteShader extends hxsl.Shader
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
-						var lum = vec3(0.299, 0.587, 0.114);
-						var gray = vec3(dot(lum, color));
-						pixelColor.rgb = mix(color, gray, .25) * .5;
+						var gray = vec3(dot(shroudColor, color));
+						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
 					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
-					pixelColor.rgba = outline;
+					pixelColor.rgb = outline;
 				}
 
 				if (pixelColor.a == 0 && clearBackground == 1)
@@ -49,9 +49,9 @@ class SpriteShader extends hxsl.Shader
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
-						var lum = vec3(0.299, 0.587, 0.114);
-						var gray = vec3(dot(lum, color));
-						pixelColor.rgb = mix(color, gray, .25) * .5;
+						var gray = vec3(dot(shroudColor, color));
+						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
+						pixelColor.a = 0;
 					}
 				}
 			}
@@ -62,6 +62,8 @@ class SpriteShader extends hxsl.Shader
 		super();
 		this.primary = primary.toHxdColor();
 		this.secondary = secondary.toHxdColor();
+		this.shroudIntensity = 1.5;
+		this.shroudColor = 0x2F0838.toHxdColor();
 		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;

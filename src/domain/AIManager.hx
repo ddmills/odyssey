@@ -57,7 +57,7 @@ class AIManager
 
 	public function tryAttackingRange(entity:Entity):Bool
 	{
-		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 7);
+		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 5);
 		var target = inRange.find((e) -> e.has(Health) && e.id != entity.id);
 
 		if (target == null)

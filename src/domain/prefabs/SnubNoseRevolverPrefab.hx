@@ -23,7 +23,7 @@ class SnubNoseRevolverPrefab extends Prefab
 		weapon.baseCost = 45;
 		weapon.ammo = 5;
 		weapon.ammoCapacity = 5;
-		weapon.range = 5;
+		weapon.range = 3;
 		weapon.modifier = 2;
 		weapon.reloadAudio = RELOAD_CLIP_5;
 		weapon.unloadAudio = UNLOAD_CLIP_2;
