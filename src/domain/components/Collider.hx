@@ -2,7 +2,7 @@ package domain.components;
 
 import ecs.Component;
 
-class Blocker extends Component
+class Collider extends Component
 {
 	public function new() {}
 }

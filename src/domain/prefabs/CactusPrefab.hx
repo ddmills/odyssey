@@ -2,7 +2,7 @@ package domain.prefabs;
 
 import core.Game;
 import data.TileKey;
-import domain.components.Blocker;
+import domain.components.Collider;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -21,7 +21,7 @@ class CactusPrefab extends Prefab
 		var sprite = new Sprite(tile, 0x5A6E10, 0xAA0F69, OBJECTS);
 
 		cactus.add(sprite);
-		cactus.add(new Blocker());
+		cactus.add(new Collider());
 
 		var name = 'Cactus';
 

@@ -11,7 +11,7 @@ import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
 import domain.GameMath;
-import domain.components.Blocker;
+import domain.components.Collider;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
@@ -187,7 +187,7 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		if (entities.exists((e) -> e.has(Blocker) && !e.has(IsInventoried)))
+		if (entities.exists((e) -> e.has(Collider) && !e.has(IsInventoried)))
 		{
 			return;
 		}
@@ -260,7 +260,7 @@ class AdventureScreen extends Screen
 
 				var entities = world.getEntitiesAt(b);
 
-				if (entities.exists((e) -> e.has(Blocker) || e.has(IsEnemy)))
+				if (entities.exists((e) -> e.has(Collider) || e.has(IsEnemy)))
 				{
 					return Math.POSITIVE_INFINITY;
 				}

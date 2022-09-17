@@ -2,7 +2,7 @@ package domain.prefabs;
 
 import data.AudioResources;
 import data.TileResources;
-import domain.components.Blocker;
+import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -16,7 +16,7 @@ class ChestPrefab extends Prefab
 
 		chest.add(new Sprite(CHEST_LARGE_CLOSED, 0x8D450B, 0xBED4E7, OBJECTS));
 		chest.add(new Moniker('Chest'));
-		chest.add(new Blocker());
+		chest.add(new Collider());
 
 		var inventory = new Inventory();
 		inventory.openedTile = CHEST_LARGE_OPEN;

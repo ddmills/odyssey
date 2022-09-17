@@ -44,7 +44,7 @@ import domain.terrain.biomes.BiomeGenerator;
 		return map.tiles.y(idx);
 	}
 
-	function get_isBlocker():Bool
+	function get_isCollider():Bool
 	{
 		return terrain == TERRAIN_ROCKFACE;
 	}
