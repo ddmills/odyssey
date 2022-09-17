@@ -39,7 +39,7 @@ class PrairieBiome extends BiomeGenerator
 			return GRASS_V2_1;
 		}
 
-		return TERRAIN_BASIC_3;
+		return TERRAIN_BASIC_1;
 	}
 
 	override function getTerrain(tile:MapTile):TerrainType

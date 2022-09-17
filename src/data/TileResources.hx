@@ -50,13 +50,13 @@ class TileResources
 		tiles.set(WATER_4, t[2][3]);
 
 		tiles.set(PERSON_1, t[5][0]);
-		tiles.set(PERSON_2, t[5][0]);
-		tiles.set(PERSON_3, t[5][0]);
-		tiles.set(PERSON_4, t[5][0]);
-		tiles.set(PERSON_5, t[5][0]);
-		tiles.set(PERSON_6, t[5][0]);
-		tiles.set(PERSON_7, t[5][0]);
-		tiles.set(PERSON_8, t[5][0]);
+		tiles.set(PERSON_2, t[5][1]);
+		tiles.set(PERSON_3, t[5][2]);
+		tiles.set(PERSON_4, t[5][3]);
+		tiles.set(PERSON_5, t[5][4]);
+		tiles.set(PERSON_6, t[5][5]);
+		tiles.set(PERSON_7, t[5][6]);
+		tiles.set(PERSON_8, t[5][7]);
 
 		tiles.set(TERRAIN_BASIC_1, t[1][0]);
 		tiles.set(TERRAIN_BASIC_2, t[1][1]);
@@ -79,7 +79,7 @@ class TileResources
 		tiles.set(CACTUS_1_FLOWER, t[4][4]);
 		tiles.set(CACTUS_2_FLOWER, t[4][4]);
 
-		tiles.set(BLOOD_SPATTER, t[0][0]);
+		tiles.set(BLOOD_SPATTER, t[2][4]);
 
 		tiles.set(RIFLE, t[0][5]);
 		tiles.set(PISTOL_1, t[0][4]);
@@ -93,10 +93,13 @@ class TileResources
 		tiles.set(CHEST_SMALL_CLOSED, t[1][4]);
 		tiles.set(CHEST_SMALL_OPEN, t[1][5]);
 
-		tiles.set(SNAKE_1, t[5][1]);
+		tiles.set(SNAKE_1, t[6][1]);
 
 		tiles.set(CURSOR, t[6][0]);
-		tiles.set(DOT, t[0][0]);
+		tiles.set(DOT, t[1][0]);
+
+		tiles.set(LIST_DASH, t[7][0]);
+		tiles.set(LIST_ARROW, t[7][1]);
 		// tiles.set(CORPSE_SNAKE, t.snake_corpse.toTile());
 		// tiles.set(CORPSE_HUMAN, t.corpse_human.toTile());
 		// tiles.set(STICK_1, t.stick_1.toTile());

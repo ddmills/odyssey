@@ -15,7 +15,7 @@ import domain.terrain.biomes.BiomeGenerator;
 	public var islandId:Int;
 	public var settlementId:Int;
 	public var biomes:Map<BiomeType, Float> = new Map();
-	public var biomeKey:BiomeType;
+	public var biomeKey:BiomeType = PRAIRIE;
 	public var biome(get, never):BiomeGenerator;
 	public var color:Int;
 	public var bgTileKey:TileKey;

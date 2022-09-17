@@ -188,12 +188,13 @@ class ListSelectScreen extends Screen
 
 	function makeRow(item:ListItem, idx:Int, isCancel = false):ListRow
 	{
-		var tw = game.TILE_W;
-		var th = game.TILE_H;
+		var tw = game.TILE_W * 2;
+		var th = game.TILE_H * 2;
 		var fontHeight = 16;
-		var fontOffset = ((game.TILE_H - fontHeight) / 2).floor();
+		var fontOffset = ((th - fontHeight) / 2).floor();
+		trace('font offset', fontOffset);
 		var left = 0;
-		var rowOb = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * tw, th));
+		var rowOb = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * game.TILE_W, th));
 		rowOb.y = idx * th;
 		listOb.addChild(rowOb);
 
@@ -201,15 +202,16 @@ class ListSelectScreen extends Screen
 		bullet.addShader(new SpriteShader());
 		bullet.x = left;
 		bullet.y = fontOffset;
-		left += tw;
+		left += game.TILE_W;
 		rowOb.addChild(bullet);
 
 		if (item.getIcon != null)
 		{
 			var icon = item.getIcon();
-			icon.x = left + 8;
+			icon.x = left;
 			icon.y = 0;
-			left += 8 + tw;
+			icon.scale(2);
+			left += tw;
 			rowOb.addChild(icon);
 		}
 
@@ -224,14 +226,14 @@ class ListSelectScreen extends Screen
 
 		var detail = new Text(TextResources.BIZCAT);
 		detail.color = game.TEXT_COLOR.toHxdColor();
-		left += tw * 12;
+		left += game.TILE_W * 12;
 		detail.y = fontOffset;
 		detail.x = left;
 		detail.setScale(1);
 		detail.text = item.detail == null ? '' : item.detail;
 		rowOb.addChild(detail);
 
-		var interactive = new Interactive(w * tw, th);
+		var interactive = new Interactive(w * game.TILE_W, th);
 		interactive.onClick = (e) ->
 		{
 			list.selectIdx(idx);

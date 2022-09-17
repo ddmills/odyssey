@@ -6,6 +6,7 @@ import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import core.Game;
 import data.BiomeType;
+import data.TileKey;
 import domain.terrain.MapTile;
 import domain.terrain.biomes.BiomeGenerators;
 import hxd.Rand;
@@ -38,6 +39,7 @@ class MapData
 
 		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
 		generateTerrain();
+		generateRiver();
 		trace('generating map done');
 	}
 
@@ -81,6 +83,51 @@ class MapData
 
 			biome.assignTileData(tile);
 		}
+	}
+
+	function generateRiver()
+	{
+		var variance = 16;
+		var middle = (tiles.height / 2).floor();
+		var start = r.integer(-variance, variance) + middle;
+		var end = r.integer(-variance, variance) + middle;
+
+		var slope = (start - end) / tiles.width;
+		var period = 4;
+		var intensity = 3.5;
+		var startWidth = 6;
+		var minWidth = 2;
+
+		for (x in 0...tiles.width)
+		{
+			var progress = (x / tiles.width);
+			var stuf = (1 - progress) * (intensity * intensity);
+			var riverWidth = (((1 - progress) * startWidth) + minWidth).round();
+
+			for (y in 0...riverWidth)
+			{
+				var ry = (slope * x + (Math.sin(x * (1 / period)) * stuf)).round();
+
+				var pos = new IntPoint(x, y + start + ry);
+
+				if (tiles.isOutOfBounds(pos.x, pos.y))
+				{
+					continue;
+				}
+
+				var tile = getTile(pos);
+				setTileRiver(tile);
+			}
+		}
+	}
+
+	function setTileRiver(tile:MapTile)
+	{
+		tile.bgColor = 0x0A141B;
+		tile.terrain = TERRAIN_RIVER;
+		tile.color = 0x145081;
+		var waterTiles:Array<TileKey> = [WATER_1, WATER_2, WATER_3, WATER_4];
+		tile.bgTileKey = r.pick(waterTiles);
 	}
 
 	public function isOutOfBounds(x:Int, y:Int):Bool

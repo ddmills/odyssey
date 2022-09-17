@@ -24,7 +24,7 @@ class PlayerPrefab extends Prefab
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7]);
 
-		entity.add(new Sprite(tkey, 0x968a8a, 0x1A6C85, ACTORS));
+		entity.add(new Sprite(tkey, 0x968a8a, 0x0F576D, ACTORS));
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));

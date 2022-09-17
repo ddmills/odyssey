@@ -73,7 +73,7 @@ class SwampBiome extends BiomeGenerator
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
 			tile.terrain = TERRAIN_MUD;
-			tile.bgColor = Colors.Mix(0x0A0B0C, 0x130C12, h);
+			tile.bgColor = Colors.Mix(0x080A09, 0x0B1310, h);
 		}
 	}
 
