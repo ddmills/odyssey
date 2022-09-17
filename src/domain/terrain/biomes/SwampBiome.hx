@@ -4,7 +4,6 @@ import common.struct.IntPoint;
 import common.util.Colors;
 import data.TileKey;
 import domain.prefabs.Spawner;
-import hxd.Rand;
 
 class SwampBiome extends BiomeGenerator
 {
@@ -42,17 +41,17 @@ class SwampBiome extends BiomeGenerator
 			return SWAMP_V2_1;
 		}
 
-		if (h > .4)
-		{
-			return TERRAIN_BASIC_4;
-		}
+		// if (h > .4)
+		// {
+		// 	return TERRAIN_BASIC_3;
+		// }
 
 		if (h > .35)
 		{
-			return TERRAIN_BASIC_3;
+			return TERRAIN_BASIC_2;
 		}
 
-		return TERRAIN_BASIC_2;
+		return TERRAIN_BASIC_1;
 	}
 
 	override function assignTileData(tile:MapTile)

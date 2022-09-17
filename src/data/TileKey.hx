@@ -2,6 +2,7 @@ package data;
 
 enum TileKey
 {
+	TK_UNKNOWN;
 	GRASS_V1_1;
 	GRASS_V1_2;
 	GRASS_V1_3;

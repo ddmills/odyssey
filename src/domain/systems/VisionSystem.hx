@@ -16,41 +16,14 @@ import ecs.System;
 
 class VisionSystem extends System
 {
-	var visions:Query;
 	var visibles:Query;
-	var recompute:Bool;
 
 	public function new()
 	{
-		var moved = new Query({
-			all: [Moved],
-			none: [IsInventoried, IsDestroyed],
-		});
-
 		visibles = new Query({
 			all: [Sprite, Visible],
 			none: [IsInventoried, IsDestroyed],
 		});
-
-		visions = new Query({
-			all: [Vision],
-			none: [IsInventoried, IsDestroyed],
-		});
-
-		moved.onEntityAdded((entity) ->
-		{
-			recompute = true;
-		});
-
-		// visions.onEntityAdded((entity) ->
-		// {
-		// 	recompute = true;
-		// });
-
-		// visions.onEntityRemoved((entity) ->
-		// {
-		// 	recompute = true;
-		// });
 
 		var vis = new Query({
 			all: [Sprite],
@@ -99,7 +72,7 @@ class VisionSystem extends System
 
 	function initialize()
 	{
-		recompute = true;
+		computeVision();
 	}
 
 	function computeVision()
@@ -134,10 +107,9 @@ class VisionSystem extends System
 
 	public override function update(frame:Frame)
 	{
-		if (recompute)
+		if (world.clock.tickDelta > 0)
 		{
 			computeVision();
-			recompute = false;
 		}
 	}
 }

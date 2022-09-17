@@ -64,7 +64,7 @@ class Shadowcast
 					break;
 				}
 
-				var deltaDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY).floor();
+				var deltaDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY).round();
 
 				if (deltaDistance <= s.distance)
 				{

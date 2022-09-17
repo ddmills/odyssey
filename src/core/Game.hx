@@ -12,15 +12,15 @@ import hxd.Window;
 class Game
 {
 	public var DIE_SIZE:Int = 12;
-	public var TILE_W:Int = 16;
-	public var TILE_H:Int = 24;
+	public var TILE_W:Int = 14;
+	public var TILE_H:Int = 14;
 
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
 	public var CLEAR_COLOR:Int = 0x131114;
 	public var TEXT_COLOR:Int = 0xC5D7DB;
 	public var TEXT_COLOR_FOCUS:Int = 0xece358;
-	public var SHOW_BG_COLORS:Bool = false;
+	public var SHOW_BG_COLORS:Bool = true;
 
 	public static var instance:Game;
 
