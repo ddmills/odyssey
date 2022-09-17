@@ -80,16 +80,33 @@ abstract class Component
 
 	public function save():Array<ComponentFields>
 	{
-		var fields = Meta.getFields(Type.getClass(this));
-
+		var clazz = Type.getClass(this);
+		var superClazz = Type.getSuperClass(clazz);
+		var fields = Meta.getFields(clazz);
+		var superFields = Meta.getFields(superClazz);
 		var data = [];
+
+		for (field in Reflect.fields(superFields))
+		{
+			var metas = Reflect.field(superFields, field);
+			var tags = Reflect.fields(metas);
+			if (tags.contains('save'))
+			{
+				var value = Reflect.getProperty(this, field);
+				data.push({
+					f: field,
+					v: value,
+				});
+			}
+		}
+
 		for (field in Reflect.fields(fields))
 		{
 			var metas = Reflect.field(fields, field);
 			var tags = Reflect.fields(metas);
 			if (tags.contains('save'))
 			{
-				var value = Reflect.field(this, field);
+				var value = Reflect.getProperty(this, field);
 				data.push({
 					f: field,
 					v: value,

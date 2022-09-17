@@ -1,42 +1,52 @@
 package domain.systems;
 
 import core.Frame;
+import domain.components.Drawable;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Sprite;
-import ecs.Entity;
+import domain.components.SpriteAnim;
 import ecs.Query;
 import ecs.System;
 
 class SpriteSystem extends System
 {
-	var query:Query;
+	var sprites:Query;
+	var anims:Query;
 
 	public function new()
 	{
-		query = new Query({
+		sprites = new Query({
 			all: [Sprite],
 			none: [IsInventoried, IsDestroyed]
 		});
+		anims = new Query({
+			all: [SpriteAnim],
+			none: [IsInventoried, IsDestroyed]
+		});
 
-		query.onEntityAdded((entity) -> renderEntity(entity));
-		query.onEntityRemoved((entity) -> hideEntity(entity));
+		sprites.onEntityAdded((entity) -> renderSprite(entity.get(Sprite)));
+		sprites.onEntityRemoved((entity) -> removeSprite(entity.get(Sprite)));
+
+		anims.onEntityAdded((entity) -> renderSprite(entity.get(SpriteAnim)));
+		anims.onEntityRemoved((entity) -> removeSprite(entity.get(SpriteAnim)));
 	}
 
 	public override function update(frame:Frame) {}
 
-	private function renderEntity(entity:Entity)
+	private function renderSprite(drawable:Drawable)
 	{
-		var sprite = entity.get(Sprite);
-		game.render(sprite.layer, sprite.ob);
+		if (drawable != null)
+		{
+			game.render(drawable.layer, drawable.drawable);
+		}
 	}
 
-	private function hideEntity(entity:Entity)
+	private function removeSprite(drawable:Drawable)
 	{
-		var sprite = entity.get(Sprite);
-		if (sprite != null)
+		if (drawable != null)
 		{
-			sprite.ob.remove();
+			drawable.drawable.remove();
 		}
 	}
 }

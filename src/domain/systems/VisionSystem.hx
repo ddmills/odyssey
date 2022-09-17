@@ -7,8 +7,6 @@ import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
-import domain.components.Moved;
-import domain.components.Sprite;
 import domain.components.Visible;
 import domain.components.Vision;
 import ecs.Query;
@@ -21,50 +19,53 @@ class VisionSystem extends System
 	public function new()
 	{
 		visibles = new Query({
-			all: [Sprite, Visible],
+			all: [Visible],
 			none: [IsInventoried, IsDestroyed],
 		});
 
 		var vis = new Query({
-			all: [Sprite],
 			any: [Visible, Explored],
 			none: [IsDestroyed],
 		});
 		vis.onEntityAdded((entity) ->
 		{
-			entity.get(Sprite).isVisible = true;
+			if (entity.drawable != null)
+			{
+				entity.drawable.isVisible = true;
+			}
 		});
 		vis.onEntityRemoved((entity) ->
 		{
-			var sprite = entity.get(Sprite);
-			if (sprite != null)
+			if (entity.drawable != null)
 			{
-				sprite.isVisible = false;
+				entity.drawable.isVisible = false;
 			}
 		});
 
 		var shrouded = new Query({
-			all: [Sprite, Explored],
+			all: [Explored],
 			none: [Visible, IsInventoried, IsDestroyed],
 		});
 		shrouded.onEntityAdded((entity) ->
 		{
-			var sprite = entity.get(Sprite);
-			sprite.isShrouded = true;
-			if (entity.has(Energy))
+			if (entity.drawable != null)
 			{
-				sprite.isVisible = false;
+				entity.drawable.isShrouded = true;
+
+				if (entity.has(Energy))
+				{
+					entity.drawable.isVisible = false;
+				}
 			}
 		});
 		shrouded.onEntityRemoved((entity) ->
 		{
-			var sprite = entity.get(Sprite);
-			if (sprite != null)
+			if (entity.drawable != null)
 			{
-				sprite.isShrouded = false;
+				entity.drawable.isShrouded = false;
 				if (entity.has(Energy))
 				{
-					sprite.isVisible = true;
+					entity.drawable.isVisible = true;
 				}
 			}
 		});

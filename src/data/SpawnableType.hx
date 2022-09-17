@@ -28,4 +28,5 @@ enum SpawnableType
 	PISTOL_AMMO;
 	RIFLE_AMMO;
 	SHOTGUN_AMMO;
+	CAMPFIRE;
 }

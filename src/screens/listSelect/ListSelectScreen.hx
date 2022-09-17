@@ -192,7 +192,6 @@ class ListSelectScreen extends Screen
 		var th = game.TILE_H * 2;
 		var fontHeight = 16;
 		var fontOffset = ((th - fontHeight) / 2).floor();
-		trace('font offset', fontOffset);
 		var left = 0;
 		var rowOb = new Bitmap(Tile.fromColor(game.CLEAR_COLOR, w * game.TILE_W, th));
 		rowOb.y = idx * th;

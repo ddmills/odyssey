@@ -15,6 +15,7 @@ class ChunkGen
 	public function new()
 	{
 		table = new WeightedTable();
+		table.add(CAMPFIRE, 20);
 		table.add(SNAKE, 3);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
@@ -42,7 +43,7 @@ class ChunkGen
 			var pos = chunk.worldPos.add(i.pos);
 			var t = Game.instance.world.map.getTile(pos);
 
-			if (r.bool(.005))
+			if (r.bool(.01))
 			{
 				var loot = table.pick(r);
 				Spawner.Spawn(loot, pos.asWorld());

@@ -4,7 +4,7 @@ import common.struct.Coordinate;
 import common.util.BitUtil;
 import common.util.UniqueId;
 import core.Game;
-import domain.components.Sprite;
+import domain.components.Drawable;
 import domain.events.MovedEvent;
 import domain.terrain.Chunk;
 
@@ -12,7 +12,7 @@ class Entity
 {
 	public var cbits(default, null):Int;
 
-	public var sprite:Sprite;
+	public var drawable:Drawable;
 
 	var _x:Float;
 	var _y:Float;
@@ -101,11 +101,11 @@ class Entity
 		{
 			registry.candidacy(this);
 		}
-		if (Std.isOfType(component, Sprite))
+		if (Std.isOfType(component, Drawable))
 		{
-			sprite = cast component;
+			drawable = cast component;
 			var p = pos.toPx();
-			sprite.updatePos(p.x, p.y);
+			drawable.updatePos(p.x, p.y);
 		}
 	}
 
@@ -140,9 +140,9 @@ class Entity
 		{
 			registry.candidacy(this);
 		}
-		if (Std.isOfType(component, Sprite))
+		if (Std.isOfType(component, Drawable))
 		{
-			sprite = null;
+			drawable = null;
 		}
 	}
 
@@ -219,9 +219,9 @@ class Entity
 		var p = value.toPx();
 		var w = value.toWorld();
 
-		if (sprite != null)
+		if (drawable != null)
 		{
-			sprite.updatePos(p.x, p.y);
+			drawable.updatePos(p.x, p.y);
 		}
 
 		_x = w.x;

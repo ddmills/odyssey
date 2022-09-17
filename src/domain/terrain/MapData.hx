@@ -4,6 +4,7 @@ import common.rand.Perlin;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
+import common.tools.Performance;
 import core.Game;
 import data.BiomeType;
 import data.TileKey;
@@ -37,10 +38,12 @@ class MapData
 		tiles = new Grid(world.mapWidth, world.mapHeight);
 		tiles.fillFn((idx) -> new MapTile(idx, this));
 
-		trace('generating map. (${world.mapWidth}x${world.mapHeight})');
+		trace('generating map ${world.mapWidth}x${world.mapHeight} = ${world.mapWidth * world.mapHeight} tiles');
+		Performance.start('map');
 		generateTerrain();
 		generateRiver();
-		trace('generating map done');
+		Performance.stop('map');
+		Performance.trace('map');
 	}
 
 	private function assignBiome(tile:MapTile):BiomeType
@@ -56,7 +59,6 @@ class MapData
 			}
 		}
 
-		var r = new Rand(seed + tile.idx);
 		return table.pick(r);
 	}
 

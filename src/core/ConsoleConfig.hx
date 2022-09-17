@@ -7,7 +7,9 @@ import data.save.SaveChunk;
 import domain.components.Health;
 import domain.components.Level;
 import domain.components.Sprite;
+import domain.components.SpriteAnim;
 import domain.components.Stats;
+import domain.prefabs.Spawner;
 import domain.skills.Skills;
 import h2d.Console;
 import haxe.EnumTools;
@@ -38,21 +40,32 @@ class ConsoleConfig
 
 		console.addCommand('save', 'save', [{name: 'chunk index', t: AInt}], (idx:Int) ->
 		{
-			// var s = game.world.player.entity.get(Sprite);
-			// trace(s.save());
+			var p = game.world.player.entity;
+			var e = Spawner.Spawn(CAMPFIRE, p.pos);
+
+			var c = e.clone();
+			trace(e.save());
+			c.x += 3;
+
+			trace('frames', c.get(SpriteAnim).tileKeys);
+			trace('frames', c.get(SpriteAnim).ob.frames);
+			trace('speed', c.get(SpriteAnim).ob.frames);
+
+			// trace(Meta.getFields(Type.getClass(s)));
 			// var c = game.world.player.entity.clone();
 
 			// c.x += 3;
 			// trace('primary', c.get(Sprite).primary);
 			// trace('primaryOverride', c.get(Sprite).primaryOverride);
 			// trace('primaryColor', c.get(Sprite).primaryColor);
+			// trace('primaryColor', c.get(Sprite).shader.primary.toColor());
 
-			trace('saving...', idx);
-			var chunk = game.world.chunks.getChunkById(idx);
-			var data = chunk.save();
+			// trace('saving...', idx);
+			// var chunk = game.world.chunks.getChunkById(idx);
+			// var data = chunk.save();
 
-			SAVE_DATA = Serial.Serialize(data);
-			chunk.unload();
+			// SAVE_DATA = Serial.Serialize(data);
+			// chunk.unload();
 		});
 
 		console.addCommand('load', 'load', [{name: 'chunk index', t: AInt}], (idx:Int) ->

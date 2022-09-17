@@ -12,6 +12,7 @@ class TileResources
 		{
 			return null;
 		}
+
 		var tile = tiles.get(key);
 
 		if (tile == null)
@@ -48,6 +49,10 @@ class TileResources
 		tiles.set(WATER_2, t[2][1]);
 		tiles.set(WATER_3, t[2][2]);
 		tiles.set(WATER_4, t[2][3]);
+
+		tiles.set(CAMPFIRE_1, t[0][8]);
+		tiles.set(CAMPFIRE_2, t[0][9]);
+		tiles.set(CAMPFIRE_3, t[0][10]);
 
 		tiles.set(PERSON_1, t[5][0]);
 		tiles.set(PERSON_2, t[5][1]);

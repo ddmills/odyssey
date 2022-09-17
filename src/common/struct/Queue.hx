@@ -2,10 +2,9 @@ package common.struct;
 
 @:generic class Queue<T>
 {
-	var items:Array<T>;
-	var _maxLength:Null<Int>;
+	private var items:Array<T>;
 
-	public var maxLength(get, set):Null<Int>;
+	public var maxLength(default, set):Null<Int> = null;
 	public var isEmpty(get, never):Bool;
 	public var length(get, never):Int;
 
@@ -55,17 +54,12 @@ package common.struct;
 		items = new Array();
 	}
 
-	function get_maxLength():Null<Int>
-	{
-		return _maxLength;
-	}
-
 	function set_maxLength(value:Null<Int>):Null<Int>
 	{
 		if (value != null && value < length)
 		{
 			items.splice(value - 1, length);
 		}
-		return _maxLength = value;
+		return maxLength = value;
 	}
 }

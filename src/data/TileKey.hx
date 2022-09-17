@@ -91,4 +91,7 @@ enum TileKey
 	TREE_OAK_2;
 	TREE_OAK_3;
 	TREE_OAK_4;
+	CAMPFIRE_1;
+	CAMPFIRE_2;
+	CAMPFIRE_3;
 }

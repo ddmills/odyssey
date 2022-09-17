@@ -46,6 +46,7 @@
 	- [x] dynamic unload/load chunks
 	- [ ] save load files
 	- [ ] out of bounds entity destroy (no chunk)
+	- [ ] save/load tile data
 - [ ] Death screen
 	- [x] show on death
 	- [ ] show game data

@@ -1,5 +1,6 @@
 package core;
 
+import common.tools.Performance;
 import core.input.CommandManager;
 import core.input.InputManager;
 import core.rendering.RenderLayerManager;
@@ -72,6 +73,7 @@ class Game
 
 	public inline function update()
 	{
+		Performance.update(frame.dt * 1000);
 		frame.update();
 		screens.current.update(frame);
 	}

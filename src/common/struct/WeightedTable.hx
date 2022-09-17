@@ -28,6 +28,7 @@ class WeightedTable<T>
 	{
 		var n = r.random(sum);
 		var currentW = 0;
+
 		var picked = rows.find((row) ->
 		{
 			currentW += row.weight;
@@ -41,6 +42,11 @@ class WeightedTable<T>
 		}
 
 		return null;
+	}
+
+	public function reset()
+	{
+		rows = [];
 	}
 
 	public function get(value:T):Null<WeightedTableRow<T>>
@@ -72,7 +78,7 @@ class WeightedTable<T>
 		}
 	}
 
-	public function remove(value:T):Null<WeightedTableRow<T>>
+	public function remove(value:T):Bool
 	{
 		return rows.findRemove((row) -> row.value == value);
 	}
@@ -92,7 +98,6 @@ class WeightedTable<T>
 	static function Combine<V>(tables:Array<WeightedTable<V>>, method:TableCombineMethod = SUM):WeightedTable<V>
 	{
 		var table = new WeightedTable<V>();
-
 		for (t in tables)
 		{
 			for (row in t.rows)
@@ -100,7 +105,6 @@ class WeightedTable<T>
 				table.add(row.value, row.weight, method);
 			}
 		}
-
 		return table;
 	}
 
