@@ -1,7 +1,7 @@
 package domain.prefabs;
 
-import core.Game;
 import domain.components.Equipment;
+import domain.components.Fuel;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -23,6 +23,7 @@ class StickPrefab extends Prefab
 		entity.add(new Equipment([EQ_SLOT_HAND]));
 		entity.add(new Weapon(WPN_FAMILY_CUDGEL));
 		entity.add(new Stackable(STACK_STICK));
+		entity.add(new Fuel(FUEL_WOOD, 50));
 
 		return entity;
 	}

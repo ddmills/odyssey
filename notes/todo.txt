@@ -62,10 +62,11 @@
 - [ ] Liquid System
 	- [ ]
 - [ ] fuel system
-	- [ ] fuel types
-	- [ ] fuel consumers [fuel types]
+	- [x] fuel types
+	- [x] fuel consumers [fuel types]
 	- [ ] consumer "allow multi?" types
-	- [ ] consumer active/inactive
+	- [x] consumer active/inactive
+	- [x] consumer refuel
 - [x] ammo
 - [ ] add items
 	- tin can

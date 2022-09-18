@@ -2,7 +2,6 @@ package domain.components;
 
 import data.SpawnableType;
 import domain.events.FuelDepletedEvent;
-import domain.events.SpawnedEvent;
 import domain.prefabs.Spawner;
 import ecs.Component;
 

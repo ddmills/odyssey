@@ -58,9 +58,14 @@ class PlayerPrefab extends Prefab
 		entity.get(Inventory).addLoot(Spawner.Spawn(PISTOL_AMMO));
 		entity.get(Inventory).addLoot(Spawner.Spawn(RIFLE_AMMO));
 		entity.get(Inventory).addLoot(Spawner.Spawn(SHOTGUN_AMMO));
-		entity.get(Inventory).addLoot(Spawner.Spawn(SNUB_NOSE_REVOLVER));
 		entity.get(Inventory).addLoot(Spawner.Spawn(REVOLVER));
-		entity.get(Inventory).addLoot(Spawner.Spawn(NAVY_REVOLVER));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
 
 		return entity;
 	}
