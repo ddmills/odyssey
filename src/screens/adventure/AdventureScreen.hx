@@ -179,14 +179,14 @@ class AdventureScreen extends Screen
 
 	override function onMouseDown(pos:Coordinate)
 	{
-		// var p = astar(pos);
-		// if (p.success)
-		// {
-		// 	world.player.entity.remove(Path);
-		// 	world.player.entity.add(new Path(p.path));
-		// }
+		var p = astar(pos);
+		if (p.success)
+		{
+			world.player.entity.remove(Path);
+			world.player.entity.add(new Path(p.path));
+		}
 
-		Spawner.Spawn(CAMPFIRE, pos.toWorld().floor());
+		// Spawner.Spawn(PINE_TREE, pos.toWorld().floor());
 	}
 
 	private function move(dir:Cardinal)

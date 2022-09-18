@@ -9,12 +9,13 @@ import domain.events.UnequipEvent;
 import domain.systems.EnergySystem;
 import ecs.Component;
 
-class Lightible extends Component
+class Lightable extends Component
 {
-	public var allowEquipped:Bool;
+	@save private var allowEquipped:Bool;
 
-	private var light(get, never):LightSource;
-	private var isLit(get, never):Bool;
+	public var light(get, never):LightSource;
+	public var isLit(get, never):Bool;
+	public var displayName(get, never):String;
 
 	public function new(allowEquipped:Bool = false)
 	{
@@ -39,21 +40,21 @@ class Lightible extends Component
 		light.isEnabled = false;
 	}
 
-	public function onLightEvent(evt:LightEvent)
+	private function onLightEvent(evt:LightEvent)
 	{
 		light.isEnabled = true;
 		var cost = EnergySystem.GetEnergyCost(evt.lighter, ACT_LIGHT);
 		evt.lighter.fireEvent(new ConsumeEnergyEvent(cost));
 	}
 
-	public function onExtinguishEvent(evt:ExtinguishEvent)
+	private function onExtinguishEvent(evt:ExtinguishEvent)
 	{
 		light.isEnabled = false;
 		var cost = EnergySystem.GetEnergyCost(evt.extinguisher, ACT_EXTINGUISH);
 		evt.extinguisher.fireEvent(new ConsumeEnergyEvent(cost));
 	}
 
-	public function onQueryInteractions(evt:QueryInteractionsEvent)
+	private function onQueryInteractions(evt:QueryInteractionsEvent)
 	{
 		var isInventoried = entity.has(IsInventoried);
 		var isEquipped = entity.has(IsEquipped);
@@ -74,12 +75,24 @@ class Lightible extends Component
 		}
 	}
 
-	function get_light():LightSource
+	function get_displayName():String
+	{
+		if (isLit)
+		{
+			return 'Lit';
+		}
+		return
+		{
+			return 'Unlit';
+		}
+	}
+
+	inline function get_light():LightSource
 	{
 		return entity.get(LightSource);
 	}
 
-	function get_isLit():Bool
+	inline function get_isLit():Bool
 	{
 		return light.isEnabled;
 	}

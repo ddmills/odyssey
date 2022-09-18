@@ -2,7 +2,7 @@ package domain.prefabs;
 
 import domain.components.Equipment;
 import domain.components.LightSource;
-import domain.components.Lightible;
+import domain.components.Lightable;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -19,7 +19,7 @@ class LanternPrefab extends Prefab
 		entity.add(new LightSource(.4, 0xffbd41, 5, false));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_BELT]));
-		entity.add(new Lightible(true));
+		entity.add(new Lightable(true));
 
 		return entity;
 	}

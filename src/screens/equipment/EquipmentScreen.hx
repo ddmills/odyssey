@@ -43,7 +43,7 @@ class EquipmentScreen extends ListSelectScreen
 	{
 		return {
 			title: slot.name,
-			detail: slot.contentDisplay,
+			detail: '[${slot.contentDisplay}]',
 			getIcon: () ->
 			{
 				var bm = new Bitmap();

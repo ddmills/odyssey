@@ -196,17 +196,17 @@ class EquipmentSlot extends Component
 
 	function get_displayName():String
 	{
-		return '$name $contentDisplay';
+		return '$name [$contentDisplay]';
 	}
 
 	function get_contentDisplay():String
 	{
 		if (isEmpty)
 		{
-			return '[empty]';
+			return 'empty';
 		}
 
-		return '[${content.get(Moniker).baseName}]';
+		return '${content.get(Moniker).baseName}';
 	}
 
 	function get_isExtraSlot():Bool

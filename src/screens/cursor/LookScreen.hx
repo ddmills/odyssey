@@ -129,10 +129,11 @@ class LookScreen extends CursorScreen
 		var bmountain = (weights.get(MOUNTAIN) * 100).round();
 
 		// targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
-		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).angle().toDegrees();
-		var cardinal = Cardinal.fromDegrees(angle);
+		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).radians();
+		var degrees = angle.toDegrees();
+		var cardinal = Cardinal.fromRadians(angle);
 		var offset = cardinal.toOffset();
-		targetText.text = '${cardinal.toName()} ${offset.toString()} ${angle}';
+		targetText.text = '${cardinal.toName()} ${offset.toString()} ${angle} ${degrees}';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

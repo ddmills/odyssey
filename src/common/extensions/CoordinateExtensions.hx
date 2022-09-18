@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import common.struct.FloatPoint;
 import common.util.Projection;
 import core.Game;
+import data.Cardinal;
 
 class CoordinateExtensions
 {
@@ -171,13 +172,20 @@ class CoordinateExtensions
 		return Math.sqrt(distanceSq(a, b, space));
 	}
 
-	static public inline function angle(a:Coordinate):Float
+	static public inline function radians(a:Coordinate):Float
 	{
-		var atan2 = Math.atan2(a.y, a.x);
-		var up = atan2 - 3.92699081698;
-		var val = up < 0 ? Math.PI * 2 + up : up;
+		var rad = Math.atan2(a.y, a.x);
+		return rad < 0 ? Math.PI * 2 + rad : rad;
+	}
 
-		return val;
+	static public inline function degrees(a:Coordinate):Float
+	{
+		return radians(a).toDegrees();
+	}
+
+	static public inline function cardinal(a:Coordinate):Cardinal
+	{
+		return Cardinal.fromRadians(radians(a));
 	}
 
 	public static inline function lengthSq(a:Coordinate):Float

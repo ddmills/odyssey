@@ -18,31 +18,39 @@ enum abstract Cardinal(Int) to Int from Int
 		return this;
 	}
 
+	public static function fromRadians(radians:Float):Cardinal
+	{
+		var val = (radians / (Math.PI / 4)).round();
+
+		return switch val
+		{
+			case 0: EAST;
+			case 1: SOUTH_EAST;
+			case 2: SOUTH;
+			case 3: SOUTH_WEST;
+			case 4: WEST;
+			case 5: NORTH_WEST;
+			case 6: NORTH;
+			case 7: NORTH_EAST;
+			case _: EAST;
+		}
+	}
+
 	public static function fromDegrees(degrees:Float):Cardinal
 	{
-		var d = degrees - 22.5;
-		var val = (d / 45).round();
+		var val = (degrees / 45).round();
 
-		switch val
+		return switch val
 		{
-			case 0:
-				return NORTH;
-			case 1:
-				return NORTH_EAST;
-			case 2:
-				return EAST;
-			case 3:
-				return SOUTH_EAST;
-			case 4:
-				return SOUTH;
-			case 5:
-				return SOUTH_WEST;
-			case 6:
-				return WEST;
-			case 7:
-				return NORTH_WEST;
-			case _:
-				return WEST;
+			case 0: EAST;
+			case 1: SOUTH_EAST;
+			case 2: SOUTH;
+			case 3: SOUTH_WEST;
+			case 4: WEST;
+			case 5: NORTH_WEST;
+			case 6: NORTH;
+			case 7: NORTH_EAST;
+			case _: EAST;
 		}
 	}
 

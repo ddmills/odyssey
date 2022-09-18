@@ -1,5 +1,7 @@
 package common.struct;
 
+import data.Cardinal;
+
 @:structInit class IntPoint
 {
 	public final x:Int;
@@ -56,12 +58,19 @@ package common.struct;
 		return (x + other.x) * (y + other.y);
 	}
 
-	public inline function angle():Float
+	public inline function radians():Float
 	{
-		var atan2 = Math.atan2(y, x);
-		var up = atan2 - 3.92699081698;
-		var val = up < 0 ? Math.PI * 2 + up : up;
+		var rad = Math.atan2(y, x);
+		return rad < 0 ? Math.PI * 2 + rad : rad;
+	}
 
-		return val;
+	public inline function degrees():Float
+	{
+		return radians().toDegrees();
+	}
+
+	public inline function cardinal():Cardinal
+	{
+		return Cardinal.fromRadians(radians());
 	}
 }

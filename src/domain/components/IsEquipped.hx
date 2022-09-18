@@ -59,8 +59,8 @@ class IsEquipped extends Component
 	{
 		if (extraSlot != null)
 		{
-			return '[${slot.name}, ${extraSlot.name}]';
+			return '${slot.name}, ${extraSlot.name}';
 		}
-		return '[${slot.name}]';
+		return '${slot.name}';
 	}
 }

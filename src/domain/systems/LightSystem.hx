@@ -4,16 +4,12 @@ import common.algorithm.Shadowcast;
 import common.struct.IntPoint;
 import common.util.Colors;
 import core.Frame;
-import data.Cardinal;
-import domain.components.Collider;
 import domain.components.Energy;
 import domain.components.IsDestroyed;
-import domain.components.IsInventoried;
 import domain.components.LightBlocker;
 import domain.components.LightSource;
 import ecs.Query;
 import ecs.System;
-import h2d.Bitmap;
 import shaders.SpriteShader;
 
 typedef LightFragment =
@@ -70,7 +66,7 @@ class LightSystem extends System
 
 					var entities = world.getEntitiesAt(p.asWorld());
 
-					return entities.exists((e) -> e.has(Collider) || e.has(Energy));
+					return entities.exists((e) -> e.has(LightBlocker) || e.has(Energy));
 				},
 				onLight: (pos, distance) ->
 				{
@@ -168,10 +164,7 @@ class LightSystem extends System
 		for (idx => fragmentList in walls)
 		{
 			var pos = world.map.getTilePos(idx);
-			var direction = pov.sub(pos);
-			var angle = direction.angle().toDegrees();
-			var cardinal = Cardinal.fromDegrees(angle);
-			var offset = cardinal.toOffset();
+			var offset = pov.sub(pos).cardinal().toOffset();
 			var offsetTile = pos.add(offset);
 			var offsetTileIdx = world.map.getTileIdx(offsetTile);
 			var floorAtOffset = floors.get(offsetTileIdx);
