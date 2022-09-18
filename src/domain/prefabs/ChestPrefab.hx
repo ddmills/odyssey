@@ -1,7 +1,5 @@
 package domain.prefabs;
 
-import data.AudioResources;
-import data.TileResources;
 import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;

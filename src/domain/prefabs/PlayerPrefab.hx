@@ -30,9 +30,9 @@ class PlayerPrefab extends Prefab
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));
-		entity.add(new Vision(16));
+		entity.add(new Vision(7));
 		entity.add(new LightBlocker());
-		// entity.add(new LightSource(.4, 0xffd343, 2));
+		// entity.add(new LightSource(.15, 0xeea41b, 5));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
@@ -43,6 +43,7 @@ class PlayerPrefab extends Prefab
 		entity.add(rhand);
 		entity.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, true));
 		entity.add(new EquipmentSlot('Holster', 'holster', EQ_SLOT_HOLSTER));
+		entity.add(new EquipmentSlot('Belt', 'belt', EQ_SLOT_BELT));
 
 		var body = new EquipmentSlot('Body', 'body', EQ_SLOT_BODY);
 		entity.add(body);
@@ -55,6 +56,7 @@ class PlayerPrefab extends Prefab
 		rhand.equip(Spawner.Spawn(r.pick(wpns)));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
 
+		entity.get(Inventory).addLoot(Spawner.Spawn(LANTERN));
 		entity.get(Inventory).addLoot(Spawner.Spawn(PISTOL_AMMO));
 		entity.get(Inventory).addLoot(Spawner.Spawn(RIFLE_AMMO));
 		entity.get(Inventory).addLoot(Spawner.Spawn(SHOTGUN_AMMO));

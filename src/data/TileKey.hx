@@ -94,4 +94,5 @@ enum TileKey
 	CAMPFIRE_1;
 	CAMPFIRE_2;
 	CAMPFIRE_3;
+	LANTERN;
 }

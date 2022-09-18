@@ -1,7 +1,7 @@
 package ecs;
 
+import bits.Bits;
 import common.struct.Coordinate;
-import common.util.BitUtil;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Drawable;
@@ -10,7 +10,7 @@ import domain.terrain.Chunk;
 
 class Entity
 {
-	public var cbits(default, null):Int;
+	public var flags(default, null):Bits;
 
 	public var drawable:Drawable;
 
@@ -34,7 +34,7 @@ class Entity
 	{
 		_x = 0;
 		_y = 0;
-		cbits = 0;
+		flags = new Bits(64);
 		components = new Map();
 		isDestroyed = false;
 		if (register)
@@ -95,7 +95,7 @@ class Entity
 			components.set(component.type, [component]);
 		}
 
-		cbits = BitUtil.addBit(cbits, component.bit);
+		flags.set(component.bit);
 		component._attach(this);
 		if (isCandidacyEnabled)
 		{
@@ -109,9 +109,9 @@ class Entity
 		}
 	}
 
-	public function has<T:Component>(type:Class<Component>):Bool
+	public inline function has<T:Component>(type:Class<Component>):Bool
 	{
-		return BitUtil.hasBit(cbits, registry.getBit(type));
+		return flags.isSet(registry.getBit(type));
 	}
 
 	function removeInstance(component:Component)
@@ -124,14 +124,14 @@ class Entity
 				clist.remove(component);
 				if (clist.length == 0)
 				{
-					cbits = BitUtil.subtractBit(cbits, component.bit);
+					flags.unset(component.bit);
 					components.remove(component.type);
 				}
 			}
 		}
 		else
 		{
-			cbits = BitUtil.subtractBit(cbits, component.bit);
+			flags.unset(component.bit);
 			components.remove(component.type);
 		}
 

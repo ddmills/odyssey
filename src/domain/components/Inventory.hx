@@ -55,6 +55,7 @@ class Inventory extends Component
 			}
 		}
 
+		loot.pos = entity.pos;
 		loot.add(new IsInventoried(entity.id));
 		_contentIds.push(loot.id);
 	}

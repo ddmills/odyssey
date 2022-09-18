@@ -37,6 +37,7 @@ import screens.shooting.ShootingScreen;
 typedef HudText =
 {
 	ob:Object,
+	fps:Text,
 	clock:Text,
 	health:Text,
 	wpos:Text,
@@ -74,6 +75,7 @@ class AdventureScreen extends Screen
 	{
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
+		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.toString();
 		var hp = world.player.entity.get(Health);
 		hudText.health.text = '${hp.value}/${hp.max}';
@@ -153,7 +155,7 @@ class AdventureScreen extends Screen
 			case CMD_MOVE_SE:
 				move(SOUTH_EAST);
 			case CMD_WAIT:
-				var cost = EnergySystem.getEnergyCost(world.player.entity, ACT_WAIT);
+				var cost = EnergySystem.GetEnergyCost(world.player.entity, ACT_WAIT);
 				world.player.entity.fireEvent(new ConsumeEnergyEvent(cost));
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
@@ -184,7 +186,7 @@ class AdventureScreen extends Screen
 		// 	world.player.entity.add(new Path(p.path));
 		// }
 
-		Spawner.Spawn(PINE_TREE, pos.toWorld().floor());
+		Spawner.Spawn(CAMPFIRE, pos.toWorld().floor());
 	}
 
 	private function move(dir:Cardinal)
@@ -225,28 +227,33 @@ class AdventureScreen extends Screen
 		ob.x = 16;
 		ob.y = 16;
 
+		var fps = new Text(TextResources.BIZCAT, ob);
+		fps.color = game.TEXT_COLOR_FOCUS.toHxdColor();
+		fps.y = 0;
+
 		var clock = new Text(TextResources.BIZCAT, ob);
 		clock.color = game.TEXT_COLOR.toHxdColor();
-		clock.y = 0;
+		clock.y = 16;
 
 		var health = new Text(TextResources.BIZCAT, ob);
 		health.color = game.TEXT_COLOR.toHxdColor();
-		health.y = 16;
+		health.y = 32;
 
 		var cpos = new Text(TextResources.BIZCAT, ob);
 		cpos.color = game.TEXT_COLOR.toHxdColor();
-		cpos.y = 32;
+		cpos.y = 48;
 
 		var wpos = new Text(TextResources.BIZCAT, ob);
 		wpos.color = game.TEXT_COLOR.toHxdColor();
-		wpos.y = 48;
+		wpos.y = 64;
 
 		var xp = new Text(TextResources.BIZCAT, ob);
 		xp.color = game.TEXT_COLOR.toHxdColor();
-		xp.y = 64;
+		xp.y = 80;
 
 		hudText = {
 			ob: ob,
+			fps: fps,
 			clock: clock,
 			health: health,
 			cpos: cpos,

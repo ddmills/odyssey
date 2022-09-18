@@ -1,5 +1,6 @@
 package ecs;
 
+import bits.Bits;
 import common.util.BitUtil;
 import core.Game;
 
@@ -15,9 +16,9 @@ class Query
 	public var registry(get, null):Registry;
 	public var size(default, null):Int;
 
-	var any:Int;
-	var all:Int;
-	var none:Int;
+	var any:Bits;
+	var all:Bits;
+	var none:Bits;
 	var isDisposed:Bool;
 	var cache:Map<String, Entity>;
 
@@ -47,11 +48,12 @@ class Query
 
 	public function matches(entity:Entity)
 	{
-		var bits = entity.cbits;
+		var flags = entity.flags;
 
-		var matchesAny = any == 0 || BitUtil.intersection(bits, any) > 0;
-		var matchesAll = BitUtil.intersection(bits, all) == all;
-		var matchesNone = BitUtil.intersection(bits, none) == 0;
+		// todo: do better than counting
+		var matchesAny = any.count() == 0 || flags.intersect(any).count() > 0;
+		var matchesAll = flags.intersect(all).count() == all.count();
+		var matchesNone = flags.intersect(none).count() == 0;
 
 		return matchesAny && matchesAll && matchesNone;
 	}
@@ -123,14 +125,21 @@ class Query
 		registry.unregisterQuery(this);
 	}
 
-	function getBitmask(components:Array<Class<Component>>)
+	function getBitmask(components:Array<Class<Component>>):Bits
 	{
+		var bits = new Bits();
+
 		if (components == null)
 		{
-			return 0;
+			return bits;
 		}
 
-		return components.fold((c, s) -> BitUtil.addBit(s, registry.getBit(c)), 0);
+		for (c in components)
+		{
+			bits.set(registry.getBit(c));
+		}
+
+		return bits;
 	}
 }
 

@@ -16,6 +16,7 @@ class ChunkGen
 	{
 		table = new WeightedTable();
 		table.add(CAMPFIRE, 4);
+		table.add(LANTERN, 5);
 		table.add(SNAKE, 3);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);

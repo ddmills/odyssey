@@ -41,6 +41,7 @@ class Spawner
 		prefabs.set(PINE_TREE, new PineTreePrefab());
 		prefabs.set(OAK_TREE, new OakTreePrefab());
 		prefabs.set(CAMPFIRE, new CampfirePrefab());
+		prefabs.set(LANTERN, new LanternPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

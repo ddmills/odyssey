@@ -79,7 +79,7 @@ class MovementSystem extends System
 		{
 			if (entity.has(IsPlayer))
 			{
-				var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
+				var cost = EnergySystem.GetEnergyCost(entity, ACT_MOVE);
 				entity.fireEvent(new ConsumeEnergyEvent(cost));
 			}
 			entity.remove(MoveComplete);

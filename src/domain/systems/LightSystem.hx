@@ -36,7 +36,7 @@ class LightSystem extends System
 	{
 		query = new Query({
 			all: [LightSource],
-			none: [IsDestroyed, IsInventoried],
+			none: [IsDestroyed],
 		});
 	}
 
@@ -52,6 +52,11 @@ class LightSystem extends System
 		for (entity in query)
 		{
 			var light = entity.get(LightSource);
+
+			if (!light.isEnabled)
+			{
+				continue;
+			}
 
 			Shadowcast.Compute({
 				start: entity.pos.toIntPoint(),

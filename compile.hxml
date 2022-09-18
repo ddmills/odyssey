@@ -2,6 +2,7 @@
 --macro macros.ResourceMacros.Init()
 -lib heaps
 -lib hldx
+-lib bits
 -hl ./build/hl/output.hl
 -D windowSize=800x600
 # -D hl-profile

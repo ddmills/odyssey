@@ -42,7 +42,7 @@ class AIManager
 
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
-		var cost = EnergySystem.getEnergyCost(entity, ACT_MOVE);
+		var cost = EnergySystem.GetEnergyCost(entity, ACT_MOVE);
 
 		entity.fireEvent(new ConsumeEnergyEvent(cost));
 		entity.add(new Move(goal, .5, LINEAR));

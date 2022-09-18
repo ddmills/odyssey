@@ -8,7 +8,7 @@ class AudioManager
 	public function new()
 	{
 		var manager = hxd.snd.Manager.get();
-		manager.masterVolume = 0.2;
+		manager.masterVolume = 0.1;
 	}
 
 	public function play(key:Null<AudioKey>)

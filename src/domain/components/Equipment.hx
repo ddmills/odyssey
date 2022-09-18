@@ -3,10 +3,12 @@ package domain.components;
 import core.Game;
 import data.AudioKey;
 import data.EquipmentSlotType;
+import domain.events.ConsumeEnergyEvent;
 import domain.events.DropEvent;
 import domain.events.EquipEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.UnequipEvent;
+import domain.systems.EnergySystem;
 import ecs.Component;
 import screens.listSelect.ListSelectScreen;
 
@@ -60,6 +62,7 @@ class Equipment extends Component
 			{
 				slot.unequip();
 				slot.equip(entity);
+				EnergySystem.ConsumeEnergy(evt.equipper, ACT_EQUIP);
 				Game.instance.audio.play(equipAudio);
 				Game.instance.screens.pop();
 			},
@@ -73,6 +76,7 @@ class Equipment extends Component
 
 	private function onUnequip(evt:UnequipEvent)
 	{
+		EnergySystem.ConsumeEnergy(evt.unequipper, ACT_UNEQUIP);
 		unequip();
 		Game.instance.audio.play(unequipAudio);
 	}

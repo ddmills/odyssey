@@ -87,7 +87,8 @@ class PrairieBiome extends BiomeGenerator
 			tile.bgTileKey = getBackgroundTileKey(tile);
 			tile.color = r.pick(colors);
 			tile.terrain = TERRAIN_GRASS;
-			tile.bgColor = Colors.Mix(0x090A09, 0x0B0E09, h);
+			// tile.bgColor = Colors.Mix(0x090A09, 0x0B0E09, h);
+			tile.bgColor = Colors.Mix(0x0B0E0B, 0x121A0D, h);
 		}
 	}
 

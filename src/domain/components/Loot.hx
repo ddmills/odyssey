@@ -4,10 +4,10 @@ import common.struct.Coordinate;
 import core.Game;
 import data.AudioKey;
 import domain.events.DropEvent;
-import domain.events.EquipEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.TakeEvent;
+import domain.systems.EnergySystem;
 import ecs.Component;
 import ecs.Entity;
 import screens.prompt.NumberPromptScreen;
@@ -96,6 +96,7 @@ class Loot extends Component
 	private function onPickup(evt:PickupEvent)
 	{
 		var stack = entity.get(Stackable);
+		EnergySystem.ConsumeEnergy(evt.interactor, ACT_PICKUP);
 
 		if (stack == null || stack.quantity == 1)
 		{
@@ -112,6 +113,7 @@ class Loot extends Component
 
 		if (stack == null || stack.quantity == 1)
 		{
+			EnergySystem.ConsumeEnergy(evt.dropper, ACT_DROP);
 			drop(evt.pos);
 			return;
 		}
@@ -123,6 +125,7 @@ class Loot extends Component
 		{
 			if (s.value > 0)
 			{
+				EnergySystem.ConsumeEnergy(evt.dropper, ACT_DROP);
 				drop(evt.pos, s.value);
 			}
 			Game.instance.screens.pop();
@@ -137,6 +140,8 @@ class Loot extends Component
 		if (stack == null || stack.quantity == 1)
 		{
 			Game.instance.audio.play(pickupSound);
+			EnergySystem.ConsumeEnergy(evt.taker, ACT_TAKE);
+
 			take(evt.taker);
 			return;
 		}
@@ -149,6 +154,7 @@ class Loot extends Component
 			if (s.value > 0)
 			{
 				Game.instance.audio.play(pickupSound);
+				EnergySystem.ConsumeEnergy(evt.taker, ACT_TAKE);
 				take(evt.taker, s.value);
 			}
 			Game.instance.screens.pop();

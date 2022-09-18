@@ -1,5 +1,6 @@
 package screens.interaction;
 
+import core.Frame;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
 import domain.events.QueryInteractionsEvent;
@@ -55,5 +56,11 @@ class InteractionScreen extends ListSelectScreen
 	{
 		super.onResume();
 		refreshList();
+	}
+
+	override function update(frame:Frame)
+	{
+		super.update(frame);
+		world.updateSystems();
 	}
 }

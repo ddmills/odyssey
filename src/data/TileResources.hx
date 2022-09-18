@@ -85,6 +85,7 @@ class TileResources
 		tiles.set(CACTUS_2_FLOWER, t[4][4]);
 
 		tiles.set(BLOOD_SPATTER, t[2][4]);
+		tiles.set(LANTERN, t[1][6]);
 
 		tiles.set(RIFLE, t[0][5]);
 		tiles.set(PISTOL_1, t[0][4]);
