@@ -6,6 +6,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
+import domain.events.EntityLoadedEvent;
 import ecs.Entity;
 import h2d.Bitmap;
 import hxd.Rand;
@@ -68,6 +69,8 @@ class Chunk
 		}
 		else
 		{
+			var tickDelta = Game.instance.world.clock.tick - save.tick;
+
 			exploration.load(save.explored, (v) -> v);
 			for (e in exploration)
 			{
@@ -77,7 +80,8 @@ class Chunk
 			{
 				return edata.map((data) ->
 				{
-					Entity.Load(data);
+					var entity = Entity.Load(data);
+					entity.fireEvent(new EntityLoadedEvent(tickDelta));
 					return data.id;
 				});
 			});
@@ -101,6 +105,7 @@ class Chunk
 		return {
 			idx: chunkId,
 			size: size,
+			tick: Game.instance.world.clock.tick,
 			explored: exploration.save((v) -> v),
 			entities: entities.save((v) ->
 			{

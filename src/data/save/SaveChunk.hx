@@ -9,4 +9,5 @@ import ecs.Entity.EntitySaveData;
 	public var size:Int;
 	public var explored:GridSave<Bool>;
 	public var entities:GridSave<Array<EntitySaveData>>;
+	public var tick:Int;
 }

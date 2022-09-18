@@ -55,9 +55,17 @@
 - [ ] FOV system
 	- [x] fov algor
 	- [ ] enemy vision
-	- [ ] lighting
+	- [x] lighting
 	- [ ] calculate light falloff correctly
-	- [ ] what should "light intensity" do?
+	- [x] what should "light intensity" do?
+	- [ ] wall corners (?)
+- [ ] Liquid System
+	- [ ]
+- [ ] fuel system
+	- [ ] fuel types
+	- [ ] fuel consumers [fuel types]
+	- [ ] consumer "allow multi?" types
+	- [ ] consumer active/inactive
 - [x] ammo
 - [ ] add items
 	- tin can

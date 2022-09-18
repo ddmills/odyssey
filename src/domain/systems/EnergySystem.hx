@@ -32,15 +32,8 @@ class EnergySystem extends System
 
 	function getNext():Entity
 	{
-		var entity = query.max((e) ->
-		{
-			trace('e', e);
+		var entity = query.max((e) -> e.get(Energy).value);
 
-			trace(e.get(Moniker).displayName);
-			trace(e.has(Energy));
-
-			return e.get(Energy).value;
-		});
 		if (entity == null)
 		{
 			return null;

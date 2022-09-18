@@ -2,6 +2,8 @@ package domain;
 
 class Clock
 {
+	public static var TICKS_PER_TURN:Int = 100;
+
 	public var tick(default, null):Int;
 	public var tickDelta(default, null):Int;
 	public var turnDelta(default, null):Int;
@@ -27,12 +29,12 @@ class Clock
 
 	inline function get_turn():Int
 	{
-		return (tick / 100).floor();
+		return (tick / TICKS_PER_TURN).floor();
 	}
 
 	inline function get_subTurn():Int
 	{
-		return (tick % 100).floor();
+		return (tick % TICKS_PER_TURN).floor();
 	}
 
 	public function clearDeltas()

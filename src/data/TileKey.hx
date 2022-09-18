@@ -95,4 +95,5 @@ enum TileKey
 	CAMPFIRE_2;
 	CAMPFIRE_3;
 	LANTERN;
+	PILE_ASH;
 }

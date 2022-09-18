@@ -2,13 +2,11 @@ package domain;
 
 import common.struct.Coordinate;
 import common.struct.IntPoint;
-import common.util.Colors;
 import core.Game;
 import data.AudioKey;
 import data.Cardinal;
 import data.save.SaveGame.SaveWorld;
 import domain.AIManager;
-import domain.components.Collider;
 import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;
@@ -18,7 +16,6 @@ import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
 import ecs.Entity;
 import hxd.Rand;
-import shaders.SpriteShader;
 
 class World
 {

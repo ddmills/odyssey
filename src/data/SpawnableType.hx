@@ -30,4 +30,5 @@ enum SpawnableType
 	SHOTGUN_AMMO;
 	CAMPFIRE;
 	LANTERN;
+	ASHES;
 }

@@ -5,6 +5,7 @@ import core.Frame;
 class SystemManager
 {
 	public var energy(default, null):EnergySystem;
+	public var fuel(default, null):FuelSystem;
 	public var movement(default, null):MovementSystem;
 	public var chunks(default, null):ChunkSystem;
 	public var sprites(default, null):SpriteSystem;
@@ -21,6 +22,7 @@ class SystemManager
 	public function initialize()
 	{
 		energy = new EnergySystem();
+		fuel = new FuelSystem();
 		bullets = new BulletSystem();
 		movement = new MovementSystem();
 		chunks = new ChunkSystem();
@@ -37,6 +39,7 @@ class SystemManager
 	{
 		death.update(frame);
 		energy.update(frame);
+		fuel.update(frame);
 		movement.update(frame);
 		chunks.update(frame);
 		path.update(frame);

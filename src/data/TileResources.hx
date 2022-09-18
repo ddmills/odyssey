@@ -86,6 +86,7 @@ class TileResources
 
 		tiles.set(BLOOD_SPATTER, t[2][4]);
 		tiles.set(LANTERN, t[1][6]);
+		tiles.set(PILE_ASH, t[1][7]);
 
 		tiles.set(RIFLE, t[0][5]);
 		tiles.set(PISTOL_1, t[0][4]);
