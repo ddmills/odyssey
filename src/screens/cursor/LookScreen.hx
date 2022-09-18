@@ -2,6 +2,7 @@ package screens.cursor;
 
 import common.util.Timeout;
 import core.Frame;
+import data.Cardinal;
 import data.TileResources;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
@@ -127,7 +128,11 @@ class LookScreen extends CursorScreen
 		var btundra = (weights.get(TUNDRA) * 100).round();
 		var bmountain = (weights.get(MOUNTAIN) * 100).round();
 
-		targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
+		// targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
+		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).angle().toDegrees();
+		var cardinal = Cardinal.fromDegrees(angle);
+		var offset = cardinal.toOffset();
+		targetText.text = '${cardinal.toName()} ${offset.toString()} ${angle}';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

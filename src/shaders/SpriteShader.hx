@@ -11,6 +11,9 @@ class SpriteShader extends hxsl.Shader
 			@param var secondary:Vec3;
 			@param var outline:Vec3;
 			@param var background:Vec3;
+			@param var isLit:Int;
+			@param var light:Vec3;
+			@param var lightIntensity:Float;
 			@param var clearBackground:Int;
 			@param var isShrouded:Int;
 			@param var shroudColor:Vec3;
@@ -53,6 +56,11 @@ class SpriteShader extends hxsl.Shader
 						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
 						pixelColor.a = 0;
 					}
+					else if (isLit == 1)
+					{
+						pixelColor.rgb = mix(background, light, lightIntensity / 3);
+						pixelColor.a = 1;
+					}
 				}
 			}
 		};
@@ -68,5 +76,6 @@ class SpriteShader extends hxsl.Shader
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;
 		this.isShrouded = 0;
+		this.isLit = 0;
 	}
 }

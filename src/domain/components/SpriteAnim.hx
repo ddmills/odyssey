@@ -59,6 +59,7 @@ class SpriteAnim extends Drawable
 			ob = new Anim(tiles, speed, old.parent);
 			ob.x = old.x;
 			ob.y = old.y;
+			ob.visible = isVisible;
 			ob.addShader(shader);
 			old.remove();
 		}

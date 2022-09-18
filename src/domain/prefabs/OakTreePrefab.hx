@@ -3,6 +3,7 @@ package domain.prefabs;
 import core.Game;
 import data.TileKey;
 import domain.components.Collider;
+import domain.components.LightBlocker;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -18,6 +19,7 @@ class OakTreePrefab extends Prefab
 		entity.add(new Sprite(tileKey, 0x235331, 0x8D450B));
 		entity.add(new Moniker('Oak tree'));
 		entity.add(new Collider());
+		entity.add(new LightBlocker());
 
 		return entity;
 	}

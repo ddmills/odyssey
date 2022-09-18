@@ -53,6 +53,11 @@
 	- [ ] ability to start a new game
 - [ ] rename TextResources to FontResources
 - [ ] FOV system
+	- [x] fov algor
+	- [ ] enemy vision
+	- [ ] lighting
+	- [ ] calculate light falloff correctly
+	- [ ] what should "light intensity" do?
 - [x] ammo
 - [ ] add items
 	- tin can

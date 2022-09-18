@@ -21,6 +21,7 @@ import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
+import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
 import h2d.Object;
 import h2d.Text;
@@ -112,6 +113,7 @@ class AdventureScreen extends Screen
 			case KEY_NUM_5: PERSON_5;
 			case KEY_NUM_6: PERSON_6;
 			case KEY_NUM_7: PERSON_7;
+			case KEY_NUM_8: PERSON_8;
 			case _: null;
 		}
 
@@ -119,6 +121,14 @@ class AdventureScreen extends Screen
 		{
 			var sprite = world.player.entity.get(Sprite);
 			sprite.tileKey = tk;
+		}
+
+		if (key == KEY_NUM_0)
+		{
+			var p = game.input.mouse.toWorld().toIntPoint();
+			var idx = world.map.getTileIdx(p);
+			var fragments = world.systems.lights.lightFragments.get(idx);
+			trace(fragments);
 		}
 	}
 
@@ -167,12 +177,14 @@ class AdventureScreen extends Screen
 
 	override function onMouseDown(pos:Coordinate)
 	{
-		var p = astar(pos);
-		if (p.success)
-		{
-			world.player.entity.remove(Path);
-			world.player.entity.add(new Path(p.path));
-		}
+		// var p = astar(pos);
+		// if (p.success)
+		// {
+		// 	world.player.entity.remove(Path);
+		// 	world.player.entity.add(new Path(p.path));
+		// }
+
+		Spawner.Spawn(PINE_TREE, pos.toWorld().floor());
 	}
 
 	private function move(dir:Cardinal)

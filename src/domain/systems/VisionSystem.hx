@@ -87,7 +87,6 @@ class VisionSystem extends System
 		Shadowcast.Compute({
 			start: world.player.pos.toIntPoint(),
 			distance: world.player.entity.get(Vision).range,
-			decay: 0,
 			isBlocker: (p) ->
 			{
 				if (world.map.tiles.isOutOfBounds(p.x, p.y))
@@ -99,7 +98,7 @@ class VisionSystem extends System
 
 				return entities.exists((e) -> e.has(Collider));
 			},
-			onLight: (pos, brightness) ->
+			onLight: (pos, distance) ->
 			{
 				world.setVisible(pos.asWorld());
 			}

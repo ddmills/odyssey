@@ -5,10 +5,9 @@ import common.struct.IntPoint;
 typedef ShadowcastSettings =
 {
 	var start:IntPoint;
-	var decay:Float;
 	var distance:Int;
 	var isBlocker:(pos:IntPoint) -> Bool;
-	var onLight:(pos:IntPoint, brightness:Float) -> Void;
+	var onLight:(pos:IntPoint, distance:Float) -> Void;
 };
 
 class Shadowcast
@@ -17,7 +16,7 @@ class Shadowcast
 
 	public static function Compute(settings:ShadowcastSettings)
 	{
-		settings.onLight(settings.start, 1);
+		settings.onLight(settings.start, 0);
 		for (q in quadrants)
 		{
 			shadowcast(1, 1, 0, 0, q.x, q.y, 0, settings);
@@ -68,8 +67,7 @@ class Shadowcast
 
 				if (deltaDistance <= s.distance)
 				{
-					var brightness = 1 - (s.decay * deltaDistance);
-					s.onLight(pos, brightness);
+					s.onLight(pos, deltaDistance);
 				}
 
 				if (isBlocked)

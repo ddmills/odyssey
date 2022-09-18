@@ -8,6 +8,7 @@ class SystemManager
 	public var movement(default, null):MovementSystem;
 	public var chunks(default, null):ChunkSystem;
 	public var sprites(default, null):SpriteSystem;
+	public var lights(default, null):LightSystem;
 	public var vision(default, null):VisionSystem;
 	public var death(default, null):DeathSystem;
 	public var bullets(default, null):BulletSystem;
@@ -25,6 +26,7 @@ class SystemManager
 		chunks = new ChunkSystem();
 		path = new PathFollowSystem();
 		sprites = new SpriteSystem();
+		lights = new LightSystem();
 		vision = new VisionSystem();
 		death = new DeathSystem();
 		hitBlink = new HitBlinkSystem();
@@ -38,6 +40,7 @@ class SystemManager
 		movement.update(frame);
 		chunks.update(frame);
 		path.update(frame);
+		lights.update(frame);
 		vision.update(frame);
 		sprites.update(frame);
 		bullets.update(frame);

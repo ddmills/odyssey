@@ -50,4 +50,18 @@ package common.struct;
 	{
 		return new IntPoint(x * v, y * v);
 	}
+
+	public inline function dot(other:IntPoint):Int
+	{
+		return (x + other.x) * (y + other.y);
+	}
+
+	public inline function angle():Float
+	{
+		var atan2 = Math.atan2(y, x);
+		var up = atan2 - 3.92699081698;
+		var val = up < 0 ? Math.PI * 2 + up : up;
+
+		return val;
+	}
 }

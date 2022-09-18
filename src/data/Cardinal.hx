@@ -12,37 +12,38 @@ enum abstract Cardinal(Int) to Int from Int
 	var NORTH_WEST = 7;
 	public static var values(get, never):Array<Cardinal>;
 
-	public static function fromDegrees(degrees:Float):Cardinal
-	{
-		var val = (degrees / 45).floor();
-
-		switch val
-		{
-			case 1:
-				return NORTH;
-			case 2:
-				return NORTH_EAST;
-			case 3:
-				return EAST;
-			case 4:
-				return SOUTH_EAST;
-			case 5:
-				return SOUTH;
-			case 6:
-				return SOUTH_WEST;
-			case 7:
-				return WEST;
-			case 0:
-				return NORTH_WEST;
-			case _:
-				return WEST;
-		}
-	}
-
 	@:to
 	public function toInt():Int
 	{
 		return this;
+	}
+
+	public static function fromDegrees(degrees:Float):Cardinal
+	{
+		var d = degrees - 22.5;
+		var val = (d / 45).round();
+
+		switch val
+		{
+			case 0:
+				return NORTH;
+			case 1:
+				return NORTH_EAST;
+			case 2:
+				return EAST;
+			case 3:
+				return SOUTH_EAST;
+			case 4:
+				return SOUTH;
+			case 5:
+				return SOUTH_WEST;
+			case 6:
+				return WEST;
+			case 7:
+				return NORTH_WEST;
+			case _:
+				return WEST;
+		}
 	}
 
 	static function get_values():Array<Cardinal>

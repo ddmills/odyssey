@@ -67,6 +67,16 @@ class MapData
 		return tiles.get(pos.x, pos.y);
 	}
 
+	public function getTileIdx(pos:IntPoint):Int
+	{
+		return tiles.idx(pos.x, pos.y);
+	}
+
+	public function getTilePos(idx:Int):IntPoint
+	{
+		return tiles.coord(idx);
+	}
+
 	public function getColor(pos:IntPoint):Int
 	{
 		return tiles.get(pos.x, pos.y).color;
