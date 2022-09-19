@@ -15,9 +15,10 @@ class ChunkGen
 	public function new()
 	{
 		table = new WeightedTable();
-		table.add(CAMPFIRE, 4);
-		table.add(LANTERN, 5);
-		table.add(SNAKE, 3);
+		table.add(WAGON_WHEEL, 3);
+		table.add(CAMPFIRE, 5);
+		table.add(LANTERN, 4);
+		table.add(SNAKE, 6);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(LOCKBOX, 1);

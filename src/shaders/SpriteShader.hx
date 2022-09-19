@@ -18,6 +18,7 @@ class SpriteShader extends hxsl.Shader
 			@param var isShrouded:Int;
 			@param var shroudColor:Vec3;
 			@param var shroudIntensity:Float;
+			@global var tint:Vec3;
 			function fragment()
 			{
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)

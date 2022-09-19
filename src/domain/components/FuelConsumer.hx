@@ -175,6 +175,7 @@ class FuelConsumer extends Component
 
 	function get_displayName():String
 	{
-		return '${amount.ciel()} fuel';
+		var percent = ((amount / maximum) * 100).floor();
+		return '$percent% fuel';
 	}
 }

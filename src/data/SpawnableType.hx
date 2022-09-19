@@ -32,4 +32,5 @@ enum SpawnableType
 	LANTERN;
 	ASHES;
 	VIAL_EMPTY;
+	WAGON_WHEEL;
 }

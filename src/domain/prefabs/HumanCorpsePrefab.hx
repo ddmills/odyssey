@@ -10,7 +10,7 @@ class HumanCorpsePrefab extends Prefab
 	public function Create(?options:Dynamic)
 	{
 		var corpse = new Entity();
-		corpse.add(new Sprite(CORPSE_HUMAN, 0xDDDBD7, 0x701E1E, OBJECTS));
+		corpse.add(new Sprite(CORPSE_HUMAN, 0x979282, 0x701E1E, OBJECTS));
 		corpse.add(new Moniker('Human corpse'));
 		corpse.add(new Loot());
 

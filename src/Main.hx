@@ -22,6 +22,8 @@ class Main extends hxd.App
 		// hack to fix audio not playing more than once
 		@:privateAccess haxe.MainLoop.add(() -> {});
 
+		@:privateAccess this.s2d.renderer.manager.globals.set("tint", 0x0000ff.toHxdColor());
+
 		TextResources.Init();
 		TileResources.Init();
 		AudioResources.Init();

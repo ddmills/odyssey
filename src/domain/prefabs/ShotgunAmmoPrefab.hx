@@ -13,7 +13,7 @@ class ShotgunAmmoPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(CARTON, 0x66d49d, 0x727B88, OBJECTS));
+		entity.add(new Sprite(CARTON, 0x518043, 0xebd19d, OBJECTS));
 		entity.add(new Moniker('Ammo, shotgun'));
 		entity.add(new Loot());
 		entity.add(new Stackable(STACK_AMMO_SHOTGUN, 24));

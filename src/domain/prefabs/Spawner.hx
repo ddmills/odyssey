@@ -44,6 +44,7 @@ class Spawner
 		prefabs.set(LANTERN, new LanternPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
 		prefabs.set(VIAL_EMPTY, new VialEmptyPrefab());
+		prefabs.set(WAGON_WHEEL, new WagonWheelPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

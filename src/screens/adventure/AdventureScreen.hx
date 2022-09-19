@@ -21,7 +21,6 @@ import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
-import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
 import h2d.Object;
 import h2d.Text;
@@ -52,8 +51,7 @@ class AdventureScreen extends Screen
 	public function new()
 	{
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
-		trace(GameMath.GetXpGain(2, 3));
-		trace(GameMath.GetXpGain(4, 1));
+		@:privateAccess game.app.s2d.renderer.manager.globals.set("tint", 0x1e643e.toHxdColor());
 	}
 
 	public override function onEnter()
@@ -116,6 +114,8 @@ class AdventureScreen extends Screen
 			case KEY_NUM_6: PERSON_6;
 			case KEY_NUM_7: PERSON_7;
 			case KEY_NUM_8: PERSON_8;
+			case KEY_NUM_9: PERSON_9;
+			case KEY_NUM_0: PERSON_10;
 			case _: null;
 		}
 

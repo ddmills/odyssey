@@ -25,3 +25,6 @@
 ### Tiles
 - https://opengameart.org/content/shadow-of-the-wyrm-1-bit-fantasy-tileset-16x24
 - https://itch.io/b/1536/gamedev-pro
+
+### LUTs
+- https://gist.github.com/Yanrishatum/86794e9e663a7e343f9ef66e8b0f38ae

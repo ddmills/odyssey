@@ -66,6 +66,10 @@ class TileResources
 		tiles.set(PERSON_6, t[5][5]);
 		tiles.set(PERSON_7, t[5][6]);
 		tiles.set(PERSON_8, t[5][7]);
+		tiles.set(PERSON_9, t[5][8]);
+		tiles.set(PERSON_10, t[5][9]);
+		tiles.set(PERSON_11, t[5][10]);
+		tiles.set(PERSON_12, t[5][11]);
 
 		tiles.set(TERRAIN_BASIC_1, t[1][0]);
 		tiles.set(TERRAIN_BASIC_2, t[1][1]);
@@ -93,11 +97,19 @@ class TileResources
 		tiles.set(BLOOD_SPATTER, t[2][4]);
 		tiles.set(STICK, t[2][5]);
 		tiles.set(CARTON, t[2][6]);
-		tiles.set(BEDROLL, t[2][7]);
+		tiles.set(APPLE, t[2][9]);
 		tiles.set(DUSTER, t[3][4]);
 		tiles.set(LONG_JOHNS, t[3][5]);
+		tiles.set(BEDROLL, t[3][6]);
 		tiles.set(VIAL, t[3][7]);
 		tiles.set(PONCHO, t[4][5]);
+		tiles.set(WAGON_WHEEL, t[1][8]);
+		tiles.set(DYNOMITE, t[1][9]);
+		tiles.set(BOOTS, t[4][6]);
+		tiles.set(COAT, t[4][7]);
+		tiles.set(COWBOY_HAT_1, t[3][8]);
+		tiles.set(COWBOY_HAT_2, t[4][8]);
+		tiles.set(PUDDLE_1, t[0][12]);
 
 		tiles.set(RIFLE, t[0][5]);
 		tiles.set(PISTOL_1, t[0][4]);
