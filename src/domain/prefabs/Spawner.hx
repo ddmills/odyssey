@@ -43,6 +43,7 @@ class Spawner
 		prefabs.set(CAMPFIRE, new CampfirePrefab());
 		prefabs.set(LANTERN, new LanternPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
+		prefabs.set(VIAL_EMPTY, new VialEmptyPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

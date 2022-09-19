@@ -94,9 +94,9 @@ class TileResources
 		tiles.set(STICK, t[2][5]);
 		tiles.set(CARTON, t[2][6]);
 		tiles.set(BEDROLL, t[2][7]);
-		tiles.set(VIAL, t[2][8]);
 		tiles.set(DUSTER, t[3][4]);
 		tiles.set(LONG_JOHNS, t[3][5]);
+		tiles.set(VIAL, t[3][7]);
 		tiles.set(PONCHO, t[4][5]);
 
 		tiles.set(RIFLE, t[0][5]);

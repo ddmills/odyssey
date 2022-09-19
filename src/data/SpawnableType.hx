@@ -31,4 +31,5 @@ enum SpawnableType
 	CAMPFIRE;
 	LANTERN;
 	ASHES;
+	VIAL_EMPTY;
 }
