@@ -6,6 +6,7 @@ import domain.events.LightEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.UnequipEvent;
+import domain.events.UnequippedEvent;
 import domain.systems.EnergySystem;
 import ecs.Component;
 
@@ -16,18 +17,20 @@ class Lightable extends Component
 	public var light(get, never):LightSource;
 	public var isLit(get, never):Bool;
 	public var displayName(get, never):String;
+	public var litColor:Int;
 
-	public function new(allowEquipped:Bool = false)
+	public function new(allowEquipped:Bool = false, litColor:Int = -1)
 	{
 		this.allowEquipped = allowEquipped;
+		this.litColor = litColor;
 		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
 		addHandler(LightEvent, (evt) -> onLightEvent(cast evt));
 		addHandler(ExtinguishEvent, (evt) -> onExtinguishEvent(cast evt));
-		addHandler(UnequipEvent, (evt) -> onUnequip(cast evt));
 		addHandler(PickupEvent, (evt) -> onPickup(cast evt));
+		addHandler(UnequippedEvent, (evt) -> onUnequipped(cast evt));
 	}
 
-	private function onUnequip(evt:UnequipEvent)
+	private function onUnequipped(evt:UnequippedEvent)
 	{
 		if (entity.has(IsInventoried))
 		{
@@ -43,6 +46,12 @@ class Lightable extends Component
 	private function onLightEvent(evt:LightEvent)
 	{
 		light.isEnabled = true;
+
+		if (litColor >= 0 && entity.drawable != null)
+		{
+			entity.drawable.secondaryOverride = litColor;
+		}
+
 		var cost = EnergySystem.GetEnergyCost(evt.lighter, ACT_LIGHT);
 		evt.lighter.fireEvent(new ConsumeEnergyEvent(cost));
 	}
@@ -50,6 +59,12 @@ class Lightable extends Component
 	private function onExtinguishEvent(evt:ExtinguishEvent)
 	{
 		light.isEnabled = false;
+
+		if (litColor >= 0 && entity.drawable != null)
+		{
+			entity.drawable.secondaryOverride = null;
+		}
+
 		var cost = EnergySystem.GetEnergyCost(evt.extinguisher, ACT_EXTINGUISH);
 		evt.extinguisher.fireEvent(new ConsumeEnergyEvent(cost));
 	}

@@ -11,7 +11,7 @@ class AshPilePrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(PILE_ASH, 0x616060, 0x6E6E6E, OBJECTS));
+		entity.add(new Sprite(PILE_ASH, 0xBBBAAE, 0x6E6E6E, OBJECTS));
 		entity.add(new Moniker('Pile of ashes'));
 		entity.add(new Loot());
 

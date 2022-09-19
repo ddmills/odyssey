@@ -15,7 +15,7 @@ class StickPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		var sprite = new Sprite(STICK_1, 0x814B0D, 0x000000, OBJECTS);
+		var sprite = new Sprite(STICK, 0x814B0D, 0x000000, OBJECTS);
 
 		entity.add(sprite);
 		entity.add(new Moniker('Stick'));

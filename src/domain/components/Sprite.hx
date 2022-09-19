@@ -28,16 +28,16 @@ class Sprite extends Drawable
 	public function getBitmapClone():Bitmap
 	{
 		var bm = new Bitmap(tile);
-		var sh = new SpriteShader(primary, secondary);
+		var sh = new SpriteShader(primaryColor, secondaryColor);
 		sh.isShrouded = isShrouded ? 1 : 0;
-		if (background == null)
+		if (backgroundColor == null)
 		{
 			sh.clearBackground = 0;
 		}
 		else
 		{
 			sh.clearBackground = 1;
-			sh.background = background.toHxdColor();
+			sh.background = backgroundColor.toHxdColor();
 		}
 		bm.addShader(sh);
 		return bm;

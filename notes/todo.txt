@@ -60,13 +60,16 @@
 	- [x] what should "light intensity" do?
 	- [ ] wall corners (?)
 - [ ] Liquid System
-	- [ ]
+	- [ ] "collect" - puddles (finite), infinite sources (water, well)
+	- [ ] pour (into other, on ground, on self)
+	- [ ] drink
 - [ ] fuel system
 	- [x] fuel types
 	- [x] fuel consumers [fuel types]
 	- [ ] consumer "allow multi?" types
 	- [x] consumer active/inactive
 	- [x] consumer refuel
+	- [x] equip replace lightable (lantern)
 - [x] ammo
 - [ ] add items
 	- tin can

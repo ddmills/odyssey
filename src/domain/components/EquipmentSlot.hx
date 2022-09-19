@@ -8,6 +8,7 @@ import domain.events.QuerySkillModEquippedEvent;
 import domain.events.QuerySkillModEvent;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
+import domain.events.UnequippedEvent;
 import ecs.Component;
 import ecs.Entity;
 
@@ -139,6 +140,8 @@ class EquipmentSlot extends Component
 		{
 			c.get(IsInventoried).holder.get(Inventory).combineStackables(c.get(Stackable).stackType, c.id);
 		}
+
+		c.fireEvent(new UnequippedEvent());
 
 		return true;
 	}
