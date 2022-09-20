@@ -23,10 +23,10 @@ abstract class Component
 		return Type.getClassName(Type.getClass(this));
 	}
 
-	private function addHandler<T:EntityEvent>(type:Class<T>, fn:(EntityEvent) -> Void)
+	private function addHandler<T:EntityEvent>(type:Class<T>, fn:(T) -> Void)
 	{
 		var className = Type.getClassName(type);
-		handlers.set(className, fn);
+		handlers.set(className, cast fn);
 	}
 
 	function get_bit():Int

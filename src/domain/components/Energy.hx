@@ -11,7 +11,7 @@ class Energy extends Component
 
 	public function new()
 	{
-		addHandler(ConsumeEnergyEvent, (evt) -> onConsumeEnergy(cast evt));
+		addHandler(ConsumeEnergyEvent, onConsumeEnergy);
 	}
 
 	function onConsumeEnergy(evt:ConsumeEnergyEvent)

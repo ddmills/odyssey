@@ -60,8 +60,11 @@
 	- [x] what should "light intensity" do?
 	- [ ] wall corners (?)
 - [ ] Liquid System
-	- [ ] "collect" - puddles (finite), infinite sources (water, well)
-	- [ ] pour (into other, on ground, on self)
+	- [x] "collect" - puddles (finite), infinite sources (water, well)
+	- [ ] infinite sources
+	- [x] pour on ground
+	- [ ] pour into other
+	- [ ] pour onto self
 	- [ ] drink
 - [ ] fuel system
 	- [x] fuel types
@@ -76,3 +79,5 @@
 	- frying pan
 	- https://truewestmagazine.com/old-west-guns-22-guns-that-won-the-west/
 - [ ] Rename Swamp to Bayou
+- [ ] replace all addHandler evt casting
+- [ ] exit interaction screen (entity destroyed) - gather puddles

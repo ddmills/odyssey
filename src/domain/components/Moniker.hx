@@ -19,6 +19,7 @@ class Moniker extends Component
 		var stacks = entity.get(Stackable);
 		var light = entity.get(Lightable);
 		var fuelConsumer = entity.get(FuelConsumer);
+		var liquid = entity.get(LiquidContainer);
 
 		var name = baseName;
 
@@ -35,6 +36,11 @@ class Moniker extends Component
 		if (fuelConsumer != null)
 		{
 			name += ' [${fuelConsumer.displayName}]';
+		}
+
+		if (liquid != null)
+		{
+			name += ' [${liquid.displayName}]';
 		}
 
 		if (light != null)

@@ -98,6 +98,7 @@ class TileResources
 		tiles.set(STICK, t[2][5]);
 		tiles.set(CARTON, t[2][6]);
 		tiles.set(APPLE, t[2][9]);
+		tiles.set(JAR, t[2][10]);
 		tiles.set(DUSTER, t[3][4]);
 		tiles.set(LONG_JOHNS, t[3][5]);
 		tiles.set(BEDROLL, t[3][6]);

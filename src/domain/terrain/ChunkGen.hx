@@ -28,6 +28,7 @@ class ChunkGen
 		table.add(RIFLE_AMMO, 2);
 		table.add(PISTOL_AMMO, 2);
 		table.add(SHOTGUN_AMMO, 2);
+		table.add(VIAL_EMPTY, 2);
 		table.add(RIFLE, 4);
 		table.add(PONCHO, 1);
 		table.add(DUSTER, 2);

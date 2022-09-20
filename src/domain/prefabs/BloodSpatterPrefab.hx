@@ -1,16 +1,15 @@
 package domain.prefabs;
 
-import domain.components.Moniker;
-import domain.components.Sprite;
+import common.struct.Coordinate;
+import domain.data.liquids.Liquids;
 import ecs.Entity;
 
 class BloodSplatterPrefab extends Prefab
 {
 	public function Create(?options:Dynamic):Entity
 	{
-		var blood = new Entity();
-		blood.add(new Sprite(PUDDLE_1, 0x701E1E, 0x2C0808, GROUND));
-		blood.add(new Moniker('Blood'));
-		return blood;
+		var entity = Liquids.get(LIQUID_BLOOD).createPuddle(new Coordinate(0, 0, WORLD), 5);
+
+		return entity;
 	}
 }

@@ -3,7 +3,7 @@ package domain.prefabs;
 import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
-import domain.events.SpawnedEvent;
+import domain.events.EntitySpawnedEvent;
 import domain.prefabs.BloodSpatterPrefab.BloodSplatterPrefab;
 
 class Spawner
@@ -44,17 +44,19 @@ class Spawner
 		prefabs.set(LANTERN, new LanternPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
 		prefabs.set(VIAL_EMPTY, new VialEmptyPrefab());
+		prefabs.set(JAR_EMPTY, new JarEmptyPrefab());
+		prefabs.set(VIAL_WHISKEY, new VialWhiskeyPrefab());
 		prefabs.set(WAGON_WHEEL, new WagonWheelPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
-		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos;
+		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
 		var entity = prefabs.get(type).Create(options);
 
 		entity.pos = p;
 
-		entity.fireEvent(new SpawnedEvent());
+		entity.fireEvent(new EntitySpawnedEvent());
 
 		return entity;
 	}

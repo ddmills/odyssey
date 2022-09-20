@@ -6,7 +6,7 @@ import data.Cardinal;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.EnemyKilledEvent;
-import domain.events.SpawnedEvent;
+import domain.events.EntitySpawnedEvent;
 import domain.prefabs.Spawner;
 import domain.skills.Skills;
 import ecs.Component;
@@ -23,7 +23,7 @@ class Health extends Component
 
 	public function new()
 	{
-		addHandler(SpawnedEvent, (evt) -> onSpawned(cast evt));
+		addHandler(EntitySpawnedEvent, (evt) -> onSpawned(cast evt));
 		addHandler(AttackedEvent, (evt) -> onAttacked(cast evt));
 	}
 
@@ -41,7 +41,7 @@ class Health extends Component
 		return '$value/$max';
 	}
 
-	private function onSpawned(evt:SpawnedEvent)
+	private function onSpawned(evt:EntitySpawnedEvent)
 	{
 		value = max;
 	}

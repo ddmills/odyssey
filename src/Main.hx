@@ -3,6 +3,7 @@ import data.AudioResources;
 import data.Commands;
 import data.TextResources;
 import data.TileResources;
+import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.weapons.Weapons;
 import screens.splash.SplashScreen;
@@ -30,6 +31,7 @@ class Main extends hxd.App
 		Commands.Init();
 		Skills.Init();
 		Weapons.Init();
+		Liquids.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 

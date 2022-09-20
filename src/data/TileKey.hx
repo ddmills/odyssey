@@ -110,4 +110,5 @@ enum TileKey
 	APPLE;
 	DYNOMITE;
 	PUDDLE_1;
+	JAR;
 }
