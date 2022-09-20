@@ -8,7 +8,7 @@ import ecs.Entity;
 
 class ChestPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var chest = new Entity();
 

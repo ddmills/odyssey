@@ -7,7 +7,7 @@ import ecs.Entity;
 
 class HumanCorpsePrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var corpse = new Entity();
 		corpse.add(new Sprite(CORPSE_HUMAN, 0x979282, 0x701E1E, OBJECTS));

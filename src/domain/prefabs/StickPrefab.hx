@@ -11,7 +11,7 @@ import ecs.Entity;
 
 class StickPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
 

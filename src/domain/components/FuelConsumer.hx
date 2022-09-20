@@ -23,6 +23,7 @@ class FuelConsumer extends Component
 	public var hasFuel(get, never):Bool;
 	public var isFull(get, never):Bool;
 	public var displayName(get, never):String;
+	public var hoursRemaining(get, never):Float;
 
 	public function new(fuelTypes:Array<FuelType>, amount:Float = 0, maximum:Int = 100, ratePerTurn:Float = 1, isEnabled:Bool = false,
 			isRefillable:Bool = true)
@@ -175,7 +176,12 @@ class FuelConsumer extends Component
 
 	function get_displayName():String
 	{
-		var percent = ((amount / maximum) * 100).floor();
-		return '$percent% fuel';
+		var hours = hoursRemaining.format(2);
+		return '$hours hours of fuel';
+	}
+
+	function get_hoursRemaining():Float
+	{
+		return Clock.ticksToHours(((amount * Clock.TICKS_PER_TURN) / ratePerTurn).floor());
 	}
 }

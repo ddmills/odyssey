@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class DusterPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var duster = new Entity();
 		duster.add(new Sprite(DUSTER, 0x97621C, 0x080604, OBJECTS));

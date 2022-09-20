@@ -6,5 +6,5 @@ abstract class Prefab
 {
 	public function new() {};
 
-	public abstract function Create(?options:Dynamic):Entity;
+	public abstract function Create(options:Dynamic):Entity;
 }

@@ -3,6 +3,9 @@ package domain;
 class Clock
 {
 	public static var TICKS_PER_TURN:Int = 100;
+	public static var TURNS_PER_HOUR:Int = 100;
+
+	public static var TICKS_PER_HOUR:Int = TICKS_PER_TURN * TURNS_PER_HOUR;
 
 	public var tick(default, null):Int;
 	public var tickDelta(default, null):Int;
@@ -25,6 +28,11 @@ class Clock
 		tick += delta;
 
 		turnDelta = turn - prevTurn;
+	}
+
+	public static function ticksToHours(ticks:Int):Float
+	{
+		return ticks / TICKS_PER_HOUR;
 	}
 
 	inline function get_turn():Int

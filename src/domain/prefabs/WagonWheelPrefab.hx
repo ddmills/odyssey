@@ -8,7 +8,7 @@ import ecs.Entity;
 
 class WagonWheelPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 

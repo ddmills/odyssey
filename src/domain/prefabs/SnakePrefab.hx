@@ -13,7 +13,7 @@ import ecs.Entity;
 
 class SnakePrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var snake = new Entity();
 

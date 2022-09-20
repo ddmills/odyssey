@@ -233,7 +233,7 @@ class LiquidContainer extends Component
 	{
 		if (liquidType != null)
 		{
-			return Liquids.get(liquidType);
+			return Liquids.Get(liquidType);
 		}
 		return null;
 	}

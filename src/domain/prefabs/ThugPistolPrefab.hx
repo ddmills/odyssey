@@ -15,7 +15,7 @@ import hxd.Rand;
 
 class ThugPistolPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var r = Rand.create();
 		var entity = new Entity();

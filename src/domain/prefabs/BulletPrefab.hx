@@ -8,7 +8,7 @@ import ecs.Entity;
 
 class BulletPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var bullet = new Entity();
 		bullet.add(new Sprite(DOT, 0xB2D9E0, 0x080604, OVERLAY));

@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class PistolAmmoPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 

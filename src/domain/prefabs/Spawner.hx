@@ -43,8 +43,9 @@ class Spawner
 		prefabs.set(CAMPFIRE, new CampfirePrefab());
 		prefabs.set(LANTERN, new LanternPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
-		prefabs.set(VIAL_EMPTY, new VialEmptyPrefab());
-		prefabs.set(JAR_EMPTY, new JarEmptyPrefab());
+		prefabs.set(VIAL, new VialPrefab());
+		prefabs.set(JAR, new JarPrefab());
+		prefabs.set(PUDDLE, new PuddlePrefab());
 		prefabs.set(VIAL_WHISKEY, new VialWhiskeyPrefab());
 		prefabs.set(WAGON_WHEEL, new WagonWheelPrefab());
 	}
@@ -52,7 +53,8 @@ class Spawner
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
-		var entity = prefabs.get(type).Create(options);
+		var o = options == null ? {} : options;
+		var entity = prefabs.get(type).Create(o);
 
 		entity.pos = p;
 

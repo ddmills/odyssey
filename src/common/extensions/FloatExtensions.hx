@@ -64,4 +64,24 @@ class FloatExtensions
 	{
 		return Math.pow(n, 1 / root);
 	}
+
+	static public inline function format(n:Float, decimals:Int = 2):String
+	{
+		n = Math.round(n * Math.pow(10, decimals));
+		var str = '' + n;
+		var len = str.length;
+		if (len <= decimals)
+		{
+			while (len < decimals)
+			{
+				str = '0' + str;
+				len++;
+			}
+			return '0.' + str;
+		}
+		else
+		{
+			return str.substr(0, str.length - decimals) + '.' + str.substr(str.length - decimals);
+		}
+	}
 }

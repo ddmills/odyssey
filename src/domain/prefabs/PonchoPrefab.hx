@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class PonchoPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 		entity.add(new Sprite(PONCHO, 0x3B7443, 0xDAC9BB, OBJECTS));

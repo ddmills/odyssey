@@ -18,7 +18,7 @@ class Liquids
 		registry.register(LIQUID_WHALE_OIL, new LiquidWhaleOil());
 	}
 
-	public static function get(liquidType:LiquidType)
+	public static function Get(liquidType:LiquidType)
 	{
 		return registry.get(liquidType);
 	}

@@ -11,7 +11,7 @@ import ecs.Entity;
 
 class CoachGunPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
 		entity.add(new Sprite(SHOTGUN_1, 0xA5CACA, 0x814B0D, OBJECTS));

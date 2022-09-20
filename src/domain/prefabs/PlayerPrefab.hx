@@ -19,7 +19,7 @@ import hxd.Rand;
 
 class PlayerPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var r = Rand.create();
 		var entity = new Entity();
@@ -63,8 +63,8 @@ class PlayerPrefab extends Prefab
 		entity.get(Inventory).addLoot(Spawner.Spawn(REVOLVER));
 		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL_WHISKEY));
 		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL_EMPTY));
-		entity.get(Inventory).addLoot(Spawner.Spawn(JAR_EMPTY));
+		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL));
+		entity.get(Inventory).addLoot(Spawner.Spawn(JAR));
 		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
 		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
 		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));

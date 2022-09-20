@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class LongJohnsPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var longJohns = new Entity();
 

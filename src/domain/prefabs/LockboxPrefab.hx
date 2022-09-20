@@ -8,7 +8,7 @@ import ecs.Entity;
 
 class LockboxPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var lockbox = new Entity();
 

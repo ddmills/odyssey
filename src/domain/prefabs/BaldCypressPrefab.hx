@@ -10,7 +10,7 @@ import ecs.Entity;
 
 class BaldCypressPrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 		var r = Game.instance.world.rand;

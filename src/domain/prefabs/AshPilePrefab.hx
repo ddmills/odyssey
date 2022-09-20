@@ -7,7 +7,7 @@ import ecs.Entity;
 
 class AshPilePrefab extends Prefab
 {
-	public function Create(?options:Dynamic):Entity
+	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 

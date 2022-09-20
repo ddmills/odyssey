@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class CactusPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var r = Game.instance.world.rand;
 		var isFlowering = r.bool(.75);

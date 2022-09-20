@@ -9,7 +9,7 @@ import ecs.Entity;
 
 class NavyRevoloverPrefab extends Prefab
 {
-	public function Create(?options:Dynamic)
+	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
 		entity.add(new Sprite(PISTOL_3, 0xA5CACA, 0x814B0D, OBJECTS));
