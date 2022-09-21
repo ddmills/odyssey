@@ -69,7 +69,7 @@ class FuelConsumer extends Component
 
 		var leftover = addFuel(amountToAdd);
 
-		fuel.amount -= (amountToAdd - leftover);
+		fuel.consume(amountToAdd - leftover);
 	}
 
 	private function onRefuelEvent(evt:RefuelEvent)

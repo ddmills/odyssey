@@ -28,3 +28,4 @@
 
 ### LUTs
 - https://gist.github.com/Yanrishatum/86794e9e663a7e343f9ef66e8b0f38ae
+- https://reshade.me/forum/shader-discussion/3179-lut-s-powerful-color-correction-the-guide

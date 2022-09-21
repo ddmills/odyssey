@@ -7,13 +7,15 @@ class Fuel extends Component
 {
 	@save public var fuelType:FuelType;
 	@save public var amountPerStack:Int;
+	@save public var allowPartial:Bool;
 
-	public var amount(get, set):Int;
+	public var amount(get, never):Int;
 
-	public function new(fuelType:FuelType, amountPerStack:Int = 1)
+	public function new(fuelType:FuelType, amountPerStack:Int = 1, allowPartial:Bool = true)
 	{
 		this.fuelType = fuelType;
 		this.amountPerStack = amountPerStack;
+		this.allowPartial = allowPartial;
 	}
 
 	function get_amount():Int
@@ -27,25 +29,22 @@ class Fuel extends Component
 		return amountPerStack;
 	}
 
-	function set_amount(value:Int):Int
+	public function consume(value:Int)
 	{
-		if (amount <= 0)
-		{
-			entity.add(new IsDestroyed());
-			return 0;
-		}
-
 		var stack = entity.get(Stackable);
+
 		if (stack != null)
 		{
-			stack.quantity = (value / amountPerStack).floor();
+			stack.quantity -= (value / amountPerStack).floor();
 
 			if (stack.quantity <= 0)
 			{
 				entity.add(new IsDestroyed());
 			}
 		}
-
-		return value;
+		else
+		{
+			entity.add(new IsDestroyed());
+		}
 	}
 }

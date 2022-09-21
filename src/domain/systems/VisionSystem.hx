@@ -9,6 +9,7 @@ import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.components.Vision;
+import ecs.Entity;
 import ecs.Query;
 import ecs.System;
 
@@ -76,6 +77,14 @@ class VisionSystem extends System
 		computeVision();
 	}
 
+	public function getVisionRange(entity:Entity):Int
+	{
+		var vision = world.player.entity.get(Vision);
+		var variance = (vision.dayRange - vision.nightRange);
+
+		return (vision.nightRange + (world.clock.getDaylight() * variance)).floor();
+	}
+
 	function computeVision()
 	{
 		for (entity in visibles)
@@ -84,9 +93,12 @@ class VisionSystem extends System
 		}
 
 		world.clearVisible();
+
+		var range = getVisionRange(world.player.entity);
+
 		Shadowcast.Compute({
 			start: world.player.pos.toIntPoint(),
-			distance: world.player.entity.get(Vision).range,
+			distance: range,
 			isBlocker: (p) ->
 			{
 				if (world.map.tiles.isOutOfBounds(p.x, p.y))

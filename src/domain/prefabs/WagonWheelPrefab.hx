@@ -15,7 +15,7 @@ class WagonWheelPrefab extends Prefab
 		entity.add(new Sprite(WAGON_WHEEL, 0x814B0D, 0x797979, OBJECTS));
 		entity.add(new Moniker('Wagon wheel'));
 		entity.add(new Loot());
-		entity.add(new Fuel(FUEL_WOOD, 100));
+		entity.add(new Fuel(FUEL_WOOD, 100, true));
 
 		return entity;
 	}

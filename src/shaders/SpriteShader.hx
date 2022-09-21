@@ -4,9 +4,12 @@ import core.Game;
 
 class SpriteShader extends hxsl.Shader
 {
+	static function tint() {}
+
 	static var SRC =
 		{
 			var pixelColor:Vec4;
+			@param var lut:Sampler2D;
 			@param var primary:Vec3;
 			@param var secondary:Vec3;
 			@param var outline:Vec3;
@@ -18,12 +21,16 @@ class SpriteShader extends hxsl.Shader
 			@param var isShrouded:Int;
 			@param var shroudColor:Vec3;
 			@param var shroudIntensity:Float;
-			@global var tint:Vec3;
+			@global var dayProgress:Float;
 			function fragment()
 			{
+				var uv = vec2(dayProgress, 0.0);
+				var tod = lut.get(uv).rgb;
+				var todFactor = .075;
+
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
-					pixelColor.rgb = primary;
+					pixelColor.rgb = mix(primary, tod, todFactor);
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
@@ -33,7 +40,7 @@ class SpriteShader extends hxsl.Shader
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1)
 				{
-					pixelColor.rgb = secondary;
+					pixelColor.rgb = mix(secondary, tod, todFactor);
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
@@ -49,7 +56,8 @@ class SpriteShader extends hxsl.Shader
 				if (pixelColor.a == 0 && clearBackground == 1)
 				{
 					pixelColor.a = 1;
-					pixelColor.rgb = background;
+					pixelColor.rgb = mix(background, tod, todFactor);
+
 					if (isShrouded == 1)
 					{
 						var color = pixelColor.rgb;
@@ -59,7 +67,7 @@ class SpriteShader extends hxsl.Shader
 					}
 					else if (isLit == 1)
 					{
-						pixelColor.rgb = mix(background, light, lightIntensity / 3);
+						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensity / 3);
 						pixelColor.a = 1;
 					}
 				}
@@ -78,5 +86,6 @@ class SpriteShader extends hxsl.Shader
 		this.clearBackground = 0;
 		this.isShrouded = 0;
 		this.isLit = 0;
+		this.lut = hxd.Res.images.lut.lut_day_night_1.toTexture();
 	}
 }

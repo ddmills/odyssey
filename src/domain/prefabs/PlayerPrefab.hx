@@ -8,8 +8,6 @@ import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Level;
-import domain.components.LightBlocker;
-import domain.components.LightSource;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
@@ -32,7 +30,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));
-		entity.add(new Vision(12));
+		entity.add(new Vision(14, 4));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));

@@ -51,7 +51,6 @@ class AdventureScreen extends Screen
 	public function new()
 	{
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
-		@:privateAccess game.app.s2d.renderer.manager.globals.set("tint", 0x1e643e.toHxdColor());
 	}
 
 	public override function onEnter()
@@ -74,7 +73,7 @@ class AdventureScreen extends Screen
 		world.updateSystems();
 		game.camera.focus = world.player.pos;
 		hudText.fps.text = frame.fps.floor().toString();
-		hudText.clock.text = world.clock.toString();
+		hudText.clock.text = world.clock.friendlyString();
 		var hp = world.player.entity.get(Health);
 		hudText.health.text = '${hp.value}/${hp.max}';
 
@@ -155,8 +154,7 @@ class AdventureScreen extends Screen
 			case CMD_MOVE_SE:
 				move(SOUTH_EAST);
 			case CMD_WAIT:
-				var cost = EnergySystem.GetEnergyCost(world.player.entity, ACT_WAIT);
-				world.player.entity.fireEvent(new ConsumeEnergyEvent(cost));
+				EnergySystem.ConsumeEnergy(world.player.entity, ACT_WAIT);
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
 			case CMD_LOOK:

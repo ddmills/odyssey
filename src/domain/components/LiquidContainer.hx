@@ -45,10 +45,10 @@ class LiquidContainer extends Component
 		this.isGatherable = isGatherable;
 		this.destroyOnEmpty = destroyOnEmpty;
 
-		addHandler(PourEvent, onPour);
-		addHandler(QueryInteractionsEvent, onQueryInteractions);
 		addHandler(EntityLoadedEvent, onEntityLoaded);
 		addHandler(EntitySpawnedEvent, onEntitySpawned);
+		addHandler(PourEvent, onPour);
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
 		addHandler(GatherLiquidEvent, onGatherLiquid);
 	}
 
@@ -201,7 +201,7 @@ class LiquidContainer extends Component
 
 	private function onEntityLoaded(evt:EntityLoadedEvent)
 	{
-		applyColorOverrides();
+		// applyColorOverrides();
 	}
 
 	private function onEntitySpawned(evt:EntitySpawnedEvent)

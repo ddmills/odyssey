@@ -4,10 +4,12 @@ import ecs.Component;
 
 class Vision extends Component
 {
-	@save public var range:Int;
+	@save public var dayRange:Int;
+	@save public var nightRange:Int;
 
-	public function new(range:Int = 6)
+	public function new(dayRange:Int = 6, nightRange:Int = 3)
 	{
-		this.range = range;
+		this.dayRange = dayRange;
+		this.nightRange = nightRange;
 	}
 }
