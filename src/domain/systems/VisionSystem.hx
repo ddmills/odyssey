@@ -80,9 +80,11 @@ class VisionSystem extends System
 	public function getVisionRange(entity:Entity):Int
 	{
 		var vision = world.player.entity.get(Vision);
-		var variance = (vision.dayRange - vision.nightRange);
-
-		return (vision.nightRange + (world.clock.getDaylight() * variance)).floor();
+		var minMod = vision.getVisionMods().min((m) -> m.minVision);
+		var min = minMod == null ? 0 : minMod.minVision;
+		var actualMin = Math.max(min, vision.nightRange);
+		var variance = (vision.dayRange - actualMin);
+		return (actualMin + (world.clock.getDaylight() * variance)).floor();
 	}
 
 	function computeVision()

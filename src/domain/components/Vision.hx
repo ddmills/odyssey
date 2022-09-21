@@ -1,5 +1,6 @@
 package domain.components;
 
+import domain.events.QueryVisionModEvent;
 import ecs.Component;
 
 class Vision extends Component
@@ -11,5 +12,12 @@ class Vision extends Component
 	{
 		this.dayRange = dayRange;
 		this.nightRange = nightRange;
+	}
+
+	public function getVisionMods():Array<VisionMod>
+	{
+		var evt = entity.fireEvent(new QueryVisionModEvent());
+
+		return evt.mods;
 	}
 }
