@@ -1,5 +1,6 @@
 package domain.terrain.biomes;
 
+import data.ColorKeys;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
@@ -19,9 +20,11 @@ class ForestBiome extends BiomeGenerator
 	override function assignTileData(tile:MapTile)
 	{
 		tile.bgTileKey = getBackgroundTileKey(tile);
-		tile.color = r.pick(colors);
+		// tile.color = r.pick(colors);
+		tile.color = ColorKeys.C_GRAY_4;
 		tile.terrain = TERRAIN_GRASS;
-		tile.bgColor = 0x0B110C;
+		// tile.bgColor = 0x0E1A10;
+		tile.bgColor = ColorKeys.C_GRAY_5;
 	}
 
 	override function spawnEntity(tile:MapTile)

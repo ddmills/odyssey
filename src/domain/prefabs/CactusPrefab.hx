@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import core.Game;
+import data.ColorKeys;
 import data.TileKey;
 import domain.components.Collider;
 import domain.components.Moniker;
@@ -18,7 +19,7 @@ class CactusPrefab extends Prefab
 
 		var cactus = new Entity();
 
-		var sprite = new Sprite(tile, 0x5A6E10, 0xAA0F69, OBJECTS);
+		var sprite = new Sprite(tile, ColorKeys.C_GREEN_3, ColorKeys.C_RED_1, OBJECTS);
 
 		cactus.add(sprite);
 		cactus.add(new Collider());

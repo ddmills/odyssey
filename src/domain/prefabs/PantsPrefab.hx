@@ -7,24 +7,22 @@ import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
+import h3d.shader.ColorKey;
 
-class PonchoPrefab extends Prefab
+class PantsPrefab extends Prefab
 {
 	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(PONCHO, ColorKeys.C_PURPLE_1, ColorKeys.C_PURPLE_3, OBJECTS));
-		entity.add(new Moniker('Poncho'));
+
+		entity.add(new Sprite(PANTS_1, ColorKeys.C_ORANGE_1, ColorKeys.C_GRAY_4, OBJECTS));
+		entity.add(new Moniker('Pants'));
+		entity.add(new Equipment([EQ_SLOT_LEGS]));
 		entity.add(new Loot());
-		entity.add(new Equipment([EQ_SLOT_BODY]));
 
 		var skills = new EquippedSkillMod();
-		skills.set(SKILL_FORTITUDE, 2);
-
+		skills.set(SKILL_DODGE, 1);
 		entity.add(skills);
-
-		entity.get(Equipment).equipAudio = CLOTH_EQUIP_1;
-		entity.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;
 
 		return entity;
 	}

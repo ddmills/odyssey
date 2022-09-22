@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.ColorKeys;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -13,7 +14,7 @@ class LongJohnsPrefab extends Prefab
 	{
 		var longJohns = new Entity();
 
-		longJohns.add(new Sprite(LONG_JOHNS, 0xE0CCB2, 0x97621C, OBJECTS));
+		longJohns.add(new Sprite(LONG_JOHNS, ColorKeys.C_WHITE_1, ColorKeys.C_GRAY_2, OBJECTS));
 		longJohns.add(new Moniker('Long johns'));
 		longJohns.add(new Loot());
 		longJohns.add(new Equipment([EQ_SLOT_BODY], [EQ_SLOT_LEGS]));

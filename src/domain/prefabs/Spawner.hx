@@ -48,6 +48,10 @@ class Spawner
 		prefabs.set(PUDDLE, new PuddlePrefab());
 		prefabs.set(VIAL_WHISKEY, new VialWhiskeyPrefab());
 		prefabs.set(WAGON_WHEEL, new WagonWheelPrefab());
+		prefabs.set(TOMBSTONE, new TombstonePrefab());
+		prefabs.set(BOOTS, new BootsPrefab());
+		prefabs.set(COWBOY_HAT, new CowboyHatPrefab());
+		prefabs.set(PANTS, new PantsPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

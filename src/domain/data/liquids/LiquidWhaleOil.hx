@@ -1,9 +1,11 @@
 package domain.data.liquids;
 
+import data.ColorKeys;
+
 class LiquidWhaleOil extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_WHALE_OIL, 'whale oil', 0x111d25, 0x2f4452);
+		super(LIQUID_WHALE_OIL, 'whale oil', ColorKeys.C_PURPLE_3, ColorKeys.C_PURPLE_2);
 	}
 }

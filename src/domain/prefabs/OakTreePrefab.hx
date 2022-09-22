@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import core.Game;
+import data.ColorKeys;
 import data.TileKey;
 import domain.components.Collider;
 import domain.components.LightBlocker;
@@ -16,7 +17,7 @@ class OakTreePrefab extends Prefab
 		var r = Game.instance.world.rand;
 		var tileKey:TileKey = r.pick([TREE_OAK_1, TREE_OAK_2, TREE_OAK_3]);
 
-		entity.add(new Sprite(tileKey, 0x235331, 0x8D450B));
+		entity.add(new Sprite(tileKey, ColorKeys.C_GREEN_3, ColorKeys.C_ORANGE_2));
 		entity.add(new Moniker('Oak tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

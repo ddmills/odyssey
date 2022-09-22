@@ -25,6 +25,7 @@ typedef LightFragment =
 class LightSystem extends System
 {
 	var query:Query;
+	private var litTiles:Map<Int, Float> = [];
 
 	public var lightFragments:Map<Int, Array<LightFragment>> = [];
 
@@ -71,11 +72,13 @@ class LightSystem extends System
 				onLight: (pos, distance) ->
 				{
 					var d = distance > .5 ? distance - .5 : .5;
-					var intensity = 1 - (d / light.range);
+					// var intensity = 1 - (d / light.range);
+
+					var i = light.intensity / (distance * distance);
 
 					addFragment({
 						pos: pos,
-						intensity: intensity * light.intensity,
+						intensity: i,
 						distance: d,
 						color: light.colour,
 						source: entity.pos.toIntPoint(),
@@ -156,6 +159,7 @@ class LightSystem extends System
 				shader.light = compiled.color.toHxdColor();
 				shader.lightIntensity = compiled.intensity.clamp(0, 1);
 				shader.isLit = 1;
+				litTiles.set(idx, compiled.intensity);
 			}
 		}
 
@@ -208,11 +212,21 @@ class LightSystem extends System
 			var shader = getShader(pos);
 			if (shader != null)
 			{
-				shader.isLit = 1;
+				var outIntensity = intensity.clamp(0, 1);
 				shader.light = color.toHxdColor();
-				shader.lightIntensity = intensity.clamp(0, 1);
+				shader.lightIntensity = outIntensity;
+				shader.isLit = 1;
+				litTiles.set(idx, outIntensity);
 			}
 		}
+	}
+
+	public function getTileLight(pos:IntPoint)
+	{
+		var idx = world.map.getTileIdx(pos);
+		var intensity = litTiles.get(idx);
+
+		return intensity == null ? 0 : intensity;
 	}
 
 	public function clearLitTiles()
@@ -226,7 +240,7 @@ class LightSystem extends System
 				shader.isLit = 0;
 			}
 		}
-
+		litTiles = [];
 		lightFragments = [];
 	}
 

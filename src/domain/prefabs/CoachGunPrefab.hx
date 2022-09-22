@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.AudioResources;
+import data.ColorKeys;
 import data.TileResources;
 import domain.components.Equipment;
 import domain.components.Loot;
@@ -14,7 +15,7 @@ class CoachGunPrefab extends Prefab
 	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(SHOTGUN_1, 0xA5CACA, 0x814B0D, OBJECTS));
+		entity.add(new Sprite(SHOTGUN_1, ColorKeys.C_BLUE_1, ColorKeys.C_RED_2, OBJECTS));
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));

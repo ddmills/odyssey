@@ -27,6 +27,7 @@ class SpriteShader extends hxsl.Shader
 				var uv = vec2(dayProgress, 0.0);
 				var tod = lut.get(uv).rgb;
 				var todFactor = .075;
+				var lightIntensityFactor = clamp(lightIntensity, 0, .5);
 
 				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
 				{
@@ -37,6 +38,10 @@ class SpriteShader extends hxsl.Shader
 						var gray = vec3(dot(shroudColor, color));
 						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
 					}
+					else if (isLit == 1)
+					{
+						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
+					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1)
 				{
@@ -46,6 +51,10 @@ class SpriteShader extends hxsl.Shader
 						var color = pixelColor.rgb;
 						var gray = vec3(dot(shroudColor, color));
 						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
+					}
+					else if (isLit == 1)
+					{
+						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
 					}
 				}
 				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
@@ -67,7 +76,7 @@ class SpriteShader extends hxsl.Shader
 					}
 					else if (isLit == 1)
 					{
-						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensity / 3);
+						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
 						pixelColor.a = 1;
 					}
 				}

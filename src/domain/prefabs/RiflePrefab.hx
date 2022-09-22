@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.ColorKeys;
 import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -12,7 +13,7 @@ class RiflePrefab extends Prefab
 	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(RIFLE, 0xA5CACA, 0x814B0D, OBJECTS));
+		entity.add(new Sprite(RIFLE, ColorKeys.C_BLUE_1, ColorKeys.C_RED_2, OBJECTS));
 		entity.add(new Moniker('Rifle'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND]));

@@ -96,11 +96,13 @@ class VisionSystem extends System
 
 		world.clearVisible();
 
+		var vision = world.player.entity.get(Vision);
 		var range = getVisionRange(world.player.entity);
+		var maxRange = vision.dayRange;
 
 		Shadowcast.Compute({
 			start: world.player.pos.toIntPoint(),
-			distance: range,
+			distance: maxRange,
 			isBlocker: (p) ->
 			{
 				if (world.map.tiles.isOutOfBounds(p.x, p.y))
@@ -114,7 +116,18 @@ class VisionSystem extends System
 			},
 			onLight: (pos, distance) ->
 			{
-				world.setVisible(pos.asWorld());
+				if (distance > range)
+				{
+					var light = world.systems.lights.getTileLight(pos);
+					if (light > 0)
+					{
+						world.setVisible(pos.asWorld());
+					}
+				}
+				else
+				{
+					world.setVisible(pos.asWorld());
+				}
 			}
 		});
 	}

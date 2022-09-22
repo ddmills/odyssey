@@ -1,5 +1,7 @@
 package domain.prefabs;
 
+import data.ColorKeys;
+import data.LiquidType;
 import data.SpawnableType;
 import data.TileKey;
 import domain.components.Energy;
@@ -26,11 +28,11 @@ class PlayerPrefab extends Prefab
 			PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7, PERSON_8, PERSON_9, PERSON_10,
 		]);
 
-		entity.add(new Sprite(tkey, 0x968a8a, 0x2D788F, ACTORS));
+		entity.add(new Sprite(tkey, ColorKeys.C_WHITE_1, ColorKeys.C_BLUE_2, ACTORS));
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));
-		entity.add(new Vision(14, 1));
+		entity.add(new Vision(16, 0));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
@@ -54,21 +56,43 @@ class PlayerPrefab extends Prefab
 		rhand.equip(Spawner.Spawn(r.pick(wpns)));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
 
-		entity.get(Inventory).addLoot(Spawner.Spawn(LANTERN));
-		entity.get(Inventory).addLoot(Spawner.Spawn(PISTOL_AMMO));
-		entity.get(Inventory).addLoot(Spawner.Spawn(RIFLE_AMMO));
-		entity.get(Inventory).addLoot(Spawner.Spawn(SHOTGUN_AMMO));
-		entity.get(Inventory).addLoot(Spawner.Spawn(REVOLVER));
-		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		entity.get(Inventory).addLoot(Spawner.Spawn(VIAL));
-		entity.get(Inventory).addLoot(Spawner.Spawn(JAR));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
-		entity.get(Inventory).addLoot(Spawner.Spawn(STICK));
+		var inv = entity.get(Inventory);
+
+		inv.addLoot(Spawner.Spawn(LANTERN));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
+		inv.addLoot(Spawner.Spawn(RIFLE_AMMO));
+		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
+		inv.addLoot(Spawner.Spawn(REVOLVER));
+		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
+		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
+		inv.addLoot(Spawner.Spawn(VIAL));
+		inv.addLoot(Spawner.Spawn(JAR));
+		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(STICK));
+
+		inv.addLoot(Spawner.Spawn(VIAL, null, {
+			liquidType: LiquidType.LIQUID_WATER,
+			volume: 42,
+		}));
+
+		inv.addLoot(Spawner.Spawn(VIAL, null, {
+			liquidType: LiquidType.LIQUID_BLOOD,
+			volume: 42,
+		}));
+
+		inv.addLoot(Spawner.Spawn(VIAL, null, {
+			liquidType: LiquidType.LIQUID_HONEY,
+			volume: 42,
+		}));
+
+		inv.addLoot(Spawner.Spawn(VIAL, null, {
+			liquidType: LiquidType.LIQUID_WHALE_OIL,
+			volume: 42,
+		}));
 
 		return entity;
 	}

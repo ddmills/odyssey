@@ -7,6 +7,7 @@ import data.TileResources;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
+import domain.systems.LightSystem;
 import h2d.Bitmap;
 import haxe.EnumTools.EnumValueTools;
 import screens.cursor.CursorScreen.CursorRenderOpts;
@@ -130,10 +131,9 @@ class LookScreen extends CursorScreen
 
 		// targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
 		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).radians();
-		var degrees = angle.toDegrees();
 		var cardinal = Cardinal.fromRadians(angle);
-		var offset = cardinal.toOffset();
-		targetText.text = '${cardinal.toName()} ${offset.toString()} ${angle} ${degrees}';
+		var light = world.systems.lights.getTileLight(ipos);
+		targetText.text = '${cardinal.toName()} ${light}';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

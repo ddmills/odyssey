@@ -36,4 +36,8 @@ enum SpawnableType
 	VIAL_WHISKEY;
 	WAGON_WHEEL;
 	PUDDLE;
+	TOMBSTONE;
+	BOOTS;
+	PANTS;
+	COWBOY_HAT;
 }

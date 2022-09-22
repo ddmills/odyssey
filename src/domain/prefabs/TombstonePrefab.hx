@@ -1,20 +1,20 @@
 package domain.prefabs;
 
 import data.ColorKeys;
-import domain.components.Loot;
+import domain.components.Collider;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class AshPilePrefab extends Prefab
+class TombstonePrefab extends Prefab
 {
 	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(PILE_ASH, ColorKeys.C_GRAY_1, ColorKeys.C_GRAY_2, OBJECTS));
-		entity.add(new Moniker('Pile of ashes'));
-		entity.add(new Loot());
+		entity.add(new Sprite(TOMBSTONE_1, ColorKeys.C_GRAY_1, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new Moniker('Tombstone'));
+		entity.add(new Collider());
 
 		return entity;
 	}

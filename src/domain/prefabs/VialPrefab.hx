@@ -1,5 +1,7 @@
 package domain.prefabs;
 
+import core.Game;
+import data.ColorKeys;
 import data.LiquidType;
 import domain.components.LiquidContainer;
 import domain.components.Loot;
@@ -17,10 +19,10 @@ class VialPrefab extends Prefab
 
 		var entity = new Entity();
 
-		entity.add(new Sprite(VIAL, 0x8ac1ee, 0x121213, OBJECTS));
+		entity.add(new Sprite(VIAL, Game.instance.CLEAR_COLOR, ColorKeys.C_BLUE_1, OBJECTS));
 		entity.add(new Moniker('Vial'));
 		entity.add(new Loot());
-		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, true, true, false, false));
+		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));
 
 		return entity;
 	}

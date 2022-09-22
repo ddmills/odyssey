@@ -36,6 +36,10 @@ class ChunkGen
 		table.add(COACH_GUN, 3);
 		table.add(THUG, 4);
 		table.add(THUG_2, 4);
+		table.add(TOMBSTONE, 4);
+		table.add(BOOTS, 4);
+		table.add(PANTS, 4);
+		table.add(COWBOY_HAT, 4);
 	}
 
 	public function generate(chunk:Chunk)

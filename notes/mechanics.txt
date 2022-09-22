@@ -67,3 +67,9 @@ Combat 2
 
 Mounts
 - While on a mount, your accuracy decreases
+
+
+Lighting/Vision
+- Calculate lighting first
+- Cast player vision at full size
+- On "vision" callback, if distance > vision distance, check if tile has some light first (!) else

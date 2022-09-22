@@ -8,23 +8,20 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class PonchoPrefab extends Prefab
+class CowboyHatPrefab extends Prefab
 {
 	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(PONCHO, ColorKeys.C_PURPLE_1, ColorKeys.C_PURPLE_3, OBJECTS));
-		entity.add(new Moniker('Poncho'));
+
+		entity.add(new Sprite(COWBOY_HAT_1, ColorKeys.C_RED_2, ColorKeys.C_YELLOW_1, OBJECTS));
+		entity.add(new Moniker('Cowboy hat'));
+		entity.add(new Equipment([EQ_SLOT_HEAD]));
 		entity.add(new Loot());
-		entity.add(new Equipment([EQ_SLOT_BODY]));
 
 		var skills = new EquippedSkillMod();
-		skills.set(SKILL_FORTITUDE, 2);
-
+		skills.set(SKILL_DODGE, 1);
 		entity.add(skills);
-
-		entity.get(Equipment).equipAudio = CLOTH_EQUIP_1;
-		entity.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;
 
 		return entity;
 	}

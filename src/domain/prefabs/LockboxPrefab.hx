@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import data.ColorKeys;
 import domain.components.Inventory;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -12,7 +13,7 @@ class LockboxPrefab extends Prefab
 	{
 		var lockbox = new Entity();
 
-		lockbox.add(new Sprite(CHEST_SMALL_CLOSED, 0x909E9E, 0xE2E604, OBJECTS));
+		lockbox.add(new Sprite(CHEST_SMALL_CLOSED, ColorKeys.C_BLUE_2, ColorKeys.C_YELLOW_2, OBJECTS));
 		lockbox.add(new Moniker('Lockbox'));
 		lockbox.add(new Loot());
 
