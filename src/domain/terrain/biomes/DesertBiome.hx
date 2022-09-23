@@ -20,16 +20,15 @@ class DesertBiome extends BiomeGenerator
 	override function assignTileData(tile:MapTile)
 	{
 		tile.bgTileKey = getBackgroundTileKey(tile);
-		// tile.color = r.pick(colors);
-		tile.color = ColorKeys.C_RED_2;
 		tile.terrain = TERRAIN_SAND;
 		if (r.bool(.02))
 		{
 			tile.bgTileKey = GRASS_V1_3;
 			tile.terrain = TERRAIN_GRASS;
 		}
-		// tile.bgColor = 0x42140B;
-		tile.bgColor = ColorKeys.C_RED_2;
+
+		tile.color = ColorKeys.C_YELLOW_2;
+		tile.bgColor = ColorKeys.C_YELLOW_3;
 	}
 
 	override function spawnEntity(tile:MapTile)

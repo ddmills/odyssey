@@ -18,7 +18,7 @@ class SnakePrefab extends Prefab
 	{
 		var snake = new Entity();
 
-		snake.add(new Sprite(SNAKE, ColorKeys.C_ORANGE_3, ColorKeys.C_BLACK_1, ACTORS));
+		snake.add(new Sprite(SNAKE, ColorKeys.C_ORANGE_1, ColorKeys.C_BLACK_1, ACTORS));
 		snake.add(new Energy());
 		snake.add(new Level(1));
 		snake.get(Energy).consumeEnergy(10);

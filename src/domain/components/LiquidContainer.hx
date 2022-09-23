@@ -201,7 +201,7 @@ class LiquidContainer extends Component
 
 	private function onEntityLoaded(evt:EntityLoadedEvent)
 	{
-		// applyColorOverrides();
+		applyColorOverrides();
 	}
 
 	private function onEntitySpawned(evt:EntitySpawnedEvent)

@@ -1,7 +1,6 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import common.util.Colors;
 import data.ColorKeys;
 import data.TileKey;
 import domain.prefabs.Spawner;
@@ -77,19 +76,16 @@ class PrairieBiome extends BiomeGenerator
 		if (isWater)
 		{
 			tile.bgTileKey = WATER_1;
-			tile.color = ColorKeys.C_BLUE_2; // Colors.Mix(0x225699, 0x152e5f, r.rand());
 			tile.terrain = TERRAIN_WATER;
+			tile.color = ColorKeys.C_BLUE_2;
 			tile.bgColor = ColorKeys.C_BLUE_3;
 		}
 		else
 		{
-			var h = getHeight(tile.pos);
-
 			tile.bgTileKey = getBackgroundTileKey(tile);
-			tile.color = ColorKeys.C_GREEN_3; // r.pick(colors);
 			tile.terrain = TERRAIN_GRASS;
-			// tile.bgColor = Colors.Mix(0x090A09, 0x0B0E09, h);
-			tile.bgColor = ColorKeys.C_GRAY_4;
+			tile.color = ColorKeys.C_GREEN_2;
+			tile.bgColor = ColorKeys.C_GREEN_3;
 		}
 	}
 

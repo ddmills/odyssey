@@ -6,6 +6,6 @@ class LiquidWhaleOil extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_WHALE_OIL, 'whale oil', ColorKeys.C_PURPLE_3, ColorKeys.C_PURPLE_2);
+		super(LIQUID_WHALE_OIL, 'whale oil', ColorKeys.C_PURPLE_1, ColorKeys.C_PURPLE_2);
 	}
 }

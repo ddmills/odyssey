@@ -1,6 +1,8 @@
 package domain.terrain.biomes;
 
+import data.ColorKeys;
 import data.TileKey;
+import domain.prefabs.Spawner;
 
 class TundraBiome extends BiomeGenerator
 {
@@ -13,5 +15,27 @@ class TundraBiome extends BiomeGenerator
 	override function getBackgroundTileKey(tile:MapTile):TileKey
 	{
 		return TERRAIN_BASIC_4;
+	}
+
+	override function assignTileData(tile:MapTile)
+	{
+		tile.bgTileKey = getBackgroundTileKey(tile);
+		tile.terrain = TERRAIN_SNOW;
+		if (r.bool(.35))
+		{
+			tile.bgTileKey = GRASS_V1_3;
+			tile.terrain = TERRAIN_GRASS;
+		}
+
+		tile.color = ColorKeys.C_GRAY_1;
+		tile.bgColor = ColorKeys.C_GRAY_2;
+	}
+
+	override function spawnEntity(tile:MapTile)
+	{
+		if (tile.terrain == TERRAIN_SNOW && r.bool(.1))
+		{
+			Spawner.Spawn(PINE_TREE, tile.pos.asWorld());
+		}
 	}
 }

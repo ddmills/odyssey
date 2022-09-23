@@ -19,13 +19,13 @@ class Game
 
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
-	// public var CLEAR_COLOR:Int = 0x0B0A0C;
+	public var CLEAR_COLOR:Int = 0x0B0A0C;
 	// public var TEXT_COLOR:Int = 0xC5D7DB;
 	// public var TEXT_COLOR_FOCUS:Int = 0xece358;
-	public var CLEAR_COLOR:Int = ColorKeys.C_BLACK_1;
+	// public var CLEAR_COLOR:Int = ColorKeys.C_BLACK_1;
 	public var TEXT_COLOR:Int = ColorKeys.C_WHITE_1;
 	public var TEXT_COLOR_FOCUS:Int = ColorKeys.C_YELLOW_1;
-	public var SHOW_BG_COLORS:Bool = false;
+	public var SHOW_BG_COLORS:Bool = true;
 
 	public static var instance:Game;
 

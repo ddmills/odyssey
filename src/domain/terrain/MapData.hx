@@ -7,6 +7,7 @@ import common.struct.WeightedTable;
 import common.tools.Performance;
 import core.Game;
 import data.BiomeType;
+import data.ColorKeys;
 import data.TileKey;
 import domain.terrain.MapTile;
 import domain.terrain.biomes.BiomeGenerators;
@@ -135,9 +136,9 @@ class MapData
 
 	function setTileRiver(tile:MapTile)
 	{
-		tile.bgColor = 0x0A141B;
+		tile.color = ColorKeys.C_BLUE_2;
+		tile.bgColor = ColorKeys.C_BLUE_3;
 		tile.terrain = TERRAIN_RIVER;
-		tile.color = 0x145081;
 		var waterTiles:Array<TileKey> = [WATER_1, WATER_2, WATER_3, WATER_4];
 		tile.bgTileKey = r.pick(waterTiles);
 	}

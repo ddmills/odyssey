@@ -74,7 +74,7 @@ class LightSystem extends System
 					var d = distance > .5 ? distance - .5 : .5;
 					// var intensity = 1 - (d / light.range);
 
-					var i = light.intensity / (distance * distance);
+					var i = light.intensity / (d * d);
 
 					addFragment({
 						pos: pos,
@@ -93,7 +93,6 @@ class LightSystem extends System
 
 	function addFragment(fragment:LightFragment)
 	{
-		// if floor, light right away, combine other lights, else save it for later (?)
 		var idx = world.map.getTileIdx(fragment.pos);
 		var existing = lightFragments.get(idx);
 		if (existing == null)
