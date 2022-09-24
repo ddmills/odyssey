@@ -8,7 +8,8 @@ import core.Game;
 
 class ChunkManager
 {
-	var chunks:Grid<Chunk>;
+	private var game(get, never):Game;
+	private var chunks:Grid<Chunk>;
 	private var chunksToUnload:Set<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
@@ -69,30 +70,47 @@ class ChunkManager
 
 		if (chunkIdx != null)
 		{
-			var chunk = getChunkById(chunkIdx);
-			Performance.start('chunk-save');
-			var data = chunk.save();
-			trace(Performance.stop('chunk-save'));
-			chunk.unload();
-			Game.instance.files.saveChunk(data);
+			saveChunk(chunkIdx, true);
 		}
 	}
 
-	public function load(chunkIdx:Int)
+	public function save(unload:Bool = false)
+	{
+		var loaded = chunks.filter((item) -> item.value.isLoaded).map((item) -> item.value.chunkId);
+		for (chunkIdx in loaded)
+		{
+			saveChunk(chunkIdx, unload);
+		}
+	}
+
+	public function saveChunk(chunkIdx:Int, unload:Bool = false)
 	{
 		var chunk = getChunkById(chunkIdx);
-		var data = Game.instance.files.tryReadChunk(chunkIdx);
+		Performance.start('chunk-save');
+		var data = chunk.save();
+		trace(Performance.stop('chunk-save'));
+		game.files.saveChunk(data);
+		if (unload)
+		{
+			chunk.unload();
+		}
+	}
+
+	public function loadChunk(chunkIdx:Int)
+	{
+		var chunk = getChunkById(chunkIdx);
+		var data = game.files.tryReadChunk(chunkIdx);
 		if (data != null)
 		{
 			Performance.start('chunk-load');
 			chunk.load(data);
-			trace(Performance.stop('chunk-load'));
+			Performance.stop('chunk-load');
 		}
 		else
 		{
 			Performance.start('chunk-gen');
 			chunk.load();
-			trace(Performance.stop('chunk-gen'));
+			Performance.stop('chunk-gen');
 		}
 	}
 
@@ -130,16 +148,21 @@ class ChunkManager
 
 	inline function get_chunkCountX():Int
 	{
-		return Game.instance.world.chunkCountX;
+		return game.world.chunkCountX;
 	}
 
 	inline function get_chunkCountY():Int
 	{
-		return Game.instance.world.chunkCountY;
+		return game.world.chunkCountY;
 	}
 
 	inline function get_chunkSize():Int
 	{
-		return Game.instance.world.chunkSize;
+		return game.world.chunkSize;
+	}
+
+	inline function get_game():Game
+	{
+		return Game.instance;
 	}
 }

@@ -5,7 +5,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.AudioKey;
 import data.Cardinal;
-import data.save.SaveGame.SaveWorld;
+import data.save.SaveWorld;
 import domain.AIManager;
 import domain.components.Explored;
 import domain.components.IsInventoried;
@@ -55,7 +55,7 @@ class World
 	public function initialize()
 	{
 		rand = new Rand(seed);
-		visible = new Array<Coordinate>();
+		visible = [];
 
 		spawner.initialize();
 		chunks.initialize();
@@ -81,9 +81,42 @@ class World
 		return false;
 	}
 
-	public function save():SaveWorld
+	public function newGame(seed:Int)
 	{
-		var s = new SaveWorld();
+		this.seed = seed;
+		rand = new Rand(seed);
+		visible = new Array<Coordinate>();
+		map.generate();
+		player.create();
+		player.entity.x = 100;
+		player.entity.y = 100;
+	}
+
+	public function load(data:SaveWorld)
+	{
+		seed = data.seed;
+		rand = new Rand(seed);
+		visible = [];
+		clock.setTick(data.tick);
+		map.load(data.map);
+		player.load(data.player);
+	}
+
+	public function save(teardown:Bool = false):SaveWorld
+	{
+		var playerData = player.save(teardown);
+		var mapData = map.save();
+		chunks.save(teardown);
+
+		var s = {
+			seed: seed,
+			player: playerData,
+			map: mapData,
+			chunkSize: chunkSize,
+			chunkCountX: chunkCountX,
+			chunkCountY: chunkCountY,
+			tick: clock.tick,
+		};
 
 		return s;
 	}

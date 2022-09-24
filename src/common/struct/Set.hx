@@ -2,7 +2,7 @@ package common.struct;
 
 @:generic class Set<T>
 {
-	private var items:Array<T>;
+	public var items:Array<T>;
 
 	public var isEmpty(get, never):Bool;
 	public var length(get, never):Int;
@@ -34,7 +34,7 @@ package common.struct;
 
 	public function pop():Null<T>
 	{
-		return isEmpty ? null : items.shift();
+		return isEmpty ? null : items.pop();
 	}
 
 	inline function get_isEmpty():Bool

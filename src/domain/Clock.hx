@@ -113,4 +113,10 @@ class Clock
 	{
 		return (((HOUR_START) + ticksToHours(tick)) % HOURS_PER_DAY) / HOURS_PER_DAY;
 	}
+
+	@:allow(domain.World)
+	private function setTick(value:Int)
+	{
+		tick = value;
+	}
 }

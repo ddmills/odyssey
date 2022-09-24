@@ -5,7 +5,6 @@ import domain.events.ExtinguishEvent;
 import domain.events.LightEvent;
 import domain.events.PickupEvent;
 import domain.events.QueryInteractionsEvent;
-import domain.events.UnequipEvent;
 import domain.events.UnequippedEvent;
 import domain.systems.EnergySystem;
 import ecs.Component;
@@ -13,11 +12,11 @@ import ecs.Component;
 class Lightable extends Component
 {
 	@save private var allowEquipped:Bool;
+	@save private var litColor:Int;
 
 	public var light(get, never):LightSource;
 	public var isLit(get, never):Bool;
 	public var displayName(get, never):String;
-	public var litColor:Int;
 
 	public function new(allowEquipped:Bool = false, litColor:Int = -1)
 	{

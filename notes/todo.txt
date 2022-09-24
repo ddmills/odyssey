@@ -1,6 +1,7 @@
 - [ ] click to move
 	- [x] in play screen
-- [ ] ground interact
+	- [ ] better graphics
+- [x] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
 	- [x] once item selected
@@ -44,9 +45,9 @@
 	- [x] Save map data (?)
 	- [x] save/load chunks
 	- [x] dynamic unload/load chunks
-	- [ ] save load files
+	- [x] save load files
 	- [ ] out of bounds entity destroy (no chunk)
-	- [ ] save/load tile data
+	- [x] save/load tile data
 - [ ] Death screen
 	- [x] show on death
 	- [ ] show game data
@@ -86,9 +87,11 @@
 - [x] save chunk data to disk
 - [x] load chunk data from disk
 - [ ] simplify mapdata (typedef over class)
-- [ ] save map data to disk
-- [ ] load map data from disk
+- [x] save map data to disk
+- [x] load map data from disk
 - [ ] menu screen (new game)
 - [ ] menu screen (load game)
 - [ ] smarter chunk generation (slow mode and immediate mode)
 - [ ] AI sleep/wake
+- [ ] save temporarily (save all tiledata???)
+- [ ] reset save on new game

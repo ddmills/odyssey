@@ -17,6 +17,7 @@ class Commands
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONSOLE,             KEY_COMMA,     true);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CYCLE_INPUT,         KEY_TAB);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CYCLE_INPUT_REVERSE, KEY_TAB,       true);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_SAVE,                KEY_S,         false,   true);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONFIRM,             KEY_ENTER);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CANCEL,              KEY_ESCAPE);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_MOVE_NW,             KEY_NUMPAD_7);

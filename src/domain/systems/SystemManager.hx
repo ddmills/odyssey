@@ -40,8 +40,8 @@ class SystemManager
 		death.update(frame);
 		energy.update(frame);
 		fuel.update(frame);
-		movement.update(frame);
 		chunks.update(frame);
+		movement.update(frame);
 		path.update(frame);
 		lights.update(frame);
 		vision.update(frame);

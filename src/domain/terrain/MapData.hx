@@ -1,6 +1,5 @@
 package domain.terrain;
 
-import common.rand.Perlin;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
@@ -9,42 +8,61 @@ import core.Game;
 import data.BiomeType;
 import data.ColorKeys;
 import data.TileKey;
+import data.save.SaveWorld.SaveMap;
 import domain.terrain.MapTile;
 import domain.terrain.biomes.BiomeGenerators;
 import hxd.Rand;
 
 class MapData
 {
-	var perlin:Perlin;
-	var world(get, never):World;
-	var seed(get, never):Int;
-	var heightZoom:Int = 78;
-	var r:Rand;
+	private var world(get, never):World;
+	private var seed(get, never):Int;
+	private var r:Rand;
 
 	public var tiles:Grid<MapTile>;
 	public var biomes:BiomeGenerators;
 
 	public function new()
 	{
-		perlin = new Perlin();
 		biomes = new BiomeGenerators();
 	}
 
 	public function initialize()
 	{
-		r = new Rand(seed + 1992);
-		perlin.seed = seed;
 		biomes.initialize(seed);
+	}
 
-		tiles = new Grid(world.mapWidth, world.mapHeight);
-		tiles.fillFn((idx) -> new MapTile(idx, this));
+	public function generate()
+	{
+		r = new Rand(world.seed);
 
 		trace('generating map ${world.mapWidth}x${world.mapHeight} = ${world.mapWidth * world.mapHeight} tiles');
-		Performance.start('map');
+		tiles = new Grid(world.mapWidth, world.mapHeight);
+		tiles.fillFn((idx) -> new MapTile(idx));
+
+		Performance.start('map-gen');
 		generateTerrain();
 		generateRiver();
-		Performance.stop('map');
-		Performance.trace('map');
+		trace(Performance.stop('map-gen'));
+	}
+
+	public function save():SaveMap
+	{
+		return {
+			tiles: tiles.save((t) -> t.save())
+		};
+	}
+
+	public function load(data:SaveMap)
+	{
+		Performance.start('map-load');
+		r = new Rand(world.seed);
+		tiles = new Grid(world.mapWidth, world.mapHeight);
+		tiles.load(data.tiles, (d) ->
+		{
+			return MapTile.load(d);
+		});
+		trace(Performance.stop('map-load'));
 	}
 
 	private function assignBiome(tile:MapTile):BiomeType
@@ -88,7 +106,6 @@ class MapData
 		for (t in tiles)
 		{
 			var tile = t.value;
-			tile.height = perlin.get(tile.x, tile.y, heightZoom);
 			tile.biomes = biomes.getRelativeWeights(t.pos);
 			tile.biomeKey = assignBiome(tile);
 

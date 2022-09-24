@@ -10,7 +10,6 @@ import core.input.KeyCode;
 import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
-import domain.GameMath;
 import domain.components.Collider;
 import domain.components.Health;
 import domain.components.IsEnemy;
@@ -19,7 +18,6 @@ import domain.components.Level;
 import domain.components.Move;
 import domain.components.Path;
 import domain.components.Sprite;
-import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.systems.EnergySystem;
 import h2d.Object;
@@ -31,6 +29,7 @@ import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
 import screens.map.MapScreen;
+import screens.save.SaveScreen;
 import screens.shooting.ShootingScreen;
 
 typedef HudText =
@@ -171,6 +170,8 @@ class AdventureScreen extends Screen
 				game.screens.push(new MapScreen());
 			case CMD_SHOOT:
 				game.screens.push(new ShootingScreen(world.player.entity));
+			case CMD_SAVE:
+				game.screens.push(new SaveScreen(true));
 			case _:
 		}
 	}

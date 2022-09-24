@@ -56,7 +56,6 @@ class Game
 		commands = new CommandManager();
 		console = new Console(TextResources.BIZCAT);
 		registry = new Registry();
-		world = new World();
 
 		ConsoleConfig.Config(console);
 
@@ -120,5 +119,11 @@ class Game
 	function get_TILE_H_HALF():Int
 	{
 		return Math.floor(TILE_H / 2);
+	}
+
+	@:allow(core.Screen)
+	private function setWorld(world:World)
+	{
+		this.world = world;
 	}
 }

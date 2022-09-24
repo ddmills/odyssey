@@ -2,6 +2,7 @@ package data.input;
 
 enum abstract CommandType(String) to String
 {
+	var CMD_SAVE = 'save';
 	var CMD_CONFIRM = 'confirm';
 	var CMD_CYCLE_INPUT = 'tab input';
 	var CMD_CYCLE_INPUT_REVERSE = 'tab input (reverse)';

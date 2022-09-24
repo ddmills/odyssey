@@ -236,7 +236,7 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
-			Game.instance.world.chunks.load(chunkId);
+			Game.instance.world.chunks.loadChunk(chunkId);
 			return;
 		}
 		var idx = exploration.idx(pos.x, pos.y);

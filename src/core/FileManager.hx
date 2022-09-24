@@ -2,19 +2,21 @@ package core;
 
 import common.tools.Performance;
 import data.save.SaveChunk;
+import data.save.SaveWorld;
+import domain.World;
 import hxd.Save;
 import sys.FileSystem;
 
 class FileManager
 {
-	var chunkSaveData:Map<Int, SaveChunk>;
 	var saveName:String;
 	var saveDirectory = 'saves';
 
-	public function new()
+	public function new() {}
+
+	public function setSaveName(name:String)
 	{
-		saveName = 'dev';
-		chunkSaveData = new Map();
+		saveName = name;
 		FileSystem.createDirectory(filePath(['chunks']));
 	}
 
@@ -26,19 +28,33 @@ class FileManager
 
 	public function saveChunk(data:SaveChunk)
 	{
-		Performance.start('chunk-save-file');
 		var isSaved = Save.save(data, filePath(['chunks', 'chunk-${data.idx}']));
 		if (!isSaved)
 		{
 			trace('chunk not saved!', data.idx);
 		}
-		trace(Performance.stop('chunk-save-file'));
 		return isSaved;
 	}
 
 	public function tryReadChunk(idx:Int):Null<SaveChunk>
 	{
 		var name = filePath(['chunks', 'chunk-$idx']);
+		return Save.load(null, name);
+	}
+
+	public function saveWorld(data:SaveWorld)
+	{
+		var isSaved = Save.save(data, filePath(['world']));
+		if (!isSaved)
+		{
+			trace('world not saved!');
+		}
+		return isSaved;
+	}
+
+	public function tryReadWorld():SaveWorld
+	{
+		var name = filePath(['world']);
 		return Save.load(null, name);
 	}
 }

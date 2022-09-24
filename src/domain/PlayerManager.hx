@@ -1,14 +1,14 @@
 package domain;
 
 import common.struct.Coordinate;
-import domain.prefabs.PlayerPrefab;
+import data.save.SaveWorld.SavePlayer;
 import domain.prefabs.Spawner;
 import ecs.Entity;
 import ecs.EntityRef;
 
 class PlayerManager
 {
-	var entityRef:EntityRef;
+	private var entityRef:EntityRef;
 
 	public var entity(get, never):Entity;
 	public var x(get, set):Float;
@@ -25,9 +25,28 @@ class PlayerManager
 		entityRef = new EntityRef();
 	}
 
-	public function initialize()
+	public function initialize() {}
+
+	public function create()
 	{
 		entityRef.entity = Spawner.Spawn(PLAYER);
+	}
+
+	public function save(?unload:Bool = false):SavePlayer
+	{
+		var data = entity.save();
+		if (unload)
+		{
+			entity.destroy();
+		}
+		return {
+			entity: data,
+		};
+	}
+
+	public function load(data:SavePlayer)
+	{
+		entityRef.entity = Entity.Load(data.entity);
 	}
 
 	inline function get_x():Float
