@@ -45,7 +45,7 @@ typedef GridSave<T> =
 		return Math.floor(idx / width);
 	}
 
-	public function coord(idx:Int):IntPoint
+	public inline function coord(idx:Int):IntPoint
 	{
 		return {
 			x: x(idx),

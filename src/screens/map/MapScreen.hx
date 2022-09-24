@@ -3,6 +3,7 @@ package screens.map;
 import common.struct.IntPoint;
 import core.Screen;
 import core.input.KeyCode;
+import data.ColorKeys;
 import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Object;
@@ -21,7 +22,7 @@ class MapScreen extends Screen
 
 	function populateTile(pos:IntPoint)
 	{
-		var color = world.map.getColor(pos);
+		var color = ColorKeys.C_GREEN_4; // world.map.getColor(pos);
 		var tile = Tile.fromColor(color, tileSize, tileSize);
 		var bm = new Bitmap(tile);
 

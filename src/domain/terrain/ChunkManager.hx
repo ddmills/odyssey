@@ -2,6 +2,7 @@ package domain.terrain;
 
 import common.struct.Grid;
 import common.struct.Set;
+import common.tools.Performance;
 import common.util.Projection;
 import core.Game;
 import data.save.SaveChunk;
@@ -25,15 +26,18 @@ class ChunkManager
 	public function initialize()
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
+		trace('generating chunks', chunkCountX, chunkCountY);
 		chunkSaveData = new Map();
 		chunksToUnload = new Set();
 
+		Performance.start('chunks');
 		for (i in 0...chunks.size)
 		{
 			var chunk = new Chunk(i, chunkSize);
 
 			chunks.setIdx(i, chunk);
 		}
+		trace(Performance.stop('chunks'));
 	}
 
 	public function loadChunks(curChunk:Int)

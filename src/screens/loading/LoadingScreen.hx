@@ -11,8 +11,7 @@ class LoadingScreen extends Screen
 	{
 		game.mount();
 		game.world.initialize();
-		game.camera.zoom = 2;
-
+		game.camera.zoom = 1;
 		world.player.entity.x = 100;
 		world.player.entity.y = 100;
 		game.screens.set(new AdventureScreen());

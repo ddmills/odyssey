@@ -127,7 +127,7 @@ class AdventureScreen extends Screen
 		if (key == KEY_NUM_0)
 		{
 			var p = game.input.mouse.toWorld().toIntPoint();
-			var idx = world.map.getTileIdx(p);
+			var idx = world.getTileIdx(p);
 			var fragments = world.systems.lights.lightFragments.get(idx);
 			trace(fragments);
 		}
@@ -204,13 +204,6 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		var tile = world.map.getTile(target);
-
-		if (tile == null || tile.isImpassable)
-		{
-			return;
-		}
-
 		world.player.entity.add(new Move(target.asWorld(), .15, LINEAR));
 	}
 
@@ -270,7 +263,7 @@ class AdventureScreen extends Screen
 			allowDiagonals: true,
 			cost: (a, b) ->
 			{
-				if (world.map.isOutOfBounds(b.x, b.y))
+				if (world.isOutOfBounds(b))
 				{
 					return Math.POSITIVE_INFINITY;
 				}

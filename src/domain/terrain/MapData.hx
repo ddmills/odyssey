@@ -3,7 +3,6 @@ package domain.terrain;
 import common.rand.Perlin;
 import common.struct.Grid;
 import common.struct.IntPoint;
-import common.struct.WeightedTable;
 import common.tools.Performance;
 import core.Game;
 import data.BiomeType;
@@ -44,23 +43,27 @@ class MapData
 		generateTerrain();
 		generateRiver();
 		Performance.stop('map');
+
+		var perTile = Performance.get('map').latest / (world.mapWidth * world.mapHeight);
 		Performance.trace('map');
+		trace('per tile $perTile');
 	}
 
 	private function assignBiome(tile:MapTile):BiomeType
 	{
-		var table = new WeightedTable<BiomeType>();
+		// var table = new WeightedTable<BiomeType>();
 
-		for (b => w in tile.biomes)
-		{
-			if (w > .05)
-			{
-				// increasing the exponent will increase biome intensity/falloff
-				table.add(b, (w.pow(3) * 100).round());
-			}
-		}
+		// for (b => w in tile.biomes)
+		// {
+		// 	if (w > .05)
+		// 	{
+		// 		// increasing the exponent will increase biome intensity/falloff
+		// 		table.add(b, (w.pow(3) * 100).round());
+		// 	}
+		// }
 
-		return table.pick(r);
+		// return table.pick(r);
+		return TUNDRA;
 	}
 
 	public function getTile(pos:IntPoint):MapTile
@@ -88,7 +91,6 @@ class MapData
 		for (t in tiles)
 		{
 			var tile = t.value;
-			tile.height = perlin.get(tile.x, tile.y, heightZoom);
 			tile.biomes = biomes.getRelativeWeights(t.pos);
 			tile.biomeKey = assignBiome(tile);
 

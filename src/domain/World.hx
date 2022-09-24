@@ -16,6 +16,7 @@ import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
 import ecs.Entity;
 import hxd.Rand;
+import screens.loading.ZoneGenerator;
 
 class World
 {
@@ -26,12 +27,15 @@ class World
 	public var player(default, null):PlayerManager;
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
+	public var zoneCountX(default, null):Int = 48;
+	public var zoneCountY(default, null):Int = 27;
 	public var chunkSize(default, null):Int = 16;
-	public var chunkCountX(default, null):Int = 12;
-	public var chunkCountY(default, null):Int = 12;
+	public var chunkCountX(get, null):Int;
+	public var chunkCountY(get, null):Int;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
+	public var zones(default, null):ZoneGenerator;
 	public var seed:Int = 2;
 	public var soundThreshold:Int = 8;
 
@@ -48,6 +52,7 @@ class World
 		player = new PlayerManager();
 		chunks = new ChunkManager();
 		spawner = new Spawner();
+		zones = new ZoneGenerator();
 
 		map = new MapData();
 	}
@@ -58,11 +63,11 @@ class World
 		visible = new Array<Coordinate>();
 
 		spawner.initialize();
+		zones.initialize();
 		chunks.initialize();
-		map.initialize();
+		// map.initialize();
 		systems.initialize();
 		player.initialize();
-		systems.initialize();
 	}
 
 	public function updateSystems()
@@ -250,5 +255,44 @@ class World
 	function get_mapHeight():Int
 	{
 		return chunkCountY * chunkSize;
+	}
+
+	function get_chunkCountX():Int
+	{
+		return chunkSize * 3 * zoneCountX;
+	}
+
+	function get_chunkCountY():Int
+	{
+		return chunkSize * 3 * zoneCountY;
+	}
+
+	public inline function isOutOfBounds(pos:IntPoint)
+	{
+		return isXOutOfBounds(pos.x) || isYOutOfBounds(pos.y);
+	}
+
+	public inline function isXOutOfBounds(x:Int)
+	{
+		return x < 0 || x >= mapWidth;
+	}
+
+	public inline function isYOutOfBounds(y:Int)
+	{
+		return y < 0 || y >= mapHeight;
+	}
+
+	public inline function getTileIdx(pos:IntPoint)
+	{
+		return pos.y * mapWidth + pos.x;
+	}
+
+	public inline function getTilePos(idx:Int):IntPoint
+	{
+		var w = mapWidth;
+		return {
+			x: Math.floor(idx % w),
+			y: Math.floor(idx / w),
+		}
 	}
 }

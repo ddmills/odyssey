@@ -4,7 +4,6 @@ import common.rand.Perlin;
 import common.struct.IntPoint;
 import data.BiomeType;
 import data.TileKey;
-import domain.prefabs.Spawner;
 import hxd.Rand;
 
 class BiomeGenerator

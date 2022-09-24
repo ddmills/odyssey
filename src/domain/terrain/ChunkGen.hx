@@ -48,7 +48,7 @@ class ChunkGen
 		for (i in chunk.exploration)
 		{
 			var pos = chunk.worldPos.add(i.pos);
-			var t = Game.instance.world.map.getTile(pos);
+			// var t = Game.instance.world.map.getTile(pos);
 
 			if (r.bool(.01))
 			{
@@ -57,7 +57,7 @@ class ChunkGen
 			}
 			else
 			{
-				t.biome.spawnEntity(t);
+				// t.biome.spawnEntity(t);
 			}
 		}
 	}

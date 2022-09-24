@@ -4,6 +4,7 @@ import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
+import data.ColorKeys;
 import data.TileResources;
 import data.save.SaveChunk;
 import domain.events.EntityLoadedEvent;
@@ -33,12 +34,6 @@ class Chunk
 	{
 		this.chunkId = chunkId;
 		this.size = size;
-
-		exploration = new Grid(size, size);
-		entities = new GridMap(size, size);
-		bitmaps = new Grid(size, size);
-		rand = new Rand(this.chunkId);
-		tiles = new h2d.Object();
 	}
 
 	function get_chunkPos():IntPoint
@@ -57,6 +52,11 @@ class Chunk
 		{
 			return;
 		}
+		exploration = new Grid(size, size);
+		entities = new GridMap(size, size);
+		bitmaps = new Grid(size, size);
+		rand = new Rand(this.chunkId);
+		tiles = new h2d.Object();
 		isLoaded = true;
 
 		buildTiles();
@@ -146,6 +146,12 @@ class Chunk
 			}
 		}
 
+		exploration = null;
+		entities = null;
+		bitmaps = null;
+		rand = null;
+		tiles = null;
+
 		isLoaded = false;
 	}
 
@@ -169,22 +175,14 @@ class Chunk
 	{
 		var bm = new h2d.Bitmap();
 
-		var pos = new IntPoint(wx.floor(), wy.floor());
-		var color = Game.instance.world.map.getColor(pos);
-		var shader = new SpriteShader(color);
-		var tile = Game.instance.world.map.getTile(pos);
+		var shader = new SpriteShader(ColorKeys.C_GREEN_3);
+
+		bm.tile = TileResources.Get(GRASS_V1_1);
 
 		if (Game.instance.SHOW_BG_COLORS)
 		{
-			shader.background = tile.bgColor.toHxdColor();
+			shader.background = ColorKeys.C_GREEN_4.toHxdColor();
 			shader.clearBackground = 1;
-		}
-
-		var mapTile = Game.instance.world.map.tiles.get(pos.x, pos.y);
-
-		if (mapTile.bgTileKey != null)
-		{
-			bm.tile = TileResources.Get(mapTile.bgTileKey);
 		}
 
 		bm.addShader(shader);
@@ -195,6 +193,11 @@ class Chunk
 
 	public function removeEntity(entity:Entity)
 	{
+		if (!isLoaded)
+		{
+			return;
+		}
+
 		entities.remove(entity.id);
 	}
 
@@ -208,6 +211,7 @@ class Chunk
 			// {
 			// 	trace(entity.get(Moniker).displayName);
 			// }
+			return;
 		}
 		var local = entity.pos.toChunkLocal().toWorld();
 		entities.set(local.x.floor(), local.y.floor(), entity.id);
@@ -215,6 +219,10 @@ class Chunk
 
 	public function getEntityIdsAt(x:Float, y:Float):Array<String>
 	{
+		if (!isLoaded)
+		{
+			return [];
+		}
 		return entities.get(x.floor(), y.floor());
 	}
 

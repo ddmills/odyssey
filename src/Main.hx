@@ -6,6 +6,7 @@ import data.TileResources;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.weapons.Weapons;
+import screens.loading.LoadingScreen;
 import screens.splash.SplashScreen;
 
 class Main extends hxd.App
@@ -37,7 +38,7 @@ class Main extends hxd.App
 
 		game = Game.Create(this);
 		game.backgroundColor = game.CLEAR_COLOR;
-		game.screens.set(new SplashScreen(1));
+		game.screens.set(new LoadingScreen());
 	}
 
 	override function update(dt:Float)

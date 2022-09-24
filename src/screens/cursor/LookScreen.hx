@@ -118,18 +118,6 @@ class LookScreen extends CursorScreen
 		}
 
 		var ipos = target.toIntPoint();
-		var tile = world.map.getTile(ipos);
-		var biome = tile.biomeKey;
-		var terrain = tile.terrain;
-		var weights = world.map.biomes.getRelativeWeights(ipos);
-		var bprairie = (weights.get(PRAIRIE) * 100).round();
-		var bdesert = (weights.get(DESERT) * 100).round();
-		var bforest = (weights.get(FOREST) * 100).round();
-		var bswamp = (weights.get(SWAMP) * 100).round();
-		var btundra = (weights.get(TUNDRA) * 100).round();
-		var bmountain = (weights.get(MOUNTAIN) * 100).round();
-
-		// targetText.text = '[${EnumValueTools.getName(biome)}:${EnumValueTools.getName(terrain)}] p:${bprairie}%,d:${bdesert}%,f:${bforest}%,m:${bmountain}%,t:${btundra}%,s:${bswamp}%';
 		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).radians();
 		var cardinal = Cardinal.fromRadians(angle);
 		var light = world.systems.lights.getTileLight(ipos);
