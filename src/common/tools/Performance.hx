@@ -36,11 +36,14 @@ class Performance
 		return () -> toString(name);
 	}
 
-	public static function stop(name:String):String
+	public static function stop(name:String, showTrace:Bool = false)
 	{
 		var meter = getOrCreateMeter(name);
 		meter.stop();
-		return toString(name);
+		if (showTrace)
+		{
+			trace(toString(name));
+		}
 	}
 
 	public static function get(name:String)

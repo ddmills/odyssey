@@ -60,7 +60,7 @@ class LightSystem extends System
 				distance: light.range,
 				isBlocker: (p) ->
 				{
-					if (world.map.tiles.isOutOfBounds(p.x, p.y))
+					if (world.isOutOfBounds(p))
 					{
 						return false;
 					}

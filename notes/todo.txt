@@ -48,6 +48,7 @@
 	- [x] save load files
 	- [ ] out of bounds entity destroy (no chunk)
 	- [x] save/load tile data
+	- [ ] inventory items
 - [ ] Death screen
 	- [x] show on death
 	- [ ] show game data

@@ -177,19 +177,17 @@ class Chunk
 		var pos = new IntPoint(wx.floor(), wy.floor());
 		var color = Game.instance.world.map.getColor(pos);
 		var shader = new SpriteShader(color);
-		var tile = Game.instance.world.map.getTile(pos);
+		var cell = Game.instance.world.map.getCell(pos);
 
 		if (Game.instance.SHOW_BG_COLORS)
 		{
-			shader.background = tile.bgColor.toHxdColor();
+			shader.background = cell.background.toHxdColor();
 			shader.clearBackground = 1;
 		}
 
-		var mapTile = Game.instance.world.map.tiles.get(pos.x, pos.y);
-
-		if (mapTile.bgTileKey != null)
+		if (cell.tileKey != null)
 		{
-			bm.tile = TileResources.Get(mapTile.bgTileKey);
+			bm.tile = TileResources.Get(cell.tileKey);
 		}
 
 		bm.addShader(shader);

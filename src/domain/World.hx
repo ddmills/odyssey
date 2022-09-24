@@ -2,6 +2,7 @@ package domain;
 
 import common.struct.Coordinate;
 import common.struct.IntPoint;
+import common.tools.Performance;
 import core.Game;
 import data.AudioKey;
 import data.Cardinal;
@@ -27,8 +28,8 @@ class World
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
 	public var chunkSize(default, null):Int = 32;
-	public var chunkCountX(default, null):Int = 8;
-	public var chunkCountY(default, null):Int = 8;
+	public var chunkCountX(default, null):Int = 64;
+	public var chunkCountY(default, null):Int = 48;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
@@ -88,22 +89,25 @@ class World
 		visible = new Array<Coordinate>();
 		map.generate();
 		player.create();
-		player.entity.x = 100;
-		player.entity.y = 100;
+		player.entity.x = (mapWidth / 2).floor();
+		player.entity.y = (mapHeight / 2).floor();
 	}
 
 	public function load(data:SaveWorld)
 	{
+		Performance.start('world-load');
 		seed = data.seed;
 		rand = new Rand(seed);
 		visible = [];
 		clock.setTick(data.tick);
 		map.load(data.map);
 		player.load(data.player);
+		Performance.stop('world-load', true);
 	}
 
 	public function save(teardown:Bool = false):SaveWorld
 	{
+		Performance.start('world-save');
 		var playerData = player.save(teardown);
 		var mapData = map.save();
 		chunks.save(teardown);
@@ -117,6 +121,8 @@ class World
 			chunkCountY: chunkCountY,
 			tick: clock.tick,
 		};
+
+		Performance.stop('world-save', true);
 
 		return s;
 	}
@@ -275,13 +281,32 @@ class World
 		return Game.instance;
 	}
 
-	function get_mapWidth():Int
+	inline function get_mapWidth():Int
 	{
 		return chunkCountX * chunkSize;
 	}
 
-	function get_mapHeight():Int
+	inline function get_mapHeight():Int
 	{
 		return chunkCountY * chunkSize;
+	}
+
+	public inline function isOutOfBounds(pos:IntPoint)
+	{
+		return map.isOutOfBounds(pos);
+	}
+
+	public inline function getTileIdx(pos:IntPoint)
+	{
+		return map.getTileIdx(pos);
+	}
+
+	public inline function getTilePos(idx:Int):IntPoint
+	{
+		var w = mapWidth;
+		return {
+			x: Math.floor(idx % w),
+			y: Math.floor(idx / w),
+		}
 	}
 }

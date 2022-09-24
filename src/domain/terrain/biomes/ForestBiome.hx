@@ -1,35 +1,31 @@
 package domain.terrain.biomes;
 
+import common.struct.IntPoint;
 import data.ColorKeys;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
-class ForestBiome extends BiomeGenerator
+class ForestBiome extends Biome
 {
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_forest);
-		super(seed, FOREST, weights, [0x263128, 0x303332, 0x36463a, 0x3A413D]);
+		super(seed, FOREST, weights, ColorKeys.C_GREEN_4);
 	}
 
-	override function getBackgroundTileKey(tile:MapTile):TileKey
+	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		return r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
+		cell.tileKey = r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
+		cell.terrain = TERRAIN_GRASS;
+		cell.primary = ColorKeys.C_GREEN_3;
+		cell.background = ColorKeys.C_GREEN_4;
 	}
 
-	override function assignTileData(tile:MapTile)
+	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		tile.bgTileKey = getBackgroundTileKey(tile);
-		tile.terrain = TERRAIN_GRASS;
-		tile.color = ColorKeys.C_GREEN_3;
-		tile.bgColor = ColorKeys.C_GREEN_4;
-	}
-
-	override function spawnEntity(tile:MapTile)
-	{
-		if (tile.terrain == TERRAIN_GRASS && r.bool(.25))
+		if (cell.terrain == TERRAIN_GRASS && r.bool(.25))
 		{
-			Spawner.Spawn(PINE_TREE, tile.pos.asWorld());
+			Spawner.Spawn(PINE_TREE, pos.asWorld());
 		}
 	}
 }

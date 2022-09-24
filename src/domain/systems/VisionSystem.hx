@@ -105,7 +105,7 @@ class VisionSystem extends System
 			distance: maxRange,
 			isBlocker: (p) ->
 			{
-				if (world.map.tiles.isOutOfBounds(p.x, p.y))
+				if (world.isOutOfBounds(p))
 				{
 					return false;
 				}

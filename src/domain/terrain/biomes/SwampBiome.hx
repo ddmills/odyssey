@@ -5,17 +5,17 @@ import data.ColorKeys;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
-class SwampBiome extends BiomeGenerator
+class SwampBiome extends Biome
 {
 	var waterLine = .38;
 
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_swamp);
-		super(seed, SWAMP, weights, [0x365857, 0x462f43, 0x365857, 0x568160]);
+		super(seed, SWAMP, weights, ColorKeys.C_PURPLE_3);
 	}
 
-	override function getBackgroundTileKey(tile:MapTile):TileKey
+	function getBackgroundTileKey(pos:IntPoint):TileKey
 	{
 		var grass = r.bool(.05);
 		if (grass)
@@ -23,7 +23,7 @@ class SwampBiome extends BiomeGenerator
 			return GRASS_V1_3;
 		}
 
-		var p = perlin.get(tile.x, tile.y, 6);
+		var p = perlin.get(pos, 6);
 		var h = p.pow(2);
 
 		if (h > .56)
@@ -49,23 +49,23 @@ class SwampBiome extends BiomeGenerator
 		return TERRAIN_BASIC_1;
 	}
 
-	override function assignTileData(tile:MapTile)
+	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		var h = perlin.get(tile.x, tile.y, 16, 8);
+		var h = perlin.get(pos, 16, 8);
 
 		if (h < waterLine)
 		{
-			tile.bgTileKey = WATER_1;
-			tile.terrain = TERRAIN_WATER;
-			tile.color = ColorKeys.C_BLUE_2;
-			tile.bgColor = ColorKeys.C_BLUE_3;
+			cell.tileKey = WATER_1;
+			cell.terrain = TERRAIN_WATER;
+			cell.primary = ColorKeys.C_BLUE_2;
+			cell.background = ColorKeys.C_BLUE_3;
 		}
 		else
 		{
-			tile.bgTileKey = getBackgroundTileKey(tile);
-			tile.terrain = TERRAIN_MUD;
-			tile.color = ColorKeys.C_PURPLE_2;
-			tile.bgColor = ColorKeys.C_PURPLE_3;
+			cell.tileKey = getBackgroundTileKey(pos);
+			cell.terrain = TERRAIN_MUD;
+			cell.primary = ColorKeys.C_PURPLE_2;
+			cell.background = ColorKeys.C_PURPLE_3;
 		}
 	}
 
@@ -74,25 +74,25 @@ class SwampBiome extends BiomeGenerator
 		return perlin.get(p.x, p.y, 16, 8);
 	}
 
-	override function spawnEntity(tile:MapTile)
+	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		var h = perlin.get(tile.x, tile.y, 16, 8);
+		var h = perlin.get(pos, 16, 8);
 
 		if (h < waterLine && r.bool(.125))
 		{
-			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
+			Spawner.Spawn(BALD_CYPRESS, pos.asWorld());
 		}
 		else if (r.bool(.05))
 		{
-			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
+			Spawner.Spawn(BALD_CYPRESS, pos.asWorld());
 		}
 		else if (r.bool(.05))
 		{
-			Spawner.Spawn(CORPSE_SNAKE, tile.pos.asWorld());
+			Spawner.Spawn(CORPSE_SNAKE, pos.asWorld());
 		}
 		else if (r.bool(.05))
 		{
-			Spawner.Spawn(CORPSE_HUMAN, tile.pos.asWorld());
+			Spawner.Spawn(CORPSE_HUMAN, pos.asWorld());
 		}
 	}
 }

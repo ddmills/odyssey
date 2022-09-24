@@ -14,6 +14,8 @@
 - create optional "discoverable" dialog
 - https://gamedesignlounge.com/video-game-dialogue-writing/
 - https://lib.haxe.org/p/hxyarn/0.1.2/
+- aidungeon.io
+
 
 ### Designing NPCs
 - each npc should have a motivation

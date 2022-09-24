@@ -1,5 +1,7 @@
 package common.rand;
 
+import common.struct.IntPoint;
+
 class Perlin
 {
 	private var hxdPerlin:hxd.Perlin;
@@ -13,9 +15,16 @@ class Perlin
 		hxdPerlin.normalize = true;
 	}
 
-	public function get(x:Float, y:Float, scale:Float = 1, octaves:Int = 8)
+	public overload extern inline function get(x:Float, y:Float, scale:Float = 1, octaves:Int = 8)
 	{
 		var n = hxdPerlin.perlin(seed, x / scale, y / scale, octaves);
+
+		return (n + 1) / 2;
+	}
+
+	public overload extern inline function get(p:IntPoint, scale:Float = 1, octaves:Int = 8)
+	{
+		var n = hxdPerlin.perlin(seed, p.x / scale, p.y / scale, octaves);
 
 		return (n + 1) / 2;
 	}

@@ -5,19 +5,19 @@ import data.ColorKeys;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
-class PrairieBiome extends BiomeGenerator
+class PrairieBiome extends Biome
 {
 	var waterLevel:Float = .32;
 
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_prairie);
-		super(seed, PRAIRIE, weights, [0x2A4B16, 0x304723, 0x46502F, 0x44572e, 0x495228]);
+		super(seed, PRAIRIE, weights, ColorKeys.C_GREEN_3);
 	}
 
-	public override function getBackgroundTileKey(tile:MapTile):TileKey
+	function getBackgroundTileKey(pos:IntPoint):TileKey
 	{
-		var h = perlin.get(tile.x, tile.y, 6);
+		var h = perlin.get(pos, 6);
 
 		if (h > .7)
 		{
@@ -42,11 +42,6 @@ class PrairieBiome extends BiomeGenerator
 		return TERRAIN_BASIC_1;
 	}
 
-	override function getTerrain(tile:MapTile):TerrainType
-	{
-		return TERRAIN_GRASS;
-	}
-
 	private function getHeight(pos:IntPoint):Float
 	{
 		return perlin.get(pos.x, pos.y, 30, 5);
@@ -57,43 +52,31 @@ class PrairieBiome extends BiomeGenerator
 		return getHeight(pos) < waterLevel;
 	}
 
-	override function getWeight(pos:IntPoint):Float
+	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		var base = baseWeightMap.getWeight(pos);
-
-		if (getIsWater(pos))
-		{
-			return base * 5;
-		}
-
-		return base;
-	}
-
-	override function assignTileData(tile:MapTile)
-	{
-		var isWater = getIsWater(tile.pos);
+		var isWater = getIsWater(pos);
 
 		if (isWater)
 		{
-			tile.bgTileKey = WATER_1;
-			tile.terrain = TERRAIN_WATER;
-			tile.color = ColorKeys.C_BLUE_2;
-			tile.bgColor = ColorKeys.C_BLUE_3;
+			cell.tileKey = WATER_1;
+			cell.terrain = TERRAIN_WATER;
+			cell.primary = ColorKeys.C_BLUE_2;
+			cell.background = ColorKeys.C_BLUE_3;
 		}
 		else
 		{
-			tile.bgTileKey = getBackgroundTileKey(tile);
-			tile.terrain = TERRAIN_GRASS;
-			tile.color = ColorKeys.C_GREEN_2;
-			tile.bgColor = ColorKeys.C_GREEN_3;
+			cell.tileKey = getBackgroundTileKey(pos);
+			cell.terrain = TERRAIN_GRASS;
+			cell.primary = ColorKeys.C_GREEN_2;
+			cell.background = ColorKeys.C_GREEN_3;
 		}
 	}
 
-	override function spawnEntity(tile:MapTile)
+	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (tile.terrain == TERRAIN_GRASS && r.bool(.005))
+		if (cell.terrain == TERRAIN_GRASS && r.bool(.005))
 		{
-			Spawner.Spawn(OAK_TREE, tile.pos.asWorld());
+			Spawner.Spawn(OAK_TREE, pos.asWorld());
 		}
 	}
 }

@@ -2,18 +2,17 @@ package domain.terrain.biomes;
 
 import common.struct.IntPoint;
 import data.BiomeType;
-import haxe.ds.EnumValueMap;
 
-class BiomeGenerators
+class Biomes
 {
-	public static var biomes:Array<BiomeGenerator>;
+	public static var biomes:Array<Biome>;
 
-	public static var BIOME_PRAIRIE:BiomeGenerator;
-	public static var BIOME_FOREST:BiomeGenerator;
-	public static var BIOME_DESERT:BiomeGenerator;
-	public static var BIOME_TUNDRA:BiomeGenerator;
-	public static var BIOME_SWAMP:BiomeGenerator;
-	public static var BIOME_MOUNTAIN:BiomeGenerator;
+	public static var BIOME_PRAIRIE:Biome;
+	public static var BIOME_FOREST:Biome;
+	public static var BIOME_DESERT:Biome;
+	public static var BIOME_TUNDRA:Biome;
+	public static var BIOME_SWAMP:Biome;
+	public static var BIOME_MOUNTAIN:Biome;
 
 	public function new() {}
 
@@ -35,7 +34,7 @@ class BiomeGenerators
 		];
 	}
 
-	public function get(type:BiomeType):BiomeGenerator
+	public function get(type:BiomeType):Biome
 	{
 		return switch type
 		{
@@ -51,19 +50,19 @@ class BiomeGenerators
 	public function getRelativeWeights(pos:IntPoint):Map<BiomeType, Float>
 	{
 		var weights = new Map<BiomeType, Float>();
-		var sum = 0.0;
+		// var sum = 0.0;
 
 		for (biome in biomes)
 		{
 			var weight = biome.getWeight(pos);
 			weights.set(biome.type, weight);
-			sum += weight;
+			// sum += weight;
 		}
 
-		for (type => weight in weights)
-		{
-			weights.set(type, weight / sum);
-		}
+		// for (type => weight in weights)
+		// {
+		// 	weights.set(type, weight / sum);
+		// }
 
 		return weights;
 	}

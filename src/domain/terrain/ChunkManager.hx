@@ -88,7 +88,7 @@ class ChunkManager
 		var chunk = getChunkById(chunkIdx);
 		Performance.start('chunk-save');
 		var data = chunk.save();
-		trace(Performance.stop('chunk-save'));
+		Performance.stop('chunk-save');
 		game.files.saveChunk(data);
 		if (unload)
 		{

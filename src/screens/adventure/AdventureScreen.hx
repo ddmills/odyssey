@@ -205,13 +205,6 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		var tile = world.map.getTile(target);
-
-		if (tile == null || tile.isImpassable)
-		{
-			return;
-		}
-
 		world.player.entity.add(new Move(target.asWorld(), .15, LINEAR));
 	}
 
@@ -271,7 +264,7 @@ class AdventureScreen extends Screen
 			allowDiagonals: true,
 			cost: (a, b) ->
 			{
-				if (world.map.isOutOfBounds(b.x, b.y))
+				if (world.isOutOfBounds(b))
 				{
 					return Math.POSITIVE_INFINITY;
 				}

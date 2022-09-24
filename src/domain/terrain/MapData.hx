@@ -6,25 +6,23 @@ import common.struct.WeightedTable;
 import common.tools.Performance;
 import core.Game;
 import data.BiomeType;
-import data.ColorKeys;
-import data.TileKey;
 import data.save.SaveWorld.SaveMap;
-import domain.terrain.MapTile;
-import domain.terrain.biomes.BiomeGenerators;
+import domain.terrain.biomes.Biome;
+import domain.terrain.biomes.Biomes;
 import hxd.Rand;
 
 class MapData
 {
 	private var world(get, never):World;
 	private var seed(get, never):Int;
+	private var cells:Grid<Cell>;
 	private var r:Rand;
 
-	public var tiles:Grid<MapTile>;
-	public var biomes:BiomeGenerators;
+	public var biomes:Biomes;
 
 	public function new()
 	{
-		biomes = new BiomeGenerators();
+		biomes = new Biomes();
 	}
 
 	public function initialize()
@@ -37,39 +35,31 @@ class MapData
 		r = new Rand(world.seed);
 
 		trace('generating map ${world.mapWidth}x${world.mapHeight} = ${world.mapWidth * world.mapHeight} tiles');
-		tiles = new Grid(world.mapWidth, world.mapHeight);
-		tiles.fillFn((idx) -> new MapTile(idx));
-
 		Performance.start('map-gen');
-		generateTerrain();
-		generateRiver();
-		trace(Performance.stop('map-gen'));
+		cells = new Grid(world.mapWidth, world.mapHeight);
+		cells.fillFn(generateCell);
+		Performance.stop('map-gen', true);
 	}
 
 	public function save():SaveMap
 	{
 		return {
-			tiles: tiles.save((t) -> t.save())
+			cells: cells.save((t) -> t)
 		};
 	}
 
 	public function load(data:SaveMap)
 	{
-		Performance.start('map-load');
 		r = new Rand(world.seed);
-		tiles = new Grid(world.mapWidth, world.mapHeight);
-		tiles.load(data.tiles, (d) ->
-		{
-			return MapTile.load(d);
-		});
-		trace(Performance.stop('map-load'));
+		cells = new Grid(world.mapWidth, world.mapHeight);
+		cells.load(data.cells, (d) -> d);
 	}
 
-	private function assignBiome(tile:MapTile):BiomeType
+	private function pickBiome(biomes:Map<BiomeType, Float>):BiomeType
 	{
 		var table = new WeightedTable<BiomeType>();
 
-		for (b => w in tile.biomes)
+		for (b => w in biomes)
 		{
 			if (w > .05)
 			{
@@ -81,88 +71,60 @@ class MapData
 		return table.pick(r);
 	}
 
-	public function getTile(pos:IntPoint):MapTile
+	public function getCell(pos:IntPoint):Cell
 	{
-		return tiles.get(pos.x, pos.y);
+		return cells.get(pos.x, pos.y);
+	}
+
+	public function getBiome(biomeType:BiomeType):Biome
+	{
+		return biomes.get(biomeType);
 	}
 
 	public function getTileIdx(pos:IntPoint):Int
 	{
-		return tiles.idx(pos.x, pos.y);
+		return cells.idx(pos.x, pos.y);
 	}
 
 	public function getTilePos(idx:Int):IntPoint
 	{
-		return tiles.coord(idx);
+		return cells.coord(idx);
 	}
 
 	public function getColor(pos:IntPoint):Int
 	{
-		return tiles.get(pos.x, pos.y).color;
+		return cells.get(pos.x, pos.y).primary;
 	}
 
-	function generateTerrain()
+	inline function generateCell(idx:Int):Cell
 	{
-		for (t in tiles)
+		if (idx % 50000 == 0)
 		{
-			var tile = t.value;
-			tile.biomes = biomes.getRelativeWeights(t.pos);
-			tile.biomeKey = assignBiome(tile);
-
-			var biome = biomes.get(tile.biomeKey);
-
-			biome.assignTileData(tile);
+			trace('generating.... ${((idx / cells.size) * 100).format()}%');
 		}
+
+		var pos = getTilePos(idx);
+		// var biomeWeights = biomes.getRelativeWeights(pos);
+		var biomeKey = BiomeType.PRAIRIE; // pickBiome(biomeWeights);
+		var biome = biomes.get(biomeKey);
+		var cell:Cell = {
+			idx: idx,
+			terrain: TERRAIN_GRASS,
+			biomeKey: biomeKey,
+			tileKey: GRASS_V1_1,
+			primary: 0x000000,
+			secondary: 0x000000,
+			background: 0x000000,
+		};
+
+		biome.setCellData(pos, cell);
+
+		return cell;
 	}
 
-	function generateRiver()
+	public function isOutOfBounds(pos:IntPoint):Bool
 	{
-		var variance = 16;
-		var middle = (tiles.height / 2).floor();
-		var start = r.integer(-variance, variance) + middle;
-		var end = r.integer(-variance, variance) + middle;
-
-		var slope = (start - end) / tiles.width;
-		var period = 4;
-		var intensity = 3.5;
-		var startWidth = 6;
-		var minWidth = 2;
-
-		for (x in 0...tiles.width)
-		{
-			var progress = (x / tiles.width);
-			var stuf = (1 - progress) * (intensity * intensity);
-			var riverWidth = (((1 - progress) * startWidth) + minWidth).round();
-
-			for (y in 0...riverWidth)
-			{
-				var ry = (slope * x + (Math.sin(x * (1 / period)) * stuf)).round();
-
-				var pos = new IntPoint(x, y + start + ry);
-
-				if (tiles.isOutOfBounds(pos.x, pos.y))
-				{
-					continue;
-				}
-
-				var tile = getTile(pos);
-				setTileRiver(tile);
-			}
-		}
-	}
-
-	function setTileRiver(tile:MapTile)
-	{
-		tile.color = ColorKeys.C_BLUE_2;
-		tile.bgColor = ColorKeys.C_BLUE_3;
-		tile.terrain = TERRAIN_RIVER;
-		var waterTiles:Array<TileKey> = [WATER_1, WATER_2, WATER_3, WATER_4];
-		tile.bgTileKey = r.pick(waterTiles);
-	}
-
-	public function isOutOfBounds(x:Int, y:Int):Bool
-	{
-		return tiles.isOutOfBounds(x, y);
+		return cells.isOutOfBounds(pos.x, pos.y);
 	}
 
 	inline function get_world():World

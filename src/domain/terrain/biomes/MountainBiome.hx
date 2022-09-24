@@ -1,32 +1,30 @@
 package domain.terrain.biomes;
 
+import common.struct.IntPoint;
 import data.ColorKeys;
-import data.TileKey;
 
-class MountainBiome extends BiomeGenerator
+class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_mountain);
-		super(seed, MOUNTAIN, weights, [0x11253A, 0x2B3534, 0x3d4046]);
+		super(seed, MOUNTAIN, weights, ColorKeys.C_GRAY_5);
 	}
 
-	override function getBackgroundTileKey(tile:MapTile):TileKey
+	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		return TERRAIN_BASIC_4;
-	}
-
-	override function assignTileData(tile:MapTile)
-	{
-		tile.bgTileKey = getBackgroundTileKey(tile);
-		tile.terrain = TERRAIN_ROCK;
 		if (r.bool(.02))
 		{
-			tile.bgTileKey = GRASS_V1_3;
-			tile.terrain = TERRAIN_GRASS;
+			cell.tileKey = GRASS_V1_3;
+			cell.terrain = TERRAIN_GRASS;
+		}
+		else
+		{
+			cell.tileKey = TERRAIN_BASIC_4;
+			cell.terrain = TERRAIN_ROCK;
 		}
 
-		tile.color = ColorKeys.C_GRAY_2;
-		tile.bgColor = ColorKeys.C_GRAY_5;
+		cell.primary = ColorKeys.C_GRAY_2;
+		cell.background = ColorKeys.C_GRAY_5;
 	}
 }

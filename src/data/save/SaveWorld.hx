@@ -1,7 +1,7 @@
 package data.save;
 
 import common.struct.Grid.GridSave;
-import domain.terrain.TerrainType;
+import domain.terrain.Cell;
 import ecs.Entity.EntitySaveData;
 
 typedef SavePlayer =
@@ -9,20 +9,9 @@ typedef SavePlayer =
 	entity:EntitySaveData,
 };
 
-typedef SaveMapTile =
-{
-	idx:Int,
-	terrain:TerrainType,
-	biomes:Map<BiomeType, Float>,
-	biomeKey:BiomeType,
-	color:Int,
-	bgTileKey:TileKey,
-	bgColor:Int,
-};
-
 typedef SaveMap =
 {
-	tiles:GridSave<SaveMapTile>,
+	cells:GridSave<Cell>,
 };
 
 typedef SaveWorld =
