@@ -21,7 +21,7 @@ class CampfirePrefab extends Prefab
 		entity.add(new SpriteAnim([CAMPFIRE_1, CAMPFIRE_2, CAMPFIRE_3], speed, ColorKeys.C_ORANGE_2, ColorKeys.C_YELLOW_1, OBJECTS));
 		entity.add(new Moniker('Campfire'));
 		entity.add(new LightSource(.75, ColorKeys.C_YELLOW_2, 3));
-		entity.add(new FuelConsumer([FUEL_WOOD], 1000, 2000, 1, true, true));
+		entity.add(new FuelConsumer([FUEL_WOOD], 5000, 5000, 1, true, true));
 		entity.add(new Combustible(ASHES));
 
 		return entity;

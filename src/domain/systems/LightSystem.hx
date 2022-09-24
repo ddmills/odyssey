@@ -71,9 +71,7 @@ class LightSystem extends System
 				},
 				onLight: (pos, distance) ->
 				{
-					var d = distance > .5 ? distance - .5 : .5;
-					// var intensity = 1 - (d / light.range);
-
+					var d = distance > .75 ? distance - .75 : .75;
 					var i = light.intensity / (d * d);
 
 					addFragment({

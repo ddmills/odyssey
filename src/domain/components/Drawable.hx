@@ -11,6 +11,7 @@ abstract class Drawable extends Component
 	@save public var secondary(default, set):Int;
 	@save public var outline(default, set):Int;
 	@save public var background(default, set):Null<Int>;
+	@save public var enableLutShader(default, set):Bool = true;
 
 	@save public var primaryOverride(default, set):Null<Int> = null;
 	@save public var secondaryOverride(default, set):Null<Int> = null;
@@ -167,5 +168,12 @@ abstract class Drawable extends Component
 	inline function get_drawable():h2d.Drawable
 	{
 		return getDrawable();
+	}
+
+	function set_enableLutShader(value:Bool):Bool
+	{
+		enableLutShader = true;
+		shader.enableLut = value ? 1 : 0;
+		return value;
 	}
 }

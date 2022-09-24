@@ -1,3 +1,5 @@
+### Armor ideas
+- https://www.reddit.com/r/RPGdesign/comments/xm1bhj/a_look_at_armor_as_damage_reduction/
 
 ### Font creation
 - https://github.com/soimy/msdf-bmfont-xml

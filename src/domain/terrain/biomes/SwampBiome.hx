@@ -86,5 +86,13 @@ class SwampBiome extends BiomeGenerator
 		{
 			Spawner.Spawn(BALD_CYPRESS, tile.pos.asWorld());
 		}
+		else if (r.bool(.05))
+		{
+			Spawner.Spawn(CORPSE_SNAKE, tile.pos.asWorld());
+		}
+		else if (r.bool(.05))
+		{
+			Spawner.Spawn(CORPSE_HUMAN, tile.pos.asWorld());
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package domain.components;
 
-import domain.events.QueryVisionModEvent;
+import domain.events.EntityLoadedEvent;
+import domain.events.EntitySpawnedEvent;
 import ecs.Component;
 
 class LightSource extends Component
@@ -9,28 +10,50 @@ class LightSource extends Component
 	@save public var intensity:Float;
 	@save public var range:Int;
 	@save public var colour:Int;
-	@save public var isEnabled:Bool;
-	@save public var visionRangeMin:Int;
+	@save public var isEnabled(default, set):Bool;
+	@save public var disableLutShader(default, set):Bool;
 
-	public function new(intensity:Float = .5, colour:Int = 0xffffff, range:Int = 5, isEnabled:Bool = true, visionRangeMin:Int = 0)
+	public function new(intensity:Float = .5, colour:Int = 0xffffff, range:Int = 5, isEnabled:Bool = true, disableLutShader:Bool = true)
 	{
 		this.intensity = intensity;
 		this.range = range;
 		this.colour = colour;
 		this.isEnabled = isEnabled;
-		this.visionRangeMin = visionRangeMin;
+		this.disableLutShader = disableLutShader;
 
-		addHandler(QueryVisionModEvent, onQueryVisionMod);
+		addHandler(EntityLoadedEvent, onEntityLoaded);
+		addHandler(EntitySpawnedEvent, onEntitySpawned);
 	}
 
-	private function onQueryVisionMod(evt:QueryVisionModEvent)
+	private function onEntityLoaded(evt:EntityLoadedEvent)
 	{
-		if (visionRangeMin > 0 && isEnabled)
+		updateShader();
+	}
+
+	private function onEntitySpawned(evt:EntitySpawnedEvent)
+	{
+		updateShader();
+	}
+
+	private function updateShader()
+	{
+		if (entity != null && entity.drawable != null)
 		{
-			evt.mods.push({
-				source: 'LightSource',
-				minVision: visionRangeMin,
-			});
+			entity.drawable.enableLutShader = !disableLutShader;
 		}
+	}
+
+	function set_disableLutShader(value:Bool):Bool
+	{
+		disableLutShader = value;
+		updateShader();
+		return value;
+	}
+
+	function set_isEnabled(value:Bool):Bool
+	{
+		isEnabled = value;
+		updateShader();
+		return value;
 	}
 }

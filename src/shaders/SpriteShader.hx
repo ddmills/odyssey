@@ -22,79 +22,68 @@ class SpriteShader extends hxsl.Shader
 			@param var isShrouded:Int;
 			@param var shroudColor:Vec3;
 			@param var shroudIntensity:Float;
+			@param var enableLut:Int;
 			@global var dayProgress:Float;
 			function fragment()
 			{
-				var uv = vec2(dayProgress, 0.0);
-				var lightIntensityFactor = clamp(lightIntensity * .30, 0, 1);
-				if (pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0)
-				{
-					pixelColor.rgb = primary;
+				var isBackground = pixelColor.a == 0;
+				var isPrimary = !isBackground && pixelColor.r == 0 && pixelColor.g == 0 && pixelColor.b == 0;
+				var isSecondary = !isBackground && pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1;
+				var isOutline = !isBackground && pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0;
 
-					if (isLit == 1)
-					{
-						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
-					}
-					if (isShrouded == 1)
-					{
-						var color = pixelColor.rgb;
-						var gray = vec3(dot(shroudColor, color));
-						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
-					}
-				}
-				else if (pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1)
+				var baseColor = pixelColor.rgb;
+
+				if (isPrimary)
 				{
-					pixelColor.rgb = secondary;
-					if (isLit == 1)
-					{
-						pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
-					}
-					if (isShrouded == 1)
-					{
-						var color = pixelColor.rgb;
-						var gray = vec3(dot(shroudColor, color));
-						pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
-					}
+					baseColor = primary;
 				}
-				else if (pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0)
+				else if (isSecondary)
 				{
-					pixelColor.rgb = outline;
+					baseColor = secondary;
+				}
+				else if (isOutline)
+				{
+					baseColor = outline;
+					pixelColor.a = .75;
+				}
+				else if (isBackground)
+				{
+					baseColor = background;
 				}
 
-				if (pixelColor.a == 0)
+				if (isShrouded == 1)
 				{
-					if (clearBackground == 1)
+					var gray = vec3(dot(shroudColor, baseColor));
+					baseColor = mix(mix(baseColor, gray, .5) / shroudIntensity, shroudColor, .05);
+				}
+
+				if (enableLut == 1)
+				{
+					var lutY = 1 - baseColor.g;
+					var lutX = (floor(baseColor.b * 32) / 32) + (baseColor.r / 32);
+					var uvv = vec2(lutX, lutY);
+					var nightColor = night.get(uvv).rgb;
+					baseColor = mix(baseColor, nightColor, 1 - dayProgress);
+				}
+
+				pixelColor.rgb = baseColor;
+
+				if (isBackground && clearBackground == 1)
+				{
+					pixelColor.a = 1;
+				}
+
+				if (isLit == 1)
+				{
+					var lightIntensityFactor = clamp(lightIntensity / 5, 0, .75);
+
+					pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
+
+					if (isBackground)
 					{
 						pixelColor.a = 1;
-						pixelColor.rgb = background;
-
-						if (isShrouded == 1)
-						{
-							var color = pixelColor.rgb;
-							var gray = vec3(dot(shroudColor, color));
-							pixelColor.rgb = mix(mix(color, gray, .5) / shroudIntensity, shroudColor, .05);
-						}
-						else if (isLit == 1)
-						{
-							pixelColor.rgb = mix(pixelColor.rgb, light, lightIntensityFactor);
-							pixelColor.a = 1;
-						}
-					}
-					else
-					{
-						if (isLit == 1)
-						{
-							pixelColor.rgb = mix(outline, light, lightIntensityFactor);
-							pixelColor.a = 1;
-						}
 					}
 				}
-
-				var lutY = 1 - pixelColor.g;
-				var lutX = (floor(pixelColor.b * 32) / 32) + (pixelColor.r / 32);
-				var uvv = vec2(lutX, lutY);
-				var nightColor = night.get(uvv).rgb;
-				pixelColor.rgb = mix(pixelColor.rgb, nightColor, 1 - dayProgress);
 			}
 		};
 
@@ -110,6 +99,7 @@ class SpriteShader extends hxsl.Shader
 		this.clearBackground = 0;
 		this.isShrouded = 0;
 		this.isLit = 0;
+		this.enableLut = 1;
 		this.night = hxd.Res.images.lut.lut_night.toTexture();
 	}
 }

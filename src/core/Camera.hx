@@ -2,7 +2,10 @@ package core;
 
 import common.struct.Coordinate;
 import common.util.Projection;
+import h2d.Bitmap;
 import h2d.Object;
+import h2d.Tile;
+import shaders.SpriteShader;
 
 class Camera
 {
@@ -13,7 +16,6 @@ class Camera
 	public var x(get, set):Float;
 	public var y(get, set):Float;
 	public var focus(get, set):Coordinate;
-
 	public var scroller(get, null):h2d.Object;
 
 	public function new() {}

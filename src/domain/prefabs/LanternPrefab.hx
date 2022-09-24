@@ -17,10 +17,10 @@ class LanternPrefab extends Prefab
 
 		entity.add(new Sprite(LANTERN, ColorKeys.C_BLUE_1, ColorKeys.C_BLACK_1, OBJECTS));
 		entity.add(new Moniker('Oil lantern'));
-		entity.add(new LightSource(.75, ColorKeys.C_YELLOW_2, 3, false, 3));
+		entity.add(new LightSource(.5, ColorKeys.C_YELLOW_2, 3, false));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_BELT]));
-		entity.add(new Lightable(true, 0xfcefd4));
+		entity.add(new Lightable(true, ColorKeys.C_YELLOW_1));
 
 		return entity;
 	}

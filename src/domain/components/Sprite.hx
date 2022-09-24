@@ -30,6 +30,7 @@ class Sprite extends Drawable
 		var bm = new Bitmap(tile);
 		var sh = new SpriteShader(primaryColor, secondaryColor);
 		sh.isShrouded = isShrouded ? 1 : 0;
+		sh.enableLut = enableLutShader ? 1 : 0;
 		if (backgroundColor == null)
 		{
 			sh.clearBackground = 0;

@@ -23,7 +23,7 @@ class Health extends Component
 
 	public function new()
 	{
-		addHandler(EntitySpawnedEvent, (evt) -> onSpawned(cast evt));
+		addHandler(EntitySpawnedEvent, (evt) -> onEntitySpawned(cast evt));
 		addHandler(AttackedEvent, (evt) -> onAttacked(cast evt));
 	}
 
@@ -41,7 +41,7 @@ class Health extends Component
 		return '$value/$max';
 	}
 
-	private function onSpawned(evt:EntitySpawnedEvent)
+	private function onEntitySpawned(evt:EntitySpawnedEvent)
 	{
 		value = max;
 	}

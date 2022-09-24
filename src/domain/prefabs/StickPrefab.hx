@@ -22,7 +22,7 @@ class StickPrefab extends Prefab
 		entity.add(new Equipment([EQ_SLOT_HAND]));
 		entity.add(new Weapon(WPN_FAMILY_CUDGEL));
 		entity.add(new Stackable(STACK_STICK));
-		entity.add(new Fuel(FUEL_WOOD, 50));
+		entity.add(new Fuel(FUEL_WOOD, 200));
 
 		return entity;
 	}

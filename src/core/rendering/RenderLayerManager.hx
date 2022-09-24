@@ -1,7 +1,10 @@
 package core.rendering;
 
 import core.rendering.RenderLayer.RenderLayerSpace;
+import h2d.Bitmap;
 import h2d.Layers;
+import h2d.Tile;
+import shaders.SpriteShader;
 
 enum RenderLayerType
 {
@@ -25,6 +28,12 @@ class RenderLayerManager
 
 	public function new()
 	{
+		var bkg = new Bitmap(Tile.fromColor(0xff0000));
+		var shader = new SpriteShader();
+		bkg.addShader(shader);
+		bkg.width = 10000;
+		bkg.height = 10000;
+
 		layers = new Map();
 		root = new Layers();
 		scroller = new Layers();
@@ -37,8 +46,9 @@ class RenderLayerManager
 		createLayer(HUD, SCREEN);
 		createLayer(POPUP, SCREEN);
 
-		root.addChildAt(scroller, 0);
-		root.addChildAt(screen, 1);
+		root.addChildAt(bkg, 0);
+		root.addChildAt(scroller, 1);
+		root.addChildAt(screen, 2);
 	}
 
 	function createLayer(type:RenderLayerType, space:RenderLayerSpace):RenderLayer
