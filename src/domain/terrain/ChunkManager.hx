@@ -2,14 +2,13 @@ package domain.terrain;
 
 import common.struct.Grid;
 import common.struct.Set;
+import common.tools.Performance;
 import common.util.Projection;
 import core.Game;
-import data.save.SaveChunk;
 
 class ChunkManager
 {
 	var chunks:Grid<Chunk>;
-	var chunkSaveData:Map<Int, SaveChunk>;
 	private var chunksToUnload:Set<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
@@ -25,7 +24,6 @@ class ChunkManager
 	public function initialize()
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
-		chunkSaveData = new Map();
 		chunksToUnload = new Set();
 
 		for (i in 0...chunks.size)
@@ -71,25 +69,30 @@ class ChunkManager
 
 		if (chunkIdx != null)
 		{
-			trace('UNLOAD', chunkIdx);
 			var chunk = getChunkById(chunkIdx);
+			Performance.start('chunk-save');
 			var data = chunk.save();
+			trace(Performance.stop('chunk-save'));
 			chunk.unload();
-			chunkSaveData.set(chunkIdx, data);
+			Game.instance.files.saveChunk(data);
 		}
 	}
 
 	public function load(chunkIdx:Int)
 	{
 		var chunk = getChunkById(chunkIdx);
-		if (chunkSaveData.exists(chunkIdx))
+		var data = Game.instance.files.tryReadChunk(chunkIdx);
+		if (data != null)
 		{
-			trace('LOAD CHUNK', chunkIdx);
-			chunk.load(chunkSaveData.get(chunkIdx));
+			Performance.start('chunk-load');
+			chunk.load(data);
+			trace(Performance.stop('chunk-load'));
 		}
 		else
 		{
+			Performance.start('chunk-gen');
 			chunk.load();
+			trace(Performance.stop('chunk-gen'));
 		}
 	}
 

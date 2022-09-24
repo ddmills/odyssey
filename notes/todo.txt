@@ -81,3 +81,14 @@
 - [ ] Rename Swamp to Bayou
 - [ ] replace all addHandler evt casting
 - [ ] exit interaction screen (entity destroyed) - gather puddles
+
+- [ ] entity unattached - no location
+- [x] save chunk data to disk
+- [x] load chunk data from disk
+- [ ] simplify mapdata (typedef over class)
+- [ ] save map data to disk
+- [ ] load map data from disk
+- [ ] menu screen (new game)
+- [ ] menu screen (load game)
+- [ ] smarter chunk generation (slow mode and immediate mode)
+- [ ] AI sleep/wake

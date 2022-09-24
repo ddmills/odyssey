@@ -39,6 +39,7 @@ class Game
 	public var layers(default, null):RenderLayerManager;
 	public var registry(default, null):Registry;
 	public var world(default, null):World;
+	public var files(default, null):FileManager;
 
 	private function new(app:hxd.App)
 	{
@@ -46,6 +47,7 @@ class Game
 		this.app = app;
 
 		frame = new Frame();
+		files = new FileManager();
 		screens = new ScreenManager();
 		audio = new AudioManager();
 		layers = new RenderLayerManager();
@@ -58,8 +60,8 @@ class Game
 
 		ConsoleConfig.Config(console);
 
-		app.s2d.addChild(layers.root);
 		app.s2d.scaleMode = Fixed(800, 600, 1, Left, Top);
+		app.s2d.addChild(layers.root);
 	}
 
 	public static function Create(app:hxd.App)

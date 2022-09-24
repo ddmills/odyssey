@@ -14,7 +14,7 @@ import shaders.SpriteShader;
 
 class Chunk
 {
-	var tiles:h2d.Object; // TODO: switch to h2d.SpriteBatch?
+	var tiles:h2d.Object;
 
 	public var exploration(default, null):Grid<Null<Bool>>;
 	public var entities(default, null):GridMap<String>;
@@ -33,12 +33,6 @@ class Chunk
 	{
 		this.chunkId = chunkId;
 		this.size = size;
-
-		exploration = new Grid(size, size);
-		entities = new GridMap(size, size);
-		bitmaps = new Grid(size, size);
-		rand = new Rand(this.chunkId);
-		tiles = new h2d.Object();
 	}
 
 	function get_chunkPos():IntPoint
@@ -57,14 +51,19 @@ class Chunk
 		{
 			return;
 		}
+
 		isLoaded = true;
+		exploration = new Grid(size, size);
+		entities = new GridMap(size, size);
+		bitmaps = new Grid(size, size);
+		rand = new Rand(this.chunkId);
+		tiles = new h2d.Object();
 
 		buildTiles();
 
 		if (save == null)
 		{
 			exploration.fill(false);
-			trace('GENERATING CHUNK', chunkId);
 			Game.instance.world.chunks.chunkGen.generate(this);
 		}
 		else
@@ -146,6 +145,12 @@ class Chunk
 			}
 		}
 
+		exploration = null;
+		entities = null;
+		bitmaps = null;
+		rand = null;
+		tiles = null;
+
 		isLoaded = false;
 	}
 
@@ -195,6 +200,10 @@ class Chunk
 
 	public function removeEntity(entity:Entity)
 	{
+		if (!isLoaded)
+		{
+			return;
+		}
 		entities.remove(entity.id);
 	}
 
@@ -208,6 +217,7 @@ class Chunk
 			// {
 			// 	trace(entity.get(Moniker).displayName);
 			// }
+			return;
 		}
 		var local = entity.pos.toChunkLocal().toWorld();
 		entities.set(local.x.floor(), local.y.floor(), entity.id);
@@ -215,6 +225,10 @@ class Chunk
 
 	public function getEntityIdsAt(x:Float, y:Float):Array<String>
 	{
+		if (!isLoaded)
+		{
+			return [];
+		}
 		return entities.get(x.floor(), y.floor());
 	}
 

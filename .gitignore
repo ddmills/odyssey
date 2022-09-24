@@ -1,5 +1,6 @@
 build/*/output.js
 build/*/output.hl
 build/*/output.js.map
+saves/*
 *.tmp
 *.dump
