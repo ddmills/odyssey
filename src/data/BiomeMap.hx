@@ -3,6 +3,7 @@ package data;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import data.BiomeType;
+import hxd.Pixels;
 
 typedef BiomeChunkData =
 {
@@ -14,18 +15,18 @@ typedef BiomeChunkData =
 
 class BiomeMap
 {
-	public static var data:Grid<BiomeType>;
+	private static var landImg:Pixels;
+	private static var data:Grid<BiomeChunkData>;
 
 	public static function Init()
 	{
-		var img = hxd.Res.images.map.biomes_land.getPixels(BGRA);
+		landImg = hxd.Res.images.map.biomes_land.getPixels(BGRA);
 
-		data = new Grid(img.width, img.height);
+		data = new Grid(landImg.width, landImg.height);
 		data.fillFn((idx) ->
 		{
 			var pos = data.coord(idx);
-			var px = img.getPixel(pos.x, pos.y);
-			return ColorToBiome(px);
+			return Compute(pos);
 		});
 	}
 
@@ -44,29 +45,27 @@ class BiomeMap
 		}
 	}
 
-	public static function Get(p:IntPoint):Null<BiomeChunkData>
+	private static function ClampPos(pos:IntPoint):IntPoint
 	{
-		var nw = data.get(p.x, p.y);
-		var ne = data.get(p.x + 1, p.y);
-		var se = data.get(p.x + 1, p.y + 1);
-		var sw = data.get(p.x, p.y + 1);
+		return {
+			x: pos.x.clamp(0, landImg.width),
+			y: pos.y.clamp(0, landImg.height),
+		};
+	}
 
-		if (nw == null)
-		{
-			nw = se;
-		}
-		if (ne == null)
-		{
-			ne = se == null ? nw : se;
-		}
-		if (sw == null)
-		{
-			sw = se == null ? nw : se;
-		}
-		if (se == null)
-		{
-			se = sw == null ? ne : sw;
-		}
+	private static function GetBiome(pos:IntPoint):BiomeType
+	{
+		var clamped = ClampPos(pos);
+		var px = landImg.getPixel(clamped.x, clamped.y);
+		return ColorToBiome(px);
+	}
+
+	public static function Compute(p:IntPoint):BiomeChunkData
+	{
+		var nw = GetBiome({x: p.x, y: p.y});
+		var ne = GetBiome({x: p.x + 1, y: p.y});
+		var se = GetBiome({x: p.x + 1, y: p.y + 1});
+		var sw = GetBiome({x: p.x, y: p.y + 1});
 
 		return {
 			nw: nw,
@@ -76,8 +75,13 @@ class BiomeMap
 		};
 	}
 
+	public static function Get(pos:IntPoint):Null<BiomeChunkData>
+	{
+		return data.get(pos.x, pos.y);
+	}
+
 	public static function GetAt(idx:Int):Null<BiomeChunkData>
 	{
-		return Get(data.coord(idx));
+		return data.getAt(idx);
 	}
 }
