@@ -1,6 +1,7 @@
 package core;
 
 import common.tools.Performance;
+import common.util.FS;
 import data.save.SaveChunk;
 import data.save.SaveWorld;
 import domain.World;
@@ -26,6 +27,11 @@ class FileManager
 		return all.join('/');
 	}
 
+	public function deleteSave(name:String)
+	{
+		FS.deletePath('$saveDirectory/$name', true);
+	}
+
 	public function saveChunk(data:SaveChunk)
 	{
 		var isSaved = Save.save(data, filePath(['chunks', 'chunk-${data.idx}']));
@@ -44,17 +50,22 @@ class FileManager
 
 	public function saveWorld(data:SaveWorld)
 	{
+		Performance.start('fs-world-save');
 		var isSaved = Save.save(data, filePath(['world']));
 		if (!isSaved)
 		{
 			trace('world not saved!');
 		}
+		Performance.stop('fs-world-save', true);
 		return isSaved;
 	}
 
 	public function tryReadWorld():SaveWorld
 	{
+		Performance.start('fs-world-load');
 		var name = filePath(['world']);
-		return Save.load(null, name);
+		var data = Save.load(null, name);
+		Performance.stop('fs-world-load', true);
+		return data;
 	}
 }

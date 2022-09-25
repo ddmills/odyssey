@@ -99,7 +99,7 @@ class MapData
 
 	inline function generateCell(idx:Int):Cell
 	{
-		if (idx % 50000 == 0)
+		if (idx % 100000 == 0)
 		{
 			trace('generating.... ${((idx / cells.size) * 100).format()}%');
 		}

@@ -12,21 +12,13 @@ class LoadingScreen extends Screen
 	public override function onEnter()
 	{
 		game.mount();
-
-		// game.world = new World();
-
-		// game.world.initialize();
-		// game.camera.zoom = 2;
-
-		// world.player.entity.x = 100;
-		// world.player.entity.y = 100;
-		// game.screens.set(new AdventureScreen());
 	}
 
 	override function onKeyDown(key:KeyCode)
 	{
 		if (key == KEY_N)
 		{
+			game.files.deleteSave('test');
 			game.files.setSaveName('test');
 			game.setWorld(new World());
 			game.world.initialize();
@@ -46,8 +38,6 @@ class LoadingScreen extends Screen
 
 	private function start()
 	{
-		game.camera.zoom = 2;
-
 		game.screens.set(new AdventureScreen());
 	}
 }

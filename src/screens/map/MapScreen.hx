@@ -22,6 +22,7 @@ class MapScreen extends Screen
 	public function new()
 	{
 		ob = new Object();
+		ob.scale(2);
 	}
 
 	function getTileKey(biome:BiomeType):TileKey
@@ -71,7 +72,7 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		granularity = world.chunkSize;
+		granularity = world.chunkSize * 2;
 		ob.visible = true;
 		populateMap();
 		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
