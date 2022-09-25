@@ -9,8 +9,7 @@ class ForestBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_forest);
-		super(seed, FOREST, weights, ColorKeys.C_GREEN_4);
+		super(seed, FOREST, ColorKeys.C_GREEN_4);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

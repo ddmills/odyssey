@@ -91,7 +91,7 @@ class LightSystem extends System
 
 	function addFragment(fragment:LightFragment)
 	{
-		var idx = world.map.getTileIdx(fragment.pos);
+		var idx = world.getTileIdx(fragment.pos);
 		var existing = lightFragments.get(idx);
 		if (existing == null)
 		{
@@ -138,7 +138,7 @@ class LightSystem extends System
 
 		for (idx => fragmentList in lightFragments)
 		{
-			var pos = world.map.getTilePos(idx);
+			var pos = world.getTilePos(idx);
 			var shader = getShader(pos);
 			var entities = world.getEntitiesAt(pos);
 
@@ -164,10 +164,10 @@ class LightSystem extends System
 
 		for (idx => fragmentList in walls)
 		{
-			var pos = world.map.getTilePos(idx);
+			var pos = world.getTilePos(idx);
 			var offset = pov.sub(pos).cardinal().toOffset();
 			var offsetTile = pos.add(offset);
-			var offsetTileIdx = world.map.getTileIdx(offsetTile);
+			var offsetTileIdx = world.getTileIdx(offsetTile);
 			var floorAtOffset = floors.get(offsetTileIdx);
 			var validFragments:Array<LightFragment> = [];
 			var color:Int = -1;
@@ -220,7 +220,7 @@ class LightSystem extends System
 
 	public function getTileLight(pos:IntPoint)
 	{
-		var idx = world.map.getTileIdx(pos);
+		var idx = world.getTileIdx(pos);
 		var intensity = litTiles.get(idx);
 
 		return intensity == null ? 0 : intensity;
@@ -230,7 +230,7 @@ class LightSystem extends System
 	{
 		for (idx in lightFragments.keys())
 		{
-			var pos = world.map.getTilePos(idx);
+			var pos = world.getTilePos(idx);
 			var shader = getShader(pos);
 			if (shader != null)
 			{

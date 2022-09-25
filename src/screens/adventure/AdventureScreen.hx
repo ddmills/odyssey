@@ -126,7 +126,7 @@ class AdventureScreen extends Screen
 		if (key == KEY_NUM_0)
 		{
 			var p = game.input.mouse.toWorld().toIntPoint();
-			var idx = world.map.getTileIdx(p);
+			var idx = world.getTileIdx(p);
 			var fragments = world.systems.lights.lightFragments.get(idx);
 			trace(fragments);
 		}

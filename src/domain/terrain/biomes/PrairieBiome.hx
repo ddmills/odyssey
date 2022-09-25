@@ -9,8 +9,7 @@ class PrairieBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_prairie);
-		super(seed, PRAIRIE, weights, ColorKeys.C_GREEN_3);
+		super(seed, PRAIRIE, ColorKeys.C_GREEN_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey

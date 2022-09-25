@@ -1,7 +1,6 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import core.Game;
 import data.ColorKeys;
 import domain.prefabs.Spawner;
 
@@ -9,8 +8,7 @@ class DesertBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_desert);
-		super(seed, DESERT, weights, ColorKeys.C_YELLOW_3);
+		super(seed, DESERT, ColorKeys.C_YELLOW_3);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

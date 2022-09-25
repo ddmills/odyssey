@@ -1,7 +1,6 @@
 package common.util;
 
 import h3d.Vector;
-import hl.I64;
 
 typedef RGB =
 {

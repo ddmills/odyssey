@@ -4,6 +4,8 @@ import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
+import data.BiomeMap.BiomeChunkData;
+import data.BiomeMap;
 import data.TileResources;
 import data.save.SaveChunk;
 import domain.events.EntityLoadedEvent;
@@ -20,6 +22,8 @@ class Chunk
 	public var entities(default, null):GridMap<String>;
 	public var bitmaps(default, null):Grid<Bitmap>;
 	public var isLoaded(default, null):Bool;
+	public var biomes(default, null):BiomeChunkData;
+	public var cells(default, null):Grid<Cell>;
 
 	public var size(default, null):Int;
 	public var chunkId(default, null):Int;
@@ -33,6 +37,8 @@ class Chunk
 	{
 		this.chunkId = chunkId;
 		this.size = size;
+		biomes = BiomeMap.GetAt(chunkId);
+		cells = new Grid(size, size);
 	}
 
 	function get_chunkPos():IntPoint
@@ -55,26 +61,33 @@ class Chunk
 		isLoaded = true;
 		exploration = new Grid(size, size);
 		entities = new GridMap(size, size);
+		cells = new GridMap(size, size);
 		bitmaps = new Grid(size, size);
 		rand = new Rand(this.chunkId);
 		tiles = new h2d.Object();
-
-		buildTiles();
 
 		if (save == null)
 		{
 			exploration.fill(false);
 			Game.instance.world.chunks.chunkGen.generate(this);
+			buildTiles();
 		}
 		else
 		{
 			var tickDelta = Game.instance.world.clock.tick - save.tick;
 
+			size = save.size;
+			biomes = save.biomes;
+			cells.load(save.cells, (c) -> c);
+			buildTiles();
+
 			exploration.load(save.explored, (v) -> v);
+
 			for (e in exploration)
 			{
 				setExplore(e.pos, e.value, false);
 			}
+
 			entities.load(save.entities, (edata) ->
 			{
 				return edata.map((data) ->
@@ -105,7 +118,9 @@ class Chunk
 			idx: chunkId,
 			size: size,
 			tick: Game.instance.world.clock.tick,
+			biomes: biomes,
 			explored: exploration.save((v) -> v),
+			cells: cells.save((v) -> v),
 			entities: entities.save((v) ->
 			{
 				return v.map((id) ->
@@ -150,6 +165,7 @@ class Chunk
 		bitmaps = null;
 		rand = null;
 		tiles = null;
+		cells = null;
 
 		isLoaded = false;
 	}
@@ -158,9 +174,7 @@ class Chunk
 	{
 		for (t in bitmaps)
 		{
-			var p = worldPos.add(t.pos);
-
-			var bm = getGroundBitmap(p.x, p.y);
+			var bm = getGroundBitmap(t.pos);
 
 			bm.x = t.x * Game.instance.TILE_W;
 			bm.y = t.y * Game.instance.TILE_H;
@@ -170,14 +184,21 @@ class Chunk
 		}
 	}
 
-	function getGroundBitmap(wx:Float, wy:Float):Bitmap
+	public function getCell(pos:IntPoint):Cell
 	{
-		var bm = new h2d.Bitmap();
+		return cells.get(pos.x, pos.y);
+	}
 
-		var pos = new IntPoint(wx.floor(), wy.floor());
-		var color = Game.instance.world.map.getColor(pos);
-		var shader = new SpriteShader(color);
-		var cell = Game.instance.world.map.getCell(pos);
+	public inline function getCellCoord(idx:Int):IntPoint
+	{
+		return cells.coord(idx);
+	}
+
+	private function getGroundBitmap(pos:IntPoint):Bitmap
+	{
+		var cell = getCell(pos);
+		var bm = new h2d.Bitmap();
+		var shader = new SpriteShader(cell.primary, cell.secondary);
 
 		if (Game.instance.SHOW_BG_COLORS)
 		{

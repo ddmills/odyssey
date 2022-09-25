@@ -1,7 +1,10 @@
 package domain.terrain;
 
+import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import core.Game;
+import data.BiomeMap.BiomeChunkData;
+import data.BiomeType;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
 import hxd.Rand;
@@ -9,6 +12,7 @@ import hxd.Rand;
 class ChunkGen
 {
 	private var seed(get, null):Int;
+	private var world(get, null):World;
 
 	var table:WeightedTable<SpawnableType>;
 
@@ -45,9 +49,15 @@ class ChunkGen
 	public function generate(chunk:Chunk)
 	{
 		var r = new Rand(seed + chunk.chunkId);
-		for (i in chunk.exploration)
+
+		chunk.cells.fillFn((idx) ->
 		{
-			var pos = chunk.worldPos.add(i.pos);
+			return generateCell(r, chunk, idx);
+		});
+
+		for (cell in chunk.cells)
+		{
+			var pos = chunk.worldPos.add(cell.pos);
 
 			if (r.bool(.01))
 			{
@@ -56,15 +66,60 @@ class ChunkGen
 			}
 			else
 			{
-				var cell = Game.instance.world.map.getCell(pos);
-				var b = Game.instance.world.map.getBiome(cell.biomeKey);
-				b.spawnEntity(pos, cell);
+				var b = world.map.getBiome(cell.value.biomeKey);
+				b.spawnEntity(pos, cell.value);
 			}
 		}
+	}
+
+	function pickBiome(r:Rand, pos:IntPoint, biomes:BiomeChunkData):BiomeType
+	{
+		var x = pos.x / world.chunkSize;
+		var y = pos.y / world.chunkSize;
+
+		var isSouth = r.bool(y);
+		var isEast = r.bool(x);
+
+		return switch [isSouth, isEast]
+		{
+			case [true, true]: biomes.se;
+			case [true, false]: biomes.sw;
+			case [false, true]: biomes.ne;
+			case [false, false]: biomes.nw;
+		}
+	}
+
+	function generateCell(r:Rand, chunk:Chunk, idx:Int):Cell
+	{
+		var pos = chunk.getCellCoord(idx);
+		var biomes = chunk.biomes;
+		var biomeKey = pickBiome(r, pos, biomes);
+		var biome = world.map.getBiome(biomeKey);
+
+		var cell:Cell = {
+			idx: idx,
+			terrain: TERRAIN_GRASS,
+			biomeKey: biomeKey,
+			tileKey: GRASS_V1_1,
+			primary: 0x000000,
+			secondary: 0x000000,
+			background: 0x000000,
+		};
+
+		var worldPos = pos.add(chunk.worldPos);
+
+		biome.setCellData(worldPos, cell);
+
+		return cell;
 	}
 
 	inline function get_seed():Int
 	{
 		return Game.instance.world.seed;
+	}
+
+	inline function get_world():World
+	{
+		return Game.instance.world;
 	}
 }

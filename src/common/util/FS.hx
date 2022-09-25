@@ -29,7 +29,7 @@ class FS
 
 			for (entry in entries)
 			{
-				deletePath('$path/$entry');
+				deletePath('$path/$entry', recursive);
 			}
 
 			return FileSystem.deleteDirectory(path);

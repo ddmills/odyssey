@@ -1,6 +1,6 @@
 import core.Game;
 import data.AudioResources;
-import data.BiomeSource;
+import data.BiomeMap;
 import data.Commands;
 import data.TextResources;
 import data.TileResources;
@@ -33,7 +33,7 @@ class Main extends hxd.App
 		Skills.Init();
 		Weapons.Init();
 		Liquids.Init();
-		BiomeSource.Init();
+		BiomeMap.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 

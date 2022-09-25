@@ -7,8 +7,7 @@ class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_mountain);
-		super(seed, MOUNTAIN, weights, ColorKeys.C_GRAY_5);
+		super(seed, MOUNTAIN, ColorKeys.C_GRAY_5);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

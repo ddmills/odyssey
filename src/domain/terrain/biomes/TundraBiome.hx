@@ -8,8 +8,7 @@ class TundraBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_tundra);
-		super(seed, TUNDRA, weights, ColorKeys.C_GRAY_2);
+		super(seed, TUNDRA, ColorKeys.C_GRAY_2);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

@@ -11,8 +11,7 @@ class SwampBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		var weights = new MapWeight(hxd.Res.images.map.weight_swamp);
-		super(seed, SWAMP, weights, ColorKeys.C_PURPLE_3);
+		super(seed, SWAMP, ColorKeys.C_PURPLE_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey

@@ -4,7 +4,7 @@ import common.struct.Grid;
 import common.struct.IntPoint;
 import data.BiomeType;
 
-typedef ZoneBiomeData =
+typedef BiomeChunkData =
 {
 	nw:BiomeType,
 	ne:BiomeType,
@@ -12,7 +12,7 @@ typedef ZoneBiomeData =
 	sw:BiomeType,
 };
 
-class BiomeSource
+class BiomeMap
 {
 	public static var data:Grid<BiomeType>;
 
@@ -44,7 +44,7 @@ class BiomeSource
 		}
 	}
 
-	public static function Get(p:IntPoint):Null<ZoneBiomeData>
+	public static function Get(p:IntPoint):Null<BiomeChunkData>
 	{
 		var nw = data.get(p.x, p.y);
 		var ne = data.get(p.x + 1, p.y);
@@ -76,7 +76,7 @@ class BiomeSource
 		};
 	}
 
-	public static function GetAt(idx:Int):Null<ZoneBiomeData>
+	public static function GetAt(idx:Int):Null<BiomeChunkData>
 	{
 		return Get(data.coord(idx));
 	}

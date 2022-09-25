@@ -58,7 +58,7 @@
 	- [x] fov algor
 	- [ ] enemy vision
 	- [x] lighting
-	- [ ] calculate light falloff correctly
+	- [x] calculate light falloff correctly
 	- [x] what should "light intensity" do?
 	- [ ] wall corners (?)
 - [ ] Liquid System
@@ -94,6 +94,6 @@
 - [ ] menu screen (load game)
 - [ ] smarter chunk generation (slow mode and immediate mode)
 - [ ] AI sleep/wake
-- [ ] save temporarily (save all tiledata???)
+- [x] save temporarily (save all tiledata???)
 - [x] reset save on new game
-- [ ] generate tiles on chunk spawn (!)
+- [x] generate tiles on chunk spawn (!)

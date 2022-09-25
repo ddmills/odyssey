@@ -13,6 +13,7 @@ import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
+import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
 import ecs.Entity;
@@ -276,6 +277,23 @@ class World
 		}
 	}
 
+	public function getCell(pos:IntPoint):Cell
+	{
+		var cx = (pos.x / chunkSize).floor();
+		var cy = (pos.x / chunkSize).floor();
+		var chunk = chunks.getChunk(cx, cy);
+
+		if (chunk == null)
+		{
+			return null;
+		}
+
+		return chunk.getCell({
+			x: (pos.x % chunkSize),
+			y: (pos.y % chunkSize),
+		});
+	}
+
 	inline function get_game():Game
 	{
 		return Game.instance;
@@ -293,12 +311,12 @@ class World
 
 	public inline function isOutOfBounds(pos:IntPoint)
 	{
-		return map.isOutOfBounds(pos);
+		return pos.x < 0 || pos.y < 0 || pos.x > mapWidth || pos.y > mapHeight;
 	}
 
 	public inline function getTileIdx(pos:IntPoint)
 	{
-		return map.getTileIdx(pos);
+		return pos.y * mapWidth + pos.x;
 	}
 
 	public inline function getTilePos(idx:Int):IntPoint

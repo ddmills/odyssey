@@ -24,13 +24,11 @@ class Biome
 
 	var r:Rand;
 	var perlin:Perlin;
-	var baseWeightMap:MapWeight;
 
-	public function new(seed:Int, type:BiomeType, baseWeightMap:MapWeight, naturalColor:Int)
+	public function new(seed:Int, type:BiomeType, naturalColor:Int)
 	{
 		this.seed = seed;
 		this.type = type;
-		this.baseWeightMap = baseWeightMap;
 		this.naturalColor = naturalColor;
 
 		r = new Rand(seed);
@@ -43,11 +41,6 @@ class Biome
 		cell.tileKey = GRASS_V1_1;
 		cell.primary = ColorKeys.C_GREEN_3;
 		cell.background = ColorKeys.C_GREEN_4;
-	}
-
-	public function getWeight(pos:IntPoint):Float
-	{
-		return baseWeightMap.getWeight(pos);
 	}
 
 	public function spawnEntity(pos:IntPoint, cell:Cell) {}
