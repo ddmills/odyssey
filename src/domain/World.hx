@@ -27,7 +27,7 @@ class World
 	public var player(default, null):PlayerManager;
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
-	public var chunkSize(default, null):Int = 32;
+	public var chunkSize(default, null):Int = 16;
 	public var chunkCountX(default, null):Int = 64;
 	public var chunkCountY(default, null):Int = 48;
 	public var mapWidth(get, null):Int;

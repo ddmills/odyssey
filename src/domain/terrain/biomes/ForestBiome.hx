@@ -23,9 +23,16 @@ class ForestBiome extends Biome
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (cell.terrain == TERRAIN_GRASS && r.bool(.25))
+		if (cell.terrain == TERRAIN_GRASS)
 		{
-			Spawner.Spawn(PINE_TREE, pos.asWorld());
+			var perlin = perlin.get(pos, 8, 8);
+			if (perlin > .44)
+			{
+				if (r.bool(.6))
+				{
+					Spawner.Spawn(PINE_TREE, pos.asWorld());
+				}
+			}
 		}
 	}
 }

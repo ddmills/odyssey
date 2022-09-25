@@ -31,9 +31,13 @@ class TundraBiome extends Biome
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (cell.terrain == TERRAIN_SNOW && r.bool(.1))
+		if (cell.terrain == TERRAIN_SNOW)
 		{
-			Spawner.Spawn(PINE_TREE, pos.asWorld());
+			var perlin = perlin.get(pos, 8, 8);
+			if (perlin > .6)
+			{
+				Spawner.Spawn(PINE_TREE, pos.asWorld());
+			}
 		}
 	}
 }

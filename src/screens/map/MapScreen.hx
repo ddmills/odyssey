@@ -3,31 +3,52 @@ package screens.map;
 import common.struct.IntPoint;
 import core.Screen;
 import core.input.KeyCode;
+import data.BiomeType;
 import data.ColorKeys;
+import data.TileKey;
+import data.TileResources;
 import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Object;
 import h2d.Tile;
+import shaders.SpriteShader;
 
 class MapScreen extends Screen
 {
 	var ob:Object;
-	var granularity = 8;
-	var tileSize = 2;
+	var granularity = 32;
+	var tileSize = 16;
 
 	public function new()
 	{
 		ob = new Object();
 	}
 
+	function getTileKey(biome:BiomeType):TileKey
+	{
+		return switch biome
+		{
+			case DESERT: OVERWORLD_DESERT;
+			case SWAMP: OVERWORLD_SWAMP;
+			case PRAIRIE: OVERWORLD_PRAIRIE;
+			case TUNDRA: OVERWORLD_TUNDRA;
+			case FOREST: OVERWORLD_FOREST;
+			case _: TK_UNKNOWN;
+		}
+	}
+
 	function populateTile(pos:IntPoint)
 	{
+		var cell = world.map.getCell(pos);
+		var tileKey = getTileKey(cell.biomeKey);
 		var color = world.map.getColor(pos);
-		var tile = Tile.fromColor(color, tileSize, tileSize);
+		var tile = TileResources.Get(tileKey);
 		var bm = new Bitmap(tile);
-
-		bm.x = (pos.x / granularity).floor() * tileSize;
-		bm.y = (pos.y / granularity).floor() * tileSize;
+		var shader = new SpriteShader(color, ColorKeys.C_BLACK_1);
+		shader.clearBackground = 1;
+		bm.addShader(shader);
+		bm.x = (pos.x / granularity).floor() * game.TILE_W;
+		bm.y = (pos.y / granularity).floor() * game.TILE_H;
 		ob.addChild(bm);
 	}
 
@@ -50,14 +71,15 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
+		granularity = world.chunkSize;
 		ob.visible = true;
 		populateMap();
-		var white = Tile.fromColor(ColorKeys.C_WHITE_1, tileSize, tileSize, 0);
-		var red = Tile.fromColor(ColorKeys.C_RED_1, tileSize, tileSize);
+		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
+		var red = Tile.fromColor(ColorKeys.C_RED_1, game.TILE_W, game.TILE_H);
 		var blink = new Anim([white, red], 6);
 
-		blink.x = (world.player.x / granularity).floor() * tileSize;
-		blink.y = (world.player.y / granularity).floor() * tileSize;
+		blink.x = (world.player.x / granularity).floor() * game.TILE_W;
+		blink.y = (world.player.y / granularity).floor() * game.TILE_H;
 		ob.addChild(blink);
 		game.render(HUD, ob);
 	}

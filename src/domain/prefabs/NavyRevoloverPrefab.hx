@@ -24,7 +24,7 @@ class NavyRevoloverPrefab extends Prefab
 		weapon.baseCost = 60;
 		weapon.ammo = 5;
 		weapon.ammoCapacity = 5;
-		weapon.range = 5;
+		weapon.range = 8;
 		weapon.reloadAudio = RELOAD_CLIP_5;
 		weapon.unloadAudio = UNLOAD_CLIP_2;
 		entity.add(weapon);

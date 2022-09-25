@@ -128,6 +128,7 @@ class MapData
 	{
 		var zoneX = (pos.x / world.chunkSize).floor();
 		var zoneY = (pos.y / world.chunkSize).floor();
+
 		return BiomeSource.Get({
 			x: zoneX,
 			y: zoneY,

@@ -137,6 +137,12 @@ class TileResources
 		tiles.set(CORPSE_HUMAN, t[6][2]);
 		tiles.set(CORPSE_SNAKE, t[6][3]);
 
+		tiles.set(OVERWORLD_DESERT, t[2][11]);
+		tiles.set(OVERWORLD_SWAMP, t[2][12]);
+		tiles.set(OVERWORLD_TUNDRA, t[2][13]);
+		tiles.set(OVERWORLD_PRAIRIE, t[2][14]);
+		tiles.set(OVERWORLD_FOREST, t[2][15]);
+
 		tiles.set(TEXT_CURSOR, hxd.Res.tiles.scroll.text_cursor.toTile());
 	}
 }

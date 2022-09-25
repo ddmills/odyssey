@@ -73,3 +73,10 @@ Lighting/Vision
 - Calculate lighting first
 - Cast player vision at full size
 - On "vision" callback, if distance > vision distance, check if tile has some light first (!) else
+
+Sleeping
+- sleep until dawn
+- sleep for 8 hours
+- sleep for 6 hours
+- sleep for 4 hours
+- sleep for 2 hours
