@@ -26,7 +26,7 @@ class TundraBiome extends Biome
 		}
 
 		cell.primary = ColorKeys.C_GRAY_1;
-		cell.secondary = ColorKeys.C_GRAY_2;
+		cell.background = ColorKeys.C_GRAY_2;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

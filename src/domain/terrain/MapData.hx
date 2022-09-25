@@ -2,9 +2,9 @@ package domain.terrain;
 
 import common.struct.Grid;
 import common.struct.IntPoint;
-import common.struct.WeightedTable;
 import common.tools.Performance;
 import core.Game;
+import data.BiomeSource;
 import data.BiomeType;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
@@ -55,22 +55,6 @@ class MapData
 		cells.load(data.cells, (d) -> d);
 	}
 
-	private function pickBiome(biomes:Map<BiomeType, Float>):BiomeType
-	{
-		var table = new WeightedTable<BiomeType>();
-
-		for (b => w in biomes)
-		{
-			if (w > .05)
-			{
-				// increasing the exponent will increase biome intensity/falloff
-				table.add(b, (w.pow(3) * 100).round());
-			}
-		}
-
-		return table.pick(r);
-	}
-
 	public function getCell(pos:IntPoint):Cell
 	{
 		return cells.get(pos.x, pos.y);
@@ -96,6 +80,23 @@ class MapData
 		return cells.get(pos.x, pos.y).primary;
 	}
 
+	function pickBiome(pos:IntPoint, zone:ZoneBiomeData):BiomeType
+	{
+		var x = (pos.x % world.chunkSize) / world.chunkSize;
+		var y = (pos.y % world.chunkSize) / world.chunkSize;
+
+		var isSouth = r.bool(y);
+		var isEast = r.bool(x);
+
+		return switch [isSouth, isEast]
+		{
+			case [true, true]: zone.se;
+			case [true, false]: zone.sw;
+			case [false, true]: zone.ne;
+			case [false, false]: zone.nw;
+		}
+	}
+
 	inline function generateCell(idx:Int):Cell
 	{
 		if (idx % 50000 == 0)
@@ -104,9 +105,10 @@ class MapData
 		}
 
 		var pos = getTilePos(idx);
-		// var biomeWeights = biomes.getRelativeWeights(pos);
-		var biomeKey = BiomeType.PRAIRIE; // pickBiome(biomeWeights);
+		var zone = getZoneData(pos);
+		var biomeKey = pickBiome(pos, zone);
 		var biome = biomes.get(biomeKey);
+
 		var cell:Cell = {
 			idx: idx,
 			terrain: TERRAIN_GRASS,
@@ -120,6 +122,16 @@ class MapData
 		biome.setCellData(pos, cell);
 
 		return cell;
+	}
+
+	public function getZoneData(pos:IntPoint):ZoneBiomeData
+	{
+		var zoneX = (pos.x / world.chunkSize).floor();
+		var zoneY = (pos.y / world.chunkSize).floor();
+		return BiomeSource.Get({
+			x: zoneX,
+			y: zoneY,
+		});
 	}
 
 	public function isOutOfBounds(pos:IntPoint):Bool

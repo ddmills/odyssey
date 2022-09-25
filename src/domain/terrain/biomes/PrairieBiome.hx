@@ -7,8 +7,6 @@ import domain.prefabs.Spawner;
 
 class PrairieBiome extends Biome
 {
-	var waterLevel:Float = .32;
-
 	public function new(seed:Int)
 	{
 		var weights = new MapWeight(hxd.Res.images.map.weight_prairie);
@@ -42,34 +40,12 @@ class PrairieBiome extends Biome
 		return TERRAIN_BASIC_1;
 	}
 
-	private function getHeight(pos:IntPoint):Float
-	{
-		return perlin.get(pos.x, pos.y, 30, 5);
-	}
-
-	private function getIsWater(pos:IntPoint)
-	{
-		return getHeight(pos) < waterLevel;
-	}
-
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		var isWater = getIsWater(pos);
-
-		if (isWater)
-		{
-			cell.tileKey = WATER_1;
-			cell.terrain = TERRAIN_WATER;
-			cell.primary = ColorKeys.C_BLUE_2;
-			cell.background = ColorKeys.C_BLUE_3;
-		}
-		else
-		{
-			cell.tileKey = getBackgroundTileKey(pos);
-			cell.terrain = TERRAIN_GRASS;
-			cell.primary = ColorKeys.C_GREEN_2;
-			cell.background = ColorKeys.C_GREEN_3;
-		}
+		cell.tileKey = getBackgroundTileKey(pos);
+		cell.terrain = TERRAIN_GRASS;
+		cell.primary = ColorKeys.C_GREEN_2;
+		cell.background = ColorKeys.C_GREEN_3;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

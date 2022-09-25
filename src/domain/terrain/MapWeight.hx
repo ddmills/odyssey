@@ -11,7 +11,7 @@ class MapWeight
 
 	public function new(image:Image)
 	{
-		pixels = image.getPixels(RGBA);
+		pixels = image.getPixels(BGRA);
 	}
 
 	function worldToPx(p:IntPoint):IntPoint

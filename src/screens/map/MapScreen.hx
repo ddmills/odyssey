@@ -3,6 +3,7 @@ package screens.map;
 import common.struct.IntPoint;
 import core.Screen;
 import core.input.KeyCode;
+import data.ColorKeys;
 import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Object;
@@ -11,8 +12,8 @@ import h2d.Tile;
 class MapScreen extends Screen
 {
 	var ob:Object;
-	var granularity = 2;
-	var tileSize = 5;
+	var granularity = 8;
+	var tileSize = 2;
 
 	public function new()
 	{
@@ -51,8 +52,8 @@ class MapScreen extends Screen
 	{
 		ob.visible = true;
 		populateMap();
-		var white = Tile.fromColor(0xd2d6b6, tileSize, tileSize, 0);
-		var red = Tile.fromColor(0xe91e63, tileSize, tileSize);
+		var white = Tile.fromColor(ColorKeys.C_WHITE_1, tileSize, tileSize, 0);
+		var red = Tile.fromColor(ColorKeys.C_RED_1, tileSize, tileSize);
 		var blink = new Anim([white, red], 6);
 
 		blink.x = (world.player.x / granularity).floor() * tileSize;
