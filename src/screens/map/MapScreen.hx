@@ -1,6 +1,7 @@
 package screens.map;
 
 import common.struct.IntPoint;
+import core.Game;
 import core.Screen;
 import core.input.KeyCode;
 import data.BiomeType;
@@ -13,15 +14,17 @@ import h2d.Object;
 import h2d.Tile;
 import shaders.SpriteShader;
 
+typedef Obs =
+{
+	root:Object,
+	bg:Bitmap,
+};
+
 class MapScreen extends Screen
 {
-	var ob:Object;
+	var ob:Obs;
 
-	public function new()
-	{
-		ob = new Object();
-		ob.scale(1);
-	}
+	public function new() {}
 
 	function getTileKey(biome:BiomeType):TileKey
 	{
@@ -39,17 +42,25 @@ class MapScreen extends Screen
 	function populateTile(pos:IntPoint)
 	{
 		var chunk = world.chunks.getChunk(pos.x, pos.y);
-		var biomeKey = chunk.biomes.ne;
+		var biomeKey = chunk.biomes.nw;
+
 		var tileKey = getTileKey(biomeKey);
 		var tile = TileResources.Get(tileKey);
 		var biome = world.map.getBiome(biomeKey);
+		var color = biome.naturalColor;
+
+		if (chunk.biomes.river != null)
+		{
+			tile = TileResources.Get(OVERWORLD_RIVER);
+			color = ColorKeys.C_BLUE_2;
+		}
 		var bm = new Bitmap(tile);
-		var shader = new SpriteShader(biome.naturalColor, ColorKeys.C_BLACK_1);
+		var shader = new SpriteShader(color, ColorKeys.C_BLACK_1);
 		shader.clearBackground = 1;
 		bm.addShader(shader);
 		bm.x = pos.x * game.TILE_W;
 		bm.y = pos.y * game.TILE_H;
-		ob.addChild(bm);
+		ob.root.addChild(bm);
 	}
 
 	function populateMap()
@@ -65,7 +76,14 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		ob.visible = true;
+		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_H);
+		ob = {
+			root: new Object(),
+			bg: new Bitmap(bgTile),
+		};
+		ob.root.addChild(ob.bg);
+		ob.root.visible = true;
+
 		populateMap();
 		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
 		var red = Tile.fromColor(ColorKeys.C_RED_1, game.TILE_W, game.TILE_H);
@@ -74,23 +92,24 @@ class MapScreen extends Screen
 		var blinkPos = world.player.pos.toChunk().toIntPoint();
 		blink.x = blinkPos.x * game.TILE_W;
 		blink.y = blinkPos.y * game.TILE_H;
-		ob.addChild(blink);
-		game.render(HUD, ob);
+		ob.root.addChild(blink);
+		game.render(HUD, ob.root);
 	}
 
 	override function onResume()
 	{
-		ob.visible = true;
+		ob.root.visible = true;
 	}
 
 	override function onSuspend()
 	{
-		ob.visible = false;
+		ob.root.visible = false;
 	}
 
 	override function onDestroy()
 	{
-		ob.remove();
+		ob.root.remove();
+		ob.bg.remove();
 	}
 
 	override function onKeyDown(key:KeyCode)

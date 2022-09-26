@@ -1,10 +1,12 @@
 package domain.terrain;
 
+import common.algorithm.Bresenham;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import core.Game;
 import data.BiomeMap.BiomeChunkData;
 import data.BiomeType;
+import data.ColorKeys;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
 import hxd.Rand;
@@ -13,6 +15,7 @@ class ChunkGen
 {
 	private var seed(get, null):Int;
 	private var world(get, null):World;
+	private var riverWidth:Int = 4;
 
 	var table:WeightedTable<SpawnableType>;
 
@@ -50,16 +53,76 @@ class ChunkGen
 	{
 		var r = new Rand(seed + chunk.chunkId);
 
-		chunk.cells.fillFn((idx) ->
+		chunk.cells.fillFn((idx) -> generateCell(r, chunk, idx));
+
+		if (chunk.biomes.river != null)
 		{
-			return generateCell(r, chunk, idx);
-		});
+			var chunkSize = world.chunkSize - 1;
+			var river = chunk.biomes.river;
+			var polygon = new Array<IntPoint>();
+			if (river.n)
+			{
+				var left = river.nw ? 0 : 3;
+				var right = river.ne ? chunkSize : 12;
+				polygon.push({
+					x: left,
+					y: 0,
+				});
+				polygon.push({
+					x: right,
+					y: 0,
+				});
+			}
+			if (river.e)
+			{
+				var top = river.ne ? 0 : 3;
+				var bottom = river.se ? chunkSize : 12;
+				polygon.push({
+					x: chunkSize,
+					y: top,
+				});
+				polygon.push({
+					x: chunkSize,
+					y: bottom,
+				});
+			}
+			if (river.s)
+			{
+				var left = river.sw ? 0 : 3;
+				var right = river.se ? chunkSize : 12;
+				polygon.push({
+					x: right,
+					y: chunkSize,
+				});
+				polygon.push({
+					x: left,
+					y: chunkSize,
+				});
+			}
+			if (river.w)
+			{
+				var top = river.nw ? 0 : 3;
+				var bottom = river.sw ? chunkSize : 12;
+				polygon.push({
+					x: 0,
+					y: bottom,
+				});
+				polygon.push({
+					x: 0,
+					y: top,
+				});
+			}
+
+			// todo: shouldn't have to bresenham stroke when filling
+			Bresenham.strokePolygon(polygon, (p) -> setWater(chunk, p));
+			Bresenham.fillPolygon(polygon, (p) -> setWater(chunk, p));
+		}
 
 		for (cell in chunk.cells)
 		{
 			var pos = chunk.worldPos.add(cell.pos);
 
-			if (r.bool(.01))
+			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
 			{
 				var loot = table.pick(r);
 				Spawner.Spawn(loot, pos.asWorld());
@@ -121,5 +184,14 @@ class ChunkGen
 	inline function get_world():World
 	{
 		return Game.instance.world;
+	}
+
+	function setWater(chunk:Chunk, p:IntPoint)
+	{
+		var cell = chunk.cells.get(p.x, p.y);
+		cell.terrain = TERRAIN_RIVER;
+		cell.primary = ColorKeys.C_BLUE_2;
+		cell.background = ColorKeys.C_BLUE_3;
+		cell.tileKey = WATER_4;
 	}
 }
