@@ -1,15 +1,15 @@
 package screens.cursor;
 
+import common.util.BitUtil;
 import common.util.Timeout;
 import core.Frame;
 import data.Cardinal;
 import data.TileResources;
+import domain.components.BitmaskSprite;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
-import domain.systems.LightSystem;
 import h2d.Bitmap;
-import haxe.EnumTools.EnumValueTools;
 import screens.cursor.CursorScreen.CursorRenderOpts;
 import shaders.SpriteShader;
 
@@ -121,7 +121,21 @@ class LookScreen extends CursorScreen
 		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).radians();
 		var cardinal = Cardinal.fromRadians(angle);
 		var light = world.systems.lights.getTileLight(ipos);
-		targetText.text = '${cardinal.toName()} ${light}';
+
+		var mask = 0;
+		var maskMod = 0;
+		var e = world.getEntitiesAt(ipos).find((e) -> e.has(BitmaskSprite));
+
+		if (e != null)
+		{
+			mask = world.systems.bitmasks.computeMask(e);
+			maskMod = BitUtil.subtractBit(mask, 0);
+			maskMod = BitUtil.subtractBit(maskMod, 2);
+			maskMod = BitUtil.subtractBit(maskMod, 5);
+			maskMod = BitUtil.subtractBit(maskMod, 7);
+		}
+
+		targetText.text = '${cardinal.toName()} ${mask}- ${maskMod}';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

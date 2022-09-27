@@ -8,6 +8,7 @@ import data.AudioKey;
 import data.Cardinal;
 import data.save.SaveWorld;
 import domain.AIManager;
+import domain.components.BitmaskSprite;
 import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;

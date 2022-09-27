@@ -52,6 +52,8 @@ class Spawner
 		prefabs.set(BOOTS, new BootsPrefab());
 		prefabs.set(COWBOY_HAT, new CowboyHatPrefab());
 		prefabs.set(PANTS, new PantsPrefab());
+		prefabs.set(WOOD_WALL, new WoodWallPrefab());
+		prefabs.set(WOOD_WALL_WINDOW, new WindowPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

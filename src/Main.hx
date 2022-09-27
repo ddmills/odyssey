@@ -1,6 +1,7 @@
 import core.Game;
 import data.AudioResources;
 import data.BiomeMap;
+import data.Bitmasks;
 import data.Commands;
 import data.TextResources;
 import data.TileResources;
@@ -29,6 +30,7 @@ class Main extends hxd.App
 		TextResources.Init();
 		TileResources.Init();
 		AudioResources.Init();
+		Bitmasks.Init();
 		Commands.Init();
 		Skills.Init();
 		Weapons.Init();

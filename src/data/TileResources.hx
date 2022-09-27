@@ -144,6 +144,27 @@ class TileResources
 		tiles.set(OVERWORLD_PRAIRIE, t[2][14]);
 		tiles.set(OVERWORLD_FOREST, t[2][15]);
 
+		tiles.set(WALL_WINDOW_H, t[0][13]);
+		tiles.set(WALL_WINDOW_V, t[0][14]);
+
 		tiles.set(TEXT_CURSOR, hxd.Res.tiles.scroll.text_cursor.toTile());
+
+		var walls = hxd.Res.tiles.smol.walls_14_14.toTile().divide(4, 4);
+		tiles.set(WALL_0, walls[0][0]);
+		tiles.set(WALL_1, walls[0][1]);
+		tiles.set(WALL_2, walls[0][2]);
+		tiles.set(WALL_3, walls[0][3]);
+		tiles.set(WALL_4, walls[1][0]);
+		tiles.set(WALL_5, walls[1][1]);
+		tiles.set(WALL_6, walls[1][2]);
+		tiles.set(WALL_7, walls[1][3]);
+		tiles.set(WALL_8, walls[2][0]);
+		tiles.set(WALL_9, walls[2][1]);
+		tiles.set(WALL_10, walls[2][2]);
+		tiles.set(WALL_11, walls[2][3]);
+		tiles.set(WALL_12, walls[3][0]);
+		tiles.set(WALL_13, walls[3][1]);
+		tiles.set(WALL_14, walls[3][2]);
+		tiles.set(WALL_15, walls[3][3]);
 	}
 }

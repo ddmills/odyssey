@@ -2,11 +2,11 @@ package domain.systems;
 
 import common.algorithm.Shadowcast;
 import core.Frame;
-import domain.components.Collider;
 import domain.components.Energy;
 import domain.components.Explored;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
+import domain.components.LightBlocker;
 import domain.components.Visible;
 import domain.components.Vision;
 import ecs.Entity;
@@ -87,7 +87,7 @@ class VisionSystem extends System
 		return (actualMin + (world.clock.getDaylight() * variance)).floor();
 	}
 
-	function computeVision()
+	public function computeVision()
 	{
 		for (entity in visibles)
 		{
@@ -112,7 +112,7 @@ class VisionSystem extends System
 
 				var entities = world.getEntitiesAt(p.asWorld());
 
-				return entities.exists((e) -> e.has(Collider));
+				return entities.exists((e) -> e.has(LightBlocker));
 			},
 			onLight: (pos, distance) ->
 			{

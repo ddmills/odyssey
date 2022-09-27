@@ -119,4 +119,22 @@ enum TileKey
 	OVERWORLD_SWAMP;
 	OVERWORLD_TUNDRA;
 	OVERWORLD_RIVER;
+	WALL_0; // ║
+	WALL_1; // .
+	WALL_2; // ╔
+	WALL_3; // ╗
+	WALL_4; // ║
+	WALL_5; // ═
+	WALL_6; // ╚
+	WALL_7; // ╝
+	WALL_8; // ╦
+	WALL_9; // ╩
+	WALL_10; // ╬
+	WALL_11; // ?
+	WALL_12; // ?
+	WALL_13; // ?
+	WALL_14; // ?
+	WALL_15; // ?
+	WALL_WINDOW_H;
+	WALL_WINDOW_V;
 }

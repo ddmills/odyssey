@@ -11,6 +11,7 @@ class SystemManager
 	public var sprites(default, null):SpriteSystem;
 	public var lights(default, null):LightSystem;
 	public var vision(default, null):VisionSystem;
+	public var bitmasks(default, null):BitmaskSystem;
 	public var death(default, null):DeathSystem;
 	public var bullets(default, null):BulletSystem;
 	public var path(default, null):PathFollowSystem;
@@ -30,6 +31,7 @@ class SystemManager
 		sprites = new SpriteSystem();
 		lights = new LightSystem();
 		vision = new VisionSystem();
+		bitmasks = new BitmaskSystem();
 		death = new DeathSystem();
 		hitBlink = new HitBlinkSystem();
 		destroy = new DestroySystem();
@@ -45,6 +47,7 @@ class SystemManager
 		path.update(frame);
 		lights.update(frame);
 		vision.update(frame);
+		bitmasks.update(frame);
 		sprites.update(frame);
 		bullets.update(frame);
 		hitBlink.update(frame);

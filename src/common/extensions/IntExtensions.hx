@@ -22,6 +22,11 @@ class IntExtensions
 		return n <= 0 ? -n : n;
 	}
 
+	static public inline function pow(n:Int, exp:Int):Int
+	{
+		return Math.pow(n, exp).floor();
+	}
+
 	static public inline function toHxdColor(n:Int, a:Float = 1):h3d.Vector
 	{
 		var b = n & 0xff;

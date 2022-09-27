@@ -84,6 +84,11 @@ class IterableExtensions
 		return Lambda.exists(it, fn);
 	}
 
+	public static inline function intersects<T>(it:Iterable<T>, other:Iterable<T>):Bool
+	{
+		return it.exists((v) -> other.has(v));
+	}
+
 	public static inline function has<T>(it:Iterable<T>, value:T):Bool
 	{
 		return Lambda.has(it, value);
@@ -134,6 +139,11 @@ class IterableExtensions
 	public static inline function fold<A, B>(it:Iterable<A>, fn:(item:A, result:B) -> B, first:B):B
 	{
 		return Lambda.fold(it, fn, first);
+	}
+
+	public static inline function foldi<A, B>(it:Iterable<A>, fn:(item:A, result:B, idx:Int) -> B, first:B):B
+	{
+		return Lambda.foldi(it, fn, first);
 	}
 
 	public static inline function count<A, B>(it:Iterable<A>):Int

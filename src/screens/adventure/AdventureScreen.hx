@@ -11,6 +11,7 @@ import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
 import domain.components.Collider;
+import domain.components.Explored;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
@@ -19,6 +20,7 @@ import domain.components.Move;
 import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.MeleeEvent;
+import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
 import h2d.Object;
 import h2d.Text;
@@ -55,6 +57,7 @@ class AdventureScreen extends Screen
 	public override function onEnter()
 	{
 		renderText();
+		world.systems.vision.computeVision();
 	}
 
 	public override function onSuspend()
@@ -125,10 +128,9 @@ class AdventureScreen extends Screen
 
 		if (key == KEY_NUM_0)
 		{
-			var p = game.input.mouse.toWorld().toIntPoint();
-			var idx = world.getTileIdx(p);
-			var fragments = world.systems.lights.lightFragments.get(idx);
-			trace(fragments);
+			var p = game.input.mouse.toWorld().floor();
+			Spawner.Spawn(WOOD_WALL_WINDOW, p);
+			world.systems.vision.computeVision();
 		}
 	}
 
@@ -178,14 +180,15 @@ class AdventureScreen extends Screen
 
 	override function onMouseDown(pos:Coordinate)
 	{
-		var p = astar(pos);
-		if (p.success)
-		{
-			world.player.entity.remove(Path);
-			world.player.entity.add(new Path(p.path));
-		}
+		// var p = astar(pos);
+		// if (p.success)
+		// {
+		// 	world.player.entity.remove(Path);
+		// 	world.player.entity.add(new Path(p.path));
+		// }
 
-		// Spawner.Spawn(PINE_TREE, pos.toWorld().floor());
+		Spawner.Spawn(WOOD_WALL, pos.toWorld().floor());
+		world.systems.vision.computeVision();
 	}
 
 	private function move(dir:Cardinal)

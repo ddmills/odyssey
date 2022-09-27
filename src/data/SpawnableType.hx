@@ -40,4 +40,6 @@ enum SpawnableType
 	BOOTS;
 	PANTS;
 	COWBOY_HAT;
+	WOOD_WALL;
+	WOOD_WALL_WINDOW;
 }
