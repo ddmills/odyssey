@@ -73,7 +73,7 @@ class SpriteShader extends hxsl.Shader
 					pixelColor.a = 1;
 				}
 
-				if (isLit == 1)
+				if (isLit == 1 && isShrouded == 0)
 				{
 					var lightIntensityFactor = clamp(lightIntensity / 5, 0, .75);
 

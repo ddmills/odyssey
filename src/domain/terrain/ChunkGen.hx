@@ -15,7 +15,7 @@ class ChunkGen
 {
 	private var seed(get, null):Int;
 	private var world(get, null):World;
-	private var riverWidth:Int = 4;
+	private var riverWidth:Int = 8;
 
 	var table:WeightedTable<SpawnableType>;
 
@@ -57,13 +57,14 @@ class ChunkGen
 
 		if (chunk.biomes.river != null)
 		{
+			var riverOffset = (((world.chunkSize) - riverWidth) / 2).floor();
 			var chunkSize = world.chunkSize - 1;
 			var river = chunk.biomes.river;
 			var polygon = new Array<IntPoint>();
 			if (river.n)
 			{
-				var left = river.nw ? 0 : 3;
-				var right = river.ne ? chunkSize : 12;
+				var left = river.nw ? 0 : riverOffset;
+				var right = river.ne ? chunkSize : chunkSize - riverOffset;
 				polygon.push({
 					x: left,
 					y: 0,
@@ -75,8 +76,8 @@ class ChunkGen
 			}
 			if (river.e)
 			{
-				var top = river.ne ? 0 : 3;
-				var bottom = river.se ? chunkSize : 12;
+				var top = river.ne ? 0 : riverOffset;
+				var bottom = river.se ? chunkSize : chunkSize - riverOffset;
 				polygon.push({
 					x: chunkSize,
 					y: top,
@@ -88,8 +89,8 @@ class ChunkGen
 			}
 			if (river.s)
 			{
-				var left = river.sw ? 0 : 3;
-				var right = river.se ? chunkSize : 12;
+				var left = river.sw ? 0 : riverOffset;
+				var right = river.se ? chunkSize : chunkSize - riverOffset;
 				polygon.push({
 					x: right,
 					y: chunkSize,
@@ -101,8 +102,8 @@ class ChunkGen
 			}
 			if (river.w)
 			{
-				var top = river.nw ? 0 : 3;
-				var bottom = river.sw ? chunkSize : 12;
+				var top = river.nw ? 0 : riverOffset;
+				var bottom = river.sw ? chunkSize : chunkSize - riverOffset;
 				polygon.push({
 					x: 0,
 					y: bottom,
