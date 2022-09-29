@@ -53,6 +53,11 @@ import data.Cardinal;
 		return new IntPoint(x * v, y * v);
 	}
 
+	public overload extern inline function divide(v:Float):FloatPoint
+	{
+		return new FloatPoint(x / v, y / v);
+	}
+
 	public inline function dot(other:IntPoint):Int
 	{
 		return (x + other.x) * (y + other.y);

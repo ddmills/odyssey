@@ -1,5 +1,6 @@
 package data;
 
+@:enum
 enum abstract Cardinal(Int) to Int from Int
 {
 	var NORTH = 0;

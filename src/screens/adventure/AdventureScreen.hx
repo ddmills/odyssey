@@ -42,6 +42,7 @@ typedef HudText =
 	health:Text,
 	wpos:Text,
 	cpos:Text,
+	zpos:Text,
 	xp:Text,
 }
 
@@ -80,8 +81,9 @@ class AdventureScreen extends Screen
 		hudText.health.text = '${hp.value}/${hp.max}';
 
 		var mpos = game.input.mouse;
-		hudText.wpos.text = mpos.toWorld().toIntPoint().toString();
-		hudText.cpos.text = mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
+		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
+		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
+		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + '(${mpos.toZoneIdx()})';
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';
@@ -234,25 +236,30 @@ class AdventureScreen extends Screen
 		health.color = game.TEXT_COLOR.toHxdColor();
 		health.y = 32;
 
-		var cpos = new Text(TextResources.BIZCAT, ob);
-		cpos.color = game.TEXT_COLOR.toHxdColor();
-		cpos.y = 48;
-
 		var wpos = new Text(TextResources.BIZCAT, ob);
 		wpos.color = game.TEXT_COLOR.toHxdColor();
-		wpos.y = 64;
+		wpos.y = 48;
+
+		var cpos = new Text(TextResources.BIZCAT, ob);
+		cpos.color = game.TEXT_COLOR.toHxdColor();
+		cpos.y = 64;
+
+		var zpos = new Text(TextResources.BIZCAT, ob);
+		zpos.color = game.TEXT_COLOR.toHxdColor();
+		zpos.y = 80;
 
 		var xp = new Text(TextResources.BIZCAT, ob);
 		xp.color = game.TEXT_COLOR.toHxdColor();
-		xp.y = 80;
+		xp.y = 96;
 
 		hudText = {
 			ob: ob,
 			fps: fps,
 			clock: clock,
 			health: health,
-			cpos: cpos,
 			wpos: wpos,
+			cpos: cpos,
+			zpos: zpos,
 			xp: xp,
 		};
 

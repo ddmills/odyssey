@@ -39,52 +39,18 @@ class PoissonDiscSampler
 		results = new Array<IntPoint>();
 	}
 
-	function addSample(x:Int, y:Int):IntPoint
+	public function all():Array<IntPoint>
 	{
-		var point:IntPoint = {
-			x: x,
-			y: y
-		};
-		results.push(point);
-		active.push(point);
-		var gx = (x / cellSize).floor();
-		var gy = (y / cellSize).floor();
-		grid.set(gx, gy, point);
-		return point;
-	}
+		var points = new Array<IntPoint>();
+		var point = sample();
 
-	function candidate(x:Int, y:Int)
-	{
-		// check out of bounds
-		if (x < 0 || x >= width || y < 0 || y >= height)
+		while (point != null)
 		{
-			return false;
+			points.push(point);
+			point = sample();
 		}
 
-		var gx = (x / cellSize).floor();
-		var gy = (y / cellSize).floor();
-
-		// check identity
-		if (grid.get(gx, gy) != null)
-		{
-			return false;
-		}
-
-		// check close to neighbors
-		for (neighbor in grid.getNeighbors(gx, gy))
-		{
-			if (neighbor != null)
-			{
-				var dx = neighbor.x - x;
-				var dy = neighbor.y - y;
-				if ((dx * dx + dy * dy) < radius2)
-				{
-					return false;
-				}
-			}
-		}
-
-		return true;
+		return points;
 	}
 
 	public function sample():IntPoint
@@ -116,5 +82,53 @@ class PoissonDiscSampler
 		}
 
 		return null;
+	}
+
+	private function addSample(x:Int, y:Int):IntPoint
+	{
+		var point:IntPoint = {
+			x: x,
+			y: y
+		};
+		results.push(point);
+		active.push(point);
+		var gx = (x / cellSize).floor();
+		var gy = (y / cellSize).floor();
+		grid.set(gx, gy, point);
+		return point;
+	}
+
+	private function candidate(x:Int, y:Int)
+	{
+		// check out of bounds
+		if (x < 0 || x >= width || y < 0 || y >= height)
+		{
+			return false;
+		}
+
+		var gx = (x / cellSize).floor();
+		var gy = (y / cellSize).floor();
+
+		// check identity
+		if (grid.get(gx, gy) != null)
+		{
+			return false;
+		}
+
+		// check close to neighbors
+		for (neighbor in grid.getNeighbors(gx, gy))
+		{
+			if (neighbor != null)
+			{
+				var dx = neighbor.x - x;
+				var dy = neighbor.y - y;
+				if ((dx * dx + dy * dy) < radius2)
+				{
+					return false;
+				}
+			}
+		}
+
+		return true;
 	}
 }

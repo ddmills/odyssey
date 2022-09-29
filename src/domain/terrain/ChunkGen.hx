@@ -53,13 +53,15 @@ class ChunkGen
 	{
 		var r = new Rand(seed + chunk.chunkId);
 
-		chunk.cells.fillFn((idx) -> generateCell(r, chunk, idx));
+		var biomes = chunk.zone.biomes;
 
-		if (chunk.biomes.river != null)
+		chunk.cells.fillFn((idx) -> generateCell(r, chunk, biomes, idx));
+
+		if (biomes.river != null)
 		{
 			var riverOffset = (((world.chunkSize) - riverWidth) / 2).floor();
 			var chunkSize = world.chunkSize - 1;
-			var river = chunk.biomes.river;
+			var river = biomes.river;
 			var polygon = new Array<IntPoint>();
 			if (river.n)
 			{
@@ -153,10 +155,9 @@ class ChunkGen
 		}
 	}
 
-	function generateCell(r:Rand, chunk:Chunk, idx:Int):Cell
+	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeChunkData, idx:Int):Cell
 	{
 		var pos = chunk.getCellCoord(idx);
-		var biomes = chunk.biomes;
 		var biomeKey = pickBiome(r, pos, biomes);
 		var biome = world.map.getBiome(biomeKey);
 

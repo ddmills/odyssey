@@ -155,4 +155,27 @@ class IterableExtensions
 	{
 		return [for (v in it) keyFn(v) => v];
 	}
+
+	public static function mostFrequent(it:Iterable<Int>):Null<Int>
+	{
+		var m = new Map<Int, Int>();
+		var highElem:Null<Int> = null;
+		var highCount:Int = 0;
+
+		for (k in it)
+		{
+			var cur = m.get(k);
+			var count = cur == null ? 1 : cur++;
+
+			m.set(k, count);
+
+			if (count > highCount)
+			{
+				highCount = count;
+				highElem = k;
+			}
+		}
+
+		return highElem;
+	}
 }

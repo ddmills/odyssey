@@ -1,15 +1,16 @@
 package domain.terrain;
 
 import common.struct.Grid;
+import common.struct.IntPoint;
 import common.struct.Set;
 import common.tools.Performance;
-import common.util.Projection;
 import core.Game;
 
 class ChunkManager
 {
 	private var game(get, never):Game;
 	private var chunks:Grid<Chunk>;
+
 	private var chunksToUnload:Set<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
@@ -25,14 +26,8 @@ class ChunkManager
 	public function initialize()
 	{
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
+		chunks.fillFn((idx) -> new Chunk(idx, chunkSize));
 		chunksToUnload = new Set();
-
-		for (i in 0...chunks.size)
-		{
-			var chunk = new Chunk(i, chunkSize);
-
-			chunks.setIdx(i, chunk);
-		}
 	}
 
 	public function loadChunks(curChunk:Int)
@@ -139,11 +134,9 @@ class ChunkManager
 		return chunks.get(cx, cy);
 	}
 
-	public inline function getChunkByPx(px:Float, py:Float):Chunk
+	public function isOutOfBounds(pos:IntPoint):Bool
 	{
-		var coords = Projection.pxToChunk(px, py);
-
-		return getChunk(Math.floor(coords.x), Math.floor(coords.y));
+		return chunks.isOutOfBounds(pos.x, pos.y);
 	}
 
 	inline function get_chunkCountX():Int

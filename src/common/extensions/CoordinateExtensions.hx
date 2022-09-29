@@ -10,16 +10,13 @@ class CoordinateExtensions
 {
 	static public inline function toString(c:Coordinate, precision:Int = null):String
 	{
-		switch c.space
+		return switch c.space
 		{
-			case PIXEL:
-				return 'P(${c.x},${c.y})';
-			case SCREEN:
-				return 'S(${c.x},${c.y})';
-			case WORLD:
-				return 'W(${c.x},${c.y})';
-			case CHUNK:
-				return 'C(${c.x},${c.y})';
+			case SCREEN: 'S(${c.x},${c.y})';
+			case PIXEL: 'P(${c.x},${c.y})';
+			case WORLD: 'W(${c.x},${c.y})';
+			case CHUNK: 'C(${c.x},${c.y})';
+			case ZONE: 'Z(${c.x},${c.y})';
 		}
 	}
 
@@ -42,76 +39,73 @@ class CoordinateExtensions
 	{
 		var px = c.toPx();
 
-		switch space
+		return switch space
 		{
-			case PIXEL:
-				return px;
-			case CHUNK:
-				return Projection.pxToChunk(px.x, px.y);
-			case SCREEN:
-				return Projection.pxToScreen(px.x, px.y);
-			case WORLD:
-				return Projection.pxToWorld(px.x, px.y);
+			case PIXEL: px;
+			case CHUNK: Projection.pxToChunk(px.x, px.y);
+			case SCREEN: Projection.pxToScreen(px.x, px.y);
+			case WORLD: Projection.pxToWorld(px.x, px.y);
+			case ZONE: Projection.pxToZone(px.x, px.y);
 		}
 	}
 
 	static public inline function toWorld(c:Coordinate):Coordinate
 	{
-		switch c.space
+		return switch c.space
 		{
-			case PIXEL:
-				return Projection.pxToWorld(c.x, c.y);
-			case CHUNK:
-				return Projection.chunkToWorld(c.x, c.y);
-			case SCREEN:
-				return Projection.screenToWorld(c.x, c.y);
-			case WORLD:
-				return c;
+			case PIXEL: Projection.pxToWorld(c.x, c.y);
+			case CHUNK: Projection.chunkToWorld(c.x, c.y);
+			case SCREEN: Projection.screenToWorld(c.x, c.y);
+			case WORLD: c;
+			case ZONE: Projection.zoneToWorld(c.x, c.y);
 		}
 	}
 
 	static public inline function toPx(c:Coordinate):Coordinate
 	{
-		switch c.space
+		return switch c.space
 		{
-			case PIXEL:
-				return c;
-			case SCREEN:
-				return Projection.screenToPx(c.x, c.y);
-			case CHUNK:
-				return Projection.chunkToPx(c.x, c.y);
-			case WORLD:
-				return Projection.worldToPx(c.x, c.y);
+			case PIXEL: c;
+			case SCREEN: Projection.screenToPx(c.x, c.y);
+			case CHUNK: Projection.chunkToPx(c.x, c.y);
+			case WORLD: Projection.worldToPx(c.x, c.y);
+			case ZONE: Projection.zoneToPx(c.x, c.y);
 		}
 	}
 
 	static public inline function toScreen(c:Coordinate):Coordinate
 	{
-		switch c.space
+		return switch c.space
 		{
-			case PIXEL:
-				return Projection.pxToScreen(c.x, c.y);
-			case CHUNK:
-				return Projection.chunkToScreen(c.x, c.y);
-			case SCREEN:
-				return c;
-			case WORLD:
-				return Projection.worldToScreen(c.x, c.y);
+			case PIXEL: Projection.pxToScreen(c.x, c.y);
+			case CHUNK: Projection.chunkToScreen(c.x, c.y);
+			case SCREEN: c;
+			case WORLD: Projection.worldToScreen(c.x, c.y);
+			case ZONE: Projection.zoneToScreen(c.x, c.y);
 		}
 	}
 
 	static public inline function toChunk(c:Coordinate):Coordinate
 	{
-		switch c.space
+		return switch c.space
 		{
-			case PIXEL:
-				return Projection.pxToChunk(c.x, c.y);
-			case SCREEN:
-				return Projection.screenToChunk(c.x, c.y);
-			case WORLD:
-				return Projection.worldToChunk(c.x, c.y);
-			case CHUNK:
-				return c;
+			case PIXEL: Projection.pxToChunk(c.x, c.y);
+			case SCREEN: Projection.screenToChunk(c.x, c.y);
+			case WORLD: Projection.worldToChunk(c.x, c.y);
+			case CHUNK: c;
+			case ZONE: Projection.zoneToChunk(c.x, c.y);
+		}
+	}
+
+	static public inline function toZone(c:Coordinate):Coordinate
+	{
+		return switch c.space
+		{
+			case PIXEL: Projection.pxToZone(c.x, c.y);
+			case SCREEN: Projection.screenToZone(c.x, c.y);
+			case WORLD: Projection.worldToZone(c.x, c.y);
+			case CHUNK: Projection.chunkToZone(c.x, c.y);
+			case ZONE: c;
 		}
 	}
 
@@ -126,6 +120,13 @@ class CoordinateExtensions
 		var c = a.toChunk();
 
 		return Game.instance.world.chunks.getChunkIdx(c.x, c.y);
+	}
+
+	static public inline function toZoneIdx(a:Coordinate):Int
+	{
+		var c = a.toZone();
+
+		return Game.instance.world.zones.getZoneId(c.toIntPoint());
 	}
 
 	static public inline function lerp(a:Coordinate, b:Coordinate, time:Float):Coordinate

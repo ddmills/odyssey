@@ -5,10 +5,11 @@ import core.Game;
 
 enum Space
 {
-	PIXEL;
-	CHUNK;
-	WORLD;
 	SCREEN;
+	PIXEL;
+	WORLD;
+	CHUNK;
+	ZONE;
 }
 
 class Projection
@@ -70,6 +71,12 @@ class Projection
 		return new Coordinate(world.x / chunkSize, world.y / chunkSize, CHUNK);
 	}
 
+	public static function pxToZone(px:Float, py:Float):Coordinate
+	{
+		var chunk = pxToChunk(px, py);
+		return chunkToZone(chunk.x, chunk.y);
+	}
+
 	public static function chunkToPx(cx:Float, cy:Float):Coordinate
 	{
 		var world = chunkToWorld(cx, cy);
@@ -81,9 +88,21 @@ class Projection
 		return new Coordinate(Math.floor(wx / chunkSize), Math.floor(wy / chunkSize), CHUNK);
 	}
 
-	public static function chunkToWorld(chunkX:Float, chunkY:Float):Coordinate
+	public static function worldToZone(wx:Float, wy:Float):Coordinate
 	{
-		return new Coordinate(chunkX * chunkSize, chunkY * chunkSize, WORLD);
+		var chunk = worldToChunk(wx, wy);
+		return chunkToZone(chunk.x, chunk.y);
+	}
+
+	public static function chunkToWorld(cx:Float, cy:Float):Coordinate
+	{
+		return new Coordinate(cx * chunkSize, cy * chunkSize, WORLD);
+	}
+
+	public static function chunkToZone(cx:Float, cy:Float):Coordinate
+	{
+		var cs = Game.instance.world.chunksPerZone;
+		return new Coordinate(cx / cs, cy / cs, ZONE);
 	}
 
 	public static function chunkToScreen(cx:Float, cy:Float):Coordinate
@@ -96,5 +115,35 @@ class Projection
 	{
 		var w = screenToWorld(sx, sy);
 		return worldToChunk(w.x, w.y);
+	}
+
+	public static function screenToZone(sx:Float, sy:Float):Coordinate
+	{
+		var c = screenToChunk(sx, sy);
+		return chunkToZone(c.x, c.y);
+	}
+
+	public static function zoneToChunk(zx:Float, zy:Float):Coordinate
+	{
+		var cs = Game.instance.world.chunksPerZone;
+		return new Coordinate(zx * cs, zy * cs, CHUNK);
+	}
+
+	public static function zoneToWorld(zx:Float, zy:Float):Coordinate
+	{
+		var chunk = zoneToChunk(zx, zy);
+		return chunkToWorld(chunk.x, chunk.y);
+	}
+
+	public static function zoneToPx(zx:Float, zy:Float):Coordinate
+	{
+		var chunk = zoneToChunk(zx, zy);
+		return chunkToPx(chunk.x, chunk.y);
+	}
+
+	public static function zoneToScreen(zx:Float, zy:Float):Coordinate
+	{
+		var chunk = zoneToChunk(zx, zy);
+		return chunkToScreen(chunk.x, chunk.y);
 	}
 }

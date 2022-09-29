@@ -2,7 +2,6 @@ package domain.components;
 
 import common.struct.Coordinate;
 import core.Game;
-import data.Cardinal;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.EnemyKilledEvent;

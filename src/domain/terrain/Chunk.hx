@@ -4,40 +4,36 @@ import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
-import data.BiomeMap.BiomeChunkData;
-import data.BiomeMap;
+import data.BiomeType;
 import data.TileResources;
 import data.save.SaveChunk;
 import domain.events.EntityLoadedEvent;
 import ecs.Entity;
 import h2d.Bitmap;
-import hxd.Rand;
 import shaders.SpriteShader;
 
 class Chunk
 {
-	var tiles:h2d.Object;
+	private var tiles:h2d.Object;
 
 	public var exploration(default, null):Grid<Null<Bool>>;
 	public var entities(default, null):GridMap<String>;
 	public var bitmaps(default, null):Grid<Bitmap>;
 	public var isLoaded(default, null):Bool;
-	public var biomes(default, null):BiomeChunkData;
 	public var cells(default, null):Grid<Cell>;
 
 	public var size(default, null):Int;
 	public var chunkId(default, null):Int;
+	public var zoneId(get, never):Int;
+	public var zone(get, never):Zone;
 
 	public var chunkPos(get, never):IntPoint;
 	public var worldPos(get, never):IntPoint;
-
-	var rand:Rand;
 
 	public function new(chunkId:Int, size:Int)
 	{
 		this.chunkId = chunkId;
 		this.size = size;
-		biomes = BiomeMap.GetAt(chunkId);
 		cells = new Grid(size, size);
 	}
 
@@ -63,7 +59,6 @@ class Chunk
 		entities = new GridMap(size, size);
 		cells = new GridMap(size, size);
 		bitmaps = new Grid(size, size);
-		rand = new Rand(this.chunkId);
 		tiles = new h2d.Object();
 
 		if (save == null)
@@ -77,7 +72,6 @@ class Chunk
 			var tickDelta = Game.instance.world.clock.tick - save.tick;
 
 			size = save.size;
-			biomes = save.biomes;
 			cells.load(save.cells, (c) -> c);
 			buildTiles();
 
@@ -118,7 +112,6 @@ class Chunk
 			idx: chunkId,
 			size: size,
 			tick: Game.instance.world.clock.tick,
-			biomes: biomes,
 			explored: exploration.save((v) -> v),
 			cells: cells.save((v) -> v),
 			entities: entities.save((v) ->
@@ -163,7 +156,6 @@ class Chunk
 		exploration = null;
 		entities = null;
 		bitmaps = null;
-		rand = null;
 		tiles = null;
 		cells = null;
 
@@ -289,5 +281,16 @@ class Chunk
 			shader.isShrouded = 1;
 			bm.visible = false;
 		}
+	}
+
+	function get_zoneId():Int
+	{
+		var pos = chunkPos.divide(Game.instance.world.chunksPerZone).floor();
+		return Game.instance.world.zones.getZoneId(pos);
+	}
+
+	inline function get_zone():Zone
+	{
+		return Game.instance.world.zones.getZoneById(zoneId);
 	}
 }

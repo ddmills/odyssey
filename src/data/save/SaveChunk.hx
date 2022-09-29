@@ -12,6 +12,5 @@ typedef SaveChunk =
 	var explored:GridSave<Bool>;
 	var entities:GridSave<Array<EntitySaveData>>;
 	var tick:Int;
-	var biomes:BiomeChunkData;
 	var cells:GridSave<Cell>;
 }

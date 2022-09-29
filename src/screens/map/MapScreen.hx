@@ -41,19 +41,26 @@ class MapScreen extends Screen
 
 	function populateTile(pos:IntPoint)
 	{
-		var chunk = world.chunks.getChunk(pos.x, pos.y);
-		var biomeKey = chunk.biomes.nw;
+		var zone = world.zones.getZone(pos);
+		var biomeKey = zone.biomes.nw;
 
 		var tileKey = getTileKey(biomeKey);
 		var tile = TileResources.Get(tileKey);
 		var biome = world.map.getBiome(biomeKey);
 		var color = biome.naturalColor;
 
-		if (chunk.biomes.river != null)
+		if (zone.biomes.river != null)
 		{
 			tile = TileResources.Get(OVERWORLD_RIVER);
 			color = ColorKeys.C_BLUE_2;
 		}
+
+		if (zone.isTown)
+		{
+			tile = TileResources.Get(OVERWORLD_TOWN);
+			color = ColorKeys.C_ORANGE_1;
+		}
+
 		var bm = new Bitmap(tile);
 		var shader = new SpriteShader(color, ColorKeys.C_BLACK_1);
 		shader.clearBackground = 1;
@@ -65,13 +72,30 @@ class MapScreen extends Screen
 
 	function populateMap()
 	{
-		for (x in 0...world.chunkCountX)
+		for (x in 0...world.zoneCountX)
 		{
-			for (y in 0...world.chunkCountY)
+			for (y in 0...world.zoneCountY)
 			{
 				populateTile({x: x, y: y});
 			}
 		}
+	}
+
+	private function redrawMap()
+	{
+		ob.root.removeChildren();
+		ob.root.addChild(ob.bg);
+
+		populateMap();
+		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
+		var red = Tile.fromColor(ColorKeys.C_RED_1, game.TILE_W, game.TILE_H);
+		var blink = new Anim([white, red], 6);
+
+		var blinkPos = world.player.pos.toZone().toIntPoint();
+		blink.x = blinkPos.x * game.TILE_W;
+		blink.y = blinkPos.y * game.TILE_H;
+
+		ob.root.addChild(blink);
 	}
 
 	override function onEnter()
@@ -81,18 +105,10 @@ class MapScreen extends Screen
 			root: new Object(),
 			bg: new Bitmap(bgTile),
 		};
-		ob.root.addChild(ob.bg);
+
+		redrawMap();
+
 		ob.root.visible = true;
-
-		populateMap();
-		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
-		var red = Tile.fromColor(ColorKeys.C_RED_1, game.TILE_W, game.TILE_H);
-		var blink = new Anim([white, red], 6);
-
-		var blinkPos = world.player.pos.toChunk().toIntPoint();
-		blink.x = blinkPos.x * game.TILE_W;
-		blink.y = blinkPos.y * game.TILE_H;
-		ob.root.addChild(blink);
 		game.render(HUD, ob.root);
 	}
 
@@ -114,10 +130,15 @@ class MapScreen extends Screen
 
 	override function onKeyDown(key:KeyCode)
 	{
+		game.input.next();
 		if (key == KEY_M)
 		{
-			game.input.next();
 			game.screens.pop();
+		}
+		if (key == KEY_G)
+		{
+			world.map.generate();
+			redrawMap();
 		}
 	}
 }

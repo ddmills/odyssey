@@ -8,7 +8,6 @@ import data.AudioKey;
 import data.Cardinal;
 import data.save.SaveWorld;
 import domain.AIManager;
-import domain.components.BitmaskSprite;
 import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;
@@ -17,6 +16,7 @@ import domain.systems.SystemManager;
 import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
+import domain.terrain.ZoneManager;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -27,11 +27,16 @@ class World
 	public var clock(default, null):Clock;
 	public var ai(default, null):AIManager;
 	public var player(default, null):PlayerManager;
+	public var zones(default, null):ZoneManager;
 	public var chunks(default, null):ChunkManager;
 	public var spawner(default, null):Spawner;
-	public var chunkSize(default, null):Int = 16;
-	public var chunkCountX(default, null):Int = 64;
-	public var chunkCountY(default, null):Int = 48;
+	public var zoneCountX(default, null):Int = 64;
+	public var zoneCountY(default, null):Int = 48;
+	public var zoneSize(default, null):Int = 60;
+	public var chunksPerZone(default, never):Int = 3;
+	public var chunkSize(get, never):Int;
+	public var chunkCountX(get, never):Int;
+	public var chunkCountY(get, never):Int;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
@@ -49,6 +54,7 @@ class World
 		clock = new Clock();
 		ai = new AIManager();
 		player = new PlayerManager();
+		zones = new ZoneManager();
 		chunks = new ChunkManager();
 		spawner = new Spawner();
 
@@ -61,6 +67,7 @@ class World
 		visible = [];
 
 		spawner.initialize();
+		zones.initialize();
 		chunks.initialize();
 		map.initialize();
 		systems.initialize();
@@ -173,6 +180,7 @@ class World
 
 	public function getNeighborEntities(pos:IntPoint):Array<Array<Entity>>
 	{
+		// todo - just make faster by removing cardinal calls?
 		return [
 			getEntitiesAt(pos.add(Cardinal.NORTH_WEST.toOffset())),
 			getEntitiesAt(pos.add(Cardinal.NORTH.toOffset())),
@@ -327,5 +335,20 @@ class World
 			x: Math.floor(idx % w),
 			y: Math.floor(idx / w),
 		}
+	}
+
+	function get_chunkCountX():Int
+	{
+		return zoneCountX * chunksPerZone;
+	}
+
+	function get_chunkCountY():Int
+	{
+		return zoneCountY * chunksPerZone;
+	}
+
+	function get_chunkSize():Int
+	{
+		return (zoneSize / chunksPerZone).ciel();
 	}
 }
