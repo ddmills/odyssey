@@ -36,6 +36,16 @@ class IntExtensions
 		return new h3d.Vector(r / 255, g / 255, b / 255, a);
 	}
 
+	static public inline function clampUpper(n:Int, max:Int):Int
+	{
+		return n > max ? max : n;
+	}
+
+	static public inline function clampLower(n:Int, min:Int):Int
+	{
+		return n < min ? min : n;
+	}
+
 	static public inline function clamp(n:Int, min:Int, max:Int):Int
 	{
 		if (n > max)

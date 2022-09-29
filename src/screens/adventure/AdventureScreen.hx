@@ -11,13 +11,11 @@ import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
 import domain.components.Collider;
-import domain.components.Explored;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Level;
 import domain.components.Move;
-import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.MeleeEvent;
 import domain.prefabs.Spawner;
@@ -59,6 +57,7 @@ class AdventureScreen extends Screen
 	{
 		renderText();
 		world.systems.vision.computeVision();
+		trace(world.mapWidth * world.mapHeight);
 	}
 
 	public override function onSuspend()

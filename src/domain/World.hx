@@ -33,7 +33,7 @@ class World
 	public var zoneCountX(default, null):Int = 64;
 	public var zoneCountY(default, null):Int = 48;
 	public var zoneSize(default, null):Int = 60;
-	public var chunksPerZone(default, never):Int = 3;
+	public var chunksPerZone(default, never):Int = 2;
 	public var chunkSize(get, never):Int;
 	public var chunkCountX(get, never):Int;
 	public var chunkCountY(get, never):Int;
@@ -141,7 +141,7 @@ class World
 		var w = pos.asWorld();
 		var idx = pos.asWorld().toChunkIdx();
 		var chunk = chunks.getChunkById(idx);
-		if (chunk == null)
+		if (chunk.isNull())
 		{
 			return new Array<Entity>();
 		}
@@ -254,7 +254,7 @@ class World
 	{
 		var c = coord.toChunk();
 		var chunk = chunks.getChunk(c.x, c.y);
-		if (chunk == null)
+		if (chunk.isNull())
 		{
 			return false;
 		}
@@ -292,7 +292,7 @@ class World
 		var cy = (pos.x / chunkSize).floor();
 		var chunk = chunks.getChunk(cx, cy);
 
-		if (chunk == null)
+		if (chunk.isNull())
 		{
 			return null;
 		}

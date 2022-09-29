@@ -22,7 +22,7 @@ class Bresenham
 		function addPoint(pt:IntPoint)
 		{
 			var k = '${pt.x},${pt.y}';
-			if (pm.get(k) == null)
+			if (pm.get(k).isNull())
 			{
 				points.push(pt);
 				pm.set(k, pt);
@@ -191,7 +191,7 @@ class Bresenham
 
 		for (p in polygon)
 		{
-			if (min == null)
+			if (min.isNull())
 			{
 				min = p;
 				max = p;

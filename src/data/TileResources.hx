@@ -8,14 +8,14 @@ class TileResources
 
 	public static function Get(key:TileKey):Tile
 	{
-		if (key == null)
+		if (key.isNull())
 		{
 			return null;
 		}
 
 		var tile = tiles.get(key);
 
-		if (tile == null)
+		if (tile.isNull())
 		{
 			return tiles.get(TK_UNKNOWN);
 		}

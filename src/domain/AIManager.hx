@@ -60,7 +60,7 @@ class AIManager
 		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 5);
 		var target = inRange.find((e) -> e.has(Health) && e.id != entity.id);
 
-		if (target == null)
+		if (target.isNull())
 		{
 			return false;
 		}
@@ -75,7 +75,7 @@ class AIManager
 		var neighbors = Game.instance.world.getNeighborEntities(entity.pos.toIntPoint());
 		var target = neighbors.flatten().find((e) -> e.has(Health));
 
-		if (target == null)
+		if (target.isNull())
 		{
 			return false;
 		}

@@ -8,7 +8,7 @@ class AudioResources
 
 	public static function Get(type:AudioKey):Sound
 	{
-		if (type == null)
+		if (type.isNull())
 		{
 			return null;
 		}

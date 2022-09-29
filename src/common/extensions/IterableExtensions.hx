@@ -4,14 +4,14 @@ class IterableExtensions
 {
 	public static function max<T>(it:Iterable<T>, fn:(value:T) -> Float):T
 	{
-		var cur = null;
+		var cur:Null<T> = null;
 		var curWeight = Math.NEGATIVE_INFINITY;
 
 		for (value in it)
 		{
 			var weight = fn(value);
 
-			if (cur == null || weight > curWeight)
+			if (cur.isNull() || weight > curWeight)
 			{
 				curWeight = weight;
 				cur = value;
@@ -156,16 +156,16 @@ class IterableExtensions
 		return [for (v in it) keyFn(v) => v];
 	}
 
-	public static function mostFrequent(it:Iterable<Int>):Null<Int>
+	public static function mostFrequent<T:Int>(it:Iterable<T>):Null<T>
 	{
-		var m = new Map<Int, Int>();
-		var highElem:Null<Int> = null;
+		var m = new Map<T, Int>();
+		var highElem:Null<T> = null;
 		var highCount:Int = 0;
 
 		for (k in it)
 		{
 			var cur = m.get(k);
-			var count = cur == null ? 1 : cur++;
+			var count = cur.isNull() ? 1 : cur++;
 
 			m.set(k, count);
 

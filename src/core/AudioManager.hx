@@ -15,7 +15,7 @@ class AudioManager
 	{
 		var sound = AudioResources.Get(key);
 
-		if (sound == null)
+		if (sound.isNull())
 		{
 			return;
 		}

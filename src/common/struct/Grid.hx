@@ -2,7 +2,7 @@ package common.struct;
 
 import common.struct.IntPoint;
 
-typedef GridSave<T> =
+@:generic typedef GridSave<T> =
 {
 	width:Int,
 	height:Int,
@@ -194,7 +194,7 @@ typedef GridSave<T> =
 	}
 }
 
-typedef GridItem<T> =
+@:generic typedef GridItem<T> =
 {
 	idx:Int,
 	x:Int,
@@ -203,8 +203,7 @@ typedef GridItem<T> =
 	value:T,
 };
 
-@:generic
-class GridIterator<T>
+@:generic class GridIterator<T>
 {
 	var grid:Grid<T>;
 	var i:Int;

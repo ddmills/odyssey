@@ -17,7 +17,7 @@ class Performance
 	{
 		var existing = meters.get(name);
 
-		if (existing == null)
+		if (existing.isNull())
 		{
 			var meter = new Meter(name);
 

@@ -44,7 +44,7 @@ import common.struct.Grid.GridSave;
 	{
 		var res = grid.get(x, y);
 
-		if (res == null)
+		if (res.isNull())
 		{
 			return new Array<T>();
 		}
@@ -73,7 +73,7 @@ import common.struct.Grid.GridSave;
 	public function getIdx(id:T):Null<Int>
 	{
 		var idx = hash.get(id);
-		if (idx == null)
+		if (idx.isNull())
 		{
 			return null;
 		}
@@ -83,7 +83,7 @@ import common.struct.Grid.GridSave;
 	public function getPosition(id:T):Null<IntPoint>
 	{
 		var idx = hash.get(id);
-		if (idx == null)
+		if (idx.isNull())
 		{
 			return null;
 		}

@@ -58,7 +58,7 @@ class WeightedTable<T>
 	{
 		var row = get(value);
 
-		if (row == null)
+		if (row.isNull())
 		{
 			rows.push({
 				weight: weight,
@@ -87,7 +87,7 @@ class WeightedTable<T>
 	{
 		var row = get(value);
 
-		if (row == null)
+		if (row.isNull())
 		{
 			return 0;
 		}
