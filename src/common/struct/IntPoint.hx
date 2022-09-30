@@ -23,6 +23,11 @@ import data.Cardinal;
 		return new Coordinate(x, y, WORLD);
 	}
 
+	public function asZone()
+	{
+		return new Coordinate(x, y, ZONE);
+	}
+
 	public function toString()
 	{
 		return '(${x},${y})';

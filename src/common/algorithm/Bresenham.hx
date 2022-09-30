@@ -184,7 +184,7 @@ class Bresenham
 		}
 	}
 
-	private static function getMinMaxPair(polygon:Array<IntPoint>):Array<IntPoint>
+	public static function getMinMaxPair(polygon:Array<IntPoint>):Array<IntPoint>
 	{
 		var min:IntPoint = null;
 		var max:IntPoint = null;

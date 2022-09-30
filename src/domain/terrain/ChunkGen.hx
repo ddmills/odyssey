@@ -121,19 +121,41 @@ class ChunkGen
 			Bresenham.fillPolygon(polygon, (p) -> setWater(chunk, p));
 		}
 
-		for (cell in chunk.cells)
+		var town = chunk.zone.town;
+		if (town != null)
 		{
-			var pos = chunk.worldPos.add(cell.pos);
+			var zonePos = chunk.zone.worldPos;
+			var chunkPos = chunk.worldPos;
+			var tl = chunkPos.sub(zonePos);
+			var br = tl.add(world.chunkSize, world.chunkSize);
 
-			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
+			var tiles = town.tiles.getSubGrid(tl, br);
+
+			for (t in tiles)
 			{
-				var loot = table.pick(r);
-				Spawner.Spawn(loot, pos.asWorld());
+				if (t.value.type == WALL)
+				{
+					var pos = chunkPos.add(t.pos);
+					Spawner.Spawn(WOOD_WALL, pos.asWorld());
+				}
 			}
-			else
+		}
+		else
+		{
+			for (cell in chunk.cells)
 			{
-				var b = world.map.getBiome(cell.value.biomeKey);
-				b.spawnEntity(pos, cell.value);
+				var pos = chunk.worldPos.add(cell.pos);
+
+				if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
+				{
+					var loot = table.pick(r);
+					Spawner.Spawn(loot, pos.asWorld());
+				}
+				else
+				{
+					var b = world.map.getBiome(cell.value.biomeKey);
+					b.spawnEntity(pos, cell.value);
+				}
 			}
 		}
 	}

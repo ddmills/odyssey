@@ -4,14 +4,16 @@ import common.struct.IntPoint;
 import core.Game;
 import data.BiomeMap;
 import data.BiomeType;
+import domain.terrain.MapData.TownData;
 
 class Zone
 {
 	public var zoneId(default, null):Int;
 	public var zonePos(get, never):IntPoint;
+	public var worldPos(get, never):IntPoint;
 	public var biomes(default, null):BiomeChunkData;
 	public var primaryBiome(get, never):BiomeType;
-	public var isTown:Bool = false;
+	public var town(get, never):TownData;
 
 	public function new(zoneId:Int)
 	{
@@ -46,5 +48,15 @@ class Zone
 	inline function get_zonePos():IntPoint
 	{
 		return Game.instance.world.zones.getZonePos(zoneId);
+	}
+
+	inline function get_town():TownData
+	{
+		return Game.instance.world.map.getTownForZone(zoneId);
+	}
+
+	inline function get_worldPos():IntPoint
+	{
+		return zonePos.multiply(Game.instance.world.zoneSize);
 	}
 }

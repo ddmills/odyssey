@@ -102,6 +102,24 @@ import common.struct.IntPoint;
 		data = [for (idx in 0...size) fn(idx)];
 	}
 
+	public function getSubGrid(a:IntPoint, b:IntPoint):Grid<T>
+	{
+		// todo: Don't force a < b (Bresenham.getMinMaxPair)
+		var g = new Grid<T>(b.x - a.x, b.y - a.y);
+
+		for (x in a.x...b.x)
+		{
+			for (y in a.y...b.y)
+			{
+				var data = get(x, y);
+
+				g.set(x - a.x, y - a.y, data);
+			}
+		}
+
+		return g;
+	}
+
 	public function save<V>(fn:(T) -> V):GridSave<V>
 	{
 		return {

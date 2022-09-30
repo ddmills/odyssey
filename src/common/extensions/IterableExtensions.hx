@@ -156,7 +156,7 @@ class IterableExtensions
 		return [for (v in it) keyFn(v) => v];
 	}
 
-	public static function mostFrequent<T:Int>(it:Iterable<T>):Null<T>
+	@:generic public static function mostFrequent<T:Int>(it:Iterable<T>):Null<T>
 	{
 		var m = new Map<T, Int>();
 		var highElem:Null<T> = null;

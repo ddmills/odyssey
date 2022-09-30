@@ -9,38 +9,43 @@ enum DistanceFormula
 	DIAGONAL;
 	EUCLIDEAN;
 	EUCLIDEAN_SQ;
+	CHEBYSHEV;
 }
 
 class Distance
 {
 	public overload extern inline static function Get(a:IntPoint, b:IntPoint, formula:DistanceFormula):Float
 	{
-		switch formula
+		return switch formula
 		{
-			case MANHATTAN:
-				return Manhattan(a, b);
-			case DIAGONAL:
-				return Diagonal(a, b);
-			case EUCLIDEAN:
-				return Euclidean(a, b);
-			case EUCLIDEAN_SQ:
-				return EuclideanSq(a, b);
+			case MANHATTAN: Manhattan(a, b);
+			case DIAGONAL: Diagonal(a, b);
+			case EUCLIDEAN: Euclidean(a, b);
+			case EUCLIDEAN_SQ: EuclideanSq(a, b);
+			case CHEBYSHEV: Chebyshev(a, b);
 		}
 	}
 
 	public overload extern inline static function Get(a:FloatPoint, b:FloatPoint, formula:DistanceFormula):Float
 	{
-		switch formula
+		return switch formula
 		{
-			case MANHATTAN:
-				return Manhattan(a, b);
-			case DIAGONAL:
-				return Diagonal(a, b);
-			case EUCLIDEAN:
-				return Euclidean(a, b);
-			case EUCLIDEAN_SQ:
-				return EuclideanSq(a, b);
+			case MANHATTAN: Manhattan(a, b);
+			case DIAGONAL: Diagonal(a, b);
+			case EUCLIDEAN: Euclidean(a, b);
+			case EUCLIDEAN_SQ: EuclideanSq(a, b);
+			case CHEBYSHEV: Chebyshev(a, b);
 		}
+	}
+
+	public overload extern inline static function Chebyshev(a:IntPoint, b:IntPoint):Int
+	{
+		return Math.max((a.x - b.x).abs(), (a.y - b.y).abs()).floor();
+	}
+
+	public overload extern inline static function Chebyshev(a:FloatPoint, b:FloatPoint):Float
+	{
+		return Math.max((a.x - b.x).abs(), (a.y - b.y).abs());
 	}
 
 	public overload extern inline static function Manhattan(a:IntPoint, b:IntPoint):Int
