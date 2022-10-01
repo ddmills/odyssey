@@ -22,6 +22,12 @@ class ChunkGen
 	public function new()
 	{
 		table = new WeightedTable();
+		table.add(TABLE, 3);
+		table.add(CHAIR, 3);
+		table.add(CABINET, 3);
+		table.add(TALL_CABINET, 3);
+		table.add(SHELF, 3);
+		table.add(BOOKSHELF, 3);
 		table.add(WAGON_WHEEL, 3);
 		table.add(CAMPFIRE, 5);
 		table.add(LANTERN, 4);
@@ -121,41 +127,38 @@ class ChunkGen
 			Bresenham.fillPolygon(polygon, (p) -> setWater(chunk, p));
 		}
 
-		var town = chunk.zone.town;
-		if (town != null)
+		var zonePos = chunk.zone.worldPos;
+		var chunkPos = chunk.worldPos;
+		var tl = chunkPos.sub(zonePos);
+		var template = chunk.zone.template;
+
+		for (cell in chunk.cells)
 		{
-			var zonePos = chunk.zone.worldPos;
-			var chunkPos = chunk.worldPos;
-			var tl = chunkPos.sub(zonePos);
-			var br = tl.add(world.chunkSize, world.chunkSize);
+			var worldPos = chunk.worldPos.add(cell.pos);
 
-			var tiles = town.tiles.getSubGrid(tl, br);
-
-			for (t in tiles)
+			if (template != null)
 			{
-				if (t.value.type == WALL)
+				var zPos = tl.add(cell.pos);
+				var tile = template.getTile(zPos);
+				if (tile != null)
 				{
-					var pos = chunkPos.add(t.pos);
-					Spawner.Spawn(WOOD_WALL, pos.asWorld());
+					for (content in tile.content)
+					{
+						Spawner.Spawn(content.spawnableType, worldPos.asWorld(), content.spawnableSettings);
+					}
+					continue;
 				}
 			}
-		}
-		else
-		{
-			for (cell in chunk.cells)
-			{
-				var pos = chunk.worldPos.add(cell.pos);
 
-				if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
-				{
-					var loot = table.pick(r);
-					Spawner.Spawn(loot, pos.asWorld());
-				}
-				else
-				{
-					var b = world.map.getBiome(cell.value.biomeKey);
-					b.spawnEntity(pos, cell.value);
-				}
+			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
+			{
+				var loot = table.pick(r);
+				Spawner.Spawn(loot, worldPos.asWorld());
+			}
+			else
+			{
+				var b = world.map.getBiome(cell.value.biomeKey);
+				b.spawnEntity(worldPos, cell.value);
 			}
 		}
 	}

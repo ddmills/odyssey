@@ -17,7 +17,7 @@ class OakTreePrefab extends Prefab
 		var r = Game.instance.world.rand;
 		var tileKey:TileKey = r.pick([TREE_OAK_1, TREE_OAK_2, TREE_OAK_3]);
 
-		entity.add(new Sprite(tileKey, ColorKeys.C_GREEN_3, ColorKeys.C_ORANGE_2));
+		entity.add(new Sprite(tileKey, ColorKeys.C_GREEN_4, ColorKeys.C_ORANGE_2, OBJECTS));
 		entity.add(new Moniker('Oak tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

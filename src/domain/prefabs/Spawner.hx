@@ -54,6 +54,12 @@ class Spawner
 		prefabs.set(PANTS, new PantsPrefab());
 		prefabs.set(WOOD_WALL, new WoodWallPrefab());
 		prefabs.set(WOOD_WALL_WINDOW, new WindowPrefab());
+		prefabs.set(TABLE, new TablePrefab());
+		prefabs.set(CHAIR, new ChairPrefab());
+		prefabs.set(CABINET, new CabinetPrefab());
+		prefabs.set(TALL_CABINET, new TallCabinetPrefab());
+		prefabs.set(SHELF, new ShelfPrefab());
+		prefabs.set(BOOKSHELF, new BookshelfPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

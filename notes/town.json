@@ -1,0 +1,43 @@
+{
+	"name": "Esperloosa",
+	"layout": "MAIN_STREET",
+	"buildings": [
+		{
+			"type": "DENTIST",
+			"minCount": 0,
+			"maxCount": 1,
+			"appraisers": [
+				{
+					"appraiser": "DOOR_ACCESS",
+					"weight": 20.0
+				},
+				{
+					"appraiser": "ALONG_MAIN_STREET",
+					"weight": 6.0
+				},
+				{
+					"appraiser": "EXCLUSIVE_WITH",
+					"weight": 10.0,
+					"settings": {
+						"type": "BARBERSHOP"
+					}
+				}
+			]
+		},
+		{
+			"type": "GRAVEYARD",
+			"minCount": 1,
+			"maxCount": 1,
+			"appraisers": [
+				{
+					"appraiser": "DOOR_ACCESS",
+					"weight": 1.0
+				},
+				{
+					"appraiser": "OUTSKIRTS",
+					"weight": 1.0
+				}
+			]
+		}
+	]
+}

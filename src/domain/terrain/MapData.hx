@@ -8,26 +8,10 @@ import data.BiomeType;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
 import domain.terrain.biomes.Biomes;
+import domain.terrain.gen.ZoneGenerator;
+import domain.terrain.gen.ZoneTemplate;
 import hxd.Rand;
 import mapgen.towns.PoiCriteria;
-
-enum TownTileType
-{
-	DEFAULT;
-	EMPTY;
-	WALL;
-}
-
-typedef TownTile =
-{
-	type:TownTileType,
-}
-
-typedef TownData =
-{
-	zoneId:Int,
-	tiles:Grid<TownTile>,
-}
 
 typedef TownTemplate =
 {
@@ -40,13 +24,13 @@ class MapData
 	private var world(get, never):World;
 	private var seed(get, never):Int;
 	private var r:Rand;
-	private var towns:Array<TownData>;
+	private var templates:Array<ZoneTemplate>;
 	private var biomes:Biomes;
 
 	public function new()
 	{
 		biomes = new Biomes();
-		towns = new Array();
+		templates = new Array();
 	}
 
 	public function initialize()
@@ -56,7 +40,7 @@ class MapData
 
 	public function generate()
 	{
-		towns = [];
+		templates = [];
 
 		// r = new Rand(world.seed);
 		r = Rand.create();
@@ -66,55 +50,12 @@ class MapData
 				name: 'Esperloosa',
 				criteria: {
 					river: false,
-					biomes: [DESERT, TUNDRA],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
-					biomes: [DESERT],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
 					biomes: [PRAIRIE],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
-					biomes: [TUNDRA],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
-					biomes: [FOREST],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
-					biomes: [FOREST],
-				},
-			},
-			{
-				name: 'Test',
-				criteria: {
-					river: false,
-					biomes: [FOREST],
 				},
 			}
 		];
 
 		var poisson = new PoissonDiscSampler(world.zoneCountX, world.zoneCountY, 4, seed);
-
 		var candidates = poisson.all();
 		var selected:Array<{template:TownTemplate, zoneId:Int}> = [];
 
@@ -143,40 +84,15 @@ class MapData
 			}
 		}
 
-		for (item in selected)
+		for (z in selected)
 		{
-			var town = generateTown(item.template, item.zoneId);
-			towns.push(town);
+			templates.push(ZoneGenerator.Generate(z.zoneId));
 		}
 	}
 
-	public function getTownForZone(zoneId:Int):TownData
+	public function getTemplateForZone(zoneId:Int):ZoneTemplate
 	{
-		return towns.find((t) -> t.zoneId == zoneId);
-	}
-
-	function generateTown(template:TownTemplate, zoneId:Int)
-	{
-		var data:TownData = {
-			zoneId: zoneId,
-			tiles: new Grid(world.zoneSize, world.zoneSize)
-		};
-		var roomSize = world.zoneSize - 20;
-		var roomOffset = 10;
-		data.tiles.fillFn((idx) -> ({
-			type: DEFAULT
-		}));
-
-		for (x in 0...roomSize)
-		{
-			for (y in 0...roomSize)
-			{
-				var tile = data.tiles.get(x + roomOffset, y + roomOffset);
-				tile.type = WALL;
-			}
-		}
-
-		return data;
+		return templates.find((t) -> t.zoneId == zoneId);
 	}
 
 	function matchZone(pos:IntPoint, criteria:PoiCriteria):Null<Zone>

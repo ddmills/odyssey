@@ -59,7 +59,7 @@ class MapScreen extends Screen
 			color = ColorKeys.C_BLUE_2;
 		}
 
-		if (zone.town != null)
+		if (zone.template != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
 			color = ColorKeys.C_ORANGE_1;

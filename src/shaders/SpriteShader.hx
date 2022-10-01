@@ -44,7 +44,7 @@ class SpriteShader extends hxsl.Shader
 				else if (isOutline)
 				{
 					baseColor = outline;
-					pixelColor.a = .75;
+					pixelColor.a = .65;
 				}
 				else if (isBackground)
 				{

@@ -15,7 +15,12 @@
 - https://gamedesignlounge.com/video-game-dialogue-writing/
 - https://lib.haxe.org/p/hxyarn/0.1.2/
 - aidungeon.io
+- https://www.inklestudios.com/ink/
 
+
+### Data formats
+- json2object (use json schemas with vscode extension!)
+- hscript (scripting language)
 
 ### Designing NPCs
 - each npc should have a motivation

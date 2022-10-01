@@ -1,0 +1,75 @@
+POI - Point Of Interest
+
+1. Define POIs
+	- criteria
+	- name
+	- type
+1. Assign POIs to zones based on Criteria
+	- Start with POIs with strictest criteria
+	- Sort POIs into categories (towns, caves, camps, ?)
+2. Generate POI
+	- Rooms
+	- Tiles (zone x zone)
+		- spawns: [{SpawnableType, Options}] // spawn everything in the list on the tile
+		- bmData (cell background data)
+			- tileKey
+			- primary
+			- secondary
+			- background
+
+
+ZoneGenerator
+
+
+ZoneTheme
+
+RoomDecorator
+
+Appraiser
+```
+function atMostOne(room:Room, tile:T, candidate:CandidateSpawn):Float
+{
+	if (room.contains(candidate))
+	{
+		return -Math.Inf;
+	}
+	return 1;
+}
+
+function nextTo(room:Room, tile:RoomTile, candidate:CandidateSpawn, target:Spawn):Float
+{
+	for (neighbor in tile.neighbors) {
+		if (neighbor.objects.contains(target))
+		{
+			return 1
+		}
+	}
+	return 0;
+}
+```
+
+
+```haxe
+class RoomContent {
+	type: SpawnableType,
+	settings: Dynamic,
+}
+
+class RoomTile {
+	var content: Array<RoomContent>;
+}
+
+class Room {
+	var content:Grid<RoomTile>;
+
+	public function contains(type:SpawnableType):Bool {
+		return content.exists((c) -> c.type == type);
+	}
+};
+
+function decorate(room:Room):DecoratedRoom
+{
+
+}
+```
+

@@ -150,6 +150,15 @@ class TileResources
 
 		tiles.set(TEXT_CURSOR, hxd.Res.tiles.scroll.text_cursor.toTile());
 
+		tiles.set(FURNITURE_TABLE, t[3][12]);
+		tiles.set(FURNITURE_CHAIR, t[3][11]);
+		tiles.set(FURNITURE_CABINET, t[4][10]);
+		tiles.set(FURNITURE_CABINET_OPEN, t[5][10]);
+		tiles.set(FURNITURE_TALL_CABINET, t[4][11]);
+		tiles.set(FURNITURE_TALL_CABINET_OPEN, t[5][11]);
+		tiles.set(FURNITURE_SHELF, t[4][12]);
+		tiles.set(FURNITURE_BOOKSHELF, t[5][12]);
+
 		var walls = hxd.Res.tiles.smol.walls_14_14.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
 		tiles.set(WALL_1, walls[0][1]);
