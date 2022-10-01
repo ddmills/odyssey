@@ -57,7 +57,6 @@ class AdventureScreen extends Screen
 	{
 		renderText();
 		world.systems.vision.computeVision();
-		trace(world.mapWidth * world.mapHeight);
 	}
 
 	public override function onSuspend()
@@ -188,7 +187,7 @@ class AdventureScreen extends Screen
 		// 	world.player.entity.add(new Path(p.path));
 		// }
 
-		Spawner.Spawn(WOOD_WALL, pos.toWorld().floor());
+		Spawner.Spawn(FENCE_IRON, pos.toWorld().floor());
 		world.systems.vision.computeVision();
 	}
 

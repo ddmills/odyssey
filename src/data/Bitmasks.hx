@@ -33,6 +33,13 @@ class Bitmasks
 			style: BITMASK_STYLE_2D,
 			tiles: [WALL_WINDOW_H, WALL_WINDOW_V],
 		});
+		registry.register(BITMASK_FENCE_IRON, {
+			style: BITMASK_STYLE_SIMPLE,
+			tiles: [
+				FENCE_IRON_0, FENCE_IRON_1, FENCE_IRON_2, FENCE_IRON_3, FENCE_IRON_4, FENCE_IRON_5, FENCE_IRON_6, FENCE_IRON_7, FENCE_IRON_8, FENCE_IRON_9,
+				FENCE_IRON_10, FENCE_IRON_11, FENCE_IRON_12, FENCE_IRON_13, FENCE_IRON_14, FENCE_IRON_15
+			],
+		});
 	}
 
 	public static function Get(bitmaskType:BitmaskType)

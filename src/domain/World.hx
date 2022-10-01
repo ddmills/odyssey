@@ -96,7 +96,9 @@ class World
 		this.seed = seed;
 		rand = new Rand(seed);
 		visible = new Array<Coordinate>();
+		Performance.start('map-generate');
 		map.generate();
+		Performance.stop('map-generate', true);
 		player.create();
 		player.entity.x = (mapWidth / 2).floor();
 		player.entity.y = (mapHeight / 2).floor();

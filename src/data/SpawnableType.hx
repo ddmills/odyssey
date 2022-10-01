@@ -48,4 +48,5 @@ enum SpawnableType
 	TALL_CABINET;
 	SHELF;
 	BOOKSHELF;
+	FENCE_IRON;
 }

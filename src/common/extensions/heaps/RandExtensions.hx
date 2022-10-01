@@ -26,4 +26,9 @@ class RandExtensions
 	{
 		return r.integer(1, faces + 1) + mod;
 	}
+
+	public static function getSeed(r:hxd.Rand):Int
+	{
+		return @:privateAccess r.seed;
+	}
 }

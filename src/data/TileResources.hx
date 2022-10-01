@@ -156,8 +156,8 @@ class TileResources
 		tiles.set(FURNITURE_CABINET_OPEN, t[5][10]);
 		tiles.set(FURNITURE_TALL_CABINET, t[4][11]);
 		tiles.set(FURNITURE_TALL_CABINET_OPEN, t[5][11]);
-		tiles.set(FURNITURE_SHELF, t[4][12]);
-		tiles.set(FURNITURE_BOOKSHELF, t[5][12]);
+		tiles.set(FURNITURE_BOOKSHELF, t[4][12]);
+		tiles.set(FURNITURE_SHELF, t[5][12]);
 
 		var walls = hxd.Res.tiles.smol.walls_14_14.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
@@ -176,5 +176,23 @@ class TileResources
 		tiles.set(WALL_13, walls[3][1]);
 		tiles.set(WALL_14, walls[3][2]);
 		tiles.set(WALL_15, walls[3][3]);
+
+		var fenceIron = hxd.Res.tiles.smol.fence_iron_14_14.toTile().divide(4, 4);
+		tiles.set(FENCE_IRON_0, fenceIron[0][0]);
+		tiles.set(FENCE_IRON_1, fenceIron[0][1]);
+		tiles.set(FENCE_IRON_2, fenceIron[0][2]);
+		tiles.set(FENCE_IRON_3, fenceIron[0][3]);
+		tiles.set(FENCE_IRON_4, fenceIron[1][0]);
+		tiles.set(FENCE_IRON_5, fenceIron[1][1]);
+		tiles.set(FENCE_IRON_6, fenceIron[1][2]);
+		tiles.set(FENCE_IRON_7, fenceIron[1][3]);
+		tiles.set(FENCE_IRON_8, fenceIron[2][0]);
+		tiles.set(FENCE_IRON_9, fenceIron[2][1]);
+		tiles.set(FENCE_IRON_10, fenceIron[2][2]);
+		tiles.set(FENCE_IRON_11, fenceIron[2][3]);
+		tiles.set(FENCE_IRON_12, fenceIron[3][0]);
+		tiles.set(FENCE_IRON_13, fenceIron[3][1]);
+		tiles.set(FENCE_IRON_14, fenceIron[3][2]);
+		tiles.set(FENCE_IRON_15, fenceIron[3][3]);
 	}
 }

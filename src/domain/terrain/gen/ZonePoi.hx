@@ -3,12 +3,14 @@ package domain.terrain.gen;
 import common.struct.IntPoint;
 import core.Game;
 
-class ZoneTemplate
+class ZonePoi
 {
 	public var zoneId:Int;
 	public var rooms:Array<Room>;
 	public var width(get, never):Int;
 	public var height(get, never):Int;
+
+	public var isGenerated:Bool;
 
 	public function new(zoneId:Int)
 	{

@@ -5,18 +5,25 @@ import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
 import data.BiomeType;
+import data.RoomType;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
 import domain.terrain.biomes.Biomes;
 import domain.terrain.gen.ZoneGenerator;
-import domain.terrain.gen.ZoneTemplate;
+import domain.terrain.gen.ZonePoi;
 import hxd.Rand;
 import mapgen.towns.PoiCriteria;
+
+typedef RoomTemplate =
+{
+	type:RoomType,
+}
 
 typedef TownTemplate =
 {
 	name:String,
 	criteria:PoiCriteria,
+	rooms:Array<RoomTemplate>,
 }
 
 class MapData
@@ -24,13 +31,13 @@ class MapData
 	private var world(get, never):World;
 	private var seed(get, never):Int;
 	private var r:Rand;
-	private var templates:Array<ZoneTemplate>;
+	private var pois:Array<ZonePoi>;
 	private var biomes:Biomes;
 
 	public function new()
 	{
 		biomes = new Biomes();
-		templates = new Array();
+		pois = new Array();
 	}
 
 	public function initialize()
@@ -40,18 +47,25 @@ class MapData
 
 	public function generate()
 	{
-		templates = [];
+		pois = [];
 
 		// r = new Rand(world.seed);
 		r = Rand.create();
+
+		trace('seed', r.getSeed());
 
 		var townTemplates:Array<TownTemplate> = [
 			{
 				name: 'Esperloosa',
 				criteria: {
 					river: false,
-					biomes: [PRAIRIE],
+					biomes: [TUNDRA, PRAIRIE],
 				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					}
+				],
 			}
 		];
 
@@ -86,13 +100,13 @@ class MapData
 
 		for (z in selected)
 		{
-			templates.push(ZoneGenerator.Generate(z.zoneId));
+			pois.push(new ZonePoi(z.zoneId));
 		}
 	}
 
-	public function getTemplateForZone(zoneId:Int):ZoneTemplate
+	public function getPOIForZone(zoneId:Int):ZonePoi
 	{
-		return templates.find((t) -> t.zoneId == zoneId);
+		return pois.find((t) -> t.zoneId == zoneId);
 	}
 
 	function matchZone(pos:IntPoint, criteria:PoiCriteria):Null<Zone>

@@ -4,7 +4,6 @@ import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
-import data.BiomeType;
 import data.TileResources;
 import data.save.SaveChunk;
 import domain.events.EntityLoadedEvent;
@@ -93,7 +92,7 @@ class Chunk
 			});
 		}
 
-		Game.instance.render(GROUND, tiles);
+		Game.instance.render(BACKGROUND, tiles);
 
 		var pix = worldPos.asWorld().toPx();
 		tiles.x = pix.x;

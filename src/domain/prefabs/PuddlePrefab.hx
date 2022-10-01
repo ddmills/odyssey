@@ -18,7 +18,7 @@ class PuddlePrefab extends Prefab
 
 		var entity = new Entity();
 
-		entity.add(new Sprite(PUDDLE_1, liquid.primaryColor, liquid.secondaryColor, OBJECTS));
+		entity.add(new Sprite(PUDDLE_1, liquid.primaryColor, liquid.secondaryColor, GROUND));
 		entity.add(new Moniker('Puddle'));
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, true, false, true, true));
 

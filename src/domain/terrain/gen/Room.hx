@@ -8,8 +8,8 @@ import common.struct.IntPoint;
 	public var tiles:Grid<RoomTile>;
 	public var width(default, null):Int;
 	public var height(default, null):Int;
-	public var offsetX(default, null):Int;
-	public var offsetY(default, null):Int;
+	public var offsetX:Int;
+	public var offsetY:Int;
 
 	public function new(offsetX:Int, offsetY:Int, width:Int, height:Int)
 	{
@@ -29,5 +29,10 @@ import common.struct.IntPoint;
 	public function getTileByZonePos(pos:IntPoint):Null<RoomTile>
 	{
 		return tiles.get(pos.x - offsetX, pos.y - offsetY);
+	}
+
+	public function isOnEdge(pos:IntPoint):Bool
+	{
+		return pos.x == 0 || pos.x == width - 1 || pos.y == 0 || pos.y == height - 1;
 	}
 }

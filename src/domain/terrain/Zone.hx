@@ -4,7 +4,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.BiomeMap;
 import data.BiomeType;
-import domain.terrain.gen.ZoneTemplate;
+import domain.terrain.gen.ZonePoi;
 
 class Zone
 {
@@ -13,7 +13,7 @@ class Zone
 	public var worldPos(get, never):IntPoint;
 	public var biomes(default, null):BiomeChunkData;
 	public var primaryBiome(get, never):BiomeType;
-	public var template(get, never):ZoneTemplate;
+	public var poi(get, never):ZonePoi;
 
 	public function new(zoneId:Int)
 	{
@@ -50,9 +50,9 @@ class Zone
 		return Game.instance.world.zones.getZonePos(zoneId);
 	}
 
-	inline function get_template():ZoneTemplate
+	inline function get_poi():ZonePoi
 	{
-		return Game.instance.world.map.getTemplateForZone(zoneId);
+		return Game.instance.world.map.getPOIForZone(zoneId);
 	}
 
 	inline function get_worldPos():IntPoint

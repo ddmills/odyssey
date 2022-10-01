@@ -3,12 +3,14 @@ package domain.terrain;
 import common.algorithm.Bresenham;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
+import common.tools.Performance;
 import core.Game;
 import data.BiomeMap.BiomeChunkData;
 import data.BiomeType;
 import data.ColorKeys;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
+import domain.terrain.gen.ZoneGenerator;
 import hxd.Rand;
 
 class ChunkGen
@@ -130,16 +132,23 @@ class ChunkGen
 		var zonePos = chunk.zone.worldPos;
 		var chunkPos = chunk.worldPos;
 		var tl = chunkPos.sub(zonePos);
-		var template = chunk.zone.template;
+		var poi = chunk.zone.poi;
+
+		if (poi != null && !poi.isGenerated)
+		{
+			Performance.start('zone-generate');
+			ZoneGenerator.Generate(poi);
+			Performance.stop('zone-generate', true);
+		}
 
 		for (cell in chunk.cells)
 		{
 			var worldPos = chunk.worldPos.add(cell.pos);
 
-			if (template != null)
+			if (poi != null)
 			{
 				var zPos = tl.add(cell.pos);
-				var tile = template.getTile(zPos);
+				var tile = poi.getTile(zPos);
 				if (tile != null)
 				{
 					for (content in tile.content)
