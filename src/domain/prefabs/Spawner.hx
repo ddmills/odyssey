@@ -60,7 +60,9 @@ class Spawner
 		prefabs.set(TALL_CABINET, new TallCabinetPrefab());
 		prefabs.set(SHELF, new ShelfPrefab());
 		prefabs.set(BOOKSHELF, new BookshelfPrefab());
+		prefabs.set(FENCE_BARBED, new FenceBarbedPrefab());
 		prefabs.set(FENCE_IRON, new FenceIronPrefab());
+		prefabs.set(FENCE_BARS, new FenceBarsPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

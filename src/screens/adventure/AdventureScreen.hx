@@ -129,7 +129,7 @@ class AdventureScreen extends Screen
 		if (key == KEY_NUM_0)
 		{
 			var p = game.input.mouse.toWorld().floor();
-			Spawner.Spawn(WOOD_WALL_WINDOW, p);
+			Spawner.Spawn(WOOD_WALL, p);
 			world.systems.vision.computeVision();
 		}
 	}
@@ -187,7 +187,7 @@ class AdventureScreen extends Screen
 		// 	world.player.entity.add(new Path(p.path));
 		// }
 
-		Spawner.Spawn(FENCE_IRON, pos.toWorld().floor());
+		Spawner.Spawn(FENCE_BARS, pos.toWorld().floor());
 		world.systems.vision.computeVision();
 	}
 

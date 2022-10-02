@@ -7,6 +7,7 @@ import data.TextResources;
 import data.TileResources;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
+import domain.terrain.gen.pois.PoiLayouts;
 import domain.terrain.gen.rooms.RoomDecorators;
 import domain.weapons.Weapons;
 import screens.splash.SplashScreen;
@@ -37,6 +38,7 @@ class Main extends hxd.App
 		Weapons.Init();
 		Liquids.Init();
 		BiomeMap.Init();
+		PoiLayouts.Init();
 		RoomDecorators.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";

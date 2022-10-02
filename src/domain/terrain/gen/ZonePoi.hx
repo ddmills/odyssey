@@ -1,21 +1,27 @@
 package domain.terrain.gen;
 
 import common.struct.IntPoint;
+import common.tools.Performance;
 import core.Game;
+import domain.terrain.MapData.PoiTemplate;
 
 class ZonePoi
 {
 	public var zoneId:Int;
 	public var rooms:Array<Room>;
+
+	public var template(default, null):PoiTemplate;
+
 	public var width(get, never):Int;
 	public var height(get, never):Int;
 
-	public var isGenerated:Bool;
+	public var isGenerated(default, null):Bool;
 
-	public function new(zoneId:Int)
+	public function new(zoneId:Int, template:PoiTemplate)
 	{
 		this.zoneId = zoneId;
 		this.rooms = [];
+		this.template = template;
 	}
 
 	public function get_width():Int
@@ -26,6 +32,20 @@ class ZonePoi
 	public function get_height():Int
 	{
 		return Game.instance.world.zoneSize;
+	}
+
+	public function generate()
+	{
+		if (isGenerated)
+		{
+			return;
+		}
+
+		Performance.start('poi-generate');
+		PoiGenerator.Generate(this);
+		Performance.stop('poi-generate', true);
+
+		isGenerated = true;
 	}
 
 	public function getTile(p:IntPoint)

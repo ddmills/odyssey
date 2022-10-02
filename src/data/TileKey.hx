@@ -162,4 +162,36 @@ enum TileKey
 	FENCE_IRON_13; // ?
 	FENCE_IRON_14; // ?
 	FENCE_IRON_15; // ?
+	FENCE_BARBED_0; // ║
+	FENCE_BARBED_1; // .
+	FENCE_BARBED_2; // ╔
+	FENCE_BARBED_3; // ╗
+	FENCE_BARBED_4; // ║
+	FENCE_BARBED_5; // ═
+	FENCE_BARBED_6; // ╚
+	FENCE_BARBED_7; // ╝
+	FENCE_BARBED_8; // ╦
+	FENCE_BARBED_9; // ╩
+	FENCE_BARBED_10; // ╬
+	FENCE_BARBED_11; // ?
+	FENCE_BARBED_12; // ?
+	FENCE_BARBED_13; // ?
+	FENCE_BARBED_14; // ?
+	FENCE_BARBED_15; // ?
+	FENCE_BARS_0; // ║
+	FENCE_BARS_1; // .
+	FENCE_BARS_2; // ╔
+	FENCE_BARS_3; // ╗
+	FENCE_BARS_4; // ║
+	FENCE_BARS_5; // ═
+	FENCE_BARS_6; // ╚
+	FENCE_BARS_7; // ╝
+	FENCE_BARS_8; // ╦
+	FENCE_BARS_9; // ╩
+	FENCE_BARS_10; // ╬
+	FENCE_BARS_11; // ?
+	FENCE_BARS_12; // ?
+	FENCE_BARS_13; // ?
+	FENCE_BARS_14; // ?
+	FENCE_BARS_15; // ?
 }

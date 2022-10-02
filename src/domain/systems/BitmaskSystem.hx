@@ -42,7 +42,7 @@ class BitmaskSystem extends System
 					return false;
 				}
 
-				return e.get(BitmaskSprite).bitmaskTypes.intersects(types);
+				return types.contains(e.get(BitmaskSprite).bitmaskType);
 			});
 		});
 	}
@@ -52,12 +52,22 @@ class BitmaskSystem extends System
 		refreshMask(entity);
 
 		var bitmaskTypes = entity.get(BitmaskSprite).bitmaskTypes;
-		var neighbors = getMaskNeighbors(entity.pos.toWorld().toIntPoint(), bitmaskTypes);
+		var pos = entity.pos.toWorld().toIntPoint();
+		var neighbors = world.getNeighborEntities(pos);
+
 		for (list in neighbors)
 		{
-			for (neighbor in list)
+			for (e in list)
 			{
-				refreshMask(neighbor);
+				if (!e.has(BitmaskSprite) || !e.has(Explored) || e.has(IsDestroyed))
+				{
+					continue;
+				}
+
+				if (bitmaskTypes.intersects(e.get(BitmaskSprite).bitmaskTypes))
+				{
+					refreshMask(e);
+				}
 			}
 		}
 	}

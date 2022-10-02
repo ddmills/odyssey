@@ -10,7 +10,7 @@ import data.BiomeType;
 import data.ColorKeys;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
-import domain.terrain.gen.ZoneGenerator;
+import domain.terrain.gen.PoiGenerator;
 import hxd.Rand;
 
 class ChunkGen
@@ -134,11 +134,9 @@ class ChunkGen
 		var tl = chunkPos.sub(zonePos);
 		var poi = chunk.zone.poi;
 
-		if (poi != null && !poi.isGenerated)
+		if (poi != null)
 		{
-			Performance.start('zone-generate');
-			ZoneGenerator.Generate(poi);
-			Performance.stop('zone-generate', true);
+			poi.generate();
 		}
 
 		for (cell in chunk.cells)

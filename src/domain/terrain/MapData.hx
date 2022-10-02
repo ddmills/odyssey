@@ -1,15 +1,14 @@
 package domain.terrain;
 
 import common.rand.PoissonDiscSampler;
-import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
 import data.BiomeType;
+import data.PoiLayoutType;
 import data.RoomType;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
 import domain.terrain.biomes.Biomes;
-import domain.terrain.gen.ZoneGenerator;
 import domain.terrain.gen.ZonePoi;
 import hxd.Rand;
 import mapgen.towns.PoiCriteria;
@@ -17,11 +16,16 @@ import mapgen.towns.PoiCriteria;
 typedef RoomTemplate =
 {
 	type:RoomType,
+	?minWidth:Int,
+	?minHeight:Int,
+	?maxWidth:Int,
+	?maxHeight:Int,
 }
 
-typedef TownTemplate =
+typedef PoiTemplate =
 {
 	name:String,
+	layout:PoiLayoutType,
 	criteria:PoiCriteria,
 	rooms:Array<RoomTemplate>,
 }
@@ -49,19 +53,25 @@ class MapData
 	{
 		pois = [];
 
-		// r = new Rand(world.seed);
+		// r = new Rand(seed);
 		r = Rand.create();
 
 		trace('seed', r.getSeed());
 
-		var townTemplates:Array<TownTemplate> = [
+		var poiTemplates:Array<PoiTemplate> = [
 			{
 				name: 'Esperloosa',
+				layout: POI_LAYOUT_SCATTERED,
 				criteria: {
 					river: false,
 					biomes: [TUNDRA, PRAIRIE],
 				},
 				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+						minWidth: 8,
+						minHeight: 6
+					},
 					{
 						type: ROOM_GRAVEYARD,
 					}
@@ -71,15 +81,15 @@ class MapData
 
 		var poisson = new PoissonDiscSampler(world.zoneCountX, world.zoneCountY, 4, seed);
 		var candidates = poisson.all();
-		var selected:Array<{template:TownTemplate, zoneId:Int}> = [];
+		var selected:Array<{template:PoiTemplate, zoneId:Int}> = [];
 
-		while (townTemplates.length > 0 && candidates.length > 0)
+		while (poiTemplates.length > 0 && candidates.length > 0)
 		{
 			var c = r.pickIdx(candidates);
 			var pos = candidates[c];
 			candidates.splice(c, 1);
 
-			for (template in townTemplates)
+			for (template in poiTemplates)
 			{
 				var zone = matchZone(pos, template.criteria);
 
@@ -88,7 +98,7 @@ class MapData
 					continue;
 				}
 
-				townTemplates.remove(template);
+				poiTemplates.remove(template);
 				selected.push({
 					template: template,
 					zoneId: zone.zoneId,
@@ -100,7 +110,7 @@ class MapData
 
 		for (z in selected)
 		{
-			pois.push(new ZonePoi(z.zoneId));
+			pois.push(new ZonePoi(z.zoneId, z.template));
 		}
 	}
 

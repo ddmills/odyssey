@@ -194,5 +194,41 @@ class TileResources
 		tiles.set(FENCE_IRON_13, fenceIron[3][1]);
 		tiles.set(FENCE_IRON_14, fenceIron[3][2]);
 		tiles.set(FENCE_IRON_15, fenceIron[3][3]);
+
+		var fenceBarbed = hxd.Res.tiles.smol.fence_barbed_14_14.toTile().divide(4, 4);
+		tiles.set(FENCE_BARBED_0, fenceBarbed[0][0]);
+		tiles.set(FENCE_BARBED_1, fenceBarbed[0][1]);
+		tiles.set(FENCE_BARBED_2, fenceBarbed[0][2]);
+		tiles.set(FENCE_BARBED_3, fenceBarbed[0][3]);
+		tiles.set(FENCE_BARBED_4, fenceBarbed[1][0]);
+		tiles.set(FENCE_BARBED_5, fenceBarbed[1][1]);
+		tiles.set(FENCE_BARBED_6, fenceBarbed[1][2]);
+		tiles.set(FENCE_BARBED_7, fenceBarbed[1][3]);
+		tiles.set(FENCE_BARBED_8, fenceBarbed[2][0]);
+		tiles.set(FENCE_BARBED_9, fenceBarbed[2][1]);
+		tiles.set(FENCE_BARBED_10, fenceBarbed[2][2]);
+		tiles.set(FENCE_BARBED_11, fenceBarbed[2][3]);
+		tiles.set(FENCE_BARBED_12, fenceBarbed[3][0]);
+		tiles.set(FENCE_BARBED_13, fenceBarbed[3][1]);
+		tiles.set(FENCE_BARBED_14, fenceBarbed[3][2]);
+		tiles.set(FENCE_BARBED_15, fenceBarbed[3][3]);
+
+		var fenceBars = hxd.Res.tiles.smol.fence_bars_14_14.toTile().divide(4, 4);
+		tiles.set(FENCE_BARS_0, fenceBars[0][0]);
+		tiles.set(FENCE_BARS_1, fenceBars[0][1]);
+		tiles.set(FENCE_BARS_2, fenceBars[0][2]);
+		tiles.set(FENCE_BARS_3, fenceBars[0][3]);
+		tiles.set(FENCE_BARS_4, fenceBars[1][0]);
+		tiles.set(FENCE_BARS_5, fenceBars[1][1]);
+		tiles.set(FENCE_BARS_6, fenceBars[1][2]);
+		tiles.set(FENCE_BARS_7, fenceBars[1][3]);
+		tiles.set(FENCE_BARS_8, fenceBars[2][0]);
+		tiles.set(FENCE_BARS_9, fenceBars[2][1]);
+		tiles.set(FENCE_BARS_10, fenceBars[2][2]);
+		tiles.set(FENCE_BARS_11, fenceBars[2][3]);
+		tiles.set(FENCE_BARS_12, fenceBars[3][0]);
+		tiles.set(FENCE_BARS_13, fenceBars[3][1]);
+		tiles.set(FENCE_BARS_14, fenceBars[3][2]);
+		tiles.set(FENCE_BARS_15, fenceBars[3][3]);
 	}
 }

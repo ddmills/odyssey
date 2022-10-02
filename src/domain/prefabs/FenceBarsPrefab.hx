@@ -7,15 +7,15 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class FenceIronPrefab extends Prefab
+class FenceBarsPrefab extends Prefab
 {
 	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FENCE_IRON_0, ColorKeys.C_GRAY_2, ColorKeys.C_GRAY_2, OBJECTS));
-		entity.add(new BitmaskSprite([BITMASK_FENCE_IRON, BITMASK_FENCE_BAR]));
-		entity.add(new Moniker('Iron fence'));
+		entity.add(new Sprite(FENCE_BARS_0, ColorKeys.C_GRAY_2, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new BitmaskSprite([BITMASK_FENCE_BAR, BITMASK_WALL, BITMASK_FENCE_IRON]));
+		entity.add(new Moniker('Iron bars'));
 		entity.add(new Collider());
 
 		return entity;

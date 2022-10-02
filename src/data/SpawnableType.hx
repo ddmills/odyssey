@@ -49,4 +49,6 @@ enum SpawnableType
 	SHELF;
 	BOOKSHELF;
 	FENCE_IRON;
+	FENCE_BARBED;
+	FENCE_BARS;
 }

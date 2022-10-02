@@ -18,7 +18,7 @@ POI - Point Of Interest
 			- background
 
 
-ZoneGenerator
+PoiGenerator
 
 
 ZoneTheme
