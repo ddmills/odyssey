@@ -21,8 +21,7 @@ class Inventory extends Component
 {
 	@save private var _contentIds:Array<String> = [];
 
-	public var openedTile:TileKey;
-
+	@save public var openedTile:TileKey;
 	@save public var openedAudio:AudioKey;
 	@save public var closedAudio:AudioKey;
 

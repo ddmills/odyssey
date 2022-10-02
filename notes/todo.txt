@@ -99,4 +99,6 @@
 - [x] generate tiles on chunk spawn (!)
 - [x] separate chunks from zone
 - [ ] cleanup chunk gen between biomes
-- [ ] doors
+- [x] doors
+- [ ] locked doors
+- [ ] lock picking

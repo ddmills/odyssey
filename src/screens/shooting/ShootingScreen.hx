@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import common.util.Timeout;
 import core.Frame;
 import core.input.Command;
+import data.ColorKey;
 import data.TextResources;
 import data.TileResources;
 import domain.GameMath;
@@ -31,11 +32,6 @@ class ShootingScreen extends CursorScreen
 	var weapon(get, never):Weapon;
 	var hitChanceTxt:Text;
 
-	var COLOR_DANGER = 0xb61111;
-	// var COLOR_NEUTRAL = 0xd4d4d4;
-	var COLOR_NEUTRAL = 0xc0c06b;
-	var COLOR_SHROUD = 0x464646;
-
 	public function new(shooter:Entity)
 	{
 		this.shooter = shooter;
@@ -43,7 +39,7 @@ class ShootingScreen extends CursorScreen
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
 
-		targetShader = new SpriteShader(COLOR_NEUTRAL);
+		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();

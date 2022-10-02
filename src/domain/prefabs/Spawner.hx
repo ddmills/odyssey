@@ -54,6 +54,7 @@ class Spawner
 		prefabs.set(PANTS, new PantsPrefab());
 		prefabs.set(WOOD_WALL, new WoodWallPrefab());
 		prefabs.set(WOOD_WALL_WINDOW, new WindowPrefab());
+		prefabs.set(WOOD_DOOR, new WoodDoorPrefab());
 		prefabs.set(TABLE, new TablePrefab());
 		prefabs.set(CHAIR, new ChairPrefab());
 		prefabs.set(CABINET, new CabinetPrefab());
@@ -63,6 +64,7 @@ class Spawner
 		prefabs.set(FENCE_BARBED, new FenceBarbedPrefab());
 		prefabs.set(FENCE_IRON, new FenceIronPrefab());
 		prefabs.set(FENCE_BARS, new FenceBarsPrefab());
+		prefabs.set(BARS_DOOR, new BarsDoorPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

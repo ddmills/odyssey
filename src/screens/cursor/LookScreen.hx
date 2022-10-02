@@ -1,11 +1,9 @@
 package screens.cursor;
 
-import common.util.BitUtil;
 import common.util.Timeout;
 import core.Frame;
-import data.Cardinal;
+import data.ColorKey;
 import data.TileResources;
-import domain.components.BitmaskSprite;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
@@ -23,14 +21,10 @@ class LookScreen extends CursorScreen
 	var isBlinking:Bool = false;
 	var timeout:Timeout;
 
-	var COLOR_DANGER = 0xb61111;
-	var COLOR_NEUTRAL = 0xd4d4d4;
-	var COLOR_SHROUD = 0x464646;
-
 	public function new()
 	{
 		super();
-		targetShader = new SpriteShader(COLOR_NEUTRAL);
+		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
@@ -79,7 +73,7 @@ class LookScreen extends CursorScreen
 			}
 			var w = p.asWorld();
 			var bm = new Bitmap(TileResources.Get(DOT), lineOb);
-			var color = world.isVisible(w) ? COLOR_NEUTRAL : COLOR_SHROUD;
+			var color = world.isVisible(w) ? ColorKey.C_WHITE_1 : ColorKey.C_GRAY_1;
 			var shader = new SpriteShader(color);
 			shader.isShrouded = 0;
 			bm.addShader(shader);
@@ -96,11 +90,11 @@ class LookScreen extends CursorScreen
 			isBlinking = entities.length > 0;
 			if (entities.exists((e) -> e.has(IsEnemy)))
 			{
-				targetShader.primary = COLOR_DANGER.toHxdColor();
+				targetShader.primary = ColorKey.C_RED_1.toHxdColor();
 			}
 			else
 			{
-				targetShader.primary = COLOR_NEUTRAL.toHxdColor();
+				targetShader.primary = game.TEXT_COLOR_FOCUS.toHxdColor();
 			}
 
 			var named = entities.find((e) -> e.has(Moniker));
@@ -113,29 +107,9 @@ class LookScreen extends CursorScreen
 		else
 		{
 			targetText.text = '';
-			targetShader.primary = COLOR_SHROUD.toHxdColor();
+			targetShader.primary = ColorKey.C_GRAY_1.toHxdColor();
 			isBlinking = false;
 		}
-
-		var ipos = target.toIntPoint();
-		var angle = target.toIntPoint().sub(world.player.pos.toIntPoint()).radians();
-		var cardinal = Cardinal.fromRadians(angle);
-		var light = world.systems.lights.getTileLight(ipos);
-
-		var mask = 0;
-		var maskMod = 0;
-		var e = world.getEntitiesAt(ipos).find((e) -> e.has(BitmaskSprite));
-
-		if (e != null)
-		{
-			mask = world.systems.bitmasks.computeMask(e);
-			maskMod = BitUtil.subtractBit(mask, 0);
-			maskMod = BitUtil.subtractBit(maskMod, 2);
-			maskMod = BitUtil.subtractBit(maskMod, 5);
-			maskMod = BitUtil.subtractBit(maskMod, 7);
-		}
-
-		targetText.text = '${cardinal.toName()} ${mask}- ${maskMod}';
 
 		targetText.x = game.window.width / 2;
 		game.camera.focus = world.player.pos;

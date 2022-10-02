@@ -25,6 +25,7 @@ class RoomSheriffOffice extends RoomDecorator
 			var pos = room.tiles.coord(idx);
 			var tile = new RoomTile([]);
 			var midY = (room.height / 2).round();
+			var midX = (room.width / 2).round();
 
 			if (room.isOnEdge(pos))
 			{
@@ -56,6 +57,15 @@ class RoomSheriffOffice extends RoomDecorator
 						});
 					}
 				}
+				else
+				{
+					tile.content.push({
+						spawnableType: WOOD_DOOR,
+						spawnableSettings: {
+							isOpen: r.bool(.25),
+						},
+					});
+				}
 			}
 			else
 			{
@@ -67,10 +77,20 @@ class RoomSheriffOffice extends RoomDecorator
 				{
 					if (pos.y == 2)
 					{
-						tile.content.push({
-							spawnableType: FENCE_BARS,
-							spawnableSettings: {},
-						});
+						if (pos.x == midX)
+						{
+							tile.content.push({
+								spawnableType: BARS_DOOR,
+								spawnableSettings: {},
+							});
+						}
+						else
+						{
+							tile.content.push({
+								spawnableType: FENCE_BARS,
+								spawnableSettings: {},
+							});
+						}
 					}
 				}
 				else

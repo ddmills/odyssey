@@ -42,6 +42,7 @@ enum SpawnableType
 	COWBOY_HAT;
 	WOOD_WALL;
 	WOOD_WALL_WINDOW;
+	WOOD_DOOR;
 	TABLE;
 	CHAIR;
 	CABINET;
@@ -51,4 +52,5 @@ enum SpawnableType
 	FENCE_IRON;
 	FENCE_BARBED;
 	FENCE_BARS;
+	BARS_DOOR;
 }

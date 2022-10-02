@@ -11,13 +11,16 @@ import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
 import domain.components.Collider;
+import domain.components.Door;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Level;
 import domain.components.Move;
+import domain.components.Path;
 import domain.components.Sprite;
 import domain.events.MeleeEvent;
+import domain.events.OpenDoorEvent;
 import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
 import h2d.Object;
@@ -180,15 +183,12 @@ class AdventureScreen extends Screen
 
 	override function onMouseDown(pos:Coordinate)
 	{
-		// var p = astar(pos);
-		// if (p.success)
-		// {
-		// 	world.player.entity.remove(Path);
-		// 	world.player.entity.add(new Path(p.path));
-		// }
-
-		Spawner.Spawn(FENCE_BARS, pos.toWorld().floor());
-		world.systems.vision.computeVision();
+		var p = astar(pos);
+		if (p.success)
+		{
+			world.player.entity.remove(Path);
+			world.player.entity.add(new Path(p.path));
+		}
 	}
 
 	private function move(dir:Cardinal)
@@ -203,8 +203,14 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		if (entities.exists((e) -> e.has(Collider) && !e.has(IsInventoried)))
+		var collider = entities.find((e) -> e.has(Collider) && !e.has(IsInventoried));
+
+		if (collider != null)
 		{
+			if (collider.has(Door))
+			{
+				collider.fireEvent(new OpenDoorEvent(world.player.entity));
+			}
 			return;
 		}
 

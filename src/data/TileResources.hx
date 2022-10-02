@@ -139,6 +139,12 @@ class TileResources
 		tiles.set(CORPSE_HUMAN, t[6][2]);
 		tiles.set(CORPSE_SNAKE, t[6][3]);
 
+		tiles.set(DOOR, t[6][5]);
+		tiles.set(DOOR_OPEN, t[6][6]);
+
+		tiles.set(BARS_DOOR, t[6][7]);
+		tiles.set(BARS_DOOR_OPEN, t[6][8]);
+
 		tiles.set(OVERWORLD_TOWN, t[1][14]);
 		tiles.set(OVERWORLD_RIVER, t[1][15]);
 		tiles.set(OVERWORLD_DESERT, t[2][11]);

@@ -20,6 +20,7 @@ class Moniker extends Component
 		var light = entity.get(Lightable);
 		var fuelConsumer = entity.get(FuelConsumer);
 		var liquid = entity.get(LiquidContainer);
+		var door = entity.get(Door);
 
 		var name = baseName;
 
@@ -31,6 +32,11 @@ class Moniker extends Component
 		if (equipped != null && equipped.slotDisplay.length > 0)
 		{
 			name += ' [${equipped.slotDisplay}]';
+		}
+
+		if (door != null)
+		{
+			name += ' [${door.displayName}]';
 		}
 
 		if (fuelConsumer != null)

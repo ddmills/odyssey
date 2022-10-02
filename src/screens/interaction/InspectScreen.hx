@@ -7,6 +7,7 @@ import core.Frame;
 import core.Screen;
 import core.input.Command;
 import data.Cardinal;
+import data.ColorKey;
 import data.TileResources;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
@@ -102,7 +103,7 @@ class InspectScreen extends Screen
 				var targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
 				targetBm.x = px.x;
 				targetBm.y = px.y;
-				var shader = new SpriteShader(0x6B6B6B);
+				var shader = new SpriteShader(C_WHITE_1);
 				shader.isShrouded = 0;
 				shader.clearBackground = 0;
 				targetBm.addShader(shader);
@@ -201,13 +202,13 @@ class InspectScreen extends Screen
 			{
 				b.isBlinking = false;
 				b.ob.visible = true;
-				b.shader.primary = 0xd4d4d4.toHxdColor();
+				b.shader.primary = game.TEXT_COLOR_FOCUS.toHxdColor();
 			}
 			else
 			{
 				b.isBlinking = true;
 				b.ob.visible = isBlinkActive;
-				b.shader.primary = 0x6B6B6B.toHxdColor();
+				b.shader.primary = C_WHITE_1.toHxdColor();
 			}
 		});
 	}

@@ -5,6 +5,7 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.Command;
+import data.ColorKey;
 import data.TextResources;
 import data.TileResources;
 import h2d.Bitmap;
@@ -80,7 +81,7 @@ class ListSelectScreen extends Screen
 		ob.addChild(titleOb);
 
 		targetOb = new Bitmap(TileResources.Get(CURSOR), ob);
-		var shader = new SpriteShader(0xd4d4d4);
+		var shader = new SpriteShader(Game.instance.TEXT_COLOR_FOCUS);
 		shader.isShrouded = 0;
 		shader.clearBackground = 0;
 		targetOb.addShader(shader);
