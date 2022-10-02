@@ -6,14 +6,19 @@ import hxd.Rand;
 
 class RoomGraveyard extends RoomDecorator
 {
-	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void
-	{
-		var clutter = new WeightedTable<SpawnableType>();
+	private var clutter:WeightedTable<SpawnableType>;
 
+	public function new()
+	{
+		super();
+		clutter = new WeightedTable();
 		clutter.add(CORPSE_HUMAN, 100);
 		clutter.add(CORPSE_SNAKE, 100);
 		clutter.add(LANTERN, 20);
+	}
 
+	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void
+	{
 		room.tiles.fillFn((idx) ->
 		{
 			var pos = room.tiles.coord(idx);
@@ -31,7 +36,7 @@ class RoomGraveyard extends RoomDecorator
 					});
 				}
 			}
-			else if (pos.x.isEven() && pos.y % 3 == 0 && r.bool(.65))
+			else if (pos.x.isEven() && pos.y % 3 == 0 && r.bool(.75))
 			{
 				tile.content.push({
 					spawnableType: TOMBSTONE,

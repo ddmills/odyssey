@@ -12,6 +12,7 @@ class RoomDecorators
 		decorators = new DataRegistry();
 
 		decorators.register(ROOM_GRAVEYARD, new RoomGraveyard());
+		decorators.register(ROOM_SHERIFF_OFFICE, new RoomSheriffOffice());
 	}
 
 	public static function Get(type:RoomType):RoomDecorator

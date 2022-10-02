@@ -34,4 +34,9 @@ class ArrayExtensions
 		}
 		return false;
 	}
+
+	public static function last<T>(a:Array<T>):Null<T>
+	{
+		return a.length == 0 ? null : a[a.length - 1];
+	}
 }

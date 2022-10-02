@@ -133,6 +133,7 @@ class TileResources
 		tiles.set(LIST_DASH, t[7][0]);
 		tiles.set(LIST_ARROW, t[7][1]);
 		tiles.set(DOT, t[7][3]);
+		tiles.set(FLOORBOARDS, t[8][0]);
 
 		tiles.set(CORPSE_HUMAN, t[6][2]);
 		tiles.set(CORPSE_SNAKE, t[6][3]);

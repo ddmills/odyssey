@@ -188,18 +188,49 @@ class Chunk
 	private function getGroundBitmap(pos:IntPoint):Bitmap
 	{
 		var cell = getCell(pos);
+
+		var tileKey = cell.tileKey;
+		var primary = cell.primary;
+		var secondary = cell.secondary;
+		var background = cell.background;
+
+		if (zone.poi != null)
+		{
+			var tl = worldPos.sub(zone.worldPos);
+			var zPos = tl.add(pos);
+			var tile = zone.poi.getTile(zPos);
+			if (tile != null)
+			{
+				if (tile.tileKey != null)
+				{
+					tileKey = tile.tileKey;
+				}
+				if (tile.primary != null)
+				{
+					primary = tile.primary;
+				}
+				if (tile.secondary != null)
+				{
+					secondary = tile.secondary;
+				}
+				if (tile.background != null)
+				{
+					background = tile.background;
+				}
+			}
+		}
 		var bm = new h2d.Bitmap();
-		var shader = new SpriteShader(cell.primary, cell.secondary);
+		var shader = new SpriteShader(primary, secondary);
 
 		if (Game.instance.SHOW_BG_COLORS)
 		{
-			shader.background = cell.background.toHxdColor();
+			shader.background = background.toHxdColor();
 			shader.clearBackground = 1;
 		}
 
-		if (cell.tileKey != null)
+		if (tileKey != null)
 		{
-			bm.tile = TileResources.Get(cell.tileKey);
+			bm.tile = TileResources.Get(tileKey);
 		}
 
 		bm.addShader(shader);

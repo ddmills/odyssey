@@ -2,6 +2,7 @@ package domain;
 
 import core.Game;
 import data.Cardinal;
+import domain.components.Collider;
 import domain.components.Health;
 import domain.components.Move;
 import domain.events.ConsumeEnergyEvent;
@@ -40,12 +41,28 @@ class AIManager
 			return;
 		}
 
+		if (tryMove(entity))
+		{
+			return;
+		}
+
+		EnergySystem.ConsumeEnergy(entity, ACT_WAIT);
+	}
+
+	public function tryMove(entity:Entity):Bool
+	{
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
-		var cost = EnergySystem.GetEnergyCost(entity, ACT_MOVE);
 
-		entity.fireEvent(new ConsumeEnergyEvent(cost));
+		if (Game.instance.world.getEntitiesAt(goal).exists((e) -> e.has(Collider)))
+		{
+			return false;
+		}
+
+		EnergySystem.ConsumeEnergy(entity, ACT_MOVE);
+
 		entity.add(new Move(goal, .5, LINEAR));
+		return true;
 	}
 
 	public function tryReloading(entity:Entity):Bool

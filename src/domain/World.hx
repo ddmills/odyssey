@@ -32,7 +32,7 @@ class World
 	public var spawner(default, null):Spawner;
 	public var zoneCountX(default, null):Int = 64;
 	public var zoneCountY(default, null):Int = 48;
-	public var zoneSize(default, null):Int = 60;
+	public var zoneSize(default, null):Int = 50;
 	public var chunksPerZone(default, never):Int = 2;
 	public var chunkSize(get, never):Int;
 	public var chunkCountX(get, never):Int;
