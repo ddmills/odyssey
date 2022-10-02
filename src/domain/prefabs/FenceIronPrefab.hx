@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
 import domain.components.Moniker;
@@ -13,7 +13,7 @@ class FenceIronPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FENCE_IRON_0, ColorKeys.C_GRAY_2, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(FENCE_IRON_0, C_GRAY_2, C_GRAY_2, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_FENCE_IRON, BITMASK_FENCE_BAR]));
 		entity.add(new Moniker('Iron fence'));
 		entity.add(new Collider());

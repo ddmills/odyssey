@@ -7,7 +7,7 @@ import core.Game;
 import core.Screen;
 import core.input.KeyCode;
 import data.BiomeType;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
 import h2d.Anim;
@@ -56,17 +56,17 @@ class MapScreen extends Screen
 		if (zone.biomes.river != null)
 		{
 			tile = TileResources.Get(OVERWORLD_RIVER);
-			color = ColorKeys.C_BLUE_2;
+			color = C_BLUE_2;
 		}
 
 		if (zone.poi != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
-			color = ColorKeys.C_ORANGE_1;
+			color = C_ORANGE_1;
 		}
 
 		var bm = new Bitmap(tile);
-		var shader = new SpriteShader(color, ColorKeys.C_BLACK_1);
+		var shader = new SpriteShader(color, C_BLACK_1);
 		shader.clearBackground = 1;
 		bm.addShader(shader);
 
@@ -114,8 +114,8 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		var white = Tile.fromColor(ColorKeys.C_WHITE_1, game.TILE_W, game.TILE_H, 0);
-		var red = Tile.fromColor(ColorKeys.C_RED_1, game.TILE_W, game.TILE_H);
+		var white = Tile.fromColor(C_WHITE_1, game.TILE_W, game.TILE_H, 0);
+		var red = Tile.fromColor(C_RED_1, game.TILE_W, game.TILE_H);
 		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_H);
 		ob = {
 			root: new Object(),

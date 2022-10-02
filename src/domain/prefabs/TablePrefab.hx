@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -12,7 +12,7 @@ class TablePrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FURNITURE_TABLE, ColorKeys.C_ORANGE_2, ColorKeys.C_ORANGE_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_TABLE, C_ORANGE_2, C_ORANGE_1, OBJECTS));
 		entity.add(new Moniker('Table'));
 		entity.add(new Collider());
 

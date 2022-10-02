@@ -98,4 +98,5 @@
 - [x] reset save on new game
 - [x] generate tiles on chunk spawn (!)
 - [x] separate chunks from zone
-- [ ] cleaner chunk gen between biomes
+- [ ] cleanup chunk gen between biomes
+- [ ] doors

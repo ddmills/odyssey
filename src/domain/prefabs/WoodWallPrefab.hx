@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
 import domain.components.LightBlocker;
@@ -14,7 +14,7 @@ class WoodWallPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(WALL_0, ColorKeys.C_RED_2, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(WALL_0, C_RED_2, C_GRAY_2, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_WALL, BITMASK_WINDOW]));
 		entity.add(new Moniker('Wood wall'));
 		entity.add(new Collider());

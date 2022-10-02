@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.LightSource;
 import domain.components.Lightable;
@@ -15,12 +15,12 @@ class LanternPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(LANTERN, ColorKeys.C_BLUE_1, ColorKeys.C_BLACK_1, OBJECTS));
+		entity.add(new Sprite(LANTERN, C_BLUE_1, C_BLACK_1, OBJECTS));
 		entity.add(new Moniker('Oil lantern'));
-		entity.add(new LightSource(.5, ColorKeys.C_YELLOW_2, 3, false));
+		entity.add(new LightSource(.5, C_YELLOW_2, 3, false));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_BELT]));
-		entity.add(new Lightable(true, ColorKeys.C_YELLOW_1));
+		entity.add(new Lightable(true, C_YELLOW_1));
 
 		return entity;
 	}

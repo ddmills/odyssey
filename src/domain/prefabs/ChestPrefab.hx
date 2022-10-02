@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
@@ -13,7 +13,7 @@ class ChestPrefab extends Prefab
 	{
 		var chest = new Entity();
 
-		chest.add(new Sprite(CHEST_LARGE_CLOSED, ColorKeys.C_ORANGE_2, ColorKeys.C_BLUE_1, OBJECTS));
+		chest.add(new Sprite(CHEST_LARGE_CLOSED, C_ORANGE_2, C_BLUE_1, OBJECTS));
 		chest.add(new Moniker('Chest'));
 		chest.add(new Collider());
 

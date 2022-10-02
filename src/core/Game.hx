@@ -4,7 +4,7 @@ import common.tools.Performance;
 import core.input.CommandManager;
 import core.input.InputManager;
 import core.rendering.RenderLayerManager;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TextResources;
 import domain.World;
 import ecs.Registry;
@@ -20,8 +20,8 @@ class Game
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
 	public var CLEAR_COLOR:Int = 0x0C0A0A;
-	public var TEXT_COLOR:Int = ColorKeys.C_WHITE_1;
-	public var TEXT_COLOR_FOCUS:Int = ColorKeys.C_YELLOW_1;
+	public var TEXT_COLOR:Int = C_WHITE_1;
+	public var TEXT_COLOR_FOCUS:Int = C_YELLOW_1;
 	public var SHOW_BG_COLORS:Bool = true;
 
 	public static var instance:Game;

@@ -1,5 +1,6 @@
 package domain.terrain.gen;
 
+import common.struct.Grid;
 import common.struct.IntPoint;
 import common.tools.Performance;
 import core.Game;
@@ -9,6 +10,7 @@ class ZonePoi
 {
 	public var zoneId:Int;
 	public var rooms:Array<Room>;
+	public var tileOverrides:Grid<RoomTile>;
 
 	public var template(default, null):PoiTemplate;
 
@@ -22,6 +24,7 @@ class ZonePoi
 		this.zoneId = zoneId;
 		this.rooms = [];
 		this.template = template;
+		tileOverrides = new Grid(width, height);
 	}
 
 	public function get_width():Int
@@ -48,8 +51,20 @@ class ZonePoi
 		isGenerated = true;
 	}
 
+	public function setTile(p:IntPoint, tile:RoomTile)
+	{
+		tileOverrides.set(p.x, p.y, tile);
+	}
+
 	public function getTile(p:IntPoint)
 	{
+		var tileOverride = tileOverrides.get(p.x, p.y);
+
+		if (tileOverride != null)
+		{
+			return tileOverride;
+		}
+
 		for (room in rooms)
 		{
 			var tile = room.getTileByZonePos(p);

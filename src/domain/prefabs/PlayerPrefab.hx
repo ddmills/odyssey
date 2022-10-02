@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import data.LiquidType;
 import data.SpawnableType;
 import data.TileKey;
@@ -28,7 +28,7 @@ class PlayerPrefab extends Prefab
 			PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7, PERSON_8, PERSON_9, PERSON_10,
 		]);
 
-		entity.add(new Sprite(tkey, ColorKeys.C_WHITE_1, ColorKeys.C_BLUE_2, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE_1, C_BLUE_2, ACTORS));
 		entity.add(new IsPlayer());
 		entity.add(new Energy());
 		entity.add(new Level(120));

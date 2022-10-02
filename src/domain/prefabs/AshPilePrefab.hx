@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -12,7 +12,7 @@ class AshPilePrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(PILE_ASH, ColorKeys.C_GRAY_1, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(PILE_ASH, C_GRAY_1, C_GRAY_2, OBJECTS));
 		entity.add(new Moniker('Pile of ashes'));
 		entity.add(new Loot());
 

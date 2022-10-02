@@ -1,11 +1,11 @@
 package domain.data.liquids;
 
-import data.ColorKeys;
+import data.ColorKey;
 
 class LiquidBlood extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_BLOOD, 'blood', ColorKeys.C_RED_1, ColorKeys.C_RED_2);
+		super(LIQUID_BLOOD, 'blood', C_RED_1, C_RED_2);
 	}
 }

@@ -7,7 +7,7 @@ import common.tools.Performance;
 import core.Game;
 import data.BiomeMap.BiomeChunkData;
 import data.BiomeType;
-import data.ColorKeys;
+import data.ColorKey;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
 import domain.terrain.gen.PoiGenerator;
@@ -224,8 +224,8 @@ class ChunkGen
 	{
 		var cell = chunk.cells.get(p.x, p.y);
 		cell.terrain = TERRAIN_RIVER;
-		cell.primary = ColorKeys.C_BLUE_2;
-		cell.background = ColorKeys.C_BLUE_3;
+		cell.primary = C_BLUE_2;
+		cell.background = C_BLUE_3;
 		cell.tileKey = WATER_4;
 	}
 }

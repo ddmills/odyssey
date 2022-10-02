@@ -76,6 +76,7 @@ class TileResources
 		tiles.set(TERRAIN_BASIC_2, t[1][1]);
 		tiles.set(TERRAIN_BASIC_3, t[1][2]);
 		tiles.set(TERRAIN_BASIC_4, t[1][3]);
+		tiles.set(TERRAIN_BASIC_5, t[8][1]);
 
 		tiles.set(TREE_BALD_CYPRESS_1, t[4][2]);
 		tiles.set(TREE_BALD_CYPRESS_2, t[4][2]);
@@ -160,7 +161,7 @@ class TileResources
 		tiles.set(FURNITURE_BOOKSHELF, t[4][12]);
 		tiles.set(FURNITURE_SHELF, t[5][12]);
 
-		var walls = hxd.Res.tiles.smol.walls_14_14.toTile().divide(4, 4);
+		var walls = hxd.Res.tiles.smol.walls_14_14_2.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
 		tiles.set(WALL_1, walls[0][1]);
 		tiles.set(WALL_2, walls[0][2]);

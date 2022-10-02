@@ -1,7 +1,7 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
@@ -11,7 +11,7 @@ class SwampBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, SWAMP, ColorKeys.C_PURPLE_3);
+		super(seed, SWAMP, C_PURPLE_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey
@@ -56,15 +56,15 @@ class SwampBiome extends Biome
 		{
 			cell.tileKey = WATER_1;
 			cell.terrain = TERRAIN_WATER;
-			cell.primary = ColorKeys.C_BLUE_2;
-			cell.background = ColorKeys.C_BLUE_3;
+			cell.primary = C_BLUE_2;
+			cell.background = C_BLUE_3;
 		}
 		else
 		{
 			cell.tileKey = getBackgroundTileKey(pos);
 			cell.terrain = TERRAIN_MUD;
-			cell.primary = ColorKeys.C_PURPLE_2;
-			cell.background = ColorKeys.C_PURPLE_3;
+			cell.primary = C_PURPLE_2;
+			cell.background = C_PURPLE_3;
 		}
 	}
 

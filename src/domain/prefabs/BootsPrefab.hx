@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -14,7 +14,7 @@ class BootsPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(BOOTS, ColorKeys.C_ORANGE_2, ColorKeys.C_GRAY_5, OBJECTS));
+		entity.add(new Sprite(BOOTS, C_ORANGE_2, C_GRAY_5, OBJECTS));
 		entity.add(new Moniker('Boots'));
 		entity.add(new Equipment([EQ_SLOT_FEET]));
 		entity.add(new Loot());

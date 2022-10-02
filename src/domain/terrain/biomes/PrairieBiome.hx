@@ -1,7 +1,7 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
@@ -9,7 +9,7 @@ class PrairieBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE, ColorKeys.C_GREEN_3);
+		super(seed, PRAIRIE, C_GREEN_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey
@@ -43,8 +43,8 @@ class PrairieBiome extends Biome
 	{
 		cell.tileKey = getBackgroundTileKey(pos);
 		cell.terrain = TERRAIN_GRASS;
-		cell.primary = ColorKeys.C_GREEN_2;
-		cell.background = ColorKeys.C_GREEN_3;
+		cell.primary = C_GREEN_2;
+		cell.background = C_GREEN_3;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

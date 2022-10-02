@@ -15,17 +15,19 @@ class PoiGenerator
 
 		var options = layout.apply(poi, r);
 
-		// for (roomTemplate in poi.template.rooms)
-		// {
-		// 	var decorator = RoomDecorators.Get(roomTemplate.type);
-		// 	var room = r.pick(options);
-		// 	decorator.decorate(r, room, poi);
-		// 	poi.rooms.push(room);
-		// }
+		r.shuffle(options);
+
+		for (roomTemplate in poi.template.rooms)
+		{
+			var decorator = RoomDecorators.Get(roomTemplate.type);
+			var room = options.pop();
+			decorator.decorate(r, room, poi);
+			poi.rooms.push(room);
+		}
 
 		for (room in options)
 		{
-			var type:RoomType = r.pick([ROOM_GRAVEYARD, ROOM_SHERIFF_OFFICE]);
+			var type:RoomType = r.pick([ROOM_SHERIFF_OFFICE]);
 			var decorator = RoomDecorators.Get(type);
 			decorator.decorate(r, room, poi);
 			poi.rooms.push(room);

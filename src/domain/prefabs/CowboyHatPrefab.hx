@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -14,7 +14,7 @@ class CowboyHatPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(COWBOY_HAT_1, ColorKeys.C_RED_2, ColorKeys.C_YELLOW_1, OBJECTS));
+		entity.add(new Sprite(COWBOY_HAT_1, C_RED_2, C_YELLOW_1, OBJECTS));
 		entity.add(new Moniker('Cowboy hat'));
 		entity.add(new Equipment([EQ_SLOT_HEAD]));
 		entity.add(new Loot());

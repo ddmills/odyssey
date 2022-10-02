@@ -17,6 +17,11 @@ class RandExtensions
 		return array[r.random(array.length)];
 	}
 
+	public static function shuffle<T>(r:hxd.Rand, array:Array<T>):Void
+	{
+		return array.sort((a, b) -> r.random(100) - r.random(100));
+	}
+
 	public static function pickIdx<T>(r:hxd.Rand, array:Array<T>):Int
 	{
 		return Math.floor(r.rand() * array.length);

@@ -1,7 +1,7 @@
 package domain.terrain.gen.rooms;
 
 import common.struct.WeightedTable;
-import data.ColorKeys;
+import data.ColorKey;
 import data.SpawnableType;
 import hxd.Rand;
 
@@ -24,27 +24,44 @@ class RoomSheriffOffice extends RoomDecorator
 		{
 			var pos = room.tiles.coord(idx);
 			var tile = new RoomTile([]);
-			var midY = (room.width / 2).floor();
+			var midY = (room.height / 2).round();
 
 			if (room.isOnEdge(pos))
 			{
-				tile.tileKey = TERRAIN_BASIC_1;
-				tile.primary = ColorKeys.C_GRAY_2;
-				tile.background = ColorKeys.C_BLACK_1;
+				tile.tileKey = FLOORBOARDS;
+				tile.primary = C_BLACK_1;
+				tile.background = C_RED_3;
 
 				if (pos.y < midY || pos.y > midY)
 				{
-					tile.content.push({
-						spawnableType: WOOD_WALL,
-						spawnableSettings: {},
-					});
+					if (pos.y > midY + 1 && pos.y < room.height - 1 && r.bool(.25))
+					{
+						tile.content.push({
+							spawnableType: WOOD_WALL_WINDOW,
+							spawnableSettings: {},
+						});
+					}
+					else if (pos.y > 2 && pos.x > 0 && pos.x < room.width - 1 && r.bool(.25))
+					{
+						tile.content.push({
+							spawnableType: WOOD_WALL_WINDOW,
+							spawnableSettings: {},
+						});
+					}
+					else
+					{
+						tile.content.push({
+							spawnableType: WOOD_WALL,
+							spawnableSettings: {},
+						});
+					}
 				}
 			}
 			else
 			{
 				tile.tileKey = FLOORBOARDS;
-				tile.primary = ColorKeys.C_BLACK_1;
-				tile.background = ColorKeys.C_RED_3;
+				tile.primary = C_BLACK_1;
+				tile.background = C_RED_3;
 
 				if (pos.y <= 2) // prison cell
 				{

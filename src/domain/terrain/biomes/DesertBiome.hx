@@ -1,14 +1,14 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 import domain.prefabs.Spawner;
 
 class DesertBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, DESERT, ColorKeys.C_YELLOW_3);
+		super(seed, DESERT, C_YELLOW_3);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -24,8 +24,8 @@ class DesertBiome extends Biome
 			cell.terrain = TERRAIN_SAND;
 		}
 
-		cell.primary = ColorKeys.C_YELLOW_2;
-		cell.background = ColorKeys.C_YELLOW_3;
+		cell.primary = C_YELLOW_2;
+		cell.background = C_YELLOW_3;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

@@ -1,6 +1,7 @@
 package domain.terrain.gen.rooms;
 
 import common.struct.WeightedTable;
+import data.ColorKey;
 import data.SpawnableType;
 import hxd.Rand;
 
@@ -23,6 +24,8 @@ class RoomGraveyard extends RoomDecorator
 		{
 			var pos = room.tiles.coord(idx);
 			var tile = new RoomTile([]);
+
+			tile.tileKey = TERRAIN_BASIC_5;
 
 			if (room.isOnEdge(pos))
 			{

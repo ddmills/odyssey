@@ -1,13 +1,13 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 
 class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, MOUNTAIN, ColorKeys.C_GRAY_5);
+		super(seed, MOUNTAIN, C_GRAY_5);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -23,7 +23,7 @@ class MountainBiome extends Biome
 			cell.terrain = TERRAIN_ROCK;
 		}
 
-		cell.primary = ColorKeys.C_GRAY_2;
-		cell.background = ColorKeys.C_GRAY_5;
+		cell.primary = C_GRAY_2;
+		cell.background = C_GRAY_5;
 	}
 }

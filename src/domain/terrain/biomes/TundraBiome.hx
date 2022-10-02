@@ -1,14 +1,14 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 import domain.prefabs.Spawner;
 
 class TundraBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, TUNDRA, ColorKeys.C_GRAY_2);
+		super(seed, TUNDRA, C_GRAY_2);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -24,8 +24,8 @@ class TundraBiome extends Biome
 			cell.terrain = TERRAIN_SNOW;
 		}
 
-		cell.primary = ColorKeys.C_GRAY_1;
-		cell.background = ColorKeys.C_GRAY_2;
+		cell.primary = C_GRAY_1;
+		cell.background = C_GRAY_2;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

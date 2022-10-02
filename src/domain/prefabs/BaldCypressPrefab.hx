@@ -1,7 +1,7 @@
 package domain.prefabs;
 
 import core.Game;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import domain.components.Collider;
 import domain.components.LightBlocker;
@@ -17,7 +17,7 @@ class BaldCypressPrefab extends Prefab
 		var r = Game.instance.world.rand;
 		var tileKey:TileKey = r.pick([TREE_BALD_CYPRESS_1, TREE_BALD_CYPRESS_2, TREE_BALD_CYPRESS_3]);
 
-		entity.add(new Sprite(tileKey, ColorKeys.C_GRAY_2, ColorKeys.C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(tileKey, C_GRAY_2, C_GRAY_2, OBJECTS));
 		entity.add(new Moniker('Bald cypress tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

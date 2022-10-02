@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -18,7 +18,7 @@ class SnakePrefab extends Prefab
 	{
 		var snake = new Entity();
 
-		snake.add(new Sprite(SNAKE, ColorKeys.C_ORANGE_1, ColorKeys.C_BLACK_1, ACTORS));
+		snake.add(new Sprite(SNAKE, C_ORANGE_1, C_BLACK_1, ACTORS));
 		snake.add(new Energy());
 		snake.add(new Level(1));
 		snake.get(Energy).consumeEnergy(10);

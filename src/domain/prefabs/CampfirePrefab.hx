@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Combustible;
 import domain.components.FuelConsumer;
 import domain.components.LightSource;
@@ -18,9 +18,9 @@ class CampfirePrefab extends Prefab
 
 		var speed = (r.rand() * 3) + 3;
 
-		entity.add(new SpriteAnim([CAMPFIRE_1, CAMPFIRE_2, CAMPFIRE_3], speed, ColorKeys.C_ORANGE_2, ColorKeys.C_YELLOW_1, OBJECTS));
+		entity.add(new SpriteAnim([CAMPFIRE_1, CAMPFIRE_2, CAMPFIRE_3], speed, C_ORANGE_2, C_YELLOW_1, OBJECTS));
 		entity.add(new Moniker('Campfire'));
-		entity.add(new LightSource(.75, ColorKeys.C_YELLOW_2, 3));
+		entity.add(new LightSource(.75, C_YELLOW_2, 3));
 		entity.add(new FuelConsumer([FUEL_WOOD], 5000, 5000, 1, true, true));
 		entity.add(new Combustible(ASHES));
 

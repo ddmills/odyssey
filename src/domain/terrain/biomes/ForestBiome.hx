@@ -1,7 +1,7 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
 
@@ -9,15 +9,15 @@ class ForestBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, FOREST, ColorKeys.C_GREEN_4);
+		super(seed, FOREST, C_GREEN_4);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
 		cell.tileKey = r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
 		cell.terrain = TERRAIN_GRASS;
-		cell.primary = ColorKeys.C_GREEN_3;
-		cell.background = ColorKeys.C_GREEN_4;
+		cell.primary = C_GREEN_3;
+		cell.background = C_GREEN_4;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

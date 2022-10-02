@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
@@ -13,7 +13,7 @@ class TallCabinetPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FURNITURE_TALL_CABINET, ColorKeys.C_ORANGE_2, ColorKeys.C_ORANGE_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_TALL_CABINET, C_ORANGE_2, C_ORANGE_1, OBJECTS));
 		entity.add(new Moniker('Cabinet'));
 		entity.add(new Collider());
 

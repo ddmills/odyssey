@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -13,7 +13,7 @@ class PonchoPrefab extends Prefab
 	public function Create(options:Dynamic):Entity
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(PONCHO, ColorKeys.C_GREEN_1, ColorKeys.C_PURPLE_2, OBJECTS));
+		entity.add(new Sprite(PONCHO, C_GREEN_1, C_PURPLE_2, OBJECTS));
 		entity.add(new Moniker('Poncho'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY]));

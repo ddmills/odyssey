@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -13,7 +13,7 @@ class RevoloverPrefab extends Prefab
 	public function Create(options:Dynamic)
 	{
 		var entity = new Entity();
-		entity.add(new Sprite(PISTOL_1, ColorKeys.C_BLUE_1, ColorKeys.C_RED_2, OBJECTS));
+		entity.add(new Sprite(PISTOL_1, C_BLUE_1, C_RED_2, OBJECTS));
 		entity.add(new Moniker('Revolover'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_HOLSTER]));

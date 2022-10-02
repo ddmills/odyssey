@@ -1,7 +1,7 @@
 package domain.prefabs;
 
 import core.Game;
-import data.ColorKeys;
+import data.ColorKey;
 import data.TileKey;
 import domain.components.Collider;
 import domain.components.LightBlocker;
@@ -17,7 +17,7 @@ class PineTreePrefab extends Prefab
 		var r = Game.instance.world.rand;
 		var tileKey:TileKey = r.pick([TREE_PINE_1, TREE_PINE_2, TREE_PINE_3, TREE_PINE_4,]);
 
-		entity.add(new Sprite(tileKey, ColorKeys.C_GREEN_3, ColorKeys.C_ORANGE_2));
+		entity.add(new Sprite(tileKey, C_GREEN_3, C_ORANGE_2));
 		entity.add(new Moniker('Pine tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

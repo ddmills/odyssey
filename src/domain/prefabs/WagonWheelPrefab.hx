@@ -1,6 +1,6 @@
 package domain.prefabs;
 
-import data.ColorKeys;
+import data.ColorKey;
 import domain.components.Fuel;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -13,7 +13,7 @@ class WagonWheelPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(WAGON_WHEEL, ColorKeys.C_RED_1, ColorKeys.C_BLUE_1, OBJECTS));
+		entity.add(new Sprite(WAGON_WHEEL, C_RED_1, C_BLUE_1, OBJECTS));
 		entity.add(new Moniker('Wagon wheel'));
 		entity.add(new Loot());
 		entity.add(new Fuel(FUEL_WOOD, 100, true));
