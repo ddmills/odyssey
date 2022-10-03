@@ -50,48 +50,17 @@ class SwampBiome extends Biome
 
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		var h = perlin.get(pos, 16, 8);
-
-		if (h < waterLine)
-		{
-			cell.tileKey = WATER_1;
-			cell.terrain = TERRAIN_WATER;
-			cell.primary = C_BLUE_2;
-			cell.background = C_BLUE_3;
-		}
-		else
-		{
-			cell.tileKey = getBackgroundTileKey(pos);
-			cell.terrain = TERRAIN_MUD;
-			cell.primary = C_PURPLE_2;
-			cell.background = C_PURPLE_3;
-		}
-	}
-
-	private function getHeight(p:IntPoint):Float
-	{
-		return perlin.get(p.x, p.y, 16, 8);
+		cell.tileKey = getBackgroundTileKey(pos);
+		cell.terrain = TERRAIN_MUD;
+		cell.primary = C_PURPLE_2;
+		cell.background = C_PURPLE_3;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		var h = perlin.get(pos, 16, 8);
-
-		if (h < waterLine && r.bool(.125))
+		if (r.bool(.085))
 		{
 			Spawner.Spawn(BALD_CYPRESS, pos.asWorld());
-		}
-		else if (r.bool(.05))
-		{
-			Spawner.Spawn(BALD_CYPRESS, pos.asWorld());
-		}
-		else if (r.bool(.05))
-		{
-			Spawner.Spawn(CORPSE_SNAKE, pos.asWorld());
-		}
-		else if (r.bool(.05))
-		{
-			Spawner.Spawn(CORPSE_HUMAN, pos.asWorld());
 		}
 	}
 }

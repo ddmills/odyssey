@@ -102,3 +102,4 @@
 - [x] doors
 - [ ] locked doors
 - [ ] lock picking
+- [ ] loot tables

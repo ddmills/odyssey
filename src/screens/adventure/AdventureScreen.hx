@@ -82,9 +82,18 @@ class AdventureScreen extends Screen
 		hudText.health.text = '${hp.value}/${hp.max}';
 
 		var mpos = game.input.mouse;
+		var zpos = mpos.toZone().toIntPoint();
+		var zone = world.zones.getZone(zpos);
+		var ztext = '';
+
+		if (zone != null && zone.poi != null)
+		{
+			ztext = zone.poi.template.name;
+		}
+
 		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
 		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
-		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + '(${mpos.toZoneIdx()})';
+		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + '(${mpos.toZoneIdx()}) $ztext';
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';

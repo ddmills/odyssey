@@ -60,11 +60,11 @@ class MapData
 
 		var poiTemplates:Array<PoiTemplate> = [
 			{
-				name: 'Esperloosa',
+				name: 'Oxwood',
 				layout: POI_LAYOUT_SCATTERED,
 				criteria: {
 					river: false,
-					biomes: [TUNDRA, PRAIRIE],
+					biomes: [TUNDRA],
 				},
 				rooms: [
 					{
@@ -72,6 +72,45 @@ class MapData
 						minWidth: 8,
 						minHeight: 6
 					},
+					{
+						type: ROOM_GRAVEYARD,
+					}
+				],
+			},
+			{
+				name: 'Glumtrails',
+				layout: POI_LAYOUT_SCATTERED,
+				criteria: {
+					river: false,
+					biomes: [SWAMP],
+				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					}
+				],
+			},
+			{
+				name: 'Esperloosa',
+				layout: POI_LAYOUT_SCATTERED,
+				criteria: {
+					river: false,
+					biomes: [PRAIRIE],
+				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					}
+				],
+			},
+			{
+				name: 'Stagstone',
+				layout: POI_LAYOUT_SCATTERED,
+				criteria: {
+					river: false,
+					biomes: [FOREST],
+				},
+				rooms: [
 					{
 						type: ROOM_GRAVEYARD,
 					}

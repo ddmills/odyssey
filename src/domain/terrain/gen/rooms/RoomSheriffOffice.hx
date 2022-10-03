@@ -1,21 +1,35 @@
 package domain.terrain.gen.rooms;
 
 import common.struct.WeightedTable;
-import data.ColorKey;
 import data.SpawnableType;
 import hxd.Rand;
 
 class RoomSheriffOffice extends RoomDecorator
 {
-	private var clutter:WeightedTable<SpawnableType>;
+	private var clutter:WeightedTable<RoomContent>;
 
 	public function new()
 	{
 		super();
 		clutter = new WeightedTable();
-		clutter.add(TABLE, 100);
-		clutter.add(CHAIR, 100);
-		clutter.add(CABINET, 100);
+		clutter.add({
+			spawnableType: LANTERN,
+			spawnableSettings: {
+				isLit: true,
+			}
+		}, 200);
+		clutter.add({
+			spawnableType: TABLE,
+			spawnableSettings: {}
+		}, 100);
+		clutter.add({
+			spawnableType: CHAIR,
+			spawnableSettings: {}
+		}, 100);
+		clutter.add({
+			spawnableType: CABINET,
+			spawnableSettings: {}
+		}, 100);
 	}
 
 	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void
@@ -97,10 +111,7 @@ class RoomSheriffOffice extends RoomDecorator
 				{
 					if (r.bool(.05))
 					{
-						tile.content.push({
-							spawnableType: clutter.pick(r),
-							spawnableSettings: {},
-						});
+						tile.content.push(clutter.pick(r));
 					}
 				}
 			}
