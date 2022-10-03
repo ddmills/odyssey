@@ -10,6 +10,7 @@ import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
 import domain.terrain.biomes.Biomes;
 import domain.terrain.gen.ZonePoi;
+import domain.terrain.gen.railroad.RailroadData;
 import hxd.Rand;
 import mapgen.towns.PoiCriteria;
 
@@ -22,12 +23,20 @@ typedef RoomTemplate =
 	?maxHeight:Int,
 }
 
+typedef RailroadTemplate =
+{
+	stopId:Int,
+	fromId:Int,
+	toId:Int,
+}
+
 typedef PoiTemplate =
 {
 	name:String,
 	layout:PoiLayoutType,
 	criteria:PoiCriteria,
 	rooms:Array<RoomTemplate>,
+	railroad:Null<RailroadTemplate>,
 }
 
 class MapData
@@ -36,12 +45,14 @@ class MapData
 	private var seed(get, never):Int;
 	private var r:Rand;
 	private var pois:Array<ZonePoi>;
+	private var railroad:RailroadData;
 	private var biomes:Biomes;
 
 	public function new()
 	{
 		biomes = new Biomes();
 		pois = new Array();
+		railroad = new RailroadData();
 	}
 
 	public function initialize()
@@ -52,6 +63,11 @@ class MapData
 	public function generate()
 	{
 		pois = [];
+		for (z in world.zones.zones)
+		{
+			railroad.stops = [];
+			z.value.railroad = null;
+		}
 
 		// r = new Rand(seed);
 		r = Rand.create();
@@ -60,59 +76,90 @@ class MapData
 
 		var poiTemplates:Array<PoiTemplate> = [
 			{
-				name: 'Oxwood',
+				name: 'Esperloosa',
 				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 0,
+					fromId: 3,
+					toId: 1,
+				},
 				criteria: {
 					river: false,
-					biomes: [TUNDRA],
+					biomes: [PRAIRIE],
+					quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
 				},
 				rooms: [
 					{
 						type: ROOM_GRAVEYARD,
-						minWidth: 8,
-						minHeight: 6
 					},
 					{
+						type: ROOM_RAILROAD_STATION,
+					}
+				],
+			},
+			{
+				name: 'Oxwood',
+				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 2,
+					fromId: 1,
+					toId: 3,
+				},
+				criteria: {
+					river: false,
+					biomes: [TUNDRA],
+					quadrants: [{x: 2, y: 0}, {x: 3, y: 0}],
+				},
+				rooms: [
+					{
 						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_RAILROAD_STATION,
 					}
 				],
 			},
 			{
 				name: 'Glumtrails',
 				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 3,
+					fromId: 2,
+					toId: 0,
+				},
 				criteria: {
 					river: false,
-					biomes: [SWAMP],
+					biomes: [SWAMP, FOREST],
+					quadrants: [{x: 3, y: 2}, {x: 2, y: 2}],
 				},
 				rooms: [
 					{
 						type: ROOM_GRAVEYARD,
-					}
-				],
-			},
-			{
-				name: 'Esperloosa',
-				layout: POI_LAYOUT_SCATTERED,
-				criteria: {
-					river: false,
-					biomes: [PRAIRIE],
-				},
-				rooms: [
+					},
 					{
-						type: ROOM_GRAVEYARD,
+						type: ROOM_RAILROAD_STATION,
 					}
 				],
 			},
 			{
 				name: 'Stagstone',
 				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 1,
+					fromId: 0,
+					toId: 2,
+				},
 				criteria: {
 					river: false,
 					biomes: [FOREST],
+					quadrants: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}],
 				},
 				rooms: [
 					{
 						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_RAILROAD_STATION,
 					}
 				],
 			}
@@ -150,7 +197,18 @@ class MapData
 		for (z in selected)
 		{
 			pois.push(new ZonePoi(z.zoneId, z.template));
+			if (z.template.railroad != null)
+			{
+				railroad.addStop({
+					stopId: z.template.railroad.stopId,
+					zoneId: z.zoneId,
+					fromId: z.template.railroad.fromId,
+					toId: z.template.railroad.toId,
+				});
+			}
 		}
+
+		railroad.generate();
 	}
 
 	public function getPOIForZone(zoneId:Int):ZonePoi
@@ -165,7 +223,18 @@ class MapData
 			return null;
 		}
 
+		if (world.zones.zones.isOnEdge(pos.x, pos.y))
+		{
+			return null;
+		}
+
+		var quadrant = pos.divide(16).floor();
 		var zone = world.zones.getZone(pos);
+
+		if (!criteria.quadrants.exists((q) -> q.equals(quadrant)))
+		{
+			return null;
+		}
 
 		if (!criteria.biomes.has(zone.primaryBiome))
 		{

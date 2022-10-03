@@ -103,3 +103,11 @@
 - [ ] locked doors
 - [ ] lock picking
 - [ ] loot tables
+- [x] zone quadrant criteria
+- [ ] generate railroad stations
+- [ ] railroad bitmasks
+- [x] railroads on map
+- [ ] zone "exits"
+- [ ] connect zones with railroads
+- [ ] bridges
+- [x] add astar max depth!

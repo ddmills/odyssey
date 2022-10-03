@@ -6,6 +6,8 @@ import data.BiomeMap;
 import data.BiomeType;
 import domain.terrain.gen.ZonePoi;
 
+typedef ZoneRailroad = {};
+
 class Zone
 {
 	public var zoneId(default, null):Int;
@@ -14,6 +16,7 @@ class Zone
 	public var biomes(default, null):BiomeChunkData;
 	public var primaryBiome(get, never):BiomeType;
 	public var poi(get, never):ZonePoi;
+	public var railroad:ZoneRailroad;
 
 	public function new(zoneId:Int)
 	{

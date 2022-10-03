@@ -151,6 +151,11 @@ import common.struct.IntPoint;
 		return isXOutOfBounds(x) || isYOutOfBounds(y);
 	}
 
+	public inline function isOnEdge(x:Int, y:Int)
+	{
+		return x == 0 || x == width - 1 || y == 0 || y == height - 1;
+	}
+
 	public inline function isXOutOfBounds(x:Int)
 	{
 		return x < 0 || x >= width;

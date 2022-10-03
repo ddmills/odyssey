@@ -38,6 +38,14 @@ class FloatPointExtensions
 		};
 	}
 
+	static public inline function round(p:FloatPoint):IntPoint
+	{
+		return {
+			x: p.x.round(),
+			y: p.y.round(),
+		};
+	}
+
 	static public inline function asWorld(p:FloatPoint)
 	{
 		return new Coordinate(p.x, p.y, WORLD);

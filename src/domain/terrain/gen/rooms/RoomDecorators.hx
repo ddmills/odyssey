@@ -13,6 +13,7 @@ class RoomDecorators
 
 		decorators.register(ROOM_GRAVEYARD, new RoomGraveyard());
 		decorators.register(ROOM_SHERIFF_OFFICE, new RoomSheriffOffice());
+		decorators.register(ROOM_RAILROAD_STATION, new RoomRailroadStation());
 	}
 
 	public static function Get(type:RoomType):RoomDecorator

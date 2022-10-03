@@ -64,6 +64,11 @@ class MapScreen extends Screen
 			tile = TileResources.Get(OVERWORLD_TOWN);
 			color = C_ORANGE_1;
 		}
+		else if (zone.railroad != null)
+		{
+			tile = TileResources.Get(DOT);
+			color = C_YELLOW_2;
+		}
 
 		var bm = new Bitmap(tile);
 		var shader = new SpriteShader(color, C_BLACK_1);

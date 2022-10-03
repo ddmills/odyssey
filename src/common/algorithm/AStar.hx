@@ -6,10 +6,11 @@ import common.struct.PriorityQueue;
 
 typedef AStarSettings =
 {
-	var start:IntPoint;
-	var goal:IntPoint;
-	var allowDiagonals:Bool;
-	var cost:(current:IntPoint, next:IntPoint) -> Float;
+	start:IntPoint,
+	goal:IntPoint,
+	allowDiagonals:Bool,
+	cost:(current:IntPoint, next:IntPoint) -> Float,
+	?maxDepth:Null<Int>,
 };
 
 typedef AStarResult =
@@ -30,6 +31,8 @@ class AStar
 		var start = settings.start;
 		var goal = settings.goal;
 		var cost = settings.cost;
+		var maxDepth = settings.maxDepth.or(10000);
+		var depth = 0;
 
 		var open = new PriorityQueue<{key:String, pos:IntPoint}>();
 		var from = new Map<String, IntPoint>();
@@ -59,6 +62,11 @@ class AStar
 
 		while (!open.isEmpty)
 		{
+			depth++;
+			if (depth >= maxDepth)
+			{
+				break;
+			}
 			var d = open.pop();
 			var current = d.pos;
 			var currentKey = d.key;
