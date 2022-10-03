@@ -55,6 +55,11 @@ class RailroadData
 						return 2;
 					}
 
+					if (zone.railroad != null)
+					{
+						return 2;
+					}
+
 					var weight = perlin.get(b, 80, 16);
 
 					return weight;
