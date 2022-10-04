@@ -6,7 +6,10 @@ import data.BiomeMap;
 import data.BiomeType;
 import domain.terrain.gen.ZonePoi;
 
-typedef ZoneRailroad = {};
+typedef ZoneRailroad =
+{
+	stopId:Int,
+};
 
 class Zone
 {

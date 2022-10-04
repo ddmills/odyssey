@@ -80,7 +80,7 @@ class MapData
 				layout: POI_LAYOUT_SCATTERED,
 				railroad: {
 					stopId: 0,
-					fromId: 3,
+					fromId: 4,
 					toId: 1,
 				},
 				criteria: {
@@ -123,13 +123,13 @@ class MapData
 				name: 'Glumtrails',
 				layout: POI_LAYOUT_SCATTERED,
 				railroad: {
-					stopId: 3,
-					fromId: 2,
-					toId: 0,
+					stopId: 4,
+					fromId: 3,
+					toId: 5,
 				},
 				criteria: {
 					river: false,
-					biomes: [SWAMP, FOREST],
+					biomes: [SWAMP],
 					quadrants: [{x: 3, y: 2}, {x: 2, y: 2}],
 				},
 				rooms: [
@@ -153,6 +153,50 @@ class MapData
 					river: false,
 					biomes: [FOREST],
 					quadrants: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}],
+				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_RAILROAD_STATION,
+					}
+				],
+			},
+			{
+				name: 'Skinny Snag',
+				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 5,
+					fromId: 4,
+					toId: 0,
+				},
+				criteria: {
+					river: false,
+					biomes: [DESERT],
+					quadrants: [{x: 0, y: 2}, {x: 1, y: 2}],
+				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_RAILROAD_STATION,
+					}
+				],
+			},
+			{
+				name: 'Fort Mills',
+				layout: POI_LAYOUT_SCATTERED,
+				railroad: {
+					stopId: 3,
+					fromId: 2,
+					toId: 4,
+				},
+				criteria: {
+					river: false,
+					biomes: [FOREST],
+					quadrants: [{x: 3, y: 1}],
 				},
 				rooms: [
 					{

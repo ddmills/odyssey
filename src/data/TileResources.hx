@@ -238,5 +238,23 @@ class TileResources
 		tiles.set(FENCE_BARS_13, fenceBars[3][1]);
 		tiles.set(FENCE_BARS_14, fenceBars[3][2]);
 		tiles.set(FENCE_BARS_15, fenceBars[3][3]);
+
+		var railroad = hxd.Res.tiles.smol.railroad_14_14.toTile().divide(4, 4);
+		tiles.set(RAILROAD_0, railroad[0][0]);
+		tiles.set(RAILROAD_1, railroad[0][1]);
+		tiles.set(RAILROAD_2, railroad[0][2]);
+		tiles.set(RAILROAD_3, railroad[0][3]);
+		tiles.set(RAILROAD_4, railroad[1][0]);
+		tiles.set(RAILROAD_5, railroad[1][1]);
+		tiles.set(RAILROAD_6, railroad[1][2]);
+		tiles.set(RAILROAD_7, railroad[1][3]);
+		tiles.set(RAILROAD_8, railroad[2][0]);
+		tiles.set(RAILROAD_9, railroad[2][1]);
+		tiles.set(RAILROAD_10, railroad[2][2]);
+		tiles.set(RAILROAD_11, railroad[2][3]);
+		tiles.set(RAILROAD_12, railroad[3][0]);
+		tiles.set(RAILROAD_13, railroad[3][1]);
+		tiles.set(RAILROAD_14, railroad[3][2]);
+		tiles.set(RAILROAD_15, railroad[3][3]);
 	}
 }

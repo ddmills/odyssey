@@ -7,6 +7,7 @@ import core.Game;
 import core.Screen;
 import core.input.KeyCode;
 import data.BiomeType;
+import data.Bitmasks;
 import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
@@ -43,6 +44,26 @@ class MapScreen extends Screen
 		}
 	}
 
+	function getIsRailroad(pos:IntPoint, stopId:Int)
+	{
+		var zone = world.zones.getZone(pos);
+		if (zone == null)
+		{
+			return false;
+		}
+		return (zone.railroad != null && zone.railroad.stopId == stopId) || zone.poi != null;
+	}
+
+	function getRailroadMask(pos:IntPoint, stopId:Int)
+	{
+		var n = getIsRailroad(pos.add(0, -1), stopId) ? 2 : 0;
+		var w = getIsRailroad(pos.add(-1, 0), stopId) ? 8 : 0;
+		var e = getIsRailroad(pos.add(1, 0), stopId) ? 16 : 0;
+		var s = getIsRailroad(pos.add(0, 1), stopId) ? 64 : 0;
+
+		return n + e + s + w;
+	}
+
 	function populateTile(pos:IntPoint)
 	{
 		var zone = world.zones.getZone(pos);
@@ -51,28 +72,35 @@ class MapScreen extends Screen
 		var tileKey = getTileKey(biomeKey);
 		var tile = TileResources.Get(tileKey);
 		var biome = world.map.getBiome(biomeKey);
-		var color = biome.naturalColor;
+		var primary = biome.naturalColor;
+		var secondary = C_BLACK_1;
+		var background = biome.naturalColor;
 
 		if (zone.biomes.river != null)
 		{
 			tile = TileResources.Get(OVERWORLD_RIVER);
-			color = C_BLUE_2;
+			primary = C_BLUE_2;
+			background = C_BLUE_3;
 		}
 
 		if (zone.poi != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
-			color = C_ORANGE_1;
+			primary = C_ORANGE_1;
 		}
 		else if (zone.railroad != null)
 		{
-			tile = TileResources.Get(DOT);
-			color = C_YELLOW_2;
+			var mask = getRailroadMask(pos, zone.railroad.stopId);
+			var key = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
+			tile = TileResources.Get(key);
+			primary = C_GRAY_1;
+			secondary = C_RED_2;
 		}
 
 		var bm = new Bitmap(tile);
-		var shader = new SpriteShader(color, C_BLACK_1);
+		var shader = new SpriteShader(primary, secondary);
 		shader.clearBackground = 1;
+		shader.background = background.toHxdColor();
 		bm.addShader(shader);
 
 		var clicker = new Interactive(game.TILE_W, game.TILE_H, bm);
@@ -92,6 +120,13 @@ class MapScreen extends Screen
 
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('world', targetPos.toString());
+
+		var zone = world.zones.getZone(pos);
+		if (zone != null && zone.railroad != null)
+		{
+			var mask = getRailroadMask(pos, zone.railroad.stopId);
+			trace('railroad mask', mask);
+		}
 
 		world.player.pos = targetPos;
 	}

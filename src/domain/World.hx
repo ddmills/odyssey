@@ -184,14 +184,14 @@ class World
 	{
 		// todo - just make faster by removing cardinal calls?
 		return [
-			getEntitiesAt(pos.add(Cardinal.NORTH_WEST.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.NORTH.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.NORTH_EAST.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.WEST.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.EAST.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.SOUTH_WEST.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.SOUTH.toOffset())),
-			getEntitiesAt(pos.add(Cardinal.SOUTH_EAST.toOffset())),
+			getEntitiesAt(pos.add(Cardinal.NORTH_WEST.toOffset())), // NORTH_WEST
+			getEntitiesAt(pos.add(Cardinal.NORTH.toOffset())), // NORTH
+			getEntitiesAt(pos.add(Cardinal.NORTH_EAST.toOffset())), // NORTH_EAST
+			getEntitiesAt(pos.add(Cardinal.WEST.toOffset())), // WEST
+			getEntitiesAt(pos.add(Cardinal.EAST.toOffset())), // EAST
+			getEntitiesAt(pos.add(Cardinal.SOUTH_WEST.toOffset())), // SOUTH_WEST
+			getEntitiesAt(pos.add(Cardinal.SOUTH.toOffset())), // SOUTH
+			getEntitiesAt(pos.add(Cardinal.SOUTH_EAST.toOffset())), // SOUTH_EAST
 		];
 	}
 

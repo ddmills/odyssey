@@ -198,6 +198,22 @@ enum TileKey
 	FENCE_BARS_13; // ?
 	FENCE_BARS_14; // ?
 	FENCE_BARS_15; // ?
+	RAILROAD_0; // ║
+	RAILROAD_1; // .
+	RAILROAD_2; // ╔
+	RAILROAD_3; // ╗
+	RAILROAD_4; // ║
+	RAILROAD_5; // ═
+	RAILROAD_6; // ╚
+	RAILROAD_7; // ╝
+	RAILROAD_8; // ╦
+	RAILROAD_9; // ╩
+	RAILROAD_10; // ╬
+	RAILROAD_11; // ?
+	RAILROAD_12; // ?
+	RAILROAD_13; // ?
+	RAILROAD_14; // ?
+	RAILROAD_15; // ?
 	BARS_DOOR;
 	BARS_DOOR_OPEN;
 }

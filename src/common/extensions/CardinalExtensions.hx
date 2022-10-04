@@ -30,8 +30,8 @@ class CardinalExtensions
 			case WEST: {x: -1, y: 0};
 			case EAST: {x: 1, y: 0};
 			case SOUTH_WEST: {x: -1, y: 1};
-			case SOUTH_EAST: {x: 1, y: 1};
 			case SOUTH: {x: 0, y: 1};
+			case SOUTH_EAST: {x: 1, y: 1};
 		}
 	}
 }

@@ -48,16 +48,17 @@ class RailroadData
 					{
 						return Math.POSITIVE_INFINITY;
 					}
-					var zone = zones.getZone(b);
 
-					if (zone.biomes.river != null)
-					{
-						return 2;
-					}
+					var zone = zones.getZone(b);
 
 					if (zone.railroad != null)
 					{
-						return 2;
+						return 1000;
+					}
+
+					if (zone.biomes.river != null)
+					{
+						return 1.5;
 					}
 
 					var weight = perlin.get(b, 80, 16);
@@ -75,7 +76,9 @@ class RailroadData
 			for (part in astar.path)
 			{
 				var zone = zones.getZone(part);
-				zone.railroad = {};
+				zone.railroad = {
+					stopId: stop.stopId
+				};
 			}
 		}
 	}
