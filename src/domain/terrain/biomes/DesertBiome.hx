@@ -8,7 +8,7 @@ class DesertBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, DESERT, C_YELLOW_3);
+		super(seed, DESERT, C_YELLOW_2, C_GREEN_2, C_YELLOW_3);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

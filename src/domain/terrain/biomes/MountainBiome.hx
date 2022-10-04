@@ -7,7 +7,7 @@ class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, MOUNTAIN, C_GRAY_5);
+		super(seed, MOUNTAIN, C_GRAY_2, C_GRAY_1, C_GRAY_5);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

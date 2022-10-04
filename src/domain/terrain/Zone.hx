@@ -8,7 +8,7 @@ import domain.terrain.gen.ZonePoi;
 
 typedef ZoneRailroad =
 {
-	stopId:Int,
+	lineId:Array<Int>,
 };
 
 class Zone

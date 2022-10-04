@@ -9,7 +9,7 @@ class PrairieBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE, C_GREEN_3);
+		super(seed, PRAIRIE, C_GREEN_2, C_GREEN_1, C_GREEN_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey

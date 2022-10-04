@@ -8,7 +8,7 @@ class TundraBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, TUNDRA, C_GRAY_2);
+		super(seed, TUNDRA, C_GRAY_1, C_BLUE_1, C_GRAY_2);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

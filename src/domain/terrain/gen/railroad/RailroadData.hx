@@ -53,7 +53,7 @@ class RailroadData
 
 					if (zone.railroad != null)
 					{
-						return 1000;
+						return .15;
 					}
 
 					if (zone.biomes.river != null)
@@ -61,7 +61,7 @@ class RailroadData
 						return 1.5;
 					}
 
-					var weight = perlin.get(b, 80, 16);
+					var weight = .5 + perlin.get(b, 80, 16);
 
 					return weight;
 				},
@@ -76,9 +76,16 @@ class RailroadData
 			for (part in astar.path)
 			{
 				var zone = zones.getZone(part);
-				zone.railroad = {
-					stopId: stop.stopId
-				};
+				if (zone.railroad != null)
+				{
+					zone.railroad.lineId.push(stop.stopId);
+				}
+				else
+				{
+					zone.railroad = {
+						lineId: [stop.stopId],
+					};
+				}
 			}
 		}
 	}

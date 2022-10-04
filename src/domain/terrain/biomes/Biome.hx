@@ -20,16 +20,20 @@ class Biome
 {
 	public var seed:Int;
 	public var type(default, null):BiomeType;
-	public var naturalColor(default, null):Int;
+	public var primary(default, null):ColorKey;
+	public var secondary(default, null):ColorKey;
+	public var background(default, null):ColorKey;
 
 	var r:Rand;
 	var perlin:Perlin;
 
-	public function new(seed:Int, type:BiomeType, naturalColor:Int)
+	public function new(seed:Int, type:BiomeType, primary:ColorKey, secondary:ColorKey, background:ColorKey)
 	{
 		this.seed = seed;
 		this.type = type;
-		this.naturalColor = naturalColor;
+		this.primary = primary;
+		this.secondary = secondary;
+		this.background = background;
 
 		r = new Rand(seed);
 		perlin = new Perlin(seed);

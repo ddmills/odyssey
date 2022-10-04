@@ -11,7 +11,7 @@ class SwampBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, SWAMP, C_PURPLE_3);
+		super(seed, SWAMP, C_PURPLE_2, C_GREEN_3, C_PURPLE_3);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey

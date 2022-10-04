@@ -9,7 +9,7 @@ class ForestBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, FOREST, C_GREEN_4);
+		super(seed, FOREST, C_GREEN_3, C_RED_2, C_GREEN_4);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

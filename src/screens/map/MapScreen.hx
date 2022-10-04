@@ -44,22 +44,22 @@ class MapScreen extends Screen
 		}
 	}
 
-	function getIsRailroad(pos:IntPoint, stopId:Int)
+	function getIsRailroad(pos:IntPoint, lineIds:Array<Int>)
 	{
 		var zone = world.zones.getZone(pos);
 		if (zone == null)
 		{
 			return false;
 		}
-		return (zone.railroad != null && zone.railroad.stopId == stopId) || zone.poi != null;
+		return (zone.railroad != null && zone.railroad.lineId.intersects(lineIds)) || zone.poi != null;
 	}
 
-	function getRailroadMask(pos:IntPoint, stopId:Int)
+	function getRailroadMask(pos:IntPoint, lineIds:Array<Int>)
 	{
-		var n = getIsRailroad(pos.add(0, -1), stopId) ? 2 : 0;
-		var w = getIsRailroad(pos.add(-1, 0), stopId) ? 8 : 0;
-		var e = getIsRailroad(pos.add(1, 0), stopId) ? 16 : 0;
-		var s = getIsRailroad(pos.add(0, 1), stopId) ? 64 : 0;
+		var n = getIsRailroad(pos.add(0, -1), lineIds) ? 2 : 0;
+		var w = getIsRailroad(pos.add(-1, 0), lineIds) ? 8 : 0;
+		var e = getIsRailroad(pos.add(1, 0), lineIds) ? 16 : 0;
+		var s = getIsRailroad(pos.add(0, 1), lineIds) ? 64 : 0;
 
 		return n + e + s + w;
 	}
@@ -72,9 +72,9 @@ class MapScreen extends Screen
 		var tileKey = getTileKey(biomeKey);
 		var tile = TileResources.Get(tileKey);
 		var biome = world.map.getBiome(biomeKey);
-		var primary = biome.naturalColor;
-		var secondary = C_BLACK_1;
-		var background = biome.naturalColor;
+		var primary = biome.primary;
+		var secondary = biome.secondary;
+		var background = biome.background;
 
 		if (zone.biomes.river != null)
 		{
@@ -90,9 +90,19 @@ class MapScreen extends Screen
 		}
 		else if (zone.railroad != null)
 		{
-			var mask = getRailroadMask(pos, zone.railroad.stopId);
-			var key = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
-			tile = TileResources.Get(key);
+			var tileKey:TileKey = TK_UNKNOWN;
+			if (zone.railroad.lineId.length > 1)
+			{
+				var mask = getRailroadMask(pos, zone.railroad.lineId);
+				tileKey = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
+			}
+			else
+			{
+				var mask = getRailroadMask(pos, [zone.railroad.lineId[0]]);
+				tileKey = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
+			}
+
+			tile = TileResources.Get(tileKey);
 			primary = C_GRAY_1;
 			secondary = C_RED_2;
 		}
@@ -120,13 +130,6 @@ class MapScreen extends Screen
 
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('world', targetPos.toString());
-
-		var zone = world.zones.getZone(pos);
-		if (zone != null && zone.railroad != null)
-		{
-			var mask = getRailroadMask(pos, zone.railroad.stopId);
-			trace('railroad mask', mask);
-		}
 
 		world.player.pos = targetPos;
 	}
