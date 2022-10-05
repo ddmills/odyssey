@@ -12,4 +12,5 @@ typedef Cell =
 	primary:Int,
 	secondary:Int,
 	background:Int,
+	isRailroad:Bool,
 }

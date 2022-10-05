@@ -136,7 +136,7 @@ class ChunkGen
 		}
 		else
 		{
-			addRailroad(chunk, r);
+			generateRailroad(chunk, r);
 		}
 
 		var tl = chunk.getZoneLocalOffset();
@@ -159,6 +159,11 @@ class ChunkGen
 				}
 			}
 
+			if (cell.value.isRailroad)
+			{
+				continue;
+			}
+
 			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
 			{
 				var loot = table.pick(r);
@@ -172,7 +177,14 @@ class ChunkGen
 		}
 	}
 
-	function addRailroad(chunk:Chunk, r:Rand)
+	function addRailroadTrack(chunk:Chunk, pos:IntPoint)
+	{
+		var cell = chunk.getCell(pos);
+		Spawner.Spawn(RAILROAD, chunk.worldPos.add(pos).asWorld());
+		cell.isRailroad = true;
+	}
+
+	function generateRailroad(chunk:Chunk, r:Rand)
 	{
 		var zone = chunk.zone;
 		var zoneSize = Game.instance.world.zoneSize;
@@ -185,11 +197,11 @@ class ChunkGen
 			for (x in 0...halfZoneSize)
 			{
 				var p = zone.worldPos.add(x, halfZoneSize);
-
 				if (chunk.hasWorldPoint(p))
 				{
 					hasRailroad = true;
-					Spawner.Spawn(RAILROAD, p.asWorld());
+					var localPos = p.sub(chunk.worldPos);
+					addRailroadTrack(chunk, localPos);
 				}
 			}
 		}
@@ -203,7 +215,8 @@ class ChunkGen
 				if (chunk.hasWorldPoint(p))
 				{
 					hasRailroad = true;
-					Spawner.Spawn(RAILROAD, p.asWorld());
+					var localPos = p.sub(chunk.worldPos);
+					addRailroadTrack(chunk, localPos);
 				}
 			}
 		}
@@ -217,7 +230,8 @@ class ChunkGen
 				if (chunk.hasWorldPoint(p))
 				{
 					hasRailroad = true;
-					Spawner.Spawn(RAILROAD, p.asWorld());
+					var localPos = p.sub(chunk.worldPos);
+					addRailroadTrack(chunk, localPos);
 				}
 			}
 		}
@@ -231,14 +245,16 @@ class ChunkGen
 				if (chunk.hasWorldPoint(p))
 				{
 					hasRailroad = true;
-					Spawner.Spawn(RAILROAD, p.asWorld());
+					var localPos = p.sub(chunk.worldPos);
+					addRailroadTrack(chunk, localPos);
 				}
 			}
 		}
 
-		if (hasRailroad)
+		var middle = zone.worldPos.add(halfZoneSize, halfZoneSize);
+		if (chunk.hasWorldPoint(middle))
 		{
-			Spawner.Spawn(RAILROAD, zone.worldPos.add(halfZoneSize, halfZoneSize).asWorld());
+			addRailroadTrack(chunk, chunk.worldPos.sub(middle));
 		}
 	}
 
@@ -273,6 +289,7 @@ class ChunkGen
 			primary: 0x000000,
 			secondary: 0x000000,
 			background: 0x000000,
+			isRailroad: false,
 		};
 
 		var worldPos = pos.add(chunk.worldPos);

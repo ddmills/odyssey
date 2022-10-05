@@ -97,11 +97,10 @@ class LookScreen extends CursorScreen
 				targetShader.primary = game.TEXT_COLOR_FOCUS.toHxdColor();
 			}
 
-			var named = entities.find((e) -> e.has(Moniker));
-			if (named != null)
+			var names = entities.filter((e) -> e.has(Moniker)).map((e) -> e.get(Moniker).displayName);
+			if (names.length > 0)
 			{
-				var moniker = named.get(Moniker);
-				targetText.text = moniker.displayName;
+				targetText.text = names.join(', ');
 			}
 		}
 		else
