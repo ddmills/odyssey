@@ -51,7 +51,7 @@ class MapScreen extends Screen
 		{
 			return false;
 		}
-		return (zone.railroad != null && zone.railroad.lineId.intersects(lineIds)) || zone.poi != null;
+		return (zone.railroad != null && zone.railroad.lineIds.intersects(lineIds)) || zone.poi != null;
 	}
 
 	function getRailroadMask(pos:IntPoint, lineIds:Array<Int>)
@@ -91,14 +91,14 @@ class MapScreen extends Screen
 		else if (zone.railroad != null)
 		{
 			var tileKey:TileKey = TK_UNKNOWN;
-			if (zone.railroad.lineId.length > 1)
+			if (zone.railroad.lineIds.length > 1)
 			{
-				var mask = getRailroadMask(pos, zone.railroad.lineId);
+				var mask = getRailroadMask(pos, zone.railroad.lineIds);
 				tileKey = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
 			}
 			else
 			{
-				var mask = getRailroadMask(pos, [zone.railroad.lineId[0]]);
+				var mask = getRailroadMask(pos, [zone.railroad.lineIds[0]]);
 				tileKey = Bitmasks.GetTileKey(BITMASK_RAILROAD, mask);
 			}
 
@@ -130,6 +130,11 @@ class MapScreen extends Screen
 
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('world', targetPos.toString());
+
+		var z = Game.instance.world.zones.getZone(pos);
+		var connections = z.getRailroadConnections();
+
+		trace(connections);
 
 		world.player.pos = targetPos;
 	}

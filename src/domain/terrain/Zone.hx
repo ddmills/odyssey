@@ -8,7 +8,17 @@ import domain.terrain.gen.ZonePoi;
 
 typedef ZoneRailroad =
 {
-	lineId:Array<Int>,
+	lineIds:Array<Int>,
+	stopId:Null<Int>,
+};
+
+typedef RailroadConnections =
+{
+	stopId:Null<Int>,
+	north:Array<Int>,
+	east:Array<Int>,
+	south:Array<Int>,
+	west:Array<Int>,
 };
 
 class Zone
@@ -25,6 +35,50 @@ class Zone
 	{
 		this.zoneId = zoneId;
 		biomes = BiomeMap.GetAt(zoneId);
+	}
+
+	public function getRailroadConnections()
+	{
+		var connections = {
+			stopId: railroad == null ? null : railroad.stopId,
+			north: [],
+			east: [],
+			south: [],
+			west: [],
+		};
+
+		if (railroad == null)
+		{
+			return connections;
+		}
+
+		var zones = Game.instance.world.zones;
+		var zNorth = zones.getZone(zonePos.add(0, -1));
+		var zEast = zones.getZone(zonePos.add(1, 0));
+		var zSouth = zones.getZone(zonePos.add(0, 1));
+		var zWest = zones.getZone(zonePos.add(-1, 0));
+
+		if (zNorth != null && zNorth.railroad != null)
+		{
+			connections.north = zNorth.railroad.lineIds.intersection(railroad.lineIds, (a, b) -> a == b);
+		}
+
+		if (zEast != null && zEast.railroad != null)
+		{
+			connections.east = zEast.railroad.lineIds.intersection(railroad.lineIds, (a, b) -> a == b);
+		}
+
+		if (zSouth != null && zSouth.railroad != null)
+		{
+			connections.south = zSouth.railroad.lineIds.intersection(railroad.lineIds, (a, b) -> a == b);
+		}
+
+		if (zWest != null && zWest.railroad != null)
+		{
+			connections.west = zWest.railroad.lineIds.intersection(railroad.lineIds, (a, b) -> a == b);
+		}
+
+		return connections;
 	}
 
 	public function getChunks():Array<Chunk>

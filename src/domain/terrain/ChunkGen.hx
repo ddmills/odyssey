@@ -3,14 +3,12 @@ package domain.terrain;
 import common.algorithm.Bresenham;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
-import common.tools.Performance;
 import core.Game;
 import data.BiomeMap.BiomeChunkData;
 import data.BiomeType;
 import data.ColorKey;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
-import domain.terrain.gen.PoiGenerator;
 import hxd.Rand;
 
 class ChunkGen

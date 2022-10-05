@@ -25,7 +25,7 @@ typedef RoomTemplate =
 
 typedef RailroadTemplate =
 {
-	stopId:Int,
+	lineId:Int,
 	fromId:Int,
 	toId:Int,
 }
@@ -33,10 +33,10 @@ typedef RailroadTemplate =
 typedef PoiTemplate =
 {
 	name:String,
+	railroadStop:Null<Int>,
 	layout:PoiLayoutType,
 	criteria:PoiCriteria,
-	rooms:Array<RoomTemplate>,
-	railroad:Null<RailroadTemplate>,
+	rooms:Array<RoomTemplate>
 }
 
 class MapData
@@ -63,9 +63,10 @@ class MapData
 	public function generate()
 	{
 		pois = [];
+		railroad.stops = [];
+		railroad.lines = [];
 		for (z in world.zones.zones)
 		{
-			railroad.stops = [];
 			z.value.railroad = null;
 		}
 
@@ -78,11 +79,7 @@ class MapData
 			{
 				name: 'Esperloosa',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 0,
-					fromId: 4,
-					toId: 1,
-				},
+				railroadStop: 0,
 				criteria: {
 					river: false,
 					biomes: [PRAIRIE],
@@ -100,11 +97,7 @@ class MapData
 			{
 				name: 'Oxwood',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 2,
-					fromId: 1,
-					toId: 3,
-				},
+				railroadStop: 2,
 				criteria: {
 					river: false,
 					biomes: [TUNDRA],
@@ -122,11 +115,7 @@ class MapData
 			{
 				name: 'Glumtrails',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 4,
-					fromId: 3,
-					toId: 5,
-				},
+				railroadStop: 4,
 				criteria: {
 					river: false,
 					biomes: [SWAMP],
@@ -144,11 +133,7 @@ class MapData
 			{
 				name: 'Stagstone',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 1,
-					fromId: 0,
-					toId: 2,
-				},
+				railroadStop: 1,
 				criteria: {
 					river: false,
 					biomes: [FOREST],
@@ -166,11 +151,7 @@ class MapData
 			{
 				name: 'Skinny Snag',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 5,
-					fromId: 4,
-					toId: 0,
-				},
+				railroadStop: 5,
 				criteria: {
 					river: false,
 					biomes: [DESERT],
@@ -188,11 +169,7 @@ class MapData
 			{
 				name: 'Fort Mills',
 				layout: POI_LAYOUT_SCATTERED,
-				railroad: {
-					stopId: 3,
-					fromId: 2,
-					toId: 4,
-				},
+				railroadStop: 3,
 				criteria: {
 					river: false,
 					biomes: [FOREST],
@@ -241,16 +218,52 @@ class MapData
 		for (z in selected)
 		{
 			pois.push(new ZonePoi(z.zoneId, z.template));
-			if (z.template.railroad != null)
+			if (z.template.railroadStop != null)
 			{
 				railroad.addStop({
-					stopId: z.template.railroad.stopId,
+					stopId: z.template.railroadStop,
 					zoneId: z.zoneId,
-					fromId: z.template.railroad.fromId,
-					toId: z.template.railroad.toId,
 				});
 			}
 		}
+
+		var lineId = 0;
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 0,
+			stopBId: 1,
+		});
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 1,
+			stopBId: 2,
+		});
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 2,
+			stopBId: 3,
+		});
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 3,
+			stopBId: 4,
+		});
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 4,
+			stopBId: 5,
+		});
+
+		railroad.addLine({
+			lineId: lineId++,
+			stopAId: 5,
+			stopBId: 0,
+		});
 
 		railroad.generate();
 	}
