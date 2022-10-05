@@ -69,6 +69,7 @@ class ChunkGen
 			var chunkSize = world.chunkSize - 1;
 			var river = biomes.river;
 			var polygon = new Array<IntPoint>();
+
 			if (river.n)
 			{
 				var left = river.nw ? 0 : riverOffset;
@@ -127,15 +128,18 @@ class ChunkGen
 			Bresenham.fillPolygon(polygon, (p) -> setWater(chunk, p));
 		}
 
-		var zonePos = chunk.zone.worldPos;
-		var chunkPos = chunk.worldPos;
-		var tl = chunkPos.sub(zonePos);
 		var poi = chunk.zone.poi;
 
 		if (poi != null)
 		{
 			poi.generate();
 		}
+		else
+		{
+			addRailroad(chunk, r);
+		}
+
+		var tl = chunk.getZoneLocalOffset();
 
 		for (cell in chunk.cells)
 		{
@@ -165,6 +169,76 @@ class ChunkGen
 				var b = world.map.getBiome(cell.value.biomeKey);
 				b.spawnEntity(worldPos, cell.value);
 			}
+		}
+	}
+
+	function addRailroad(chunk:Chunk, r:Rand)
+	{
+		var zone = chunk.zone;
+		var zoneSize = Game.instance.world.zoneSize;
+		var halfZoneSize = (zoneSize / 2).floor();
+		var connections = zone.getRailroadConnections();
+		var hasRailroad = false;
+
+		if (connections.west.length > 0)
+		{
+			for (x in 0...halfZoneSize)
+			{
+				var p = zone.worldPos.add(x, halfZoneSize);
+
+				if (chunk.hasWorldPoint(p))
+				{
+					hasRailroad = true;
+					Spawner.Spawn(RAILROAD, p.asWorld());
+				}
+			}
+		}
+
+		if (connections.east.length > 0)
+		{
+			for (x in(halfZoneSize + 1)...zoneSize)
+			{
+				var p = zone.worldPos.add(x, halfZoneSize);
+
+				if (chunk.hasWorldPoint(p))
+				{
+					hasRailroad = true;
+					Spawner.Spawn(RAILROAD, p.asWorld());
+				}
+			}
+		}
+
+		if (connections.north.length > 0)
+		{
+			for (y in 0...halfZoneSize)
+			{
+				var p = zone.worldPos.add(halfZoneSize, y);
+
+				if (chunk.hasWorldPoint(p))
+				{
+					hasRailroad = true;
+					Spawner.Spawn(RAILROAD, p.asWorld());
+				}
+			}
+		}
+
+		if (connections.south.length > 0)
+		{
+			for (y in(halfZoneSize + 1)...zoneSize)
+			{
+				var p = zone.worldPos.add(halfZoneSize, y);
+
+				if (chunk.hasWorldPoint(p))
+				{
+					hasRailroad = true;
+					Spawner.Spawn(RAILROAD, p.asWorld());
+				}
+			}
+		}
+
+		if (hasRailroad)
+		{
+			Spawner.Spawn(RAILROAD, zone.worldPos.add(halfZoneSize, halfZoneSize).asWorld());
 		}
 	}
 

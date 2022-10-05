@@ -65,6 +65,7 @@ class Spawner
 		prefabs.set(FENCE_IRON, new FenceIronPrefab());
 		prefabs.set(FENCE_BARS, new FenceBarsPrefab());
 		prefabs.set(BARS_DOOR, new BarsDoorPrefab());
+		prefabs.set(RAILROAD, new RailroadPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)

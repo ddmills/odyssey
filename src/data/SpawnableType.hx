@@ -53,4 +53,5 @@ enum SpawnableType
 	FENCE_BARBED;
 	FENCE_BARS;
 	BARS_DOOR;
+	RAILROAD;
 }

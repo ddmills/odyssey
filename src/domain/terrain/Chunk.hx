@@ -180,6 +180,18 @@ class Chunk
 		return cells.get(pos.x, pos.y);
 	}
 
+	public function getZoneLocalOffset():IntPoint
+	{
+		return worldPos.sub(zone.worldPos);
+	}
+
+	public function hasWorldPoint(pos:IntPoint):Bool
+	{
+		var diff = pos.sub(worldPos);
+
+		return diff.x >= 0 && diff.x < size && diff.y >= 0 && diff.y < size;
+	}
+
 	public inline function getCellCoord(idx:Int):IntPoint
 	{
 		return cells.coord(idx);
