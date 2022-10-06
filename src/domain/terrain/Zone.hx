@@ -29,6 +29,7 @@ class Zone
 	public var biomes(default, null):BiomeChunkData;
 	public var primaryBiome(get, never):BiomeType;
 	public var poi(get, never):ZonePoi;
+	public var size(get, never):Int;
 	public var railroad:ZoneRailroad;
 
 	public function new(zoneId:Int)
@@ -118,5 +119,10 @@ class Zone
 	inline function get_worldPos():IntPoint
 	{
 		return zonePos.multiply(Game.instance.world.zoneSize);
+	}
+
+	inline function get_size():Int
+	{
+		return Game.instance.world.zoneSize;
 	}
 }

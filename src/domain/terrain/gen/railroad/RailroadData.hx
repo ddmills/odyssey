@@ -76,6 +76,11 @@ class RailroadData
 
 					if (zone.poi != null)
 					{
+						if (zone.poi.type == POI_RAILROAD_STATION && zone.poi.template.railroadStop == line.stopBId)
+						{
+							return 0;
+						}
+
 						return Math.POSITIVE_INFINITY;
 					}
 

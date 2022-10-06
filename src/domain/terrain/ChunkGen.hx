@@ -134,11 +134,8 @@ class ChunkGen
 		{
 			poi.generate();
 		}
-		else
-		{
-			generateRailroad(chunk, r);
-		}
 
+		generateRailroad(chunk, r);
 		var tl = chunk.getZoneLocalOffset();
 
 		for (cell in chunk.cells)

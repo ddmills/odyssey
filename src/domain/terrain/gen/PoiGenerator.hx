@@ -2,7 +2,6 @@ package domain.terrain.gen;
 
 import data.RoomType;
 import domain.terrain.gen.pois.PoiLayouts;
-import domain.terrain.gen.rooms.RoomDecorator;
 import domain.terrain.gen.rooms.RoomDecorators;
 import hxd.Rand;
 

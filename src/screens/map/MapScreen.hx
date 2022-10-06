@@ -131,11 +131,6 @@ class MapScreen extends Screen
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('world', targetPos.toString());
 
-		var z = Game.instance.world.zones.getZone(pos);
-		var connections = z.getRailroadConnections();
-
-		trace(connections);
-
 		world.player.pos = targetPos;
 	}
 

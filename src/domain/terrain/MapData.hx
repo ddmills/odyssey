@@ -5,6 +5,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.BiomeType;
 import data.PoiLayoutType;
+import data.PoiType;
 import data.RoomType;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biome;
@@ -33,6 +34,7 @@ typedef RailroadTemplate =
 typedef PoiTemplate =
 {
 	name:String,
+	type:PoiType,
 	railroadStop:Null<Int>,
 	layout:PoiLayoutType,
 	criteria:PoiCriteria,
@@ -78,6 +80,7 @@ class MapData
 		var poiTemplates:Array<PoiTemplate> = [
 			{
 				name: 'Esperloosa',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 0,
 				criteria: {
@@ -96,6 +99,7 @@ class MapData
 			},
 			{
 				name: 'Oxwood',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 2,
 				criteria: {
@@ -114,6 +118,7 @@ class MapData
 			},
 			{
 				name: 'Glumtrails',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 4,
 				criteria: {
@@ -132,6 +137,7 @@ class MapData
 			},
 			{
 				name: 'Stagstone',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 1,
 				criteria: {
@@ -150,6 +156,7 @@ class MapData
 			},
 			{
 				name: 'Skinny Snag',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 5,
 				criteria: {
@@ -168,6 +175,7 @@ class MapData
 			},
 			{
 				name: 'Fort Mills',
+				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
 				railroadStop: 3,
 				criteria: {
@@ -217,12 +225,13 @@ class MapData
 
 		for (z in selected)
 		{
-			pois.push(new ZonePoi(z.zoneId, z.template));
-
 			if (z.template.railroadStop != null)
 			{
 				tryAddingStop(z.zoneId, z.template.railroadStop, r);
+				z.template.railroadStop = null;
 			}
+
+			pois.push(new ZonePoi(z.zoneId, z.template));
 		}
 
 		var lineId = 0;
@@ -277,13 +286,29 @@ class MapData
 		var neighbors = world.zones.getImmediateNeighborZones(zone.zonePos);
 		r.shuffle(neighbors);
 
-		var open = neighbors.find((n) -> n.poi == null);
+		var open = neighbors.find((n) ->
+		{
+			return n.poi == null && n.biomes.river == null;
+		});
 
 		railroad.addStop({
 			stopId: stopId,
 			zoneId: open.zoneId,
 			parentZoneId: zoneId,
 		});
+
+		pois.push(new ZonePoi(open.zoneId, {
+			name: 'Railroad Station $stopId',
+			type: POI_RAILROAD_STATION,
+			layout: POI_LAYOUT_RAILROAD_STATION,
+			rooms: [
+				{
+					type: ROOM_RAILROAD_STATION,
+				}
+			],
+			criteria: null,
+			railroadStop: stopId,
+		}));
 	}
 
 	function matchZone(pos:IntPoint, criteria:PoiCriteria):Null<Zone>

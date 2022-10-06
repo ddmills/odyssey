@@ -26,6 +26,13 @@ class RoomRailroadStation extends RoomDecorator
 						spawnableSettings: {},
 					});
 				}
+				else if (pos.y == midY)
+				{
+					tile.content.push({
+						spawnableType: WOOD_DOOR,
+						spawnableSettings: {},
+					});
+				}
 				else
 				{
 					tile.content.push({

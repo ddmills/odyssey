@@ -4,6 +4,7 @@ import common.struct.Grid;
 import common.struct.IntPoint;
 import common.tools.Performance;
 import core.Game;
+import data.PoiType;
 import domain.terrain.MapData.PoiTemplate;
 
 class ZonePoi
@@ -13,6 +14,7 @@ class ZonePoi
 	public var tileOverrides:Grid<RoomTile>;
 
 	public var template(default, null):PoiTemplate;
+	public var type(default, null):PoiType;
 
 	public var width(get, never):Int;
 	public var height(get, never):Int;
@@ -24,6 +26,7 @@ class ZonePoi
 		this.zoneId = zoneId;
 		this.rooms = [];
 		this.template = template;
+		this.type = template.type;
 		tileOverrides = new Grid(width, height);
 	}
 
