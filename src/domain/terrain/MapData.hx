@@ -218,12 +218,10 @@ class MapData
 		for (z in selected)
 		{
 			pois.push(new ZonePoi(z.zoneId, z.template));
+
 			if (z.template.railroadStop != null)
 			{
-				railroad.addStop({
-					stopId: z.template.railroadStop,
-					zoneId: z.zoneId,
-				});
+				tryAddingStop(z.zoneId, z.template.railroadStop, r);
 			}
 		}
 
@@ -271,6 +269,21 @@ class MapData
 	public function getPOIForZone(zoneId:Int):ZonePoi
 	{
 		return pois.find((t) -> t.zoneId == zoneId);
+	}
+
+	function tryAddingStop(zoneId:Int, stopId:Int, r:Rand)
+	{
+		var zone = world.zones.getZoneById(zoneId);
+		var neighbors = world.zones.getImmediateNeighborZones(zone.zonePos);
+		r.shuffle(neighbors);
+
+		var open = neighbors.find((n) -> n.poi == null);
+
+		railroad.addStop({
+			stopId: stopId,
+			zoneId: open.zoneId,
+			parentZoneId: zoneId,
+		});
 	}
 
 	function matchZone(pos:IntPoint, criteria:PoiCriteria):Null<Zone>

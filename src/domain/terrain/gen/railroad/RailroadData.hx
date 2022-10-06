@@ -15,6 +15,7 @@ typedef RailroadStop =
 {
 	stopId:Int,
 	zoneId:Int,
+	parentZoneId:Int,
 };
 
 class RailroadData
@@ -72,6 +73,11 @@ class RailroadData
 					}
 
 					var zone = zones.getZone(b);
+
+					if (zone.poi != null)
+					{
+						return Math.POSITIVE_INFINITY;
+					}
 
 					if (zone.railroad != null)
 					{

@@ -32,6 +32,11 @@ class ZoneManager
 		return zones.get(pos.x, pos.y);
 	}
 
+	public function getImmediateNeighborZones(pos:IntPoint)
+	{
+		return zones.getImmediateNeighbors(pos.x, pos.y);
+	}
+
 	public function getZoneById(idx:Int)
 	{
 		return zones.getAt(idx);

@@ -51,7 +51,7 @@ class MapScreen extends Screen
 		{
 			return false;
 		}
-		return (zone.railroad != null && zone.railroad.lineIds.intersects(lineIds)) || zone.poi != null;
+		return (zone.railroad != null && zone.railroad.lineIds.intersects(lineIds));
 	}
 
 	function getRailroadMask(pos:IntPoint, lineIds:Array<Int>)
