@@ -1,5 +1,6 @@
 package data.save;
 
+import domain.data.factions.FactionManager.FactionManagerSave;
 import domain.systems.StorylineSystem.StorylineSystemSave;
 import domain.terrain.Zone.ZoneSave;
 import domain.terrain.ZoneManager.ZoneManagerSave;
@@ -24,6 +25,7 @@ typedef SaveWorld =
 	map:SaveMap,
 	zones:ZoneManagerSave,
 	player:SavePlayer,
+	factions:FactionManagerSave,
 	tick:Int,
 	chunkSize:Int,
 	chunkCountX:Int,

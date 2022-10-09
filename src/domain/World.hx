@@ -11,6 +11,7 @@ import domain.AIManager;
 import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;
+import domain.data.factions.FactionManager;
 import domain.events.EntityLoadedEvent;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
@@ -30,6 +31,7 @@ class World
 	public var player(default, null):PlayerManager;
 	public var zones(default, null):ZoneManager;
 	public var chunks(default, null):ChunkManager;
+	public var factions(default, null):FactionManager;
 	public var spawner(default, null):Spawner;
 	public var zoneCountX(default, null):Int = 64;
 	public var zoneCountY(default, null):Int = 48;
@@ -53,6 +55,7 @@ class World
 		systems = new SystemManager();
 
 		clock = new Clock();
+		factions = new FactionManager();
 		ai = new AIManager();
 		player = new PlayerManager();
 		zones = new ZoneManager();
@@ -67,6 +70,7 @@ class World
 		rand = new Rand(seed);
 		visible = [];
 
+		factions.initialize();
 		spawner.initialize();
 		zones.initialize();
 		chunks.initialize();
@@ -112,6 +116,7 @@ class World
 		rand = new Rand(seed);
 		visible = [];
 		clock.setTick(data.tick);
+		factions.load(data.factions);
 		zones.load(data.zones);
 		map.load(data.map);
 		player.load(data.player);
@@ -152,6 +157,7 @@ class World
 			player: playerData,
 			map: mapData,
 			zones: zoneData,
+			factions: factions.save(),
 			chunkSize: chunkSize,
 			chunkCountX: chunkCountX,
 			chunkCountY: chunkCountY,

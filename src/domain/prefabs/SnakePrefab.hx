@@ -3,6 +3,7 @@ package domain.prefabs;
 import data.ColorKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
+import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsEnemy;
@@ -16,23 +17,24 @@ class SnakePrefab extends Prefab
 {
 	public function Create(options:Dynamic)
 	{
-		var snake = new Entity();
+		var entity = new Entity();
 
-		snake.add(new Sprite(SNAKE, C_ORANGE_1, C_BLACK_1, ACTORS));
-		snake.add(new Energy());
-		snake.add(new Level(1));
-		snake.get(Energy).consumeEnergy(10);
-		snake.add(new Health());
-		snake.add(new Stats(0, 1, 2));
-		snake.add(new IsEnemy());
-		snake.add(new Moniker('Rattlesnake'));
-		snake.add(new Inventory());
-		snake.add(new EquipmentSlot('head', 'face', EQ_SLOT_HAND, true));
+		entity.add(new Sprite(SNAKE, C_ORANGE_1, C_BLACK_1, ACTORS));
+		entity.add(new Energy());
+		entity.add(new Level(1));
+		entity.add(new FactionMember(FACTION_WILDLIFE));
+		entity.get(Energy).consumeEnergy(10);
+		entity.add(new Health());
+		entity.add(new Stats(0, 1, 2));
+		entity.add(new IsEnemy());
+		entity.add(new Moniker('Rattlesnake'));
+		entity.add(new Inventory());
+		entity.add(new EquipmentSlot('head', 'face', EQ_SLOT_HAND, true));
 
-		snake.get(Health).corpsePrefab = CORPSE_SNAKE;
+		entity.get(Health).corpsePrefab = CORPSE_SNAKE;
 
-		snake.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
+		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
 
-		return snake;
+		return entity;
 	}
 }

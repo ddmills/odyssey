@@ -73,8 +73,9 @@ class AIManager
 
 	public function tryAttackingRange(entity:Entity):Bool
 	{
+		var factions = Game.instance.world.factions;
 		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 5);
-		var target = inRange.find((e) -> e.has(Health) && e.id != entity.id);
+		var target = inRange.find((e) -> e.has(Health) && factions.areEntitiesHostile(e, entity));
 
 		if (target.isNull())
 		{
@@ -88,8 +89,9 @@ class AIManager
 
 	public function tryAttackingNearby(entity:Entity):Bool
 	{
+		var factions = Game.instance.world.factions;
 		var neighbors = Game.instance.world.getNeighborEntities(entity.pos.toIntPoint());
-		var target = neighbors.flatten().find((e) -> e.has(Health));
+		var target = neighbors.flatten().find((e) -> factions.areEntitiesHostile(e, entity));
 
 		if (target.isNull())
 		{

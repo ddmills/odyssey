@@ -4,7 +4,7 @@
 - [ ] storyline
 	- [x] how to define positional data (random + criteria?)
 	- [ ] "unplaced" detached objects within zones (placed on arrival within parameters)
-- [ ] faction system
+- [x] faction system
 - [ ] dialog
 	- [ ] dialog trees
 	- [ ] dialog options

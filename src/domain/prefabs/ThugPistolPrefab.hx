@@ -4,6 +4,7 @@ import data.ColorKey;
 import data.TileKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
+import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsEnemy;
@@ -24,8 +25,8 @@ class ThugPistolPrefab extends Prefab
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
 
 		entity.add(new Sprite(tkey, C_WHITE_1, C_RED_1, ACTORS));
-		entity.add(new Energy());
-		entity.get(Energy).consumeEnergy(10);
+		entity.add(new Energy(-10));
+		entity.add(new FactionMember(FACTION_BANDIT));
 		entity.add(new Level(1));
 		entity.add(new Health());
 		entity.add(new Stats(0, 0, 3));

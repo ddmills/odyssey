@@ -6,6 +6,7 @@ import data.SpawnableType;
 import data.TileKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
+import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsPlayer;
@@ -30,7 +31,8 @@ class PlayerPrefab extends Prefab
 
 		entity.add(new Sprite(tkey, C_WHITE_1, C_BLUE_2, ACTORS));
 		entity.add(new IsPlayer());
-		entity.add(new Energy());
+		entity.add(new FactionMember(FACTION_PLAYER));
+		entity.add(new Energy(10));
 		entity.add(new Level(120));
 		entity.add(new Vision(20, 0));
 		entity.add(new Moniker('Cowboy'));

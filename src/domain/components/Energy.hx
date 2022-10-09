@@ -9,8 +9,9 @@ class Energy extends Component
 
 	public var hasEnergy(get, never):Bool;
 
-	public function new()
+	public function new(value:Int = 0)
 	{
+		this.value = value;
 		addHandler(ConsumeEnergyEvent, onConsumeEnergy);
 	}
 

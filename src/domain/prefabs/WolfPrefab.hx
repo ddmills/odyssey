@@ -3,6 +3,7 @@ package domain.prefabs;
 import data.ColorKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
+import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.Inventory;
 import domain.components.IsEnemy;
@@ -21,6 +22,7 @@ class WolfPrefab extends Prefab
 		entity.add(new Sprite(WOLF, C_GRAY_1, C_RED_2, ACTORS));
 		entity.add(new Energy());
 		entity.add(new Level(1));
+		entity.add(new FactionMember(FACTION_WILDLIFE));
 		entity.get(Energy).consumeEnergy(10);
 		entity.add(new Health());
 		entity.add(new Stats(2, 2, 1));

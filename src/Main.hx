@@ -3,6 +3,7 @@ import data.AudioResources;
 import data.BiomeMap;
 import data.Bitmasks;
 import data.Commands;
+import data.Factions;
 import data.TextResources;
 import data.TileResources;
 import data.storylines.Stories;
@@ -42,6 +43,7 @@ class Main extends hxd.App
 		PoiLayouts.Init();
 		RoomDecorators.Init();
 		Stories.Init();
+		Factions.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 
