@@ -46,6 +46,7 @@
 	- [ ] no-arg component constructors
 	- [x] Save map data (?)
 	- [x] save/load chunks
+	- [x] save storylines
 	- [x] dynamic unload/load chunks
 	- [x] save load files
 	- [ ] out of bounds entity destroy (no chunk)

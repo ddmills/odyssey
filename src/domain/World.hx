@@ -102,6 +102,7 @@ class World
 		player.create();
 		player.entity.x = (mapWidth / 2).floor();
 		player.entity.y = (mapHeight / 2).floor();
+		systems.storylines.addStoryline('wolf');
 	}
 
 	public function load(data:SaveWorld)
@@ -113,6 +114,7 @@ class World
 		clock.setTick(data.tick);
 		map.load(data.map);
 		player.load(data.player);
+		systems.storylines.Load(data.storylines);
 
 		for (id in data.detachedEntities)
 		{
@@ -152,6 +154,7 @@ class World
 			chunkCountY: chunkCountY,
 			tick: clock.tick,
 			detachedEntities: detachedEntities,
+			storylines: systems.storylines.save(),
 		};
 
 		Performance.stop('world-save', true);

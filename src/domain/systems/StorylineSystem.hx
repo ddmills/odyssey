@@ -5,6 +5,11 @@ import data.storylines.Stories;
 import data.storylines.Storyline;
 import ecs.System;
 
+typedef StorylineSystemSave =
+{
+	active:Array<StorylineSave>,
+}
+
 class StorylineSystem extends System
 {
 	private var active:Array<Storyline>;
@@ -12,6 +17,18 @@ class StorylineSystem extends System
 	public function new()
 	{
 		active = [];
+	}
+
+	public function save():StorylineSystemSave
+	{
+		return {
+			active: active.map((s) -> s.save()),
+		};
+	}
+
+	public function Load(data:StorylineSystemSave)
+	{
+		this.active = data.active.map((d) -> Storyline.Load(d));
 	}
 
 	public function addStoryline(id:String)

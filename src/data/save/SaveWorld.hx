@@ -1,5 +1,6 @@
 package data.save;
 
+import domain.systems.StorylineSystem.StorylineSystemSave;
 import ecs.Entity.EntitySaveData;
 
 typedef SavePlayer =
@@ -19,4 +20,5 @@ typedef SaveWorld =
 	chunkCountX:Int,
 	chunkCountY:Int,
 	detachedEntities:Array<EntitySaveData>,
+	storylines:StorylineSystemSave,
 }

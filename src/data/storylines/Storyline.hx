@@ -4,6 +4,14 @@ import common.struct.Set;
 import core.Game;
 import ecs.Entity;
 
+typedef StorylineSave =
+{
+	storyId:String,
+	triggerData:Map<String, Dynamic>,
+	variables:Map<String, Dynamic>,
+	triggered:Set<String>,
+};
+
 class Storyline
 {
 	private var triggerData:Map<String, Dynamic>;
@@ -12,12 +20,14 @@ class Storyline
 
 	public var story(default, null):Story;
 
-	public function new(story:Story)
+	public function save():StorylineSave
 	{
-		this.story = story;
-		triggerData = [];
-		triggered = new Set();
-		variables = [];
+		return {
+			triggerData: triggerData,
+			variables: variables,
+			triggered: triggered,
+			storyId: story.id,
+		}
 	}
 
 	public function update()
@@ -70,5 +80,24 @@ class Storyline
 	public function setTriggerData<T>(key:String, value:T)
 	{
 		triggerData.set(key, value);
+	}
+
+	public static function Load(data:StorylineSave):Storyline
+	{
+		var story = Stories.Get(data.storyId);
+		var storyline = new Storyline(story);
+		storyline.triggerData = data.triggerData;
+		storyline.variables = data.variables;
+		storyline.triggered = data.triggered;
+
+		return storyline;
+	}
+
+	public function new(story:Story)
+	{
+		this.story = story;
+		triggerData = [];
+		triggered = new Set();
+		variables = [];
 	}
 }
