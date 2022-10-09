@@ -1,0 +1,6 @@
+wolf quest:
+
+- [x] choose a town in a forest
+- [x] choose a forest zone near the town
+- [x] spawn a wolf in the forest zone
+- [ ] killing the wolf gives trophy

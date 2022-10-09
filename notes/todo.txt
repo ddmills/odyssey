@@ -5,6 +5,8 @@
 	- [x] how to define positional data (random + criteria?)
 	- [ ] "unplaced" detached objects within zones (placed on arrival within parameters)
 - [x] faction system
+	- [x] temporary rage/enemy
+	- [ ] faction global temporary modifier
 - [ ] dialog
 	- [ ] dialog trees
 	- [ ] dialog options

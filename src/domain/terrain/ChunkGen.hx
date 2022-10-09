@@ -249,7 +249,7 @@ class ChunkGen
 		}
 
 		var middle = zone.worldPos.add(halfZoneSize, halfZoneSize);
-		if (chunk.hasWorldPoint(middle))
+		if (hasRailroad && chunk.hasWorldPoint(middle))
 		{
 			addRailroadTrack(chunk, chunk.worldPos.sub(middle));
 		}

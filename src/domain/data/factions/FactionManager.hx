@@ -26,7 +26,7 @@ class FactionManager
 
 		setRelation(FACTION_PLAYER, FACTION_BANDIT, -400);
 		setRelation(FACTION_PLAYER, FACTION_VILLAGE, 250);
-		setRelation(FACTION_PLAYER, FACTION_WILDLIFE, -250);
+		setRelation(FACTION_PLAYER, FACTION_WILDLIFE, -100);
 		setRelation(FACTION_VILLAGE, FACTION_BANDIT, -400);
 		setRelation(FACTION_VILLAGE, FACTION_WILDLIFE, -100);
 	}
@@ -50,10 +50,46 @@ class FactionManager
 
 		if (memberA != null && memberB != null)
 		{
+			var modA = memberA.getModifier(memberB.factionType);
+			var modB = memberB.getModifier(memberA.factionType);
+
+			if (modA != null || modB != null)
+			{
+				var modAV = modA == null ? 10000 : modA.value;
+				var modBV = modB == null ? 10000 : modB.value;
+
+				return Math.min(modAV, modBV).floor();
+			}
+
 			return getRelation(memberA.factionType, memberB.factionType);
 		}
 
 		return 0;
+	}
+
+	public function getDisplay(value:Int)
+	{
+		if (value <= -300)
+		{
+			return 'Aggressive';
+		}
+		if (value <= -200)
+		{
+			return 'Unfriendly';
+		}
+		if (value >= 300)
+		{
+			return 'Loyal';
+		}
+		if (value >= 200)
+		{
+			return 'Friendly';
+		}
+		if (value >= 100)
+		{
+			return 'Amicable';
+		}
+		return 'Neutral';
 	}
 
 	public function areEntitiesHostile(a:Entity, b:Entity):Bool
@@ -75,6 +111,13 @@ class FactionManager
 	{
 		var key = getRelationKey(a, b);
 		relations.set(key, value);
+	}
+
+	public function changeRelation(a:FactionType, b:FactionType, delta:Int)
+	{
+		var key = getRelationKey(a, b);
+		var relation = getRelation(a, b);
+		relations.set(key, relation + delta);
 	}
 
 	private function getRelationKey(a:FactionType, b:FactionType):String
