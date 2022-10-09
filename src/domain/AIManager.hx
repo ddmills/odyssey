@@ -5,7 +5,6 @@ import data.Cardinal;
 import domain.components.Collider;
 import domain.components.Health;
 import domain.components.Move;
-import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;

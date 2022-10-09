@@ -2,7 +2,6 @@
 	- [x] in play screen
 	- [ ] better graphics
 - [ ] storyline
-	- [ ] persist entities outside of chunk storage
 	- [ ] how to define positional data (random + criteria?)
 - [x] ground interact
 	- [x] press spacebar to interact with ground
@@ -52,6 +51,11 @@
 	- [ ] out of bounds entity destroy (no chunk)
 	- [x] save/load tile data
 	- [ ] inventory items
+	- [ ] save map data
+	- [ ] ensure inventory items stored
+	- [x] allow saving of detached entities
+	- [x] detached entites should not be part of queries
+	- [ ] add "temporary" entities (not saved)
 - [ ] Death screen
 	- [x] show on death
 	- [ ] show game data

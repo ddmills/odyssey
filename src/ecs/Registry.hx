@@ -1,11 +1,14 @@
 package ecs;
 
+import common.struct.Set;
+
 class Registry
 {
 	var cbit:Int;
 	var bits:Map<String, Int>;
 	var queries:Array<Query>;
 	var entityMap:Map<String, Entity>;
+	var detached:Set<String>;
 
 	public var size(default, null):Int;
 
@@ -15,6 +18,7 @@ class Registry
 		size = 0;
 		bits = new Map();
 		entityMap = new Map();
+		detached = new Set();
 		queries = new Array();
 	}
 
@@ -58,6 +62,11 @@ class Registry
 		}
 	}
 
+	public function getDetachedEntities():Iterator<String>
+	{
+		return detached.iterator();
+	}
+
 	@:allow(ecs.Query)
 	function registerQuery(query:Query)
 	{
@@ -88,6 +97,19 @@ class Registry
 		candidacy(entity);
 		size--;
 		entityMap.remove(entity.id);
+		detached.remove(entity.id);
+	}
+
+	@:allow(ecs.Entity)
+	public function detachEntity(entityId:String)
+	{
+		detached.add(entityId);
+	}
+
+	@:allow(ecs.Entity)
+	public function reattachEntity(entityId:String)
+	{
+		detached.remove(entityId);
 	}
 
 	public function iterator()

@@ -20,7 +20,7 @@
 			"effects": [
 				{
 					"type": "ENTITY_SPAWN",
-					"spawnable": "SNAKE",
+					"spawnable": "VIAL_WHISKEY",
 					"store": "wolf"
 				}
 			]

@@ -116,6 +116,23 @@ class IterableExtensions
 		}
 	}
 
+	public static inline function filterMap<A, B>(it:Iterable<A>, fn:(item:A) -> {
+		value: B,
+		filter: Bool
+	}):Array<B>
+	{
+		return [
+			for (x in it)
+			{
+				var r = fn(x);
+				if (r.filter)
+				{
+					r.value;
+				}
+			}
+		];
+	}
+
 	public static inline function map<A, B>(it:Iterable<A>, fn:(item:A) -> B):Array<B>
 	{
 		return Lambda.map(it, fn);

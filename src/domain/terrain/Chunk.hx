@@ -85,11 +85,20 @@ class Chunk
 			{
 				return edata.map((data) ->
 				{
-					var entity = Entity.Load(data);
-					entity.fireEvent(new EntityLoadedEvent(tickDelta));
+					Entity.Load(data, tickDelta);
 					return data.id;
 				});
 			});
+		}
+
+		for (detachedId in Game.instance.registry.getDetachedEntities())
+		{
+			var e = Game.instance.registry.getEntity(detachedId);
+			if (e.chunkIdx == chunkId)
+			{
+				e.reattach();
+				setEntityPosition(e);
+			}
 		}
 
 		Game.instance.render(BACKGROUND, tiles);
@@ -115,14 +124,21 @@ class Chunk
 			cells: cells.save((v) -> v),
 			entities: entities.save((v) ->
 			{
-				return v.map((id) ->
+				return v.filterMap((id) ->
 				{
 					var e = Game.instance.registry.getEntity(id);
-					if (e != null)
+					if (e != null && !e.isDetachable)
 					{
-						return e.save();
+						return {
+							value: e.save(),
+							filter: true,
+						};
 					}
-					return null;
+
+					return {
+						value: null,
+						filter: false,
+					};
 				});
 			})
 		};
@@ -147,7 +163,14 @@ class Chunk
 				var e = Game.instance.registry.getEntity(id);
 				if (e != null)
 				{
-					e.destroy();
+					if (e.isDetachable)
+					{
+						e.detach();
+					}
+					else
+					{
+						e.destroy();
+					}
 				}
 			}
 		}

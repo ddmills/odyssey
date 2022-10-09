@@ -11,6 +11,7 @@ import domain.AIManager;
 import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;
+import domain.events.EntityLoadedEvent;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.Cell;
@@ -70,7 +71,6 @@ class World
 		zones.initialize();
 		chunks.initialize();
 		map.initialize();
-		systems.initialize();
 		player.initialize();
 		systems.initialize();
 	}
@@ -113,6 +113,12 @@ class World
 		clock.setTick(data.tick);
 		map.load(data.map);
 		player.load(data.player);
+
+		for (id in data.detachedEntities)
+		{
+			Entity.Load(id);
+		}
+
 		Performance.stop('world-load', true);
 	}
 
@@ -123,6 +129,20 @@ class World
 		var mapData = map.save();
 		chunks.save(teardown);
 
+		var detachedEntityIds = game.registry.getDetachedEntities();
+		var detachedEntities = new Array<EntitySaveData>();
+
+		while (detachedEntityIds.hasNext())
+		{
+			var id = detachedEntityIds.next();
+			var e = game.registry.getEntity(id);
+			detachedEntities.push(e.save());
+			if (teardown)
+			{
+				e.destroy();
+			}
+		}
+
 		var s = {
 			seed: seed,
 			player: playerData,
@@ -131,6 +151,7 @@ class World
 			chunkCountX: chunkCountX,
 			chunkCountY: chunkCountY,
 			tick: clock.tick,
+			detachedEntities: detachedEntities,
 		};
 
 		Performance.stop('world-save', true);

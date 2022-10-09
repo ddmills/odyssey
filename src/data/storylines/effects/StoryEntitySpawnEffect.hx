@@ -27,7 +27,7 @@ class StoryEntitySpawnEffect extends StoryEffect
 		var pos = Game.instance.world.player.pos.floor().add(new Coordinate(0, -10, WORLD));
 		trace('SPAWN AT', pos.toString());
 
-		var entity = Spawner.Spawn(params.spawnable, pos);
+		var entity = Spawner.Spawn(params.spawnable, pos, {}, true);
 
 		storyline.setEntityVariable(params.store, entity);
 	}

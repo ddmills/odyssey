@@ -3,6 +3,7 @@ package domain.systems;
 import core.Frame;
 import domain.components.Drawable;
 import domain.components.IsDestroyed;
+import domain.components.IsDetached;
 import domain.components.IsInventoried;
 import domain.components.Sprite;
 import domain.components.SpriteAnim;
@@ -18,11 +19,11 @@ class SpriteSystem extends System
 	{
 		sprites = new Query({
 			all: [Sprite],
-			none: [IsInventoried, IsDestroyed]
+			none: [IsDetached, IsInventoried, IsDestroyed]
 		});
 		anims = new Query({
 			all: [SpriteAnim],
-			none: [IsInventoried, IsDestroyed]
+			none: [IsDetached, IsInventoried, IsDestroyed]
 		});
 
 		sprites.onEntityAdded((entity) -> renderSprite(entity.get(Sprite)));

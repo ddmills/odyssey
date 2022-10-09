@@ -22,7 +22,7 @@ class Game
 	public var CLEAR_COLOR:Int = 0x0C0A0A;
 	public var TEXT_COLOR:Int = C_WHITE_1;
 	public var TEXT_COLOR_FOCUS:Int = C_YELLOW_2;
-	public var SHOW_BG_COLORS:Bool = false;
+	public var SHOW_BG_COLORS:Bool = true;
 
 	public static var instance:Game;
 

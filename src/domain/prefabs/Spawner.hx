@@ -68,11 +68,17 @@ class Spawner
 		prefabs.set(RAILROAD, new RailroadPrefab());
 	}
 
-	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
+	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
 	{
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
 		var o = options == null ? {} : options;
+		var d = isDetachable == null ? false : isDetachable;
 		var entity = prefabs.get(type).Create(o);
+
+		if (d)
+		{
+			entity.isDetachable = true;
+		}
 
 		entity.pos = p;
 
@@ -81,8 +87,8 @@ class Spawner
 		return entity;
 	}
 
-	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
+	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
 	{
-		return Game.instance.world.spawner.spawn(type, pos, options);
+		return Game.instance.world.spawner.spawn(type, pos, options, isDetachable);
 	}
 }

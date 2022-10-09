@@ -18,4 +18,5 @@ typedef SaveWorld =
 	chunkSize:Int,
 	chunkCountX:Int,
 	chunkCountY:Int,
+	detachedEntities:Array<EntitySaveData>,
 }

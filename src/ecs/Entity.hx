@@ -5,6 +5,8 @@ import common.struct.Coordinate;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Drawable;
+import domain.components.IsDetached;
+import domain.events.EntityLoadedEvent;
 import domain.events.MovedEvent;
 import domain.terrain.Chunk;
 
@@ -24,7 +26,10 @@ class Entity
 	public var x(get, set):Float;
 	public var y(get, set):Float;
 	public var chunk(get, never):Chunk;
+	public var chunkIdx(get, never):Int;
 	public var isDestroyed(default, null):Bool;
+	public var isDetached(default, null):Bool;
+	public var isDetachable:Bool;
 
 	private var components:Map<String, Array<Component>>;
 
@@ -37,6 +42,8 @@ class Entity
 		flags = new Bits(64);
 		components = new Map();
 		isDestroyed = false;
+		isDetached = false;
+		isDetachable = false;
 		if (register)
 		{
 			setId(UniqueId.Create());
@@ -214,7 +221,7 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
-		var prevChunkIdx = pos.toChunkIdx();
+		var prevChunkIdx = chunkIdx;
 
 		var p = value.toPx();
 		var w = value.toWorld();
@@ -227,7 +234,7 @@ class Entity
 		_x = w.x;
 		_y = w.y;
 
-		var nextChunkIdx = pos.toChunkIdx();
+		var nextChunkIdx = chunkIdx;
 
 		if (prevChunkIdx != nextChunkIdx)
 		{
@@ -270,9 +277,14 @@ class Entity
 		return _y;
 	}
 
-	function get_chunk():Chunk
+	inline function get_chunkIdx():Int
 	{
-		return Game.instance.world.chunks.getChunkById(pos.toChunkIdx());
+		return pos.toChunkIdx();
+	}
+
+	inline function get_chunk():Chunk
+	{
+		return Game.instance.world.chunks.getChunkById(chunkIdx);
 	}
 
 	public function clone(newId:String = null):Entity
@@ -280,6 +292,23 @@ class Entity
 		var saved = save();
 		saved.id = UniqueId.Create();
 		return Entity.Load(saved);
+	}
+
+	public function detach()
+	{
+		isDetached = true;
+		if (!has(IsDetached))
+		{
+			add(new IsDetached());
+			registry.detachEntity(id);
+		}
+	}
+
+	public function reattach()
+	{
+		registry.reattachEntity(id);
+		isDetached = false;
+		remove(IsDetached);
 	}
 
 	public function save():EntitySaveData
@@ -295,11 +324,13 @@ class Entity
 				x: x,
 				y: y,
 			},
+			isDetachable: isDetachable,
+			isDetached: isDetached,
 			components: cdata,
-		}
+		};
 	}
 
-	public static function Load(data:EntitySaveData):Entity
+	public static function Load(data:EntitySaveData, tickDelta:Int = 0):Entity
 	{
 		var entity = new Entity(false);
 		entity.isCandidacyEnabled = false;
@@ -321,8 +352,18 @@ class Entity
 		}
 
 		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
+		entity.isDetachable = data.isDetachable;
+		entity.isDetached = data.isDetached;
+
+		if (entity.isDetached)
+		{
+			entity.registry.detachEntity(entity.id);
+		}
+
 		entity.isCandidacyEnabled = true;
 		entity.registry.candidacy(entity);
+
+		entity.fireEvent(new EntityLoadedEvent(tickDelta));
 
 		return entity;
 	}
@@ -341,5 +382,7 @@ typedef EntitySaveData =
 	{
 		x:Float, y:Float,
 	},
+	isDetachable:Bool,
+	isDetached:Bool,
 	components:Array<ComponentSaveData>,
 }

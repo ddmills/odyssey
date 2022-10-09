@@ -4,8 +4,10 @@ import core.Frame;
 import data.EnergyActionType;
 import domain.components.Bullet;
 import domain.components.Energy;
+import domain.components.IsDead;
+import domain.components.IsDestroyed;
+import domain.components.IsDetached;
 import domain.components.IsPlayer;
-import domain.components.Moniker;
 import domain.events.ConsumeEnergyEvent;
 import domain.skills.Skills;
 import ecs.Entity;
@@ -23,7 +25,8 @@ class EnergySystem extends System
 	{
 		isPlayersTurn = false;
 		query = new Query({
-			all: [Energy]
+			all: [Energy],
+			none: [IsDetached, IsDead, IsDestroyed],
 		});
 		bullets = new Query({
 			all: [Bullet]
