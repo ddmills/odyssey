@@ -23,7 +23,9 @@ class RoomGraveyard extends RoomDecorator
 		room.tiles.fillFn((idx) ->
 		{
 			var pos = room.tiles.coord(idx);
-			var tile = new RoomTile([]);
+			var tile:RoomTile = {
+				content: [],
+			};
 
 			tile.tileKey = TERRAIN_BASIC_5;
 

@@ -38,7 +38,7 @@ typedef PoiTemplate =
 	railroadStop:Null<Int>,
 	layout:PoiLayoutType,
 	criteria:PoiCriteria,
-	rooms:Array<RoomTemplate>
+	rooms:Array<RoomTemplate>,
 }
 
 class MapData
@@ -346,12 +346,17 @@ class MapData
 
 	public function save():SaveMap
 	{
-		return {};
+		return {
+			pois: pois.map((p) -> p.save()),
+			railroad: railroad.save(),
+		};
 	}
 
 	public function load(data:SaveMap)
 	{
 		r = new Rand(world.seed);
+		pois = data.pois.map((d) -> ZonePoi.Load(d));
+		railroad = RailroadData.Load(data.railroad);
 	}
 
 	public function getBiome(biomeType:BiomeType):Biome

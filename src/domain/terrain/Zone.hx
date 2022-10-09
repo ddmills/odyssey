@@ -21,6 +21,12 @@ typedef RailroadConnections =
 	west:Array<Int>,
 };
 
+typedef ZoneSave =
+{
+	zoneId:Int,
+	railroad:ZoneRailroad,
+};
+
 class Zone
 {
 	public var zoneId(default, null):Int;
@@ -36,6 +42,21 @@ class Zone
 	{
 		this.zoneId = zoneId;
 		biomes = BiomeMap.GetAt(zoneId);
+	}
+
+	public function save():ZoneSave
+	{
+		return {
+			zoneId: zoneId,
+			railroad: railroad,
+		};
+	}
+
+	public static function Load(data:ZoneSave):Zone
+	{
+		var z = new Zone(data.zoneId);
+		z.railroad = data.railroad;
+		return z;
 	}
 
 	public function getRailroadConnections()

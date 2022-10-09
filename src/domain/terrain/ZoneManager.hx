@@ -3,6 +3,12 @@ package domain.terrain;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
+import domain.terrain.Zone.ZoneSave;
+
+typedef ZoneManagerSave =
+{
+	zones:GridSave<ZoneSave>,
+};
 
 class ZoneManager
 {
@@ -20,6 +26,18 @@ class ZoneManager
 	{
 		zones = new Grid(zoneCountX, zoneCountY);
 		zones.fillFn((idx) -> new Zone(idx));
+	}
+
+	public function save():ZoneManagerSave
+	{
+		return {
+			zones: zones.save((z) -> z.save()),
+		};
+	}
+
+	public function load(data:ZoneManagerSave)
+	{
+		zones.load(data.zones, (z) -> Zone.Load(z));
 	}
 
 	inline public function getChunksForZone(zoneId:Int)

@@ -44,15 +44,14 @@
 	- [x] haxe macro/metadata flags
 	- [x] entity clone()
 	- [ ] no-arg component constructors
-	- [x] Save map data (?)
 	- [x] save/load chunks
 	- [x] save storylines
 	- [x] dynamic unload/load chunks
 	- [x] save load files
+	- [x] save map data
 	- [ ] out of bounds entity destroy (no chunk)
 	- [x] save/load tile data
 	- [ ] inventory items
-	- [ ] save map data
 	- [ ] ensure inventory items stored
 	- [x] allow saving of detached entities
 	- [x] detached entites should not be part of queries

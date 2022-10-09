@@ -42,10 +42,12 @@ class PoiLayoutScattered extends PoiLayout
 							y: node.offsetY,
 						};
 
-						var tile = new RoomTile([]);
-						tile.tileKey = TERRAIN_BASIC_5;
-						tile.primary = C_BLACK_1;
-						tile.background = C_RED_3;
+						var tile:RoomTile = {
+							content: [],
+							tileKey: TERRAIN_BASIC_5,
+							primary: C_BLACK_1,
+							background: C_RED_3,
+						};
 
 						poi.setTile(pos, tile);
 					}
@@ -60,10 +62,12 @@ class PoiLayoutScattered extends PoiLayout
 							y: node.offsetY + y,
 						};
 
-						var tile = new RoomTile([]);
-						tile.tileKey = TERRAIN_BASIC_5;
-						tile.primary = C_BLACK_1;
-						tile.background = C_RED_3;
+						var tile:RoomTile = {
+							content: [],
+							tileKey: TERRAIN_BASIC_5,
+							primary: C_BLACK_1,
+							background: C_RED_3,
+						};
 
 						poi.setTile(pos, tile);
 					}

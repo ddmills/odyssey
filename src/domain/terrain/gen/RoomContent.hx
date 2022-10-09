@@ -2,8 +2,8 @@ package domain.terrain.gen;
 
 import data.SpawnableType;
 
-@:structInit class RoomContent
+typedef RoomContent =
 {
-	public var spawnableType:SpawnableType;
-	public var spawnableSettings:Dynamic;
+	spawnableType:SpawnableType,
+	spawnableSettings:Dynamic,
 }

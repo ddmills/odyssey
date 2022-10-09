@@ -36,7 +36,10 @@ class RoomSheriffOffice extends RoomDecorator
 		room.tiles.fillFn((idx) ->
 		{
 			var pos = room.tiles.coord(idx);
-			var tile = new RoomTile([]);
+
+			var tile:RoomTile = {
+				content: [],
+			};
 			var midY = (room.height / 2).round();
 			var midX = (room.width / 2).round();
 

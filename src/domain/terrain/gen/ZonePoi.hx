@@ -7,6 +7,16 @@ import core.Game;
 import data.PoiType;
 import domain.terrain.MapData.PoiTemplate;
 
+typedef ZonePoiSave =
+{
+	zoneId:Int,
+	type:PoiType,
+	tileOverrides:GridSave<RoomTile>,
+	isGenerated:Bool,
+	template:PoiTemplate,
+	rooms:Array<Room>,
+}
+
 class ZonePoi
 {
 	public var zoneId:Int;
@@ -38,6 +48,29 @@ class ZonePoi
 	public function get_height():Int
 	{
 		return Game.instance.world.zoneSize;
+	}
+
+	public function save():ZonePoiSave
+	{
+		return {
+			zoneId: zoneId,
+			type: type,
+			tileOverrides: tileOverrides.save((t) -> t),
+			isGenerated: isGenerated,
+			template: template,
+			rooms: rooms,
+		};
+	}
+
+	public static function Load(data:ZonePoiSave):ZonePoi
+	{
+		var poi = new ZonePoi(data.zoneId, data.template);
+		poi.type = data.type;
+		poi.tileOverrides.load(data.tileOverrides, (t) -> t);
+		poi.isGenerated = data.isGenerated;
+		poi.rooms = data.rooms;
+
+		return poi;
 	}
 
 	public function generate()

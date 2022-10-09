@@ -18,6 +18,12 @@ typedef RailroadStop =
 	parentZoneId:Int,
 };
 
+typedef RailroadDataSave =
+{
+	stops:Array<RailroadStop>,
+	lines:Array<RailroadLine>,
+};
+
 class RailroadData
 {
 	public var stops:Array<RailroadStop>;
@@ -27,6 +33,22 @@ class RailroadData
 	{
 		stops = [];
 		lines = [];
+	}
+
+	public function save():RailroadDataSave
+	{
+		return {
+			stops: stops,
+			lines: lines,
+		};
+	}
+
+	public static function Load(data:RailroadDataSave):RailroadData
+	{
+		var r = new RailroadData();
+		r.stops = data.stops;
+		r.lines = data.lines;
+		return r;
 	}
 
 	public function addStop(stop:RailroadStop)

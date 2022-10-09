@@ -18,6 +18,7 @@ enum abstract ColorKey(Int) to Int from Int
 	var C_PURPLE_3 = 0x221528; // swamp bg
 	var C_PURPLE_2 = 0x42215a; // swamp fg
 	var C_PURPLE_1 = 0x917ab8;
+	var C_RED_4 = 0x260B09;
 	var C_RED_3 = 0x361611;
 	var C_RED_2 = 0x7A2D23;
 	var C_RED_1 = 0xA73E3E;

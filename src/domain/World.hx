@@ -112,6 +112,7 @@ class World
 		rand = new Rand(seed);
 		visible = [];
 		clock.setTick(data.tick);
+		zones.load(data.zones);
 		map.load(data.map);
 		player.load(data.player);
 		systems.storylines.Load(data.storylines);
@@ -130,6 +131,7 @@ class World
 		var playerData = player.save(teardown);
 		var mapData = map.save();
 		chunks.save(teardown);
+		var zoneData = zones.save();
 
 		var detachedEntityIds = game.registry.getDetachedEntities();
 		var detachedEntities = new Array<EntitySaveData>();
@@ -149,6 +151,7 @@ class World
 			seed: seed,
 			player: playerData,
 			map: mapData,
+			zones: zoneData,
 			chunkSize: chunkSize,
 			chunkCountX: chunkCountX,
 			chunkCountY: chunkCountY,
