@@ -122,7 +122,7 @@ class Zone
 		return chunks;
 	}
 
-	inline function get_primaryBiome():Dynamic
+	inline function get_primaryBiome():BiomeType
 	{
 		return [biomes.nw, biomes.ne, biomes.se, biomes.sw].mostFrequent();
 	}

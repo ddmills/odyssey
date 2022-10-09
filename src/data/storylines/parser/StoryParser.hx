@@ -18,7 +18,7 @@ class StoryParser
 			id: json.id,
 			name: json.name,
 			state: state,
-			triggers: triggers,
+			triggers: triggers
 		});
 	}
 }

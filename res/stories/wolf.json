@@ -3,6 +3,28 @@
 	"name": "Kill wolf",
 	"state": [
 		{
+			"key": "town",
+			"type": "ZONE",
+			"isParameter": true,
+			"requirements": {
+				"biomes": ["FOREST"],
+				"poiType": "POI_TOWN"
+			}
+		},
+		{
+			"key": "woods",
+			"type": "ZONE",
+			"isParameter": true,
+			"requirements": {
+				"biomes": ["FOREST"],
+				"distance": {
+					"source": "town",
+					"min": 2,
+					"max": 4
+				}
+			}
+		},
+		{
 			"key": "wolf",
 			"type": "ENTITY"
 		},
@@ -21,7 +43,8 @@
 				{
 					"type": "ENTITY_SPAWN",
 					"spawnable": "WOLF",
-					"store": "wolf"
+					"store": "wolf",
+					"zone": "woods"
 				}
 			]
 		},

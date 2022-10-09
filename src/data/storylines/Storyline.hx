@@ -2,7 +2,9 @@ package data.storylines;
 
 import common.struct.Set;
 import core.Game;
+import domain.terrain.Zone;
 import ecs.Entity;
+import hxd.Rand;
 
 typedef StorylineSave =
 {
@@ -10,6 +12,7 @@ typedef StorylineSave =
 	triggerData:Map<String, Dynamic>,
 	variables:Map<String, Dynamic>,
 	triggered:Set<String>,
+	seed:Int,
 };
 
 class Storyline
@@ -18,6 +21,7 @@ class Storyline
 	private var variables:Map<String, Dynamic>;
 	private var triggered:Set<String>;
 
+	public var rand:Rand;
 	public var story(default, null):Story;
 
 	public function save():StorylineSave
@@ -27,7 +31,22 @@ class Storyline
 			variables: variables,
 			triggered: triggered,
 			storyId: story.id,
+			seed: rand.getSeed(),
 		}
+	}
+
+	public function initialize():Bool
+	{
+		// TODO: add attempts
+		for (variable in story.params.state)
+		{
+			if (!variable.initialize(this))
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public function update()
@@ -49,6 +68,27 @@ class Storyline
 				triggered.add(trigger.key);
 			}
 		}
+	}
+
+	public function getZoneVariable(key:String):Null<Zone>
+	{
+		var id = variables.get(key);
+		if (id == null)
+		{
+			return null;
+		}
+
+		return Game.instance.world.zones.getZoneById(id);
+	}
+
+	public function setZoneVariable(key:String, zone:Zone)
+	{
+		if (zone == null)
+		{
+			variables.remove(key);
+		}
+
+		variables.set(key, zone.zoneId);
 	}
 
 	public function getEntityVariable(key:String):Null<Entity>
@@ -85,7 +125,7 @@ class Storyline
 	public static function Load(data:StorylineSave):Storyline
 	{
 		var story = Stories.Get(data.storyId);
-		var storyline = new Storyline(story);
+		var storyline = new Storyline(story, data.seed);
 		storyline.triggerData = data.triggerData;
 		storyline.variables = data.variables;
 		storyline.triggered = data.triggered;
@@ -93,11 +133,12 @@ class Storyline
 		return storyline;
 	}
 
-	public function new(story:Story)
+	public function new(story:Story, seed:Int)
 	{
 		this.story = story;
 		triggerData = [];
 		triggered = new Set();
 		variables = [];
+		rand = new Rand(seed);
 	}
 }

@@ -8,8 +8,9 @@ import haxe.EnumTools;
 
 typedef StoryEntitySpawnEffectParams =
 {
-	var spawnable:SpawnableType;
-	var store:String;
+	spawnable:SpawnableType,
+	store:String,
+	zone:String,
 }
 
 class StoryEntitySpawnEffect extends StoryEffect
@@ -25,7 +26,13 @@ class StoryEntitySpawnEffect extends StoryEffect
 	public override function apply(storyline:Storyline)
 	{
 		var pos = Game.instance.world.player.pos.floor().add(new Coordinate(0, -10, WORLD));
-		trace('SPAWN AT', pos.toString());
+
+		if (params.zone != null)
+		{
+			var zone = storyline.getZoneVariable(params.zone);
+			pos = zone.worldPos.add(25, 25).asWorld();
+			trace('spawned in ${zone.zonePos.toString()} - ${pos.toString()}');
+		}
 
 		var entity = Spawner.Spawn(params.spawnable, pos, {}, true);
 
@@ -39,6 +46,7 @@ class StoryEntitySpawnEffect extends StoryEffect
 		return new StoryEntitySpawnEffect({
 			spawnable: spawnable,
 			store: json.store,
+			zone: json.zone,
 		});
 	}
 }

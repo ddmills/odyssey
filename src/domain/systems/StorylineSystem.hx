@@ -35,7 +35,13 @@ class StorylineSystem extends System
 	{
 		var story = Stories.Get(id);
 
-		var storyline = new Storyline(story);
+		var storyline = new Storyline(story, 1);
+
+		if (!storyline.initialize())
+		{
+			trace('COULD NOT INIT STORYLINE', storyline);
+			return null;
+		}
 
 		active.push(storyline);
 

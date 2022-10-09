@@ -2,7 +2,7 @@ package data.storylines.parser;
 
 import data.storylines.variables.StoryBoolVariable;
 import data.storylines.variables.StoryEntityVariable;
-import data.storylines.variables.StoryPoiVariable;
+import data.storylines.variables.StoryZoneVariable;
 
 class StoryVariableParser
 {
@@ -10,7 +10,7 @@ class StoryVariableParser
 	{
 		return switch json.type
 		{
-			case StoryVariableType.POI: StoryPoiVariable.FromJson(json);
+			case StoryVariableType.ZONE: StoryZoneVariable.FromJson(json);
 			case StoryVariableType.BOOL: StoryBoolVariable.FromJson(json);
 			case StoryVariableType.ENTITY: StoryEntityVariable.FromJson(json);
 			case _: null;

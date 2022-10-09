@@ -2,7 +2,12 @@
 	- [x] in play screen
 	- [ ] better graphics
 - [ ] storyline
-	- [ ] how to define positional data (random + criteria?)
+	- [x] how to define positional data (random + criteria?)
+	- [ ] "unplaced" detached objects within zones (placed on arrival within parameters)
+- [ ] faction system
+- [ ] dialog
+	- [ ] dialog trees
+	- [ ] dialog options
 - [x] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
