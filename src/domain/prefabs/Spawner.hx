@@ -22,6 +22,7 @@ class Spawner
 		prefabs.set(SNUB_NOSE_REVOLVER, new SnubNoseRevolverPrefab());
 		prefabs.set(REVOLVER, new RevoloverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
+		prefabs.set(WOLF, new WolfPrefab());
 		prefabs.set(SNAKE, new SnakePrefab());
 		prefabs.set(CORPSE_HUMAN, new HumanCorpsePrefab());
 		prefabs.set(CORPSE_SNAKE, new SnakeCorpsePrefab());

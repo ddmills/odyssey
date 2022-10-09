@@ -138,6 +138,7 @@ class TileResources
 
 		tiles.set(CORPSE_HUMAN, t[6][2]);
 		tiles.set(CORPSE_SNAKE, t[6][3]);
+		tiles.set(WOLF, t[6][5]);
 
 		tiles.set(DOOR, t[6][5]);
 		tiles.set(DOOR_OPEN, t[6][6]);
