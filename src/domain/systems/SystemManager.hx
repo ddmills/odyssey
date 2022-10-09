@@ -16,6 +16,7 @@ class SystemManager
 	public var bullets(default, null):BulletSystem;
 	public var path(default, null):PathFollowSystem;
 	public var hitBlink(default, null):HitBlinkSystem;
+	public var storylines(default, null):StorylineSystem;
 	public var destroy(default, null):DestroySystem;
 
 	public function new() {}
@@ -34,6 +35,7 @@ class SystemManager
 		bitmasks = new BitmaskSystem();
 		death = new DeathSystem();
 		hitBlink = new HitBlinkSystem();
+		storylines = new StorylineSystem();
 		destroy = new DestroySystem();
 	}
 
@@ -51,6 +53,7 @@ class SystemManager
 		sprites.update(frame);
 		bullets.update(frame);
 		hitBlink.update(frame);
+		storylines.update(frame);
 		destroy.update(frame);
 	}
 }

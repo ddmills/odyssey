@@ -1,6 +1,9 @@
 - [ ] click to move
 	- [x] in play screen
 	- [ ] better graphics
+- [ ] storyline
+	- [ ] persist entities outside of chunk storage
+	- [ ] how to define positional data (random + criteria?)
 - [x] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list

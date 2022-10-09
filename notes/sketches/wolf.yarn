@@ -1,0 +1,88 @@
+title: Setup
+position: 215,-299
+---
+<<declare $wolf_known = false as bool>>
+<<declare $wolf_seen = false as bool>>
+<<declare $wolf_dead = false as bool>>
+<<jump Decide>>
+===
+
+title: Decide
+position: 217,-200
+---
+Player: Where should I go?
+-> Player: Go to woods
+	<<jump Woods>>
+-> Player: Go to village
+	<<jump Village>>
+===
+
+title: Woods
+position: 504,-52
+---
+<< if $wolf_dead == false >>
+	A wolf jumps out at you!
+
+	<< set $wolf_known to true >>
+	<< set $wolf_seen to true >>
+
+	-> Player: Run away
+		<<jump Village>>
+	-> Player: Fight it
+		<<jump Fight>>
+<< else >>
+	The woods are quiet.
+	<<jump Decide>>
+<< endif >>
+
+===
+
+title: Fight
+position: 504,-52
+---
+You kill the wolf.
+
+<< set $wolf_known to true >>
+<< set $wolf_seen to true >>
+<< set $wolf_dead to true >>
+
+<<jump Decide>>
+===
+
+title: Village
+position: 221,-50
+---
+You arrive at the village. You see a villager.
+-> Player: Talk to villager
+	<<jump Villager>>
+-> Player: Leave
+	<<jump Decide>>
+===
+
+title: Villager
+tags: quest
+position: 224,81
+---
+Villager: A wolf lurks in these woods.
+
+<< if $wolf_known >>
+Player: I've heard of it before.
+<<endif>>
+
+<<set $wolf_known to true>>
+
+-> Player: Uh, good luck with that
+	Villager: You're heartless.
+	<<jump Done>>
+-> Player: Tell me more
+	Villager: Just north of the railroad station.
+	<<jump Village>>
+===
+
+
+title: Done
+tags:
+position: 226,242
+---
+
+===

@@ -1,0 +1,42 @@
+{
+	"id": "wolf",
+	"name": "Kill wolf",
+	"state": [
+		{
+			"key": "wolf",
+			"type": "ENTITY"
+		},
+		{
+			"key": "wolf_is_dead",
+			"type": "BOOL",
+			"value": false
+		}
+	],
+	"triggers": [
+		{
+			"key": "setup",
+			"type": "IMMEDIATE",
+			"once": true,
+			"effects": [
+				{
+					"type": "ENTITY_SPAWN",
+					"spawnable": "SNAKE",
+					"store": "wolf"
+				}
+			]
+		},
+		{
+			"key": "wolf_is_dead",
+			"type": "ENTITY_DEATH",
+			"once": true,
+			"target": "wolf",
+			"effects": [
+				{
+					"type": "SET_STATE",
+					"state": "wolf_is_dead",
+					"value": true
+				}
+			]
+		}
+	]
+}

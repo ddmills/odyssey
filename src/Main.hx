@@ -5,6 +5,7 @@ import data.Bitmasks;
 import data.Commands;
 import data.TextResources;
 import data.TileResources;
+import data.storylines.Stories;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.terrain.gen.pois.PoiLayouts;
@@ -40,6 +41,7 @@ class Main extends hxd.App
 		BiomeMap.Init();
 		PoiLayouts.Init();
 		RoomDecorators.Init();
+		Stories.Init();
 
 		hxd.Window.getInstance().title = "Odyssey";
 

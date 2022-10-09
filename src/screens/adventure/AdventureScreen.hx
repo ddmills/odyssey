@@ -54,6 +54,8 @@ class AdventureScreen extends Screen
 	public function new()
 	{
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
+		var s = world.systems.storylines.addStoryline('wolf');
+		trace(s);
 	}
 
 	public override function onEnter()
