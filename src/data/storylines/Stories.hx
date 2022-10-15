@@ -10,7 +10,7 @@ class Stories
 	{
 		stories = new Map();
 
-		var wolfJson = hxd.Res.stories.wolf_json.toJson();
+		var wolfJson = hxd.Res.stories.wolf.toJson();
 		var wolf = StoryParser.FromJson(wolfJson);
 
 		stories.set(wolf.id, wolf);

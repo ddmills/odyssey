@@ -232,14 +232,14 @@ class Inventory extends Component
 			return;
 		}
 
-		evt.interactions.push({
+		evt.add({
 			name: 'Open',
 			evt: new OpenInventoryEvent(evt.interactor),
 		});
 
 		if (evt.interactor.has(Inventory))
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Stash',
 				evt: new StashInventoryEvent(evt.interactor),
 			});

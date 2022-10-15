@@ -43,7 +43,7 @@ class Weapon extends Component
 	{
 		if (ammo < ammoCapacity)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Reload ($ammo/$ammoCapacity)',
 				evt: new ReloadEvent(evt.interactor),
 			});
@@ -51,7 +51,7 @@ class Weapon extends Component
 
 		if (ammo > 0)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Unload ($ammo/$ammoCapacity)',
 				evt: new UnloadEvent(evt.interactor),
 			});

@@ -168,14 +168,14 @@ class Loot extends Component
 		{
 			if (evt.interactor.id == container.entity.id)
 			{
-				evt.interactions.push({
+				evt.add({
 					name: 'Drop',
 					evt: new DropEvent(evt.interactor),
 				});
 			}
 			else if (evt.interactor.has(Inventory))
 			{
-				evt.interactions.push({
+				evt.add({
 					name: 'Take',
 					evt: new TakeEvent(evt.interactor),
 				});
@@ -183,7 +183,7 @@ class Loot extends Component
 		}
 		else
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Pickup',
 				evt: new PickupEvent(evt.interactor),
 			});

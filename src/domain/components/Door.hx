@@ -120,14 +120,14 @@ class Door extends Component
 	{
 		if (isOpen)
 		{
-			evt.interactions.push({
+			evt.add({
 				evt: new CloseDoorEvent(evt.interactor),
 				name: 'Close door',
 			});
 		}
 		else
 		{
-			evt.interactions.push({
+			evt.add({
 				evt: new OpenDoorEvent(evt.interactor),
 				name: 'Open door',
 			});

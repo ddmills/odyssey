@@ -144,7 +144,7 @@ class LiquidContainer extends Component
 
 		if (isPourable)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Pour',
 				evt: new PourEvent(evt.interactor),
 			});
@@ -152,7 +152,7 @@ class LiquidContainer extends Component
 
 		if (isGatherable)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Gather',
 				evt: new GatherLiquidEvent(evt.interactor),
 			});

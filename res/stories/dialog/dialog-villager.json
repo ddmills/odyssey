@@ -1,0 +1,31 @@
+{
+	"dialogs": [{
+		"helper": "The villager is not interested in talking to you.",
+		"isDefault": true
+	}, {
+		"say": "You lookin' to tango pal?",
+		"conditions": [{
+			"type": "RELATION",
+			"min": -200,
+			"max": 0
+		}],
+		"options": [{
+			"say": "No... sorry."
+		}, {
+			"say": "Yes."
+		}]
+	}, {
+		"say": "What do you want?",
+		"conditions": [{
+			"type": "RELATION",
+			"min": -100,
+			"max": 0
+		}]
+	}, {
+		"say": "Howdy",
+		"conditions": [{
+			"type": "RELATION",
+			"min": 0
+		}]
+	}]
+}

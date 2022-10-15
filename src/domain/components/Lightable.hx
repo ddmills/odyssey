@@ -91,14 +91,14 @@ class Lightable extends Component
 
 		if (isLit)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Extinguish',
 				evt: new ExtinguishEvent(evt.interactor),
 			});
 		}
 		else if ((allowEquipped && isEquipped) || !isInventoried)
 		{
-			evt.interactions.push({
+			evt.add({
 				name: 'Light',
 				evt: new LightEvent(evt.interactor),
 			});

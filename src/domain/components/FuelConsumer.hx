@@ -48,7 +48,7 @@ class FuelConsumer extends Component
 
 			if (candidates.length > 0)
 			{
-				evt.interactions.push({
+				evt.add({
 					name: 'Add fuel',
 					evt: new RefuelEvent(evt.interactor),
 				});
