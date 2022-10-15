@@ -12,7 +12,7 @@ class Combustible extends Component
 	public function new(productPrefab:SpawnableType)
 	{
 		this.productPrefab = productPrefab;
-		addHandler(FuelDepletedEvent, (evt) -> onFuelDepleted(cast evt));
+		addHandler(FuelDepletedEvent, onFuelDepleted);
 	}
 
 	public function onFuelDepleted(evt:FuelDepletedEvent)

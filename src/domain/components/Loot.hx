@@ -24,10 +24,10 @@ class Loot extends Component
 	{
 		pickupSound = LOOT_PICKUP_1;
 		dropSound = LOOT_DROP_1;
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
-		addHandler(PickupEvent, (evt) -> onPickup(cast evt));
-		addHandler(DropEvent, (evt) -> onDrop(cast evt));
-		addHandler(TakeEvent, (evt) -> onTake(cast evt));
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
+		addHandler(PickupEvent, onPickup);
+		addHandler(DropEvent, onDrop);
+		addHandler(TakeEvent, onTake);
 	}
 
 	public function take(taker:Entity, ?quantity:Int, ?addToInventory:Bool = true)

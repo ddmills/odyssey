@@ -25,9 +25,9 @@ class Equipment extends Component
 		this.slotTypes = slotTypes;
 		this.extraSlotTypes = extraSlotTypes == null ? [] : extraSlotTypes;
 
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
-		addHandler(EquipEvent, (evt) -> onEquip(cast evt));
-		addHandler(UnequipEvent, (evt) -> onUnequip(cast evt));
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
+		addHandler(EquipEvent, onEquip);
+		addHandler(UnequipEvent, onUnequip);
 	}
 
 	public function unequip()

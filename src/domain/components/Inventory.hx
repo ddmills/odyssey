@@ -29,11 +29,11 @@ class Inventory extends Component
 
 	public function new()
 	{
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
-		addHandler(OpenInventoryEvent, (evt) -> onOpenInventory(cast evt));
-		addHandler(StashInventoryEvent, (evt) -> onStashInventory(cast evt));
-		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
-		addHandler(GetAmmoEvent, (evt) -> onGetAmmo(cast evt));
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
+		addHandler(OpenInventoryEvent, onOpenInventory);
+		addHandler(StashInventoryEvent, onStashInventory);
+		addHandler(MovedEvent, onMoved);
+		addHandler(GetAmmoEvent, onGetAmmo);
 	}
 
 	public function addLoot(loot:Entity)

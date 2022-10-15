@@ -13,7 +13,7 @@ class IsInventoried extends Component
 	public function new(holderId:String)
 	{
 		_holderId = holderId;
-		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
+		addHandler(MovedEvent, onMoved);
 	}
 
 	function onMoved(evt:MovedEvent)

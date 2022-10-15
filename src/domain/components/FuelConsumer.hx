@@ -35,9 +35,9 @@ class FuelConsumer extends Component
 		this.isEnabled = isEnabled;
 		this.isRefillable = isRefillable;
 
-		addHandler(EntityLoadedEvent, (evt) -> onEntityLoaded(cast evt));
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
-		addHandler(RefuelEvent, (evt) -> onRefuelEvent(cast evt));
+		addHandler(EntityLoadedEvent, onEntityLoaded);
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
+		addHandler(RefuelEvent, onRefuelEvent);
 	}
 
 	private function onQueryInteractions(evt:QueryInteractionsEvent)

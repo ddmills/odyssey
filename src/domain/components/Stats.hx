@@ -17,7 +17,7 @@ class Stats extends Component
 		this.grit = grit;
 		this.savvy = savvy;
 		this.finesse = finesse;
-		addHandler(LevelUpEvent, (evt) -> onLevelUp(cast evt));
+		addHandler(LevelUpEvent, onLevelUp);
 	}
 
 	public function incrementStat(stat:StatType)

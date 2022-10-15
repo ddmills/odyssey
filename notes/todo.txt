@@ -5,7 +5,9 @@
 	- [x] how to define positional data (random + criteria?)
 	- [ ] "unplaced" detached objects within zones (placed on arrival within parameters)
 - [x] faction system
-	- [x] temporary rage/enemy
+	- [x] rage/enemy
+	- [ ] faction modifier durations
+	- [ ] change faction mod permanantly on kill
 	- [ ] faction global temporary modifier
 - [ ] dialog
 	- [ ] dialog trees
@@ -45,6 +47,7 @@
 	- [ ] make 'Move' an entity event
 	- [ ] always spawn to a location, or load chunk on entity added
 	- [x] entity move order issues
+- [x] fix inventory access
 - [ ] Saving/Loading
 	- [x] Component and entity .save() and .load()
 	- [ ] component and entity save flags
@@ -90,15 +93,10 @@
 	- [x] consumer refuel
 	- [x] equip replace lightable (lantern)
 - [x] ammo
-- [ ] add items
-	- tin can
-	- frying pan
-	- https://truewestmagazine.com/old-west-guns-22-guns-that-won-the-west/
-- [ ] Rename Swamp to Bayou
-- [ ] replace all addHandler evt casting
+- [x] replace all addHandler evt casting
 - [ ] exit interaction screen (entity destroyed) - gather puddles
 - [ ] switch line algorithm https://www.redblobgames.com/grids/line-drawing.html
-- [ ] entity unattached - no location
+- [x] entity unattached - no location
 - [x] save chunk data to disk
 - [x] load chunk data from disk
 - [x] simplify mapdata (typedef over class)

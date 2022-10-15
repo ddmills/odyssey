@@ -22,8 +22,8 @@ class Health extends Component
 
 	public function new()
 	{
-		addHandler(EntitySpawnedEvent, (evt) -> onEntitySpawned(cast evt));
-		addHandler(AttackedEvent, (evt) -> onAttacked(cast evt));
+		addHandler(EntitySpawnedEvent, onEntitySpawned);
+		addHandler(AttackedEvent, onAttacked);
 	}
 
 	public function get_max():Int

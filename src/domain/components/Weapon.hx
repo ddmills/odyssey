@@ -32,11 +32,11 @@ class Weapon extends Component
 	public function new(family:WeaponFamilyType)
 	{
 		this.family = family;
-		addHandler(MeleeEvent, (evt) -> onMelee(cast evt));
-		addHandler(ShootEvent, (evt) -> onShoot(cast evt));
-		addHandler(ReloadEvent, (evt) -> onReload(cast evt));
-		addHandler(UnloadEvent, (evt) -> onUnload(cast evt));
-		addHandler(QueryInteractionsEvent, (evt) -> onQueryInteractions(cast evt));
+		addHandler(MeleeEvent, onMelee);
+		addHandler(ShootEvent, onShoot);
+		addHandler(ReloadEvent, onReload);
+		addHandler(UnloadEvent, onUnload);
+		addHandler(QueryInteractionsEvent, onQueryInteractions);
 	}
 
 	public function onQueryInteractions(evt:QueryInteractionsEvent)

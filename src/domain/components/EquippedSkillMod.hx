@@ -12,7 +12,7 @@ class EquippedSkillMod extends Component
 
 	public function new()
 	{
-		addHandler(QuerySkillModEquippedEvent, (evt) -> onQuerySkillModEquipped(cast evt));
+		addHandler(QuerySkillModEquippedEvent, onQuerySkillModEquipped);
 	}
 
 	public function set(skill:SkillType, value:Int)

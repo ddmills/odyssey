@@ -22,7 +22,7 @@ class IsEquipped extends Component
 		this.holderId = holderId;
 		this.slotKey = slotKey;
 		this.extraSlotKey = extraSlotKey;
-		addHandler(MovedEvent, (evt) -> onMoved(cast evt));
+		addHandler(MovedEvent, onMoved);
 	}
 
 	function onMoved(evt:MovedEvent)

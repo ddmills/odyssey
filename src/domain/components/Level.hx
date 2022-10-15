@@ -14,7 +14,7 @@ class Level extends Component
 	public function new(current:Int = 0)
 	{
 		level = current;
-		addHandler(EnemyKilledEvent, (evt) -> onEnemyKilled(cast evt));
+		addHandler(EnemyKilledEvent, onEnemyKilled);
 	}
 
 	function onEnemyKilled(evt:EnemyKilledEvent)
