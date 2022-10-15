@@ -29,6 +29,10 @@ class RoomSheriffOffice extends RoomDecorator
 			spawnableType: CABINET,
 			spawnableSettings: {}
 		}, 100);
+		clutter.add({
+			spawnableType: VILLAGER,
+			spawnableSettings: {}
+		}, 200);
 	}
 
 	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void

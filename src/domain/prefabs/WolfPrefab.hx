@@ -35,6 +35,8 @@ class WolfPrefab extends Prefab
 
 		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
 
+		entity.get(Inventory).isOpenable = false;
+
 		return entity;
 	}
 }

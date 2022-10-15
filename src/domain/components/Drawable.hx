@@ -173,7 +173,7 @@ abstract class Drawable extends Component
 
 	function set_enableLutShader(value:Bool):Bool
 	{
-		enableLutShader = true;
+		enableLutShader = value;
 		shader.enableLut = value ? 1 : 0;
 		return value;
 	}

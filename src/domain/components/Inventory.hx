@@ -10,7 +10,6 @@ import domain.events.MovedEvent;
 import domain.events.OpenInventoryEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.StashInventoryEvent;
-import domain.events.TakeEvent;
 import ecs.Component;
 import ecs.Entity;
 import screens.entitySelect.EntitySelectScreen;
@@ -24,6 +23,7 @@ class Inventory extends Component
 	@save public var openedTile:TileKey;
 	@save public var openedAudio:AudioKey;
 	@save public var closedAudio:AudioKey;
+	@save public var isOpenable:Bool = true;
 
 	public var content(get, never):Array<Entity>;
 
@@ -227,6 +227,11 @@ class Inventory extends Component
 
 	function onQueryInteractions(evt:QueryInteractionsEvent)
 	{
+		if (!isOpenable)
+		{
+			return;
+		}
+
 		evt.interactions.push({
 			name: 'Open',
 			evt: new OpenInventoryEvent(evt.interactor),

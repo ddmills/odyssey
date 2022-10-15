@@ -24,7 +24,7 @@ class ThugPistolPrefab extends Prefab
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
 
-		entity.add(new Sprite(tkey, C_WHITE_1, C_RED_1, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE_1, C_ORANGE_1, ACTORS));
 		entity.add(new Energy(-10));
 		entity.add(new FactionMember(FACTION_BANDIT));
 		entity.add(new Level(1));
@@ -50,6 +50,7 @@ class ThugPistolPrefab extends Prefab
 		rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
 
 		var inv = entity.get(Inventory);
+		inv.isOpenable = false;
 		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
 		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
 

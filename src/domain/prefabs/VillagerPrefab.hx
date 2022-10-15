@@ -15,7 +15,7 @@ import domain.components.Stats;
 import ecs.Entity;
 import hxd.Rand;
 
-class ThugPrefab extends Prefab
+class VillagerPrefab extends Prefab
 {
 	public function Create(options:Dynamic)
 	{
@@ -24,14 +24,14 @@ class ThugPrefab extends Prefab
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
 
-		entity.add(new Sprite(tkey, C_WHITE_1, C_ORANGE_1, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE_1, C_GREEN_2, ACTORS));
 		entity.add(new Energy(-10));
-		entity.add(new FactionMember(FACTION_BANDIT));
-		entity.add(new Level(2));
+		entity.add(new FactionMember(FACTION_VILLAGE));
+		entity.add(new Level(3));
 		entity.add(new Health());
-		entity.add(new Stats(3, 0, 0));
+		entity.add(new Stats(1, 1, 1));
 		entity.add(new IsEnemy());
-		entity.add(new Moniker('Thug brute'));
+		entity.add(new Moniker('Villager'));
 		entity.add(new Inventory());
 
 		var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);
@@ -47,12 +47,12 @@ class ThugPrefab extends Prefab
 
 		entity.get(Health).corpsePrefab = CORPSE_HUMAN;
 
-		rhand.equip(Spawner.Spawn(COACH_GUN));
+		rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
 
 		var inv = entity.get(Inventory);
 		inv.isOpenable = false;
-		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
-		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
 
 		return entity;
 	}
