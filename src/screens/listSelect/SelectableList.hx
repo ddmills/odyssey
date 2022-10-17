@@ -52,8 +52,7 @@ typedef SelectableListItem<T> =
 
 	public function selectIdx(value:Int)
 	{
-		// idx = Math.min(Math.max(value, 0), length - 1).floor();
-		idx = value;
+		idx = value.clamp(0, length - 1);
 	}
 
 	public function up()

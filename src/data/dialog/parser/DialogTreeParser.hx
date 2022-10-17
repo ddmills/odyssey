@@ -1,15 +1,12 @@
 package data.dialog.parser;
 
+import data.dialog.Dialog.DialogParser;
+
 class DialogTreeParser
 {
 	public static function FromJson(json:Dynamic):DialogTree
 	{
-		var dialogs = json.dialogs.map((j) -> ({
-			helper: j.helper,
-			isDefault: j.isDefault == true ? true : false,
-			say: j.say,
-			options: j.options == null ? [] : j.options,
-		}));
+		var dialogs = DialogParser.FromJsonArray(json.dialogs);
 
 		return {
 			dialogs: dialogs,

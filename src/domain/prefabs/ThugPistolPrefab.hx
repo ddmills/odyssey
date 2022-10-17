@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import data.ColorKey;
 import data.TileKey;
+import domain.components.Dialog;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.FactionMember;
@@ -27,6 +28,7 @@ class ThugPistolPrefab extends Prefab
 		entity.add(new Sprite(tkey, C_WHITE_1, C_ORANGE_1, ACTORS));
 		entity.add(new Energy(-10));
 		entity.add(new FactionMember(FACTION_BANDIT));
+		entity.add(new Dialog([DIALOG_VILLAGER]));
 		entity.add(new Level(1));
 		entity.add(new Health());
 		entity.add(new Stats(0, 0, 3));

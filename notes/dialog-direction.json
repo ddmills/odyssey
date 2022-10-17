@@ -1,0 +1,22 @@
+[{
+	"option": "Can you give me directions to Esperloosa?",
+	"conditions": [
+		{
+			"type": "RELATION",
+			"min": 0
+		}
+	],
+	"responses": [
+			{
+			"helper": "The villager is not interested in talking to you.",
+			"default": true
+		},
+		{
+			"say": "It's just north of here",
+			"conditions": [{
+				"type": "RELATION",
+				"min": 0
+			}]
+		}
+	]
+}]

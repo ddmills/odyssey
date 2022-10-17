@@ -1,7 +1,5 @@
 package data.storylines.effects;
 
-import domain.prefabs.Spawner;
-
 class StorySetStateEffect extends StoryEffect
 {
 	public function new()
@@ -9,7 +7,7 @@ class StorySetStateEffect extends StoryEffect
 		super();
 	}
 
-	public override function apply(storyline:Storyline) {}
+	public function apply(storyline:Storyline) {}
 
 	public static function FromJson(json:Dynamic):StorySetStateEffect
 	{

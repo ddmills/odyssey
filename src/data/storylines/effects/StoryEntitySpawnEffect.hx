@@ -23,7 +23,7 @@ class StoryEntitySpawnEffect extends StoryEffect
 		this.params = params;
 	}
 
-	public override function apply(storyline:Storyline)
+	public function apply(storyline:Storyline)
 	{
 		var pos = Game.instance.world.player.pos.floor().add(new Coordinate(0, -10, WORLD));
 

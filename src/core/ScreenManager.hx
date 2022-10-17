@@ -45,6 +45,7 @@ class ScreenManager
 	{
 		current.onDestroy();
 		screens.pop().onClosedlistener();
+		Game.instance.input.flush();
 		screens.push(screen);
 		current.onEnter();
 	}
@@ -52,6 +53,7 @@ class ScreenManager
 	public function push(screen:Screen)
 	{
 		current.onSuspend();
+		Game.instance.input.flush();
 		screens.push(screen);
 		current.onEnter();
 	}
@@ -60,6 +62,7 @@ class ScreenManager
 	{
 		current.onDestroy();
 		screens.pop().onClosedlistener();
+		Game.instance.input.flush();
 		current.onResume();
 	}
 

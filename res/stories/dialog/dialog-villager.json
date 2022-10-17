@@ -1,31 +1,92 @@
 {
-	"dialogs": [{
-		"helper": "The villager is not interested in talking to you.",
-		"isDefault": true
-	}, {
-		"say": "You lookin' to tango pal?",
-		"conditions": [{
-			"type": "RELATION",
-			"min": -200,
-			"max": 0
-		}],
-		"options": [{
-			"say": "No... sorry."
-		}, {
-			"say": "Yes."
-		}]
-	}, {
-		"say": "What do you want?",
-		"conditions": [{
-			"type": "RELATION",
-			"min": -100,
-			"max": 0
-		}]
-	}, {
-		"say": "Howdy",
-		"conditions": [{
-			"type": "RELATION",
-			"min": 0
-		}]
-	}]
+	"dialogs": [
+		{
+			"helper": "The villager is not interested in talking to you.",
+			"conditions": [
+				{
+					"type": "CONDITION_RELATION",
+					"max": 0
+				}
+			]
+		},
+		{
+			"say": "You lookin' to tango pal?",
+			"conditions": [
+				{
+					"type": "CONDITION_RELATION",
+					"min": -200,
+					"max": 0
+				}
+			],
+			"options": [
+				{
+					"option": "No... sorry.",
+					"dialogs": [
+						{
+							"say": "HAH! I knew you didn't have the stones!",
+							"options": [
+								{
+									"option": "On the other hand...",
+									"detail": "Start a fight",
+									"dialogs": [
+										{
+											"say": "Lets go!"
+										}
+									]
+								},
+								{
+									"option": "Sorry to bother you."
+								}
+							]
+						}
+					]
+				},
+				{
+					"option": "Yes.",
+					"detail": "Start a fight"
+				}
+			]
+		},
+		{
+			"say": "Howdy",
+			"options": [
+				{
+					"option": "I love you!",
+					"conditions": [
+						{
+							"type": "CONDITION_RELATION",
+							"min": 100
+						}
+					],
+					"dialogs": [
+						{
+							"say": "Of course you do!"
+						}
+					]
+				},
+				{
+					"option": "I hate you!",
+					"conditions": [
+						{
+							"type": "CONDITION_RELATION",
+							"max": 0
+						}
+					],
+					"dialogs": [
+						{
+							"say": "It's mutual."
+						}
+					]
+				},
+				{
+					"option": "Have you heard any rumors?",
+					"dialogs": [
+						{
+							"say": "No."
+						}
+					]
+				}
+			]
+		}
+	]
 }

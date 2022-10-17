@@ -1,8 +1,8 @@
 package data.storylines;
 
-class StoryEffect
+abstract class StoryEffect
 {
 	public function new() {}
 
-	public function apply(storyline:Storyline) {}
+	public abstract function apply(storyline:Storyline):Void;
 }

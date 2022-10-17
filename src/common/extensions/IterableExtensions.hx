@@ -50,7 +50,7 @@ class IterableExtensions
 		return it.fold((it, res) -> fn(it) + res, 0);
 	}
 
-	public static inline function every<T>(it:Iterable<T>, fn:(value:T) -> Bool):Bool
+	@:generic public static inline function every<T>(it:Iterable<T>, fn:(value:T) -> Bool):Bool
 	{
 		return !it.exists((v) -> !fn(v));
 	}

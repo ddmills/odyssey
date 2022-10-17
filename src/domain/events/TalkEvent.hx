@@ -5,7 +5,7 @@ import ecs.EntityEvent;
 
 class TalkEvent extends EntityEvent
 {
-	private var talker:Entity;
+	public var talker(default, null):Entity;
 
 	public function new(talker:Entity)
 	{

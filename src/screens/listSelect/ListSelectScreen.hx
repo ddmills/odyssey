@@ -5,7 +5,6 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.Command;
-import data.ColorKey;
 import data.TextResources;
 import data.TileResources;
 import h2d.Bitmap;
