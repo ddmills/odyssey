@@ -50,6 +50,11 @@ class Conversation
 	public function pickOption(o:DialogOption)
 	{
 		current = pickNextDialog(o.dialogs);
+
+		for (effect in current.effects)
+		{
+			effect.apply(this);
+		}
 	}
 
 	function pickNextDialog(dialogs:Array<Dialog>)

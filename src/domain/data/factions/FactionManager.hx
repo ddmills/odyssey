@@ -25,7 +25,7 @@ class FactionManager
 		relations = new Map();
 
 		setRelation(FACTION_PLAYER, FACTION_BANDIT, -400);
-		setRelation(FACTION_PLAYER, FACTION_VILLAGE, 250);
+		setRelation(FACTION_PLAYER, FACTION_VILLAGE, 100);
 		setRelation(FACTION_PLAYER, FACTION_WILDLIFE, -100);
 		setRelation(FACTION_VILLAGE, FACTION_BANDIT, -400);
 		setRelation(FACTION_VILLAGE, FACTION_WILDLIFE, -100);
@@ -71,9 +71,13 @@ class FactionManager
 	{
 		if (value <= -300)
 		{
-			return 'Aggressive';
+			return 'Hated';
 		}
 		if (value <= -200)
+		{
+			return 'Disliked';
+		}
+		if (value <= -100)
 		{
 			return 'Unfriendly';
 		}

@@ -15,7 +15,7 @@
 				{
 					"type": "CONDITION_RELATION",
 					"min": -200,
-					"max": 0
+					"max": 250
 				}
 			],
 			"options": [
@@ -24,26 +24,30 @@
 					"dialogs": [
 						{
 							"say": "HAH! I knew you didn't have the stones!",
-							"options": [
+							"effects": [
 								{
-									"option": "On the other hand...",
-									"detail": "Start a fight",
-									"dialogs": [
-										{
-											"say": "Lets go!"
-										}
-									]
-								},
-								{
-									"option": "Sorry to bother you."
+									"type": "EFFECT_RELATION",
+									"isModifier": false,
+									"value": -10
 								}
 							]
 						}
 					]
 				},
 				{
-					"option": "Yes.",
-					"detail": "Start a fight"
+					"option": "Excuse me!?",
+					"dialogs": [
+						{
+							"say": "Let's fight!",
+							"effects": [
+								{
+									"type": "EFFECT_RELATION",
+									"isModifier": true,
+									"value": -1000
+								}
+							]
+						}
+					]
 				}
 			]
 		},

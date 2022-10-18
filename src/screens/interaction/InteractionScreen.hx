@@ -43,6 +43,11 @@ class InteractionScreen extends ListSelectScreen
 			getIcon: null,
 			onSelect: () ->
 			{
+				if (action.popScreen)
+				{
+					game.screens.pop();
+				}
+
 				interactable.fireEvent(action.evt);
 				refreshList();
 				return;

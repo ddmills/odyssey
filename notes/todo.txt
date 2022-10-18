@@ -14,7 +14,7 @@
 	- [x] dialog options
 	- [ ] nesting dialog trees
 	- [x] dialog conditions
-	- [ ] dialog effects
+	- [x] dialog effects
 	- [ ] repeatable dialog based on character
 - [x] ground interact
 	- [x] press spacebar to interact with ground

@@ -7,6 +7,7 @@ typedef EntityInteraction =
 {
 	name:String,
 	evt:EntityEvent,
+	?popScreen:Bool,
 }
 
 class QueryInteractionsEvent extends EntityEvent

@@ -18,7 +18,7 @@ class DialogRelationCondition extends DialogCondition
 		this.params = params;
 	}
 
-	public static function FromJson(json:Dynamic)
+	public static function FromJson(json:Dynamic):DialogRelationCondition
 	{
 		return new DialogRelationCondition({
 			min: json.min,

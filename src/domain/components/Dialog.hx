@@ -29,6 +29,7 @@ class Dialog extends Component
 			evt.add({
 				name: 'Talk',
 				evt: new TalkEvent(evt.interactor),
+				popScreen: true,
 			});
 		}
 	}
