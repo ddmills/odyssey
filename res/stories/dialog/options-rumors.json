@@ -1,0 +1,12 @@
+{
+	"options": [
+		{
+			"option": "Have you heard any rumors?",
+			"dialogs": [
+				{
+					"say": "No."
+				}
+			]
+		}
+	]
+}

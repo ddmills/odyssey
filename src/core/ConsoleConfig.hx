@@ -91,15 +91,15 @@ class ConsoleConfig
 			Stats.GetAll(player).each((sv) ->
 			{
 				var name = EnumValueTools.getName(sv.stat) + ' ';
-				console.log('${name.pad(31, '.')} ${sv.value}');
+				console.log('${name.pad(41, '.')} ${sv.value}');
 			});
 
 			console.log('SKILLS', game.TEXT_COLOR_FOCUS);
 			Skills.GetAll(player).each((sv:SkillValue) ->
 			{
 				var name = EnumValueTools.getName(sv.skill) + ' ';
-				var stat = EnumValueTools.getName(Skills.Get(sv.skill).getStat(player));
-				console.log('${name.pad(20, '.')} ${stat.pad(10, '.')} ${sv.value}');
+				var stat = EnumValueTools.getName(Skills.Get(sv.skill).getStat(player)) + ' ';
+				console.log('${name.pad(30, '.')} ${stat.pad(10, '.')} ${sv.value}');
 			});
 		});
 

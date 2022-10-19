@@ -4,6 +4,7 @@ import data.ColorKey;
 import data.LiquidType;
 import data.SpawnableType;
 import data.TileKey;
+import domain.components.Dialog;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.FactionMember;

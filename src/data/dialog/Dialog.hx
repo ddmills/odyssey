@@ -9,7 +9,7 @@ import data.dialog.parser.DialogEffectParser;
 typedef Dialog =
 {
 	?helper:String,
-	isDefault:Bool,
+	allowExtraOptions:Bool,
 	say:String,
 	options:Array<DialogOption>,
 	conditions:Array<DialogCondition>,
@@ -23,12 +23,12 @@ class DialogParser
 		var options = DialogOptionParser.FromJsonArray(json.options);
 		var conditions = DialogConditionParser.FromJsonArray(json.conditions);
 		var effects = DialogEffectParser.FromJsonArray(json.effects);
-		var isDefault = json.isDefault == true ? true : false;
+		var allowExtraOptions = json.allowExtraOptions == null ? false : true;
 
 		return {
 			say: json.say,
 			helper: json.helper,
-			isDefault: isDefault,
+			allowExtraOptions: allowExtraOptions,
 			options: options,
 			conditions: conditions,
 			effects: effects,

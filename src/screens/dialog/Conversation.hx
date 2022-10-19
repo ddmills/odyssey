@@ -1,6 +1,7 @@
 package screens.dialog;
 
 import data.dialog.Dialog;
+import data.dialog.DialogExtraOptions;
 import data.dialog.DialogOption;
 import ecs.Entity;
 import hxd.Rand;
@@ -8,6 +9,7 @@ import hxd.Rand;
 class Conversation
 {
 	var r:Rand;
+	var targetExtraOptions:Array<DialogExtraOptions>;
 
 	public var interactor:Entity;
 	public var target:Entity;
@@ -21,7 +23,10 @@ class Conversation
 		this.interactor = interactor;
 		this.target = target;
 
-		var trees = target.get(domain.components.Dialog).trees;
+		var targetDialog = target.get(domain.components.Dialog);
+		targetExtraOptions = targetDialog.options;
+
+		var trees = targetDialog.trees;
 		var tree = r.pick(trees);
 		start = pickNextDialog(tree.dialogs);
 		current = start;
@@ -44,11 +49,31 @@ class Conversation
 
 	public function getOptions():Array<DialogOption>
 	{
-		return current.options.filter((o) -> o.conditions.every((c) -> c.check(this)));
+		var extras:Array<DialogOption> = [];
+
+		if (current.allowExtraOptions)
+		{
+			extras = targetExtraOptions.flatMap((o) -> o.options);
+		}
+
+		var options = current.options.concat(extras);
+
+		return options.filter((o) -> o.conditions.every((c) -> c.check(this)));
 	}
 
 	public function pickOption(o:DialogOption)
 	{
+		for (effect in o.effects)
+		{
+			effect.apply(this);
+		}
+
+		if (o.isEnd)
+		{
+			current = null;
+			return;
+		}
+
 		current = pickNextDialog(o.dialogs);
 
 		for (effect in current.effects)

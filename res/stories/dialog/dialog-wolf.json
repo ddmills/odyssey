@@ -1,0 +1,24 @@
+{
+	"dialogs": [
+		{
+			"helper": "The wolf snarls at you.",
+			"options": [
+				{
+					"option": "Can we strike a deal? You have been terrorizing the village.",
+					"conditions": [
+						{
+							"type": "CONDITION_SKILL",
+							"skill": "SKILL_ANIMAL_HANDLING",
+							"min": 3
+						}
+					],
+					"dialogs": [
+						{
+							"say": "I will provide you a corpse"
+						}
+					]
+				}
+			]
+		}
+	]
+}

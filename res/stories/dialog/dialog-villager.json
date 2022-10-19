@@ -35,17 +35,13 @@
 					]
 				},
 				{
-					"option": "Excuse me!?",
-					"dialogs": [
+					"option": "Let's throw down!",
+					"isEnd": true,
+					"effects": [
 						{
-							"say": "Let's fight!",
-							"effects": [
-								{
-									"type": "EFFECT_RELATION",
-									"isModifier": true,
-									"value": -1000
-								}
-							]
+							"type": "EFFECT_RELATION",
+							"isModifier": true,
+							"value": -1000
 						}
 					]
 				}
@@ -53,13 +49,18 @@
 		},
 		{
 			"say": "Howdy",
+			"allowExtraOptions": true,
 			"options": [
+				{
+					"option": "Bye.",
+					"isEnd": true
+				},
 				{
 					"option": "I love you!",
 					"conditions": [
 						{
 							"type": "CONDITION_RELATION",
-							"min": 100
+							"min": 0
 						}
 					],
 					"dialogs": [
@@ -79,14 +80,6 @@
 					"dialogs": [
 						{
 							"say": "It's mutual."
-						}
-					]
-				},
-				{
-					"option": "Have you heard any rumors?",
-					"dialogs": [
-						{
-							"say": "No."
 						}
 					]
 				}

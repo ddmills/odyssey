@@ -15,7 +15,12 @@
 	- [ ] nesting dialog trees
 	- [x] dialog conditions
 	- [x] dialog effects
+	- [x] dialog option effects
+	- [x] extra options (on certain trees)
+	- [ ] one-time trees
 	- [ ] repeatable dialog based on character
+	- [ ] story effects/conditions
+	- [x] change "cancel" text
 - [x] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
@@ -127,4 +132,4 @@
 - [ ] bridges
 - [x] add astar max depth!
 - [ ] hand axe
-
+- [x] animal handling skill (savvy)

@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Dialog;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.FactionMember;
@@ -20,6 +21,7 @@ class WolfPrefab extends Prefab
 		var entity = new Entity();
 
 		entity.add(new Sprite(WOLF, C_GRAY_1, C_RED_2, ACTORS));
+		entity.add(new Dialog([DIALOG_WOLF]));
 		entity.add(new Energy());
 		entity.add(new Level(1));
 		entity.add(new FactionMember(FACTION_WILDLIFE));

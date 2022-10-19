@@ -28,7 +28,7 @@ class VillagerPrefab extends Prefab
 		entity.add(new Sprite(tkey, C_WHITE_1, C_GREEN_2, ACTORS));
 		entity.add(new Energy(-10));
 		entity.add(new FactionMember(FACTION_VILLAGE));
-		entity.add(new Dialog([DIALOG_VILLAGER]));
+		entity.add(new Dialog([DIALOG_VILLAGER], [DIALOG_OPTION_RUMORS]));
 		entity.add(new Level(3));
 		entity.add(new Health());
 		entity.add(new Stats(1, 1, 1));

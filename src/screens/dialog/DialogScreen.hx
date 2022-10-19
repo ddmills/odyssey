@@ -19,6 +19,7 @@ class DialogScreen extends ListSelectScreen
 		var r = Rand.create();
 		this.conversation = new Conversation(r, interactor, target);
 		super([]);
+		cancelText = 'Close';
 		refreshList();
 	}
 
@@ -33,6 +34,10 @@ class DialogScreen extends ListSelectScreen
 		var t = d.say.or(d.helper).or('None');
 		title = t;
 
+		var options = conversation.getOptions();
+
+		includeCancel = options.length <= 0;
+
 		var items = conversation.getOptions().map((o) -> ({
 			title: '"${o.option}"',
 			detail: o.detail,
@@ -40,7 +45,14 @@ class DialogScreen extends ListSelectScreen
 			onSelect: () ->
 			{
 				conversation.pickOption(o);
-				refreshList();
+				if (o.isEnd)
+				{
+					game.screens.pop();
+				}
+				else
+				{
+					refreshList();
+				}
 			},
 		}));
 
