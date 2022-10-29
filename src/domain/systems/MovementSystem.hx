@@ -102,7 +102,7 @@ class MovementSystem extends System
 			}
 
 			var deltaSq = delta.lengthSq();
-			var distanceSq = start.distanceSq(move.goal, WORLD);
+			var distanceSq = start.distance(move.goal, WORLD, EUCLIDEAN_SQ);
 
 			start.lerp(move.goal, frame.tmod * move.speed);
 

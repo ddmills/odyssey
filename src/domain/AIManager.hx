@@ -74,8 +74,11 @@ class AIManager
 	public function tryAttackingRange(entity:Entity):Bool
 	{
 		var factions = Game.instance.world.factions;
-		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 5);
-		var target = inRange.find((e) -> e.has(Health) && factions.areEntitiesHostile(e, entity));
+		var inRange = Game.instance.world.getEntitiesInRange(entity.pos.toIntPoint(), 6);
+		var target = inRange.find((e) ->
+		{
+			return e.has(Health) && factions.areEntitiesHostile(e, entity) && Game.instance.world.systems.vision.canSee(entity, e.pos);
+		});
 
 		if (target.isNull())
 		{

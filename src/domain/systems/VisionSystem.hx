@@ -1,6 +1,10 @@
 package domain.systems;
 
+import common.algorithm.Bresenham;
+import common.algorithm.Distance;
 import common.algorithm.Shadowcast;
+import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Frame;
 import domain.components.Energy;
 import domain.components.Explored;
@@ -77,14 +81,58 @@ class VisionSystem extends System
 		computeVision();
 	}
 
+	public function canSee(source:Entity, target:Coordinate):Bool
+	{
+		var vision = source.get(Vision);
+		if (vision == null)
+		{
+			return false;
+		}
+		var a = source.pos.toIntPoint();
+		var b = target.toWorld().toIntPoint();
+		var distance = Distance.Euclidean(a, b).round();
+		if (distance > vision.range)
+		{
+			return false;
+		}
+
+		if (distance > getVisionRange(source))
+		{
+			var light = world.systems.lights.getTileLight(b);
+			if (light <= 0)
+			{
+				return false;
+			}
+		}
+
+		var isVisible = true;
+		Bresenham.stroke(a, b, (p) ->
+		{
+			if (isBlocker(p))
+			{
+				isVisible = false;
+			}
+		});
+
+		return isVisible;
+	}
+
 	public function getVisionRange(entity:Entity):Int
 	{
 		var vision = world.player.entity.get(Vision);
-		var minMod = vision.getVisionMods().min((m) -> m.minVision);
-		var min = minMod == null ? 0 : minMod.minVision;
-		var actualMin = Math.max(min, vision.nightRange);
-		var variance = (vision.dayRange - actualMin);
-		return (actualMin + (world.clock.getDaylight() * variance)).floor();
+		return (world.clock.getDaylight() * vision.range).floor();
+	}
+
+	private function isBlocker(p:IntPoint)
+	{
+		if (world.isOutOfBounds(p))
+		{
+			return false;
+		}
+
+		var entities = world.getEntitiesAt(p.asWorld());
+
+		return entities.exists((e) -> e.has(LightBlocker));
 	}
 
 	public function computeVision()
@@ -98,22 +146,11 @@ class VisionSystem extends System
 
 		var vision = world.player.entity.get(Vision);
 		var range = getVisionRange(world.player.entity);
-		var maxRange = vision.dayRange;
 
 		Shadowcast.Compute({
 			start: world.player.pos.toIntPoint(),
-			distance: maxRange,
-			isBlocker: (p) ->
-			{
-				if (world.isOutOfBounds(p))
-				{
-					return false;
-				}
-
-				var entities = world.getEntitiesAt(p.asWorld());
-
-				return entities.exists((e) -> e.has(LightBlocker));
-			},
+			distance: vision.range,
+			isBlocker: isBlocker,
 			onLight: (pos, distance) ->
 			{
 				if (distance > range)

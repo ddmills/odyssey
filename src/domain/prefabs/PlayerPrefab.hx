@@ -35,7 +35,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new FactionMember(FACTION_PLAYER));
 		entity.add(new Energy(10));
 		entity.add(new Level(120));
-		entity.add(new Vision(20, 0));
+		entity.add(new Vision(20));
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));

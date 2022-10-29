@@ -13,6 +13,7 @@ import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stats;
+import domain.components.Vision;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -27,6 +28,7 @@ class ThugPistolPrefab extends Prefab
 
 		entity.add(new Sprite(tkey, C_WHITE_1, C_ORANGE_1, ACTORS));
 		entity.add(new Energy(-10));
+		entity.add(new Vision(12));
 		entity.add(new FactionMember(FACTION_BANDIT));
 		entity.add(new Dialog([DIALOG_VILLAGER]));
 		entity.add(new Level(1));

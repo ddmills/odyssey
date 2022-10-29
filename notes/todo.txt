@@ -20,7 +20,14 @@
 	- [ ] one-time trees
 	- [ ] repeatable dialog based on character
 	- [ ] story effects/conditions
+		- [ ] Add dialog tree from story
+		- [ ] Effect: Update story state from dialog
+		- [ ] Condition: Check story state from dialog
 	- [x] change "cancel" text
+- [ ] rumor system
+	- [ ] Can ask about rumors
+	- [ ] Storylines can add rumors
+	- [ ] Villagers can tell you about a rumor
 - [x] ground interact
 	- [x] press spacebar to interact with ground
 	- [x] all ground items show in list
@@ -82,7 +89,7 @@
 - [ ] rename TextResources to FontResources
 - [ ] FOV system
 	- [x] fov algor
-	- [ ] enemy vision
+	- [x] enemy vision
 	- [x] lighting
 	- [x] calculate light falloff correctly
 	- [x] what should "light intensity" do?

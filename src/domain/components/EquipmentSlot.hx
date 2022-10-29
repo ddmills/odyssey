@@ -6,7 +6,6 @@ import domain.events.MeleeEvent;
 import domain.events.MovedEvent;
 import domain.events.QuerySkillModEquippedEvent;
 import domain.events.QuerySkillModEvent;
-import domain.events.QueryVisionModEvent;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.events.UnequippedEvent;
@@ -38,7 +37,6 @@ class EquipmentSlot extends Component
 		this.isPrimary = isPrimary;
 		this.defaultWpn = defaultWpn;
 
-		addHandler(QueryVisionModEvent, onQueryVisionMod);
 		addHandler(QuerySkillModEvent, onQuerySkillMod);
 		addHandler(MeleeEvent, onMelee);
 		addHandler(ShootEvent, onShoot);
@@ -99,16 +97,6 @@ class EquipmentSlot extends Component
 		{
 			content.fireEvent(evt);
 		}
-	}
-
-	private function onQueryVisionMod(evt:QueryVisionModEvent)
-	{
-		if (content == null)
-		{
-			return;
-		}
-
-		content.fireEvent(evt);
 	}
 
 	private function onQuerySkillMod(evt:QuerySkillModEvent)

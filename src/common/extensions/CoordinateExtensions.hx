@@ -1,5 +1,6 @@
 package common.extensions;
 
+import common.algorithm.Distance;
 import common.struct.Coordinate;
 import common.struct.FloatPoint;
 import common.util.Projection;
@@ -157,20 +158,11 @@ class CoordinateExtensions
 		return (a.x - projected.x).abs() + (a.y - projected.y).abs();
 	}
 
-	static public inline function distanceSq(a:Coordinate, b:Coordinate, space:Space = WORLD):Float
+	static public inline function distance(a:Coordinate, b:Coordinate, space:Space = WORLD, formula:DistanceFormula = EUCLIDEAN):Float
 	{
-		var pa = a.toSpace(space);
-		var pb = b.toSpace(space);
-
-		var dx = pa.x - pb.x;
-		var dy = pa.y - pb.y;
-
-		return dx * dx + dy * dy;
-	}
-
-	static public inline function distance(a:Coordinate, b:Coordinate, space:Space = WORLD):Float
-	{
-		return Math.sqrt(distanceSq(a, b, space));
+		var pa = a.toSpace(space).toFloatPoint();
+		var pb = b.toSpace(space).toFloatPoint();
+		return Distance.Get(pa, pb, formula);
 	}
 
 	static public inline function radians(a:Coordinate):Float
