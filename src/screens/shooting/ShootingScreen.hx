@@ -10,11 +10,18 @@ import data.TileResources;
 import domain.GameMath;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
+import domain.components.Highlight;
+import domain.components.IsDestroyed;
+import domain.components.IsEnemy;
+import domain.components.IsInventoried;
+import domain.components.Sprite;
+import domain.components.Visible;
 import domain.components.Weapon;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Entity;
+import ecs.Query;
 import h2d.Bitmap;
 import h2d.Text;
 import screens.cursor.CursorScreen;
@@ -31,6 +38,8 @@ class ShootingScreen extends CursorScreen
 	var isBlinking:Bool = false;
 	var weapon(get, never):Weapon;
 	var hitChanceTxt:Text;
+
+	var query:Query;
 
 	public function new(shooter:Entity)
 	{
@@ -56,6 +65,11 @@ class ShootingScreen extends CursorScreen
 
 		timeout = new Timeout(.25);
 		timeout.onComplete = blink;
+
+		query = new Query({
+			all: [Visible, Sprite, IsEnemy],
+			none: [IsInventoried, IsDestroyed, Highlight],
+		});
 	}
 
 	override function onEnter()
@@ -74,7 +88,11 @@ class ShootingScreen extends CursorScreen
 	public override function update(frame:Frame)
 	{
 		timeout.update();
-		super.update(frame);
+
+		query.each((e:Entity) ->
+		{
+			e.add(new Highlight());
+		});
 
 		var defender = world.getEntitiesAt(target).find((e) -> e.has(Health));
 
@@ -94,6 +112,8 @@ class ShootingScreen extends CursorScreen
 		{
 			hitChanceTxt.visible = false;
 		}
+
+		super.update(frame);
 	}
 
 	override function render(opts:CursorRenderOpts)
@@ -161,6 +181,14 @@ class ShootingScreen extends CursorScreen
 	{
 		ob.remove();
 		hud.remove();
+		var highlights = new Query({
+			all: [Highlight],
+		});
+
+		highlights.each((entity:Entity) ->
+		{
+			entity.remove(Highlight);
+		});
 	}
 
 	function get_weapon():Weapon

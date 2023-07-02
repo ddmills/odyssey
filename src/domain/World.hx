@@ -12,7 +12,6 @@ import domain.components.Explored;
 import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.data.factions.FactionManager;
-import domain.events.EntityLoadedEvent;
 import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.Cell;

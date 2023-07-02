@@ -1,7 +1,6 @@
 package ecs;
 
 import bits.Bits;
-import common.util.BitUtil;
 import core.Game;
 
 typedef QueryFilter =
@@ -43,6 +42,14 @@ class Query
 		none = getBitmask(filter.none);
 
 		registry.registerQuery(this);
+		refresh();
+	}
+
+	public function setFilter(filter:QueryFilter)
+	{
+		any = getBitmask(filter.any);
+		all = getBitmask(filter.all);
+		none = getBitmask(filter.none);
 		refresh();
 	}
 

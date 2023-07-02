@@ -67,3 +67,34 @@ Buildings
 	- Coffins
 	- Nails
 
+
+- mounts
+- trains
+- companions
+- rumors
+- farming
+- systems/physics
+	- light/darkness 
+	- water physics
+	- fire physics
+	- rope physics
+		- lassos and whips
+	- temperature
+- construction
+	- building walls/windows 
+	- placing furniture 
+- Survival/Camping 
+	- sleeping
+	- making fire
+	- cooking
+	- foraging
+	- hunting
+	- tracking
+- gambling
+	- dice 
+	- cards 
+- diseases 
+- drugs alcohol
+- explosives
+
+
