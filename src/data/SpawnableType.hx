@@ -31,6 +31,7 @@ enum SpawnableType
 	SHOTGUN_AMMO;
 	CAMPFIRE;
 	LANTERN;
+	BEDROLL;
 	ASHES;
 	JAR;
 	VIAL;

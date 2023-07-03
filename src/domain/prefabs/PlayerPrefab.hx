@@ -4,7 +4,6 @@ import data.ColorKey;
 import data.LiquidType;
 import data.SpawnableType;
 import data.TileKey;
-import domain.components.Dialog;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.FactionMember;
@@ -13,6 +12,7 @@ import domain.components.Inventory;
 import domain.components.IsPlayer;
 import domain.components.Level;
 import domain.components.Moniker;
+import domain.components.Sleeper;
 import domain.components.Sprite;
 import domain.components.Stats;
 import domain.components.Vision;
@@ -36,6 +36,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new Energy(10));
 		entity.add(new Level(120));
 		entity.add(new Vision(20));
+		entity.add(new Sleeper());
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());
 		entity.add(new EquipmentSlot('Head', 'head', EQ_SLOT_HEAD));
@@ -62,6 +63,7 @@ class PlayerPrefab extends Prefab
 		var inv = entity.get(Inventory);
 
 		inv.addLoot(Spawner.Spawn(LANTERN));
+		inv.addLoot(Spawner.Spawn(BEDROLL));
 		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
 		inv.addLoot(Spawner.Spawn(RIFLE_AMMO));
 		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));

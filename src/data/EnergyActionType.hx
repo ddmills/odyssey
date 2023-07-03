@@ -13,4 +13,5 @@ enum EnergyActionType
 	ACT_UNEQUIP;
 	ACT_DOOR_OPEN;
 	ACT_DOOR_CLOSE;
+	ACT_SLEEP;
 }

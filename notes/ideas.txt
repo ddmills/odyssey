@@ -93,8 +93,16 @@ Buildings
 - gambling
 	- dice 
 	- cards 
-- diseases 
+- diseases
+	- effect
+	- remedy
+	- contagion
 - drugs alcohol
 - explosives
 
 
+enemy concepts:
+- keep distance, fire projectiles
+- light nearby squares on fire
+- creates dust cloud that reduces vision range and obscures enemy
+- 

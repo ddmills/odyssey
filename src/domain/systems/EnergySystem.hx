@@ -8,6 +8,7 @@ import domain.components.IsDead;
 import domain.components.IsDestroyed;
 import domain.components.IsDetached;
 import domain.components.IsPlayer;
+import domain.components.IsSleeping;
 import domain.events.ConsumeEnergyEvent;
 import domain.skills.Skills;
 import ecs.Entity;
@@ -59,7 +60,19 @@ class EnergySystem extends System
 		world.clock.clearDeltas();
 		if (isPlayersTurn && world.player.entity.get(Energy).hasEnergy)
 		{
-			return;
+			var sleeping = world.player.entity.get(IsSleeping);
+			if (sleeping != null)
+			{
+				if (sleeping.ticksRemaining > 0)
+				{
+					trace(sleeping.ticksRemaining);
+					EnergySystem.ConsumeEnergy(world.player.entity, ACT_WAIT);
+				}
+			}
+			else
+			{
+				return;
+			}
 		}
 
 		while (true)
@@ -92,6 +105,11 @@ class EnergySystem extends System
 			var speed = Skills.GetValue(SKILL_SPEED, entity);
 
 			return 80 - (speed * 5);
+		}
+
+		if (type == ACT_SLEEP)
+		{
+			return 1000;
 		}
 
 		if (type == ACT_WAIT)

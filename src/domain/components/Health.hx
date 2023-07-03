@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
+import domain.events.DamagedEvent;
 import domain.events.EnemyKilledEvent;
 import domain.events.EntitySpawnedEvent;
 import domain.prefabs.Spawner;
@@ -62,6 +63,7 @@ class Health extends Component
 			makeBloodEffect(evt.attack.attacker.pos);
 			entity.add(new HitBlink());
 			evt.isHit = true;
+			entity.fireEvent(new DamagedEvent());
 		}
 		else
 		{
