@@ -1,7 +1,5 @@
 package core.input;
 
-import haxe.EnumTools.EnumValueTools;
-
 enum abstract KeyCode(Int) from Int to Int
 {
 	var KEY_CANCEL = 3;

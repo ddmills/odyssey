@@ -1,10 +1,10 @@
 package screens.shooting;
 
-import common.algorithm.Bresenham;
 import common.struct.Coordinate;
-import common.util.Timeout;
 import core.Frame;
+import core.Screen;
 import core.input.Command;
+import data.Cardinal;
 import data.ColorKey;
 import data.TextResources;
 import data.TileResources;
@@ -15,7 +15,6 @@ import domain.components.Highlight;
 import domain.components.IsDestroyed;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
-import domain.components.Sprite;
 import domain.components.Visible;
 import domain.components.Weapon;
 import domain.events.ReloadEvent;
@@ -23,50 +22,62 @@ import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Entity;
 import ecs.Query;
-import h2d.Bitmap;
+import h2d.Anim;
 import h2d.Text;
-import screens.cursor.CursorScreen;
+import screens.console.ConsoleScreen;
 import shaders.SpriteShader;
 
-class ShootingScreen extends CursorScreen
+class ShootingScreen extends Screen
 {
 	var shooter:Entity;
 	var hud:h2d.Object;
 	var ob:h2d.Object;
-	var targetBm:h2d.Bitmap;
+	var targetBm:Anim;
 	var targetShader:SpriteShader;
-	var timeout:Timeout;
-	var isBlinking:Bool = false;
 	var weapon(get, never):Weapon;
 	var hitChanceTxt:Text;
 
 	var query:Query;
 	var highlights:Query;
 
+	var targets:Array<Entity>;
+	var targetIdx:Int = 0;
+	var targetPos:Coordinate;
+	var target(get, never):Null<Entity>;
+	var NORTH_WEST(default, null):Dynamic;
+
+	function get_target():Null<Entity>
+	{
+		return targets[targetIdx];
+	}
+
 	public function new(shooter:Entity)
 	{
 		this.shooter = shooter;
-		super();
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
+		targets = new Array();
 
 		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
 		hud = new h2d.Object();
-		targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
+		targetBm = new Anim([
+			TileResources.Get(CURSOR_SPIN_1),
+			TileResources.Get(CURSOR_SPIN_2),
+			TileResources.Get(CURSOR_SPIN_3),
+			TileResources.Get(CURSOR_SPIN_4),
+			TileResources.Get(CURSOR_SPIN_5),
+		], 10, ob);
 		targetBm.addShader(targetShader);
 
 		hitChanceTxt = new Text(TextResources.BIZCAT);
-		hitChanceTxt.color = game.TEXT_COLOR.toHxdColor();
+		hitChanceTxt.color = ColorKey.C_WHITE_1.toHxdColor();
 		hitChanceTxt.x = 16;
 		hitChanceTxt.y = 16;
 
 		hud.addChild(hitChanceTxt);
-
-		timeout = new Timeout(.25);
-		timeout.onComplete = blink;
 
 		query = new Query({
 			all: [Visible, Health, IsEnemy],
@@ -82,19 +93,17 @@ class ShootingScreen extends CursorScreen
 		super.onEnter();
 		game.render(HUD, hud);
 		game.render(OVERLAY, ob);
-	}
-
-	private function blink()
-	{
-		timeout.reset();
-		targetBm.visible = isBlinking ? !targetBm.visible : true;
+		targetIdx = 0;
+		targetPos = world.player.pos.floor();
+		targets = new Array();
 	}
 
 	public override function update(frame:Frame)
 	{
-		timeout.update();
-
-		world.updateSystems();
+		if (target != null)
+		{
+			targetPos = target.pos;
+		}
 
 		highlights.each((e:Entity) ->
 		{
@@ -104,11 +113,29 @@ class ShootingScreen extends CursorScreen
 			}
 		});
 
-		query.each((e:Entity) ->
+		query.each((t:Entity, idx:Int) ->
 		{
-			if (!e.has(Highlight))
+			var highlight = t.get(Highlight);
+			if (highlight == null)
 			{
-				e.add(new Highlight());
+				highlight = new Highlight();
+				t.add(highlight);
+			}
+
+			if (targetPos.equals(t.pos))
+			{
+				targetIdx = idx;
+			}
+
+			if (idx == targetIdx)
+			{
+				highlight.showArrow = true;
+				highlight.color = ColorKey.C_YELLOW_1;
+			}
+			else
+			{
+				highlight.showArrow = false;
+				highlight.color = ColorKey.C_WHITE_1;
 			}
 		});
 
@@ -120,24 +147,26 @@ class ShootingScreen extends CursorScreen
 				handleInput(game.commands.next());
 			}
 		}
+		world.updateSystems();
 
-		var defender = world.getEntitiesAt(target).find((e) -> e.has(Health));
+		targets = query.toArray();
 
-		if (defender != null && weapon != null)
+		var targetPosPx = targetPos.toPx();
+		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
+
+		if (target != null && weapon != null)
 		{
-			var health = defender.get(Health).toString();
-			var chance = (GameMath.GetHitChance(shooter, defender, weapon, true) * 100).round();
-			var dist = GameMath.GetTargetDistance(shooter.pos.toIntPoint(), defender.pos.toIntPoint());
-			var mod = GameMath.GetRangePenalty(shooter.pos.toIntPoint(), defender.pos.toIntPoint(), weapon.range);
-			hitChanceTxt.text = '$chance% ($dist/$mod) $health';
-			var pos = target.sub(new Coordinate(0, .5)).toScreen();
-			hitChanceTxt.x = pos.x;
-			hitChanceTxt.y = pos.y;
+			var health = target.get(Health).toString();
+			var chance = (GameMath.GetHitChance(shooter, target, weapon, true) * 100).round();
+			var dist = GameMath.GetTargetDistance(shooter.pos.toIntPoint(), target.pos.toIntPoint());
+			var mod = GameMath.GetRangePenalty(shooter.pos.toIntPoint(), target.pos.toIntPoint(), weapon.range);
+			hitChanceTxt.text = '$targetIdx -- $chance% ($dist/$mod) $health';
 			hitChanceTxt.visible = true;
-			var highlight = defender.get(Highlight);
+			var highlight = target.get(Highlight);
 			if (highlight != null)
 			{
-				highlight.color = ColorKey.C_RED_1;
+				highlight.color = ColorKey.C_YELLOW_1;
+				highlight.showArrow = true;
 			}
 		}
 		else
@@ -145,40 +174,58 @@ class ShootingScreen extends CursorScreen
 			hitChanceTxt.visible = false;
 		}
 
-		render({
-			start: start,
-			end: target,
-			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
-		});
+		var targetPosPx = targetPos.toPx();
+		targetBm.x = targetPosPx.x;
+		targetBm.y = targetPosPx.y;
+		targetBm.visible = targetIdx < 0;
 	}
 
-	override function render(opts:CursorRenderOpts)
+	override function onMouseMove(pos:Coordinate, previous:Coordinate)
 	{
-		var end = opts.end.toPx();
-		if (end.x == targetBm.x && end.y == targetBm.y)
-		{
-			return;
-		}
+		var prevWorld = previous.toWorld().floor();
+		var curWorld = pos.toWorld().floor();
 
-		targetBm.x = end.x;
-		targetBm.y = end.y;
-		targetBm.visible = true;
-		timeout.reset();
+		if (!curWorld.equals(prevWorld))
+		{
+			targetPos = curWorld;
+			targetIdx = -1;
+		}
 	}
 
-	override function handleInput(command:Command)
+	function handleInput(command:Command)
 	{
-		if (command.type == CMD_SHOOT)
+		switch (command.type)
 		{
-			tryShoot();
-			return;
+			case CMD_MOVE_NW:
+				look(NORTH_WEST);
+			case CMD_MOVE_N:
+				look(NORTH);
+			case CMD_MOVE_NE:
+				look(NORTH_EAST);
+			case CMD_MOVE_E:
+				look(EAST);
+			case CMD_MOVE_W:
+				look(WEST);
+			case CMD_MOVE_SW:
+				look(SOUTH_WEST);
+			case CMD_MOVE_S:
+				look(SOUTH);
+			case CMD_MOVE_SE:
+				look(SOUTH_EAST);
+			case CMD_LOOK:
+				game.screens.pop();
+			case CMD_CANCEL:
+				game.screens.pop();
+			case CMD_CONSOLE:
+				game.screens.push(new ConsoleScreen());
+			case CMD_CYCLE_INPUT:
+				targetIdx = (targetIdx + 1) % targets.length;
+			case CMD_SHOOT:
+				tryShoot();
+			case CMD_RELOAD:
+				tryReload();
+			case _:
 		}
-		if (command.type == CMD_RELOAD)
-		{
-			tryReload();
-			return;
-		}
-		super.handleInput(command);
 	}
 
 	override function onMouseDown(pos:Coordinate)
@@ -200,7 +247,7 @@ class ShootingScreen extends CursorScreen
 			return;
 		}
 
-		weapon.entity.fireEvent(new ShootEvent(target.toWorld().toIntPoint(), shooter));
+		weapon.entity.fireEvent(new ShootEvent(targetPos.toWorld().toIntPoint(), shooter));
 	}
 
 	function tryReload()
@@ -225,6 +272,14 @@ class ShootingScreen extends CursorScreen
 		{
 			entity.remove(Highlight);
 		});
+
+		targetIdx = 0;
+		targets = new Array();
+	}
+
+	private function look(dir:Cardinal)
+	{
+		targetPos = targetPos.add(dir.toOffset().asWorld());
 	}
 
 	function get_weapon():Weapon
