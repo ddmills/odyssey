@@ -50,11 +50,11 @@ class SystemManager
 		movement.update(frame);
 		path.update(frame);
 		lights.update(frame);
+		highlight.update(frame);
 		vision.update(frame);
 		bitmasks.update(frame);
 		sprites.update(frame);
 		bullets.update(frame);
-		highlight.update(frame);
 		hitBlink.update(frame);
 		storylines.update(frame);
 		destroy.update(frame);

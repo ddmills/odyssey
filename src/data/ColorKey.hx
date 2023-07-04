@@ -9,9 +9,9 @@ enum abstract ColorKey(Int) to Int from Int
 	var C_GRAY_2 = 0x4e4f63;
 	var C_GRAY_1 = 0x83868d;
 	var C_GREEN_4 = 0x21271a; // forest bg
-	var C_GREEN_3 = 0x30311e; // prairie bg
-	var C_GREEN_2 = 0x535427; // prairie fg
-	var C_GREEN_1 = 0x6E6E47;
+	var C_GREEN_3 = 0x3f4126; // prairie bg
+	var C_GREEN_2 = 0x61622A; // prairie fg
+	var C_GREEN_1 = 0x848451;
 	var C_BLUE_3 = 0x16202f; // water bg
 	var C_BLUE_2 = 0x284164; // water fg
 	var C_BLUE_1 = 0x6e808f;

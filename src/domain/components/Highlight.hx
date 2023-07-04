@@ -6,7 +6,7 @@ import h2d.Bitmap;
 
 class Highlight extends Component
 {
-	@save public var color:Int = ColorKey.C_RED_1;
+	@save public var color:Int = ColorKey.C_YELLOW_2;
 
 	public function new() {}
 }

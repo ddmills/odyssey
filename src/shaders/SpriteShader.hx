@@ -93,7 +93,7 @@ class SpriteShader extends hxsl.Shader
 		this.primary = primary.toHxdColor();
 		this.secondary = secondary.toHxdColor();
 		this.shroudIntensity = 2;
-		this.shroudColor = 0x1E0524.toHxdColor();
+		this.shroudColor = 0x1C0534.toHxdColor();
 		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;

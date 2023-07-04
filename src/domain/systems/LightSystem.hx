@@ -67,12 +67,12 @@ class LightSystem extends System
 
 					var entities = world.getEntitiesAt(p.asWorld());
 
-					return entities.exists((e) -> e.has(LightBlocker) || e.has(Energy));
+					return entities.exists((e) -> e.has(LightBlocker));
 				},
 				onLight: (pos, distance) ->
 				{
 					var d = distance > .75 ? distance - .75 : .75;
-					var i = light.intensity / (d * d);
+					var i = light.intensity / d; // realistic lighting = d^2
 
 					addFragment({
 						pos: pos,

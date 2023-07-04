@@ -106,3 +106,6 @@ enemy concepts:
 - light nearby squares on fire
 - creates dust cloud that reduces vision range and obscures enemy
 - 
+
+terrain 
+- use spline curves in conjunction with simplex

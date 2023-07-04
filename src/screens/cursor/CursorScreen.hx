@@ -28,25 +28,6 @@ class CursorScreen extends Screen
 		target = world.player.pos.floor();
 	}
 
-	public override function update(frame:Frame)
-	{
-		// TODO remove duplication with adventure screen
-		render({
-			start: start,
-			end: target,
-			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
-		});
-		world.updateSystems();
-		if (world.systems.energy.isPlayersTurn)
-		{
-			var cmd = game.commands.peek();
-			if (cmd != null)
-			{
-				handleInput(game.commands.next());
-			}
-		}
-	}
-
 	public override function onMouseMove(pos:Coordinate, previous:Coordinate)
 	{
 		target = pos.toWorld().floor();

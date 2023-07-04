@@ -1,5 +1,6 @@
 package screens.shooting;
 
+import common.algorithm.Bresenham;
 import common.struct.Coordinate;
 import common.util.Timeout;
 import core.Frame;
@@ -40,6 +41,7 @@ class ShootingScreen extends CursorScreen
 	var hitChanceTxt:Text;
 
 	var query:Query;
+	var highlights:Query;
 
 	public function new(shooter:Entity)
 	{
@@ -67,8 +69,11 @@ class ShootingScreen extends CursorScreen
 		timeout.onComplete = blink;
 
 		query = new Query({
-			all: [Visible, Sprite, IsEnemy],
-			none: [IsInventoried, IsDestroyed, Highlight],
+			all: [Visible, Health, IsEnemy],
+			none: [IsInventoried, IsDestroyed],
+		});
+		highlights = new Query({
+			all: [Highlight],
 		});
 	}
 
@@ -89,10 +94,32 @@ class ShootingScreen extends CursorScreen
 	{
 		timeout.update();
 
+		world.updateSystems();
+
+		highlights.each((e:Entity) ->
+		{
+			if (!query.has(e))
+			{
+				e.remove(Highlight);
+			}
+		});
+
 		query.each((e:Entity) ->
 		{
-			e.add(new Highlight());
+			if (!e.has(Highlight))
+			{
+				e.add(new Highlight());
+			}
 		});
+
+		if (world.systems.energy.isPlayersTurn)
+		{
+			var cmd = game.commands.peek();
+			if (cmd != null)
+			{
+				handleInput(game.commands.next());
+			}
+		}
 
 		var defender = world.getEntitiesAt(target).find((e) -> e.has(Health));
 
@@ -107,13 +134,22 @@ class ShootingScreen extends CursorScreen
 			hitChanceTxt.x = pos.x;
 			hitChanceTxt.y = pos.y;
 			hitChanceTxt.visible = true;
+			var highlight = defender.get(Highlight);
+			if (highlight != null)
+			{
+				highlight.color = ColorKey.C_RED_1;
+			}
 		}
 		else
 		{
 			hitChanceTxt.visible = false;
 		}
 
-		super.update(frame);
+		render({
+			start: start,
+			end: target,
+			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
+		});
 	}
 
 	override function render(opts:CursorRenderOpts)

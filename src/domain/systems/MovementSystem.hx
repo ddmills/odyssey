@@ -2,11 +2,9 @@ package domain.systems;
 
 import common.struct.Coordinate;
 import core.Frame;
-import domain.components.Energy;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
-import domain.components.Moniker;
 import domain.components.Move;
 import domain.components.MoveComplete;
 import domain.components.Moved;

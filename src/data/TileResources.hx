@@ -131,6 +131,11 @@ class TileResources
 		tiles.set(SNAKE, t[6][1]);
 
 		tiles.set(CURSOR, t[6][0]);
+		tiles.set(CURSOR_SPIN_1, t[7][4]);
+		tiles.set(CURSOR_SPIN_2, t[7][5]);
+		tiles.set(CURSOR_SPIN_3, t[7][6]);
+		tiles.set(CURSOR_SPIN_4, t[7][7]);
+		tiles.set(CURSOR_SPIN_5, t[7][8]);
 		tiles.set(LIST_DASH, t[7][0]);
 		tiles.set(LIST_ARROW, t[7][1]);
 		tiles.set(DOT, t[7][3]);

@@ -1,5 +1,6 @@
 package screens.cursor;
 
+import common.algorithm.Bresenham;
 import common.util.Timeout;
 import core.Frame;
 import data.ColorKey;
@@ -124,7 +125,20 @@ class LookScreen extends CursorScreen
 	override function update(frame:Frame)
 	{
 		timeout.update();
-		super.update(frame);
+		render({
+			start: start,
+			end: target,
+			line: Bresenham.getLine(start.toIntPoint(), target.toIntPoint()),
+		});
+		world.updateSystems();
+		if (world.systems.energy.isPlayersTurn)
+		{
+			var cmd = game.commands.peek();
+			if (cmd != null)
+			{
+				handleInput(game.commands.next());
+			}
+		}
 	}
 
 	private function blink()
