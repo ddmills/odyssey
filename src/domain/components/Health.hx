@@ -78,9 +78,7 @@ class Health extends Component
 
 	private function makeBloodEffect(source:Coordinate)
 	{
-		var cardinal = entity.pos.sub(source).cardinal();
-		var spot = cardinal.toOffset().asWorld().floor();
-		Spawner.Spawn(BLOOD_SPATTER, entity.pos.floor().add(spot));
+		Spawner.Spawn(BLOOD_SPURT, entity.pos.floor());
 	}
 
 	public function set_value(value:Int):Int

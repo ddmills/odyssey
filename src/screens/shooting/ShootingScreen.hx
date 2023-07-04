@@ -130,11 +130,13 @@ class ShootingScreen extends Screen
 			if (idx == targetIdx)
 			{
 				highlight.showArrow = true;
+				highlight.showRing = false;
 				highlight.color = ColorKey.C_YELLOW_1;
 			}
 			else
 			{
 				highlight.showArrow = false;
+				highlight.showRing = true;
 				highlight.color = ColorKey.C_WHITE_1;
 			}
 		});

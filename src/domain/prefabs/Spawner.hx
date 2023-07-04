@@ -32,6 +32,7 @@ class Spawner
 		prefabs.set(LONG_JOHNS, new LongJohnsPrefab());
 		prefabs.set(BULLET, new BulletPrefab());
 		prefabs.set(BLOOD_SPATTER, new BloodSplatterPrefab());
+		prefabs.set(BLOOD_SPURT, new BloodSpurtPrefab());
 		prefabs.set(COACH_GUN, new CoachGunPrefab());
 		prefabs.set(THUG, new ThugPrefab());
 		prefabs.set(THUG_2, new ThugPistolPrefab());

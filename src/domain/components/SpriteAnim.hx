@@ -11,20 +11,38 @@ class SpriteAnim extends Drawable
 {
 	@save public var tileKeys(default, set):Array<TileKey>;
 	@save public var speed(default, set):Float;
+	@save public var loop(default, set):Bool;
+	@save public var destroyOnComplete:Bool;
 
 	public var ob(default, null):Anim;
 	public var tiles(get, never):Array<Tile>;
 
-	public function new(tileKeys:Array<TileKey>, speed:Float = 15, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
+	public function new(tileKeys:Array<TileKey>, speed:Float = 15, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS, loop = true)
 	{
 		this.tileKeys = tileKeys == null ? [] : tileKeys;
 		this.speed = speed;
+		this.loop = loop;
+		this.destroyOnComplete = false;
 
 		super(primary, secondary, layer);
 
 		ob = new Anim(this.tiles, speed);
+		ob.loop = loop;
 		ob.addShader(shader);
 		ob.visible = false;
+		ob.onAnimEnd = onAnimEnd;
+	}
+
+	private function onAnimEnd()
+	{
+		if (!loop)
+		{
+			ob.visible = false;
+		}
+		if (destroyOnComplete)
+		{
+			entity.add(new IsDestroyed());
+		}
 	}
 
 	public function getAnimClone():Anim
@@ -57,6 +75,7 @@ class SpriteAnim extends Drawable
 		{
 			var old = ob;
 			ob = new Anim(tiles, speed, old.parent);
+			ob.loop = loop;
 			ob.x = old.x;
 			ob.y = old.y;
 			ob.visible = isVisible;
@@ -79,5 +98,15 @@ class SpriteAnim extends Drawable
 	inline function getDrawable():h2d.Drawable
 	{
 		return ob;
+	}
+
+	function set_loop(value:Bool):Bool
+	{
+		loop = value;
+		if (ob != null)
+		{
+			ob.loop = value;
+		}
+		return value;
 	}
 }

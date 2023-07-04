@@ -16,6 +16,7 @@ typedef HighlightOb =
 	ob:Object,
 	shader:SpriteShader,
 	arrow:Anim,
+	ring:Anim,
 };
 
 class HighlightSystem extends System
@@ -38,7 +39,7 @@ class HighlightSystem extends System
 			targetShader.isShrouded = 0;
 			targetShader.clearBackground = 0;
 			var ob = new Object();
-			var cursor = new Anim([
+			var ring = new Anim([
 				TileResources.Get(CURSOR_SPIN_1),
 				TileResources.Get(CURSOR_SPIN_2),
 				TileResources.Get(CURSOR_SPIN_3),
@@ -56,17 +57,19 @@ class HighlightSystem extends System
 			arrow.x = offsetPos.x;
 			arrow.y = offsetPos.y;
 			arrow.visible = highlight.showArrow;
+			ring.visible = highlight.showRing;
 			ob.x = targetPos.x;
 			ob.y = targetPos.y;
 			ob.addChild(arrow);
-			ob.addChild(cursor);
-			cursor.addShader(targetShader);
+			ob.addChild(ring);
+			ring.addShader(targetShader);
 			arrow.addShader(targetShader);
 			game.render(OVERLAY, ob);
 			bitmaps.set(e.id, {
 				ob: ob,
 				shader: targetShader,
 				arrow: arrow,
+				ring: ring,
 			});
 		});
 
@@ -94,6 +97,7 @@ class HighlightSystem extends System
 			bm.ob.y = targetPos.y;
 			bm.shader.primary = highlight.color.toHxdColor();
 			bm.arrow.visible = highlight.showArrow;
+			bm.ring.visible = highlight.showRing;
 		});
 	}
 }

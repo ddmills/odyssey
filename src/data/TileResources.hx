@@ -140,6 +140,12 @@ class TileResources
 		tiles.set(ARROW_BOUNCE_2, t[8][5]);
 		tiles.set(ARROW_BOUNCE_3, t[8][6]);
 		tiles.set(ARROW_BOUNCE_4, t[8][7]);
+
+		tiles.set(LIQUID_SPURT_1, t[8][8]);
+		tiles.set(LIQUID_SPURT_2, t[8][9]);
+		tiles.set(LIQUID_SPURT_3, t[8][10]);
+		tiles.set(LIQUID_SPURT_4, t[8][11]);
+		tiles.set(LIQUID_SPURT_5, t[8][12]);
 		tiles.set(LIST_DASH, t[7][0]);
 		tiles.set(LIST_ARROW, t[7][1]);
 		tiles.set(DOT, t[7][3]);
