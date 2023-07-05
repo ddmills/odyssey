@@ -107,7 +107,7 @@ class TileResources
 		tiles.set(VIAL, t[3][7]);
 		tiles.set(PONCHO, t[4][5]);
 		tiles.set(WAGON_WHEEL, t[1][8]);
-		tiles.set(DYNOMITE, t[1][9]);
+		tiles.set(DYNAMITE, t[1][9]);
 		tiles.set(TOMBSTONE_1, t[1][10]);
 		tiles.set(BOOTS, t[4][6]);
 		tiles.set(COAT, t[4][7]);

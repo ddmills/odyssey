@@ -59,5 +59,5 @@ enum SpawnableType
 	BARS_DOOR;
 	RAILROAD;
 	VILLAGER;
-	DYNOMITE;
+	DYNAMITE;
 }

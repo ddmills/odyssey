@@ -70,7 +70,7 @@ class Spawner
 		prefabs.set(RAILROAD, new RailroadPrefab());
 		prefabs.set(VILLAGER, new VillagerPrefab());
 		prefabs.set(BEDROLL, new BedrollPrefab());
-		prefabs.set(DYNOMITE, new DynomitePrefab());
+		prefabs.set(DYNAMITE, new DynamitePrefab());
 		prefabs.set(EXPLOSION, new ExplosionPrefab());
 	}
 

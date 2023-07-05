@@ -70,11 +70,11 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(REVOLVER));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		inv.addLoot(Spawner.Spawn(DYNOMITE));
-		inv.addLoot(Spawner.Spawn(DYNOMITE));
-		inv.addLoot(Spawner.Spawn(DYNOMITE));
-		inv.addLoot(Spawner.Spawn(DYNOMITE));
-		inv.addLoot(Spawner.Spawn(DYNOMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
