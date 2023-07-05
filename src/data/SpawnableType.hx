@@ -25,6 +25,7 @@ enum SpawnableType
 	COACH_GUN;
 	BLOOD_SPATTER;
 	BLOOD_SPURT;
+	EXPLOSION;
 	THUG;
 	THUG_2;
 	PISTOL_AMMO;
@@ -58,4 +59,5 @@ enum SpawnableType
 	BARS_DOOR;
 	RAILROAD;
 	VILLAGER;
+	DYNOMITE;
 }

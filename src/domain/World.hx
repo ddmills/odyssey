@@ -43,7 +43,6 @@ class World
 	public var mapHeight(get, null):Int;
 	public var map(default, null):MapData;
 	public var seed:Int = 2;
-	public var soundThreshold:Int = 8;
 
 	public var rand:Rand;
 
@@ -83,9 +82,9 @@ class World
 		systems.update(game.frame);
 	}
 
-	public function playAudio(pos:IntPoint, key:AudioKey):Bool
+	public function playAudio(pos:IntPoint, key:AudioKey, threshold:Int = 8):Bool
 	{
-		if (player.entity.pos.distance(pos.asWorld()) <= soundThreshold)
+		if (player.entity.pos.distance(pos.asWorld()) <= threshold)
 		{
 			game.audio.play(key);
 			return true;

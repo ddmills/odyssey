@@ -70,34 +70,17 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(REVOLVER));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		inv.addLoot(Spawner.Spawn(VIAL));
-		inv.addLoot(Spawner.Spawn(JAR));
+		inv.addLoot(Spawner.Spawn(DYNOMITE));
+		inv.addLoot(Spawner.Spawn(DYNOMITE));
+		inv.addLoot(Spawner.Spawn(DYNOMITE));
+		inv.addLoot(Spawner.Spawn(DYNOMITE));
+		inv.addLoot(Spawner.Spawn(DYNOMITE));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
 		inv.addLoot(Spawner.Spawn(STICK));
-
-		inv.addLoot(Spawner.Spawn(VIAL, null, {
-			liquidType: LiquidType.LIQUID_WATER,
-			volume: 42,
-		}));
-
-		inv.addLoot(Spawner.Spawn(VIAL, null, {
-			liquidType: LiquidType.LIQUID_BLOOD,
-			volume: 42,
-		}));
-
-		inv.addLoot(Spawner.Spawn(VIAL, null, {
-			liquidType: LiquidType.LIQUID_HONEY,
-			volume: 42,
-		}));
-
-		inv.addLoot(Spawner.Spawn(VIAL, null, {
-			liquidType: LiquidType.LIQUID_WHALE_OIL,
-			volume: 42,
-		}));
 
 		return entity;
 	}

@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import data.ColorKey;
-import data.TileResources;
 import domain.components.Bullet;
 import domain.components.Moniker;
 import domain.components.Sprite;

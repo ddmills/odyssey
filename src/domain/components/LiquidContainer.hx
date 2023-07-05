@@ -14,7 +14,6 @@ import ecs.Component;
 import ecs.Entity;
 import screens.entitySelect.EntitySelectScreen;
 import screens.inventory.LiquidPourScreen;
-import screens.prompt.NumberPromptScreen;
 
 class LiquidContainer extends Component
 {

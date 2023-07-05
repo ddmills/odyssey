@@ -146,6 +146,11 @@ class TileResources
 		tiles.set(LIQUID_SPURT_3, t[8][10]);
 		tiles.set(LIQUID_SPURT_4, t[8][11]);
 		tiles.set(LIQUID_SPURT_5, t[8][12]);
+		tiles.set(EXPLOSION_1, t[9][8]);
+		tiles.set(EXPLOSION_2, t[9][9]);
+		tiles.set(EXPLOSION_3, t[9][10]);
+		tiles.set(EXPLOSION_4, t[9][11]);
+		tiles.set(EXPLOSION_5, t[9][12]);
 		tiles.set(LIST_DASH, t[7][0]);
 		tiles.set(LIST_ARROW, t[7][1]);
 		tiles.set(DOT, t[7][3]);

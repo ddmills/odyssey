@@ -25,6 +25,7 @@ typedef LightFragment =
 class LightSystem extends System
 {
 	var query:Query;
+	var flagRecompute:Bool = false;
 	private var litTiles:Map<Int, Float> = [];
 
 	public var lightFragments:Map<Int, Array<LightFragment>> = [];
@@ -35,14 +36,21 @@ class LightSystem extends System
 			all: [LightSource],
 			none: [IsDestroyed],
 		});
+
+		query.onEntityRemoved((e) ->
+		{
+			flagRecompute = true;
+		});
 	}
 
 	override function update(frame:Frame)
 	{
-		if (world.clock.tickDelta <= 0)
+		if (world.clock.tickDelta <= 0 && !flagRecompute)
 		{
 			return;
 		}
+
+		flagRecompute = false;
 
 		clearLitTiles();
 

@@ -70,6 +70,8 @@ class Spawner
 		prefabs.set(RAILROAD, new RailroadPrefab());
 		prefabs.set(VILLAGER, new VillagerPrefab());
 		prefabs.set(BEDROLL, new BedrollPrefab());
+		prefabs.set(DYNOMITE, new DynomitePrefab());
+		prefabs.set(EXPLOSION, new ExplosionPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)

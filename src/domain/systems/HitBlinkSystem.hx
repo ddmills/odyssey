@@ -4,7 +4,6 @@ import core.Frame;
 import core.Game;
 import domain.components.HitBlink;
 import domain.components.IsDestroyed;
-import domain.components.IsInventoried;
 import domain.components.Sprite;
 import ecs.Entity;
 import ecs.Query;
@@ -18,12 +17,12 @@ class HitBlinkSystem extends System
 	{
 		query = new Query({
 			all: [HitBlink, Sprite],
-			none: [IsInventoried, IsDestroyed],
+			none: [IsDestroyed],
 		});
 
 		query.onEntityAdded((e) ->
 		{
-			e.get(Sprite).outlineOverride = 0xeeeeee;
+			e.get(Sprite).outlineOverride = e.get(HitBlink).color;
 		});
 
 		query.onEntityRemoved((e) ->
@@ -39,10 +38,22 @@ class HitBlinkSystem extends System
 	{
 		query.each((entity:Entity) ->
 		{
+			var sprite = entity.get(Sprite);
 			var blink = entity.get(HitBlink);
-			blink.time += frame.dt;
-			if (blink.time > .05)
+			blink.timeSeconds += frame.dt;
+
+			if ((blink.timeSeconds / blink.rateSeconds).floor() % 2 == 0)
 			{
+				sprite.outlineOverride = blink.color;
+			}
+			else
+			{
+				sprite.outlineOverride = blink.originalColor;
+			}
+
+			if (blink.timeSeconds > blink.durationSeconds)
+			{
+				sprite.outlineOverride = blink.originalColor;
 				entity.remove(HitBlink);
 			}
 		});

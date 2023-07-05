@@ -23,6 +23,27 @@ class Stackable extends Component
 		other.entity.add(new IsDestroyed());
 	}
 
+	public function shaveStackable()
+	{
+		if (quantity > 1)
+		{
+			var clone = entity.clone();
+			clone.get(Stackable).quantity -= 1;
+			entity.remove(this);
+			var isInventoried = clone.get(IsInventoried);
+
+			if (isInventoried != null)
+			{
+				var inventory = isInventoried.holder.get(Inventory);
+				inventory.addLoot(clone);
+			}
+		}
+		else
+		{
+			entity.remove(this);
+		}
+	}
+
 	function get_displayName():String
 	{
 		if (quantity > 1)

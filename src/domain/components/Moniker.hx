@@ -18,6 +18,7 @@ class Moniker extends Component
 		var equipped = entity.get(IsEquipped);
 		var stacks = entity.get(Stackable);
 		var light = entity.get(Lightable);
+		var explosive = entity.get(Explosive);
 		var fuelConsumer = entity.get(FuelConsumer);
 		var liquid = entity.get(LiquidContainer);
 		var door = entity.get(Door);
@@ -52,6 +53,12 @@ class Moniker extends Component
 		if (light != null)
 		{
 			name += ' [${light.displayName}]';
+		}
+
+		if (explosive != null && explosive.isFuseLit)
+		{
+			var t = ((explosive.remainingFuseTicks / Clock.TICKS_PER_MINUTE)).format(1);
+			name += ' [Lit ${t}m)]';
 		}
 
 		return name;

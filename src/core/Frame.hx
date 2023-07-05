@@ -45,7 +45,7 @@ class Frame
 
 	inline function get_dt()
 	{
-		return hxd.Timer.dt;
+		return hxd.Timer.elapsedTime;
 	}
 
 	@:allow(core.Game)

@@ -20,6 +20,7 @@ import ecs.System;
 class VisionSystem extends System
 {
 	var visibles:Query;
+	var flagRecompute:Bool;
 
 	public function new()
 	{
@@ -38,6 +39,7 @@ class VisionSystem extends System
 			{
 				entity.drawable.isVisible = true;
 			}
+			flagRecompute = true;
 		});
 		vis.onEntityRemoved((entity) ->
 		{
@@ -45,6 +47,7 @@ class VisionSystem extends System
 			{
 				entity.drawable.isVisible = false;
 			}
+			flagRecompute = true;
 		});
 
 		var shrouded = new Query({
@@ -137,6 +140,7 @@ class VisionSystem extends System
 
 	public function computeVision()
 	{
+		flagRecompute = false;
 		for (entity in visibles)
 		{
 			entity.remove(Visible);
@@ -171,7 +175,7 @@ class VisionSystem extends System
 
 	public override function update(frame:Frame)
 	{
-		if (world.clock.tickDelta > 0)
+		if (world.clock.tickDelta > 0 || flagRecompute)
 		{
 			computeVision();
 		}

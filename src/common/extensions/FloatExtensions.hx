@@ -40,7 +40,7 @@ class FloatExtensions
 		return n;
 	}
 
-	static public inline function lerp(rate:Float, from:Float, to:Float):Float
+	static public inline function lerp(from:Float, to:Float, rate:Float):Float
 	{
 		return from + rate * (to - from);
 	}
