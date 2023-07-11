@@ -40,7 +40,6 @@ class ShootingScreen extends Screen
 	var query:Query;
 	var highlights:Query;
 
-	var targets:Array<Entity>;
 	var targetEntityId:Null<String>;
 	var targetPos:Coordinate;
 	var target(get, never):Null<Entity>;
@@ -48,7 +47,7 @@ class ShootingScreen extends Screen
 
 	function get_target():Null<Entity>
 	{
-		return targets.find((t) -> t.id == targetEntityId);
+		return query.find((t) -> t.id == targetEntityId);
 	}
 
 	public function new(shooter:Entity)
@@ -56,7 +55,6 @@ class ShootingScreen extends Screen
 		this.shooter = shooter;
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
-		targets = new Array();
 
 		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
 		targetShader.isShrouded = 0;
@@ -95,7 +93,6 @@ class ShootingScreen extends Screen
 		game.render(OVERLAY, ob);
 		targetEntityId = null;
 		targetPos = world.player.pos.floor();
-		targets = new Array();
 		var closest = getClosestTarget();
 		if (closest != null)
 		{
@@ -155,8 +152,6 @@ class ShootingScreen extends Screen
 			}
 		}
 		world.updateSystems();
-
-		targets = query.toArray();
 
 		var targetPosPx = targetPos.toPx();
 		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
@@ -280,8 +275,11 @@ class ShootingScreen extends Screen
 	{
 		return query.sort((a, b) ->
 		{
-			var aDist = shooter.pos.distance(a.pos);
-			var bDist = shooter.pos.distance(b.pos);
+			// var aDist = shooter.pos.distance(a.pos);
+			// var bDist = shooter.pos.distance(b.pos);
+			var aDist = a.pos.sub(shooter.pos).radians();
+			var bDist = b.pos.sub(shooter.pos).radians();
+
 			return aDist > bDist ? 1 : -1;
 		});
 	}
@@ -337,7 +335,6 @@ class ShootingScreen extends Screen
 		});
 
 		targetEntityId = null;
-		targets = new Array();
 	}
 
 	private function look(dir:Cardinal)
