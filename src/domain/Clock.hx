@@ -106,7 +106,7 @@ class Clock
 	{
 		var d = ticksToDays(tick + (TICKS_PER_HOUR * HOUR_START));
 		var x = d - d.floor();
-		return 1 - (Math.cos(2 * Math.PI * x) + 1) / 2;
+		return 1 - ((Math.cos(2 * Math.PI * x) + 1) / 2).pow(2);
 	}
 
 	function get_progress():Float

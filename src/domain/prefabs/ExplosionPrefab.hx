@@ -17,7 +17,7 @@ class ExplosionPrefab extends Prefab
 		anim.destroyOnComplete = true;
 
 		entity.add(anim);
-		entity.add(new LightSource(.25, C_ORANGE_1, 5));
+		entity.add(new LightSource(.25, C_ORANGE_1, 8));
 
 		return entity;
 	}

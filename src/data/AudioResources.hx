@@ -60,6 +60,7 @@ class AudioResources
 			audio.set(SHOT_RIFLE_1, r.shot_rifle_1);
 			audio.set(SHOOT_NO_AMMO_1, r.shoot_no_ammo_1);
 			audio.set(EXPLOSION_STONE, r.explosion_stone);
+			audio.set(IGNITE_MATCH, r.ignite_match);
 		}
 		else
 		{

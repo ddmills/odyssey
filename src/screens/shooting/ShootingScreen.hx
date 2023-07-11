@@ -41,14 +41,14 @@ class ShootingScreen extends Screen
 	var highlights:Query;
 
 	var targets:Array<Entity>;
-	var targetIdx:Int = 0;
+	var targetEntityId:Null<String>;
 	var targetPos:Coordinate;
 	var target(get, never):Null<Entity>;
 	var NORTH_WEST(default, null):Dynamic;
 
 	function get_target():Null<Entity>
 	{
-		return targets[targetIdx];
+		return targets.find((t) -> t.id == targetEntityId);
 	}
 
 	public function new(shooter:Entity)
@@ -93,9 +93,14 @@ class ShootingScreen extends Screen
 		super.onEnter();
 		game.render(HUD, hud);
 		game.render(OVERLAY, ob);
-		targetIdx = 0;
+		targetEntityId = null;
 		targetPos = world.player.pos.floor();
 		targets = new Array();
+		var closest = getClosestTarget();
+		if (closest != null)
+		{
+			targetEntityId = closest.id;
+		}
 	}
 
 	public override function update(frame:Frame)
@@ -124,10 +129,10 @@ class ShootingScreen extends Screen
 
 			if (targetPos.equals(t.pos))
 			{
-				targetIdx = idx;
+				targetEntityId = t.id;
 			}
 
-			if (idx == targetIdx)
+			if (t.id == targetEntityId)
 			{
 				highlight.showArrow = true;
 				highlight.showRing = false;
@@ -162,7 +167,8 @@ class ShootingScreen extends Screen
 			var chance = (GameMath.GetHitChance(shooter, target, weapon, true) * 100).round();
 			var dist = GameMath.GetTargetDistance(shooter.pos.toIntPoint(), target.pos.toIntPoint());
 			var mod = GameMath.GetRangePenalty(shooter.pos.toIntPoint(), target.pos.toIntPoint(), weapon.range);
-			hitChanceTxt.text = '$targetIdx -- $chance% ($dist/$mod) $health';
+
+			hitChanceTxt.text = '$chance% ($dist/$mod) $health';
 			hitChanceTxt.visible = true;
 			var highlight = target.get(Highlight);
 			if (highlight != null)
@@ -179,7 +185,7 @@ class ShootingScreen extends Screen
 		var targetPosPx = targetPos.toPx();
 		targetBm.x = targetPosPx.x;
 		targetBm.y = targetPosPx.y;
-		targetBm.visible = targetIdx < 0;
+		targetBm.visible = targetEntityId == null;
 	}
 
 	override function onMouseMove(pos:Coordinate, previous:Coordinate)
@@ -190,7 +196,7 @@ class ShootingScreen extends Screen
 		if (!curWorld.equals(prevWorld))
 		{
 			targetPos = curWorld;
-			targetIdx = -1;
+			targetEntityId = null;
 		}
 	}
 
@@ -221,13 +227,68 @@ class ShootingScreen extends Screen
 			case CMD_CONSOLE:
 				game.screens.push(new ConsoleScreen());
 			case CMD_CYCLE_INPUT:
-				targetIdx = (targetIdx + 1) % targets.length;
+				cycleNextTarget();
+			case CMD_CYCLE_INPUT_REVERSE:
+				cyclePreviousTarget();
 			case CMD_SHOOT:
 				tryShoot();
 			case CMD_RELOAD:
 				tryReload();
 			case _:
 		}
+	}
+
+	private function cycleNextTarget()
+	{
+		if (target == null)
+		{
+			var closest = getClosestTarget();
+			targetEntityId = closest == null ? null : closest.id;
+			return;
+		}
+
+		var sorted = getSortedTargets();
+		var idx = sorted.indexOf(target);
+		var nextIdx = idx + 1;
+		var next = nextIdx >= sorted.length ? sorted[0] : sorted[nextIdx];
+		if (next != null)
+		{
+			targetEntityId = next.id;
+		}
+	}
+
+	private function cyclePreviousTarget()
+	{
+		if (target == null)
+		{
+			var closest = getClosestTarget();
+			targetEntityId = closest == null ? null : closest.id;
+			return;
+		}
+
+		var sorted = getSortedTargets();
+		var idx = sorted.indexOf(target);
+		var nextIdx = idx - 1;
+		var next = nextIdx < 0 ? sorted.last() : sorted[nextIdx];
+		if (next != null)
+		{
+			targetEntityId = next.id;
+		}
+	}
+
+	private function getSortedTargets()
+	{
+		return query.sort((a, b) ->
+		{
+			var aDist = shooter.pos.distance(a.pos);
+			var bDist = shooter.pos.distance(b.pos);
+			return aDist > bDist ? 1 : -1;
+		});
+	}
+
+	private function getClosestTarget()
+	{
+		return query.min(e -> e.pos.distance(shooter.pos));
 	}
 
 	override function onMouseDown(pos:Coordinate)
@@ -275,7 +336,7 @@ class ShootingScreen extends Screen
 			entity.remove(Highlight);
 		});
 
-		targetIdx = 0;
+		targetEntityId = null;
 		targets = new Array();
 	}
 

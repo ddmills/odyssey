@@ -4,7 +4,6 @@ import common.algorithm.Shadowcast;
 import common.struct.IntPoint;
 import common.util.Colors;
 import core.Frame;
-import domain.components.Energy;
 import domain.components.IsDestroyed;
 import domain.components.LightBlocker;
 import domain.components.LightSource;

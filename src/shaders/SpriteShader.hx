@@ -54,7 +54,7 @@ class SpriteShader extends hxsl.Shader
 				if (isShrouded == 1)
 				{
 					var gray = vec3(dot(shroudColor, baseColor));
-					baseColor = mix(mix(baseColor, gray, .5) / shroudIntensity, shroudColor, .05);
+					baseColor = mix(mix(baseColor, gray, .5) / shroudIntensity, shroudColor, .15);
 				}
 
 				if (enableLut == 1)
@@ -92,8 +92,8 @@ class SpriteShader extends hxsl.Shader
 		super();
 		this.primary = primary.toHxdColor();
 		this.secondary = secondary.toHxdColor();
-		this.shroudIntensity = 2;
-		this.shroudColor = 0x1C0534.toHxdColor();
+		this.shroudIntensity = 1.75;
+		this.shroudColor = 0x392948.toHxdColor();
 		this.outline = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor();
 		this.clearBackground = 0;

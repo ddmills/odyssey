@@ -17,6 +17,7 @@ class Explosive extends Component
 	@save public var fuseTimeTicks:Int = 750;
 	@save public var remainingFuseTicks:Int = 750;
 	@save public var explodeAudio:AudioKey = EXPLOSION_STONE;
+	@save public var igniteAudio:AudioKey = IGNITE_MATCH;
 	@save public var radius:Int = 3;
 	@save public var damageDie:Int = 20;
 	@save public var damageModifier:Int = 40;
@@ -57,6 +58,7 @@ class Explosive extends Component
 		blink.rateSeconds = .8;
 		blink.durationSeconds = Math.POSITIVE_INFINITY;
 		entity.add(blink);
+		Game.instance.world.playAudio(entity.pos.toIntPoint(), igniteAudio, 100);
 		isFuseLit = true;
 		remainingFuseTicks = fuseTimeTicks;
 	}

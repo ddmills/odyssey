@@ -176,6 +176,16 @@ class CoordinateExtensions
 		return radians(a).toDegrees();
 	}
 
+	static public inline function radiansBetween(a:Coordinate, b:Coordinate):Float
+	{
+		return b.sub(a).radians();
+	}
+
+	static public inline function degreesBetween(a:Coordinate, b:Coordinate):Float
+	{
+		return b.sub(a).degrees();
+	}
+
 	static public inline function cardinal(a:Coordinate):Cardinal
 	{
 		return Cardinal.fromRadians(radians(a));

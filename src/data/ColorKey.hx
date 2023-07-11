@@ -25,8 +25,8 @@ enum abstract ColorKey(Int) to Int from Int
 	var C_PINK_1 = 0xc25a6b;
 	var C_ORANGE_2 = 0x8B340C;
 	var C_ORANGE_1 = 0xb75504;
-	var C_YELLOW_3 = 0x765620; // desert bg
-	var C_YELLOW_2 = 0xe09e0f;
-	var C_YELLOW_1 = 0xeecd86;
+	var C_YELLOW_3 = 0xb6863f; // desert bg
+	var C_YELLOW_2 = 0xC8A15E;
+	var C_YELLOW_1 = 0xf5bb1c;
 	var C_WHITE_1 = 0xb4b28e;
 }
