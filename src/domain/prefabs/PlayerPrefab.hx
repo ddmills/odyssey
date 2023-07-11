@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import data.ColorKey;
-import data.LiquidType;
 import data.SpawnableType;
 import data.TileKey;
 import domain.components.Energy;
@@ -70,6 +69,8 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(REVOLVER));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
+		inv.addLoot(Spawner.Spawn(DYNAMITE));
 		inv.addLoot(Spawner.Spawn(DYNAMITE));
 		inv.addLoot(Spawner.Spawn(DYNAMITE));
 		inv.addLoot(Spawner.Spawn(DYNAMITE));

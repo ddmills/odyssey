@@ -136,10 +136,20 @@ class TileResources
 		tiles.set(CURSOR_SPIN_3, t[7][6]);
 		tiles.set(CURSOR_SPIN_4, t[7][7]);
 		tiles.set(CURSOR_SPIN_5, t[7][8]);
+
 		tiles.set(ARROW_BOUNCE_1, t[8][4]);
 		tiles.set(ARROW_BOUNCE_2, t[8][5]);
 		tiles.set(ARROW_BOUNCE_3, t[8][6]);
 		tiles.set(ARROW_BOUNCE_4, t[8][7]);
+
+		tiles.set(AK_UNKNOWN_1, t[10][4]);
+		tiles.set(AK_UNKNOWN_2, t[10][5]);
+		tiles.set(AK_UNKNOWN_3, t[10][6]);
+		tiles.set(AK_UNKNOWN_4, t[10][7]);
+		tiles.set(AK_UNKNOWN_5, t[10][8]);
+		tiles.set(AK_UNKNOWN_6, t[10][9]);
+		tiles.set(AK_UNKNOWN_7, t[10][10]);
+		tiles.set(AK_UNKNOWN_8, t[10][11]);
 
 		tiles.set(LIQUID_SPURT_1, t[8][8]);
 		tiles.set(LIQUID_SPURT_2, t[8][9]);

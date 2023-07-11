@@ -26,7 +26,9 @@ class SpriteAnim extends Drawable
 
 		super(primary, secondary, layer);
 
-		ob = new Anim(this.tiles, speed);
+		trace(animationKey, tiles);
+
+		ob = new Anim(tiles, speed);
 		ob.loop = loop;
 		ob.addShader(shader);
 		ob.visible = false;

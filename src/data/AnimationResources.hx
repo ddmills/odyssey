@@ -17,7 +17,7 @@ class AnimationResources
 
 		if (animation.isNull())
 		{
-			return animations.get(CURSOR_SPIN);
+			return animations.get(AK_UNKNOWN);
 		}
 
 		return animation;
@@ -60,6 +60,17 @@ class AnimationResources
 			TileResources.Get(EXPLOSION_3),
 			TileResources.Get(EXPLOSION_4),
 			TileResources.Get(EXPLOSION_5),
+		]);
+
+		animations.set(AK_UNKNOWN, [
+			TileResources.Get(AK_UNKNOWN_1),
+			TileResources.Get(AK_UNKNOWN_2),
+			TileResources.Get(AK_UNKNOWN_3),
+			TileResources.Get(AK_UNKNOWN_4),
+			TileResources.Get(AK_UNKNOWN_5),
+			TileResources.Get(AK_UNKNOWN_6),
+			TileResources.Get(AK_UNKNOWN_7),
+			TileResources.Get(AK_UNKNOWN_8),
 		]);
 	}
 }

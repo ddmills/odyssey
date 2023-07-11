@@ -47,10 +47,6 @@ class ConsoleConfig
 			trace(e.save());
 			c.x += 3;
 
-			trace('frames', c.get(SpriteAnim).tileKeys);
-			trace('frames', c.get(SpriteAnim).ob.frames);
-			trace('speed', c.get(SpriteAnim).ob.frames);
-
 			// trace(Meta.getFields(Type.getClass(s)));
 			// var c = game.world.player.entity.clone();
 
