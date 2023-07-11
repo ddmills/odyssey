@@ -1,15 +1,15 @@
 package domain.components;
 
 import core.rendering.RenderLayerManager.RenderLayerType;
-import data.TileKey;
-import data.TileResources;
+import data.AnimationKey;
+import data.AnimationResources;
 import h2d.Anim;
 import h2d.Tile;
 import shaders.SpriteShader;
 
 class SpriteAnim extends Drawable
 {
-	@save public var tileKeys(default, set):Array<TileKey>;
+	@save public var animationKey(default, set):AnimationKey;
 	@save public var speed(default, set):Float;
 	@save public var loop(default, set):Bool;
 	@save public var destroyOnComplete:Bool;
@@ -17,9 +17,9 @@ class SpriteAnim extends Drawable
 	public var ob(default, null):Anim;
 	public var tiles(get, never):Array<Tile>;
 
-	public function new(tileKeys:Array<TileKey>, speed:Float = 15, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS, loop = true)
+	public function new(animationKey:AnimationKey, speed:Float = 15, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS, loop = true)
 	{
-		this.tileKeys = tileKeys == null ? [] : tileKeys;
+		this.animationKey = animationKey;
 		this.speed = speed;
 		this.loop = loop;
 		this.destroyOnComplete = false;
@@ -65,12 +65,12 @@ class SpriteAnim extends Drawable
 
 	function get_tiles():Array<Tile>
 	{
-		return tileKeys.map((key) -> TileResources.Get(key));
+		return AnimationResources.Get(animationKey);
 	}
 
-	public function set_tileKeys(value:Array<TileKey>):Array<TileKey>
+	public function set_animationKey(value:AnimationKey):AnimationKey
 	{
-		tileKeys = value;
+		animationKey = value;
 		if (ob != null)
 		{
 			var old = ob;

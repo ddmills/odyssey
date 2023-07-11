@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import data.AnimationResources;
 import data.Cardinal;
 import data.ColorKey;
 import data.TextResources;
@@ -41,7 +42,7 @@ class ShootingScreen extends Screen
 	var highlights:Query;
 
 	var targetEntityId:Null<String>;
-	var targetPos:Coordinate;
+	var cursorPos:Coordinate;
 	var target(get, never):Null<Entity>;
 	var NORTH_WEST(default, null):Dynamic;
 
@@ -61,13 +62,7 @@ class ShootingScreen extends Screen
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
 		hud = new h2d.Object();
-		targetBm = new Anim([
-			TileResources.Get(CURSOR_SPIN_1),
-			TileResources.Get(CURSOR_SPIN_2),
-			TileResources.Get(CURSOR_SPIN_3),
-			TileResources.Get(CURSOR_SPIN_4),
-			TileResources.Get(CURSOR_SPIN_5),
-		], 10, ob);
+		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);
 		targetBm.addShader(targetShader);
 
 		hitChanceTxt = new Text(TextResources.BIZCAT);
@@ -92,7 +87,7 @@ class ShootingScreen extends Screen
 		game.render(HUD, hud);
 		game.render(OVERLAY, ob);
 		targetEntityId = null;
-		targetPos = world.player.pos.floor();
+		cursorPos = world.player.pos.floor();
 		var closest = getClosestTarget();
 		if (closest != null)
 		{
@@ -104,7 +99,7 @@ class ShootingScreen extends Screen
 	{
 		if (target != null)
 		{
-			targetPos = target.pos;
+			cursorPos = target.pos;
 		}
 
 		highlights.each((e:Entity) ->
@@ -124,7 +119,7 @@ class ShootingScreen extends Screen
 				t.add(highlight);
 			}
 
-			if (targetPos.equals(t.pos))
+			if (cursorPos.equals(t.pos))
 			{
 				targetEntityId = t.id;
 			}
@@ -153,7 +148,7 @@ class ShootingScreen extends Screen
 		}
 		world.updateSystems();
 
-		var targetPosPx = targetPos.toPx();
+		var targetPosPx = cursorPos.toPx();
 		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
 
 		if (target != null && weapon != null)
@@ -177,7 +172,7 @@ class ShootingScreen extends Screen
 			hitChanceTxt.visible = false;
 		}
 
-		var targetPosPx = targetPos.toPx();
+		var targetPosPx = cursorPos.toPx();
 		targetBm.x = targetPosPx.x;
 		targetBm.y = targetPosPx.y;
 		targetBm.visible = targetEntityId == null;
@@ -190,7 +185,7 @@ class ShootingScreen extends Screen
 
 		if (!curWorld.equals(prevWorld))
 		{
-			targetPos = curWorld;
+			cursorPos = curWorld;
 			targetEntityId = null;
 		}
 	}
@@ -308,7 +303,7 @@ class ShootingScreen extends Screen
 			return;
 		}
 
-		weapon.entity.fireEvent(new ShootEvent(targetPos.toWorld().toIntPoint(), shooter));
+		weapon.entity.fireEvent(new ShootEvent(cursorPos.toWorld().toIntPoint(), shooter));
 	}
 
 	function tryReload()
@@ -339,7 +334,7 @@ class ShootingScreen extends Screen
 
 	private function look(dir:Cardinal)
 	{
-		targetPos = targetPos.add(dir.toOffset().asWorld());
+		cursorPos = cursorPos.add(dir.toOffset().asWorld());
 	}
 
 	function get_weapon():Weapon

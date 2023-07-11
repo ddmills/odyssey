@@ -2,6 +2,7 @@ package domain.systems;
 
 import common.struct.Coordinate;
 import core.Frame;
+import data.AnimationResources;
 import data.TileResources;
 import domain.components.Highlight;
 import ecs.Entity;
@@ -39,19 +40,8 @@ class HighlightSystem extends System
 			targetShader.isShrouded = 0;
 			targetShader.clearBackground = 0;
 			var ob = new Object();
-			var ring = new Anim([
-				TileResources.Get(CURSOR_SPIN_1),
-				TileResources.Get(CURSOR_SPIN_2),
-				TileResources.Get(CURSOR_SPIN_3),
-				TileResources.Get(CURSOR_SPIN_4),
-				TileResources.Get(CURSOR_SPIN_5),
-			], 10);
-			var arrow = new Anim([
-				TileResources.Get(ARROW_BOUNCE_1),
-				TileResources.Get(ARROW_BOUNCE_2),
-				TileResources.Get(ARROW_BOUNCE_3),
-				TileResources.Get(ARROW_BOUNCE_4),
-			], 10);
+			var ring = new Anim(AnimationResources.Get(CURSOR_SPIN), 10);
+			var arrow = new Anim(AnimationResources.Get(ARROW_BOUNCE), 10);
 			var targetPos = e.pos.toPx();
 			var offsetPos = new Coordinate(0, -1, WORLD).toPx();
 			arrow.x = offsetPos.x;
