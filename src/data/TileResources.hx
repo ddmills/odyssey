@@ -287,5 +287,21 @@ class TileResources
 		tiles.set(RAILROAD_13, railroad[3][1]);
 		tiles.set(RAILROAD_14, railroad[3][2]);
 		tiles.set(RAILROAD_15, railroad[3][3]);
+
+		var progressBar = hxd.Res.tiles.smol.progress_bar.toTile().divide(14, 1);
+		tiles.set(PROGRESS_BAR_0, progressBar[0][0]);
+		tiles.set(PROGRESS_BAR_1, progressBar[0][1]);
+		tiles.set(PROGRESS_BAR_2, progressBar[0][2]);
+		tiles.set(PROGRESS_BAR_3, progressBar[0][3]);
+		tiles.set(PROGRESS_BAR_4, progressBar[0][4]);
+		tiles.set(PROGRESS_BAR_5, progressBar[0][5]);
+		tiles.set(PROGRESS_BAR_6, progressBar[0][6]);
+		tiles.set(PROGRESS_BAR_7, progressBar[0][7]);
+		tiles.set(PROGRESS_BAR_8, progressBar[0][8]);
+		tiles.set(PROGRESS_BAR_9, progressBar[0][9]);
+		tiles.set(PROGRESS_BAR_10, progressBar[0][10]);
+		tiles.set(PROGRESS_BAR_11, progressBar[0][11]);
+		tiles.set(PROGRESS_BAR_12, progressBar[0][12]);
+		tiles.set(PROGRESS_BAR_13, progressBar[0][13]);
 	}
 }

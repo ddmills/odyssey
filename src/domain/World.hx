@@ -97,7 +97,7 @@ class World
 	{
 		this.seed = seed;
 		rand = new Rand(seed);
-		visible = new Array<Coordinate>();
+		visible = new Array();
 		Performance.start('map-generate');
 		map.generate();
 		Performance.stop('map-generate', true);

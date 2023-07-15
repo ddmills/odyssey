@@ -48,7 +48,7 @@ class SpriteShader extends hxsl.Shader
 				}
 				else if (isBackground)
 				{
-					baseColor = background;
+					baseColor = mix(background, vec3(0, 0, 0), .25);
 				}
 
 				if (isShrouded == 1)

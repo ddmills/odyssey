@@ -8,4 +8,5 @@ enum AnimationKey
 	CAMPFIRE;
 	LIQUID_SPURT;
 	EXPLOSION;
+	PROGRESS_BAR;
 }

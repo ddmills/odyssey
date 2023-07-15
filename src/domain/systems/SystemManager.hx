@@ -18,6 +18,7 @@ class SystemManager
 	public var path(default, null):PathFollowSystem;
 	public var highlight(default, null):HighlightSystem;
 	public var hitBlink(default, null):HitBlinkSystem;
+	public var healthBar(default, null):HealthBarSystem;
 	public var storylines(default, null):StorylineSystem;
 	public var destroy(default, null):DestroySystem;
 
@@ -39,6 +40,7 @@ class SystemManager
 		death = new DeathSystem();
 		highlight = new HighlightSystem();
 		hitBlink = new HitBlinkSystem();
+		healthBar = new HealthBarSystem();
 		storylines = new StorylineSystem();
 		destroy = new DestroySystem();
 	}
@@ -59,6 +61,7 @@ class SystemManager
 		sprites.update(frame);
 		bullets.update(frame);
 		hitBlink.update(frame);
+		healthBar.update(frame);
 		storylines.update(frame);
 		destroy.update(frame);
 	}

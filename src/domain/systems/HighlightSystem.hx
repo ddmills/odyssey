@@ -36,14 +36,14 @@ class HighlightSystem extends System
 		query.onEntityAdded((e) ->
 		{
 			var highlight = e.get(Highlight);
-			var targetShader = new SpriteShader(highlight.color);
-			targetShader.isShrouded = 0;
-			targetShader.clearBackground = 0;
+			var shader = new SpriteShader(highlight.color);
+			shader.isShrouded = 0;
+			shader.clearBackground = 0;
 			var ob = new Object();
 			var ring = new Anim(AnimationResources.Get(CURSOR_SPIN), 10);
 			var arrow = new Anim(AnimationResources.Get(ARROW_BOUNCE), 10);
 			var targetPos = e.pos.toPx();
-			var offsetPos = new Coordinate(0, -1, WORLD).toPx();
+			var offsetPos = new Coordinate(0, -1.2, WORLD).toPx();
 			arrow.x = offsetPos.x;
 			arrow.y = offsetPos.y;
 			arrow.visible = highlight.showArrow;
@@ -52,12 +52,12 @@ class HighlightSystem extends System
 			ob.y = targetPos.y;
 			ob.addChild(arrow);
 			ob.addChild(ring);
-			ring.addShader(targetShader);
-			arrow.addShader(targetShader);
+			ring.addShader(shader);
+			arrow.addShader(shader);
 			game.render(OVERLAY, ob);
 			bitmaps.set(e.id, {
 				ob: ob,
-				shader: targetShader,
+				shader: shader,
 				arrow: arrow,
 				ring: ring,
 			});

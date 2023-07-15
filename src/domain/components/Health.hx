@@ -20,6 +20,7 @@ class Health extends Component
 
 	public var value(get, set):Int;
 	public var max(get, never):Int;
+	public var percent(get, never):Float;
 
 	public function new()
 	{
@@ -96,5 +97,10 @@ class Health extends Component
 	inline function get_value():Int
 	{
 		return _value;
+	}
+
+	function get_percent():Float
+	{
+		return value / max;
 	}
 }

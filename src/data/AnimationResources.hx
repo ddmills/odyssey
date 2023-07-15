@@ -72,5 +72,22 @@ class AnimationResources
 			TileResources.Get(AK_UNKNOWN_7),
 			TileResources.Get(AK_UNKNOWN_8),
 		]);
+
+		animations.set(PROGRESS_BAR, [
+			TileResources.Get(PROGRESS_BAR_0),
+			TileResources.Get(PROGRESS_BAR_1),
+			TileResources.Get(PROGRESS_BAR_2),
+			TileResources.Get(PROGRESS_BAR_3),
+			TileResources.Get(PROGRESS_BAR_4),
+			TileResources.Get(PROGRESS_BAR_5),
+			TileResources.Get(PROGRESS_BAR_6),
+			TileResources.Get(PROGRESS_BAR_7),
+			TileResources.Get(PROGRESS_BAR_8),
+			TileResources.Get(PROGRESS_BAR_9),
+			TileResources.Get(PROGRESS_BAR_10),
+			TileResources.Get(PROGRESS_BAR_11),
+			// TileResources.Get(PROGRESS_BAR_12),
+			// TileResources.Get(PROGRESS_BAR_13),
+		]);
 	}
 }
