@@ -1,0 +1,18 @@
+
+requirements:
+	shape (cone, line, circle, square, point)
+	source (cursor, player)
+
+	requires_entity (bool) - if it requires a specific enemy/target
+	components (component[]) - list of components that target requires
+
+direction (cursor)
+
+maxDistance ()
+minDistance ()
+
+onSelect(position)
+
+cone (angle, length)
+line (maxLength)
+circle (radius)

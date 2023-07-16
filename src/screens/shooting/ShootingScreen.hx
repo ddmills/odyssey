@@ -8,7 +8,6 @@ import data.AnimationResources;
 import data.Cardinal;
 import data.ColorKey;
 import data.TextResources;
-import data.TileResources;
 import domain.GameMath;
 import domain.components.EquipmentSlot;
 import domain.components.Health;
@@ -44,7 +43,6 @@ class ShootingScreen extends Screen
 	var targetEntityId:Null<String>;
 	var cursorPos:Coordinate;
 	var target(get, never):Null<Entity>;
-	var NORTH_WEST(default, null):Dynamic;
 
 	function get_target():Null<Entity>
 	{

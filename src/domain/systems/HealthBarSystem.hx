@@ -37,7 +37,6 @@ class HealthBarSystem extends System
 
 		query.onEntityAdded((e) ->
 		{
-			trace('ON ADD');
 			var ob = new Object();
 			var bar = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
 			var shader = new SpriteShader(ColorKey.C_RED_1);

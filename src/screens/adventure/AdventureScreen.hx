@@ -33,7 +33,10 @@ import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
 import screens.map.MapScreen;
 import screens.save.SaveScreen;
-import screens.shooting.ShootingScreen;
+import screens.target.TargetScreen;
+import screens.target.footprints.CircleFootprint;
+import screens.target.footprints.ConeFootprint;
+import screens.target.footprints.LineFootprint;
 
 typedef HudText =
 {
@@ -183,7 +186,19 @@ class AdventureScreen extends Screen
 			case CMD_MAP:
 				game.screens.push(new MapScreen());
 			case CMD_SHOOT:
-				game.screens.push(new ShootingScreen(world.player.entity));
+				var cir = new CircleFootprint(3);
+				var line = new LineFootprint();
+				var cone = new ConeFootprint(7, 45);
+				// game.screens.push(new ShootingScreen(world.player.entity));
+				game.screens.push(new TargetScreen(world.player.entity, {
+					onSelect: (results) ->
+					{
+						trace('target', results);
+						game.screens.pop();
+					},
+					source: TARGETER,
+					footprint: cone,
+				}));
 			case CMD_SAVE:
 				game.screens.push(new SaveScreen(true));
 			case _:

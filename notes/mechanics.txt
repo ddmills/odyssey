@@ -76,6 +76,7 @@ Lighting/Vision
 
 Sleeping
 - sleep until dawn
+- sleep until dusk
 - sleep for 8 hours
 - sleep for 6 hours
 - sleep for 4 hours

@@ -15,7 +15,12 @@ import data.Cardinal;
 
 	public function equals(other:IntPoint)
 	{
-		return other.x == x && other.y == y;
+		return Equals(this, other);
+	}
+
+	public static function Equals(point:IntPoint, other:IntPoint)
+	{
+		return other.x == point.x && other.y == point.y;
 	}
 
 	public function asWorld()

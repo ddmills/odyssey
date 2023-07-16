@@ -7,14 +7,21 @@ package common.struct;
 	public var isEmpty(get, never):Bool;
 	public var length(get, never):Int;
 
-	public function new()
+	private var comparator:(a:T, b:T) -> Bool = (a, b) -> a == b;
+
+	public function new(comparator:(a:T, b:T) -> Bool = null)
 	{
+		if (comparator != null)
+		{
+			this.comparator = comparator;
+		}
+
 		items = new Array();
 	}
 
 	inline public function has(v:T):Bool
 	{
-		return items.has(v);
+		return items.exists(x -> comparator(x, v));
 	}
 
 	public function add(v:T):Int
@@ -50,5 +57,10 @@ package common.struct;
 	public function iterator()
 	{
 		return items.iterator();
+	}
+
+	public function asArray()
+	{
+		return items;
 	}
 }
