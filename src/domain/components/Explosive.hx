@@ -103,6 +103,7 @@ class Explosive extends Component
 					toHit: 100,
 					damage: damage,
 					isCritical: true,
+					defender: e,
 				}));
 			});
 		}

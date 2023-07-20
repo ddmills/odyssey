@@ -56,7 +56,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new Stats(3, 2, 1));
 
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
-		rhand.equip(Spawner.Spawn(r.pick(wpns)));
+		rhand.equip(Spawner.Spawn(COACH_GUN));
 		body.equip(Spawner.Spawn(LONG_JOHNS));
 
 		var inv = entity.get(Inventory);

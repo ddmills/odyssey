@@ -8,4 +8,5 @@ typedef Attack =
 	toHit:Int,
 	damage:Int,
 	isCritical:Bool,
+	defender:Null<Entity>,
 }

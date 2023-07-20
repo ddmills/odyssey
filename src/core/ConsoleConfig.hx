@@ -106,6 +106,22 @@ class ConsoleConfig
 			health.value = health.max;
 		});
 
+		console.addCommand('entity', 'Lookup entity', [{name: 'entityId', t: AString}], (id:String) ->
+		{
+			var entity = game.registry.getEntity(id);
+
+			if (entity != null)
+			{
+				var s = entity.save();
+				var json = Serial.Serialize(s);
+				console.log(json);
+			}
+			else
+			{
+				console.log('Entity not found');
+			}
+		});
+
 		console.addCommand('xp', 'Grant xp', [{name: 'amount', t: AInt}], (xp:Int) ->
 		{
 			var player = game.world.player.entity;

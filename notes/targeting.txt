@@ -5,6 +5,7 @@ requirements:
 
 	requires_entity (bool) - if it requires a specific enemy/target
 	components (component[]) - list of components that target requires
+	onAreaSelected (origin, cursor, area) - 
 
 direction (cursor)
 

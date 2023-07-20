@@ -1,8 +1,10 @@
 package screens.target;
 
 import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
+import core.input.Command;
 import data.ColorKey;
 import data.TileResources;
 import ecs.Entity;
@@ -11,7 +13,7 @@ import h2d.Object;
 import screens.target.footprints.Footprint;
 import shaders.SpriteShader;
 
-enum TargetSource
+enum TargetOrigin
 {
 	CURSOR;
 	TARGETER;
@@ -19,13 +21,14 @@ enum TargetSource
 
 typedef TargetResult =
 {
-	pos:Coordinate,
+	area:Array<IntPoint>,
+	origin:IntPoint,
+	cursor:IntPoint,
 }
 
 typedef TargetSettings =
 {
-	onSelect:(result:TargetResult) -> Void,
-	source:TargetSource,
+	origin:TargetOrigin,
 	footprint:Footprint,
 }
 
@@ -33,8 +36,9 @@ class TargetScreen extends Screen
 {
 	var targeter:Entity;
 	var settings:TargetSettings;
-	var source:Coordinate;
+	var origin:Coordinate;
 	var ob:Object;
+	var result:TargetResult;
 
 	public function new(targeter:Entity, settings:TargetSettings)
 	{
@@ -60,20 +64,20 @@ class TargetScreen extends Screen
 		world.updateSystems();
 
 		var mouse = game.input.mouse.toWorld().floor();
-		if (settings.source == TARGETER)
+		if (settings.origin == TARGETER)
 		{
-			source = targeter.pos.floor();
+			origin = targeter.pos.floor();
 		}
-		else if (settings.source == CURSOR)
+		else if (settings.origin == CURSOR)
 		{
-			source = game.input.mouse.toWorld().floor();
+			origin = game.input.mouse.toWorld().floor();
 		}
 
 		ob.removeChildren();
 
-		var sourcePx = targeter.pos.toPx();
-		ob.x = sourcePx.x;
-		ob.y = sourcePx.y;
+		var originPx = targeter.pos.toPx();
+		ob.x = originPx.x;
+		ob.y = originPx.y;
 
 		var area = settings.footprint.getFootprint(targeter.pos, mouse);
 		var shader = new SpriteShader(ColorKey.C_WHITE_1);
@@ -90,5 +94,16 @@ class TargetScreen extends Screen
 			a.x = pos.x;
 			a.y = pos.y;
 		}
+
+		result = {
+			area: area,
+			origin: targeter.pos.toIntPoint(),
+			cursor: mouse.toIntPoint(),
+		};
+	}
+
+	private function cancel()
+	{
+		trace('cancel target');
 	}
 }
