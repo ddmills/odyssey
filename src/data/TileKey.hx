@@ -52,6 +52,7 @@ enum TileKey
 	FLOWER_1;
 	FLOWER_2;
 	FLOWER_3;
+	BUSH_1;
 	WOLF;
 	SNAKE;
 	CORPSE_SNAKE;

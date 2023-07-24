@@ -59,7 +59,7 @@ class PrairieBiome extends Biome
 			{
 				Spawner.Spawn(OAK_TREE, pos.asWorld());
 			}
-			else if (flowers > .8)
+			else if (flowers > .78)
 			{
 				if (r.bool(.5))
 				{

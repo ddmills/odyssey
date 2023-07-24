@@ -6,6 +6,7 @@ import data.AmmoType;
 import data.AudioKey;
 import data.SkillType;
 import domain.components.Bullet;
+import domain.components.Health;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
@@ -44,20 +45,13 @@ class WeaponFamily
 			var entities = Game.instance.world.getEntitiesAt(p);
 			for (e in entities)
 			{
-				if (e != attacker && !e.has(IsInventoried) && !e.has(IsDestroyed))
+				if (e != attacker && e.has(Health) && !e.has(IsInventoried) && !e.has(IsDestroyed))
 				{
 					var roll = r.roll(Game.instance.DIE_SIZE);
 					var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon) + 100; // todo
 					var skillValue = Skills.GetValue(skill, attacker);
 					var damage = r.roll(weapon.die, weapon.modifier) + skillValue;
 					var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
-
-					trace('push attack', toHit, damage);
-
-					if (e.has(Moniker))
-					{
-						trace(e.get(Moniker).displayName);
-					}
 
 					// todo: do we actually have a clear trajectory to the target?
 					attacks.push({

@@ -52,7 +52,7 @@ class TargetScreen extends Screen
 
 	override function onEnter()
 	{
-		game.render(OVERLAY, ob);
+		game.render(GROUND, ob);
 	}
 
 	override function onDestroy()
@@ -94,7 +94,7 @@ class TargetScreen extends Screen
 
 			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT, mask);
 			var a = new Bitmap(TileResources.Get(tileKey), ob);
-			a.alpha = .25;
+			a.alpha = .43;
 			a.addShader(shader);
 
 			var pos = p.asWorld().sub(targeter.pos).toPx();

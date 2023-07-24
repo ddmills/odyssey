@@ -98,6 +98,22 @@ class MapData
 				],
 			},
 			{
+				name: 'Dresbach',
+				type: POI_TOWN,
+				layout: POI_LAYOUT_SCATTERED,
+				railroadStop: null,
+				criteria: {
+					river: false,
+					biomes: [PRAIRIE],
+					quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
+				},
+				rooms: [
+					{
+						type: ROOM_GRAVEYARD,
+					}
+				],
+			},
+			{
 				name: 'Oxwood',
 				type: POI_TOWN,
 				layout: POI_LAYOUT_SCATTERED,
