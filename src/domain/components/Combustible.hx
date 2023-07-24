@@ -17,7 +17,6 @@ class Combustible extends Component
 
 	public function onFuelDepleted(evt:FuelDepletedEvent)
 	{
-		trace('FUEL DEPLETED!');
 		entity.add(new IsDestroyed());
 		if (productPrefab != null)
 		{

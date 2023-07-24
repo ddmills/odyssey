@@ -65,7 +65,6 @@ class EnergySystem extends System
 			{
 				if (sleeping.ticksRemaining > 0)
 				{
-					trace(sleeping.ticksRemaining);
 					EnergySystem.ConsumeEnergy(world.player.entity, ACT_WAIT);
 				}
 			}

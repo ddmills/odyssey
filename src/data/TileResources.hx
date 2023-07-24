@@ -174,6 +174,7 @@ class TileResources
 		tiles.set(FLOWER_2, t[3][15]);
 		tiles.set(FLOWER_3, t[4][15]);
 		tiles.set(BUSH_1, t[4][14]);
+		tiles.set(RASPBERRY, t[5][13]);
 
 		tiles.set(DOOR, t[6][5]);
 		tiles.set(DOOR_OPEN, t[6][6]);

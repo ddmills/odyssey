@@ -109,9 +109,4 @@ class TargetScreen extends Screen
 			cursor: mouse.toIntPoint(),
 		};
 	}
-
-	private function cancel()
-	{
-		trace('cancel target');
-	}
 }

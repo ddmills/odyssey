@@ -81,3 +81,8 @@ Sleeping
 - sleep for 6 hours
 - sleep for 4 hours
 - sleep for 2 hours
+
+
+Harvesting/Foraging
+- Can harvest things from plants - (Forage Skill - SAVVY)
+- Number of items foraged = skill 

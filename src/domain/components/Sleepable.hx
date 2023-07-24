@@ -27,7 +27,6 @@ class Sleepable extends Component
 	private function onSleepInitiate(evt:SleepInitiateEvent)
 	{
 		var sleeper = evt.sleeper;
-		trace('Initiate sleeping');
 		sleeper.fireEvent(new SleepEvent(entity));
 	}
 }

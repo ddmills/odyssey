@@ -27,6 +27,7 @@ class Skills
 		skills.register(SKILL_SHOTGUN, new ShotgunSkill());
 		skills.register(SKILL_DODGE, new DodgeSkill());
 		skills.register(SKILL_ANIMAL_HANDLING, new AnimalHandlingSkill());
+		skills.register(SKILL_FORAGE, new ForageSkill());
 	}
 
 	public static function Get(type:SkillType):Skill
