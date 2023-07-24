@@ -49,9 +49,31 @@ class PrairieBiome extends Biome
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (cell.terrain == TERRAIN_GRASS && r.bool(.005))
+		if (cell.terrain == TERRAIN_GRASS)
 		{
-			Spawner.Spawn(OAK_TREE, pos.asWorld());
+			var h = perlin.get(pos, 6);
+			var trees = perlin.get(pos, 8, 8);
+			var flowers = perlin.get(pos, 12, 8);
+
+			if (h > .6 && trees > .6)
+			{
+				Spawner.Spawn(OAK_TREE, pos.asWorld());
+			}
+			else if (flowers > .8)
+			{
+				if (r.bool(.5))
+				{
+					Spawner.Spawn(YARROW, pos.asWorld());
+				}
+				else
+				{
+					Spawner.Spawn(LAVENDER, pos.asWorld());
+				}
+			}
+			else if (r.bool(.005))
+			{
+				Spawner.Spawn(STICK, pos.asWorld());
+			}
 		}
 	}
 }

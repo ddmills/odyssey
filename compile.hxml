@@ -4,6 +4,6 @@
 -lib hldx
 -lib bits
 -hl ./build/hl/output.hl
--D windowSize=800x600
+-D windowSize=1200x800
 # -D hl-profile
 -main Main

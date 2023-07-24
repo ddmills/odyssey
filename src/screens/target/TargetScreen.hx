@@ -94,7 +94,7 @@ class TargetScreen extends Screen
 
 			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT, mask);
 			var a = new Bitmap(TileResources.Get(tileKey), ob);
-			a.alpha = .3;
+			a.alpha = .25;
 			a.addShader(shader);
 
 			var pos = p.asWorld().sub(targeter.pos).toPx();
