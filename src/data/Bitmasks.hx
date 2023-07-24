@@ -61,11 +61,30 @@ class Bitmasks
 				RAILROAD_8, RAILROAD_9, RAILROAD_10, RAILROAD_11, RAILROAD_12, RAILROAD_13, RAILROAD_14, RAILROAD_15
 			],
 		});
+		registry.register(BITMASK_HIGHLIGHT, {
+			style: BITMASK_STYLE_SIMPLE,
+			tiles: [
+				HIGHLIGHT_0, HIGHLIGHT_1,  HIGHLIGHT_2,  HIGHLIGHT_3,  HIGHLIGHT_4,  HIGHLIGHT_5,  HIGHLIGHT_6, HIGHLIGHT_7,
+				HIGHLIGHT_8, HIGHLIGHT_9, HIGHLIGHT_10, HIGHLIGHT_11, HIGHLIGHT_12, HIGHLIGHT_13, HIGHLIGHT_14, HIGHLIGHT_15
+			],
+		});
 	}
 
 	public static function Get(bitmaskType:BitmaskType)
 	{
 		return registry.get(bitmaskType);
+	}
+
+	public static function SumMask(fn:(x:Int, y:Int) -> Bool):Int
+	{
+		var directions:Array<Cardinal> = [NORTH_WEST, NORTH, NORTH_EAST, WEST, EAST, SOUTH_WEST, SOUTH, SOUTH_EAST];
+		return directions.foldi((direction, sum, idx) ->
+		{
+			var offset = direction.toOffset();
+			var countCell = fn(offset.x, offset.y);
+
+			return countCell ? sum + 2.pow(idx) : sum;
+		}, 0);
 	}
 
 	public static function GetTileKey(bitmaskType:BitmaskType, mask:Int)

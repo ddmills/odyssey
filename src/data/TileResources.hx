@@ -271,6 +271,24 @@ class TileResources
 		tiles.set(FENCE_BARS_14, fenceBars[3][2]);
 		tiles.set(FENCE_BARS_15, fenceBars[3][3]);
 
+		var highlight = hxd.Res.tiles.smol.highlight_14_14.toTile().divide(4, 4);
+		tiles.set(HIGHLIGHT_0, highlight[0][0]);
+		tiles.set(HIGHLIGHT_1, highlight[0][1]);
+		tiles.set(HIGHLIGHT_2, highlight[0][2]);
+		tiles.set(HIGHLIGHT_3, highlight[0][3]);
+		tiles.set(HIGHLIGHT_4, highlight[1][0]);
+		tiles.set(HIGHLIGHT_5, highlight[1][1]);
+		tiles.set(HIGHLIGHT_6, highlight[1][2]);
+		tiles.set(HIGHLIGHT_7, highlight[1][3]);
+		tiles.set(HIGHLIGHT_8, highlight[2][0]);
+		tiles.set(HIGHLIGHT_9, highlight[2][1]);
+		tiles.set(HIGHLIGHT_10, highlight[2][2]);
+		tiles.set(HIGHLIGHT_11, highlight[2][3]);
+		tiles.set(HIGHLIGHT_12, highlight[3][0]);
+		tiles.set(HIGHLIGHT_13, highlight[3][1]);
+		tiles.set(HIGHLIGHT_14, highlight[3][2]);
+		tiles.set(HIGHLIGHT_15, highlight[3][3]);
+
 		var railroad = hxd.Res.tiles.smol.railroad_14_14.toTile().divide(4, 4);
 		tiles.set(RAILROAD_0, railroad[0][0]);
 		tiles.set(RAILROAD_1, railroad[0][1]);

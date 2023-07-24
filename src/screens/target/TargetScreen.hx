@@ -5,6 +5,7 @@ import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
 import core.input.Command;
+import data.Bitmasks;
 import data.ColorKey;
 import data.TileResources;
 import ecs.Entity;
@@ -80,13 +81,20 @@ class TargetScreen extends Screen
 		ob.y = originPx.y;
 
 		var area = settings.footprint.getFootprint(targeter.pos, mouse);
-		var shader = new SpriteShader(ColorKey.C_WHITE_1);
+		var shader = new SpriteShader(C_RED_3, C_RED_2);
 		shader.isShrouded = 0;
 
 		for (p in area)
 		{
-			var a = new Bitmap(TileResources.Get(FILLED_SQUARE), ob);
-			a.alpha = .1;
+			var mask = Bitmasks.SumMask((x, y) ->
+			{
+				var local = p.add(x, y);
+				return area.exists((point) -> point.equals(local));
+			});
+
+			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT, mask);
+			var a = new Bitmap(TileResources.Get(tileKey), ob);
+			a.alpha = .3;
 			a.addShader(shader);
 
 			var pos = p.asWorld().sub(targeter.pos).toPx();
