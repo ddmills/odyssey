@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.LightSource;
 import domain.components.Lightable;
@@ -22,6 +23,7 @@ class LanternPrefab extends Prefab
 		entity.add(new LightSource(.5, C_YELLOW_1, 5, isLit));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND, EQ_SLOT_BELT]));
+		entity.add(new Destructable());
 
 		return entity;
 	}

@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -22,6 +23,8 @@ class BootsPrefab extends Prefab
 		var skills = new EquippedSkillMod();
 		skills.set(SKILL_SPEED, 2);
 		entity.add(skills);
+
+		entity.add(new Destructable());
 
 		return entity;
 	}

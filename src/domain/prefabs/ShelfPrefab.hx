@@ -5,6 +5,7 @@ import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class ShelfPrefab extends Prefab
@@ -17,6 +18,8 @@ class ShelfPrefab extends Prefab
 		entity.add(new Moniker('Shelf'));
 		entity.add(new Collider());
 		entity.add(new Inventory());
+
+		WoodBuiltDecorator.Decorate(entity);
 
 		return entity;
 	}

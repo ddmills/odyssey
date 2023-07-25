@@ -9,6 +9,7 @@ import data.TextResources;
 import data.TileResources;
 import data.dialog.DialogTrees;
 import data.storylines.Stories;
+import data.tables.SpawnTables;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.terrain.gen.pois.PoiLayouts;
@@ -38,6 +39,7 @@ class Main extends hxd.App
 		AnimationResources.Init();
 		AudioResources.Init();
 		Bitmasks.Init();
+		SpawnTables.Init();
 		Commands.Init();
 		Skills.Init();
 		Weapons.Init();

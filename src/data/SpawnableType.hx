@@ -66,4 +66,6 @@ enum SpawnableType
 	RAILROAD;
 	VILLAGER;
 	DYNAMITE;
+	WOOD_PLANK;
+	LOG;
 }

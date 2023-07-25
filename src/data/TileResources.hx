@@ -182,6 +182,8 @@ class TileResources
 
 		tiles.set(BARS_DOOR, t[6][7]);
 		tiles.set(BARS_DOOR_OPEN, t[6][8]);
+		tiles.set(PLANK, t[6][9]);
+		tiles.set(LOG, t[6][10]);
 
 		tiles.set(OVERWORLD_TOWN, t[1][14]);
 		tiles.set(OVERWORLD_RIVER, t[1][15]);

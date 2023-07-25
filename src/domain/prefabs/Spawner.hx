@@ -63,6 +63,7 @@ class Spawner
 		prefabs.set(WOOD_WALL, new WoodWallPrefab());
 		prefabs.set(WOOD_WALL_WINDOW, new WindowPrefab());
 		prefabs.set(WOOD_DOOR, new WoodDoorPrefab());
+		prefabs.set(WOOD_PLANK, new WoodPlankPrefab());
 		prefabs.set(TABLE, new TablePrefab());
 		prefabs.set(CHAIR, new ChairPrefab());
 		prefabs.set(CABINET, new CabinetPrefab());
@@ -78,6 +79,7 @@ class Spawner
 		prefabs.set(BEDROLL, new BedrollPrefab());
 		prefabs.set(DYNAMITE, new DynamitePrefab());
 		prefabs.set(EXPLOSION, new ExplosionPrefab());
+		prefabs.set(LOG, new LogPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)

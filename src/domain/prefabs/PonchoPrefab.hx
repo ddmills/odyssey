@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -17,6 +18,7 @@ class PonchoPrefab extends Prefab
 		entity.add(new Moniker('Poncho'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY]));
+		entity.add(new Destructable());
 
 		var skills = new EquippedSkillMod();
 		skills.set(SKILL_FORTITUDE, 2);

@@ -62,6 +62,10 @@ class AudioResources
 			audio.set(EXPLOSION_STONE, r.explosion_stone);
 			audio.set(IGNITE_MATCH, r.ignite_match);
 			audio.set(RUSTLING_1, r.rustling_1);
+
+			audio.set(WOOD_DESTROY_1, r.wood_destroy_1);
+			audio.set(WOOD_DESTROY_2, r.wood_destroy_2);
+			audio.set(TREE_FALL_1, r.tree_fall_1);
 		}
 		else
 		{

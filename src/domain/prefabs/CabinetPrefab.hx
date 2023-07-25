@@ -5,6 +5,7 @@ import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class CabinetPrefab extends Prefab
@@ -23,6 +24,8 @@ class CabinetPrefab extends Prefab
 		inventory.closedAudio = CHEST_CLOSE;
 
 		entity.add(inventory);
+
+		WoodBuiltDecorator.Decorate(entity);
 
 		return entity;
 	}

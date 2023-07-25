@@ -5,6 +5,7 @@ import domain.components.Fuel;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class WagonWheelPrefab extends Prefab
@@ -17,6 +18,8 @@ class WagonWheelPrefab extends Prefab
 		entity.add(new Moniker('Wagon wheel'));
 		entity.add(new Loot());
 		entity.add(new Fuel(FUEL_WOOD, 100, true));
+
+		WoodBuiltDecorator.Decorate(entity);
 
 		return entity;
 	}

@@ -82,7 +82,7 @@ class World
 		systems.update(game.frame);
 	}
 
-	public function playAudio(pos:IntPoint, key:AudioKey, threshold:Int = 8):Bool
+	public function playAudio(pos:IntPoint, key:AudioKey, threshold:Int = 16):Bool
 	{
 		if (player.entity.pos.distance(pos.asWorld()) <= threshold)
 		{

@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Inventory;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -11,11 +12,12 @@ class LockboxPrefab extends Prefab
 {
 	public function Create(options:Dynamic)
 	{
-		var lockbox = new Entity();
+		var entity = new Entity();
 
-		lockbox.add(new Sprite(CHEST_SMALL_CLOSED, C_BLUE_2, C_YELLOW_2, OBJECTS));
-		lockbox.add(new Moniker('Lockbox'));
-		lockbox.add(new Loot());
+		entity.add(new Sprite(CHEST_SMALL_CLOSED, C_BLUE_2, C_YELLOW_2, OBJECTS));
+		entity.add(new Moniker('Lockbox'));
+		entity.add(new Loot());
+		entity.add(new Destructable());
 
 		var inventory = new Inventory();
 
@@ -23,7 +25,7 @@ class LockboxPrefab extends Prefab
 		inventory.openedAudio = CHEST_OPEN;
 		inventory.closedAudio = CHEST_CLOSE;
 
-		lockbox.add(inventory);
+		entity.add(inventory);
 
 		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER));
 
@@ -31,6 +33,6 @@ class LockboxPrefab extends Prefab
 		inventory.addLoot(Spawner.Spawn(STICK));
 		inventory.addLoot(Spawner.Spawn(STICK));
 
-		return lockbox;
+		return entity;
 	}
 }

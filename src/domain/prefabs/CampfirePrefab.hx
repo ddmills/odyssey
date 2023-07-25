@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import data.ColorKey;
 import domain.components.Combustible;
+import domain.components.Destructable;
 import domain.components.FuelConsumer;
 import domain.components.LightSource;
 import domain.components.Moniker;
@@ -23,6 +24,7 @@ class CampfirePrefab extends Prefab
 		entity.add(new LightSource(.85, C_YELLOW_1, 6));
 		entity.add(new FuelConsumer([FUEL_WOOD], 5000, 5000, 1, true, true));
 		entity.add(new Combustible(ASHES));
+		entity.add(new Destructable());
 
 		return entity;
 	}

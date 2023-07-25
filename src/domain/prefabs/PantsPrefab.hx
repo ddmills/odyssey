@@ -1,13 +1,13 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
-import h3d.shader.ColorKey;
 
 class PantsPrefab extends Prefab
 {
@@ -19,6 +19,7 @@ class PantsPrefab extends Prefab
 		entity.add(new Moniker('Pants'));
 		entity.add(new Equipment([EQ_SLOT_LEGS]));
 		entity.add(new Loot());
+		entity.add(new Destructable());
 
 		var skills = new EquippedSkillMod();
 		skills.set(SKILL_DODGE, 1);

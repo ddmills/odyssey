@@ -4,6 +4,7 @@ import core.Game;
 import data.ColorKey;
 import data.TileKey;
 import domain.components.Collider;
+import domain.components.Destructable;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -17,12 +18,11 @@ class CactusPrefab extends Prefab
 
 		var tile:TileKey = isFlowering ? r.pick([CACTUS_1_FLOWER, CACTUS_2_FLOWER]) : r.pick([CACTUS_1, CACTUS_2]);
 
-		var cactus = new Entity();
-
+		var entity = new Entity();
 		var sprite = new Sprite(tile, C_GREEN_1, C_RED_1, OBJECTS);
 
-		cactus.add(sprite);
-		cactus.add(new Collider());
+		entity.add(sprite);
+		entity.add(new Collider());
 
 		var name = 'Cactus';
 
@@ -31,8 +31,9 @@ class CactusPrefab extends Prefab
 			name += ' (Flowering)';
 		}
 
-		cactus.add(new Moniker(name));
+		entity.add(new Moniker(name));
+		entity.add(new Destructable());
 
-		return cactus;
+		return entity;
 	}
 }

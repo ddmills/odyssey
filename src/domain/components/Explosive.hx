@@ -102,6 +102,7 @@ class Explosive extends Component
 					attacker: Game.instance.registry.getEntity(exploderEntityId),
 					toHit: 100,
 					damage: damage,
+					damageType: DMG_EXPLOSIVE,
 					isCritical: true,
 					defender: e,
 				}));

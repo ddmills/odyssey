@@ -1,7 +1,6 @@
 package domain.terrain.gen.rooms;
 
 import common.struct.WeightedTable;
-import data.ColorKey;
 import data.SpawnableType;
 import hxd.Rand;
 

@@ -3,6 +3,7 @@ package domain.prefabs;
 import core.Game;
 import data.ColorKey;
 import data.LiquidType;
+import domain.components.Destructable;
 import domain.components.LiquidContainer;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -23,6 +24,7 @@ class JarPrefab extends Prefab
 		entity.add(new Moniker('Jar'));
 		entity.add(new Loot());
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));
+		entity.add(new Destructable());
 
 		return entity;
 	}

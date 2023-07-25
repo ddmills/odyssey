@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -19,6 +20,7 @@ class RaspberryPrefab extends Prefab
 		entity.add(new Moniker('Raspberry'));
 		entity.add(new Stackable(STACK_RASPBERRY, quantity));
 		entity.add(new Loot());
+		entity.add(new Destructable());
 
 		return entity;
 	}

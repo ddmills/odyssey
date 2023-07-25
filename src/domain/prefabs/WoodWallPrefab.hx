@@ -6,6 +6,7 @@ import domain.components.Collider;
 import domain.components.LightBlocker;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class WoodWallPrefab extends Prefab
@@ -19,6 +20,8 @@ class WoodWallPrefab extends Prefab
 		entity.add(new Moniker('Wood wall'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());
+
+		WoodBuiltDecorator.Decorate(entity);
 
 		return entity;
 	}

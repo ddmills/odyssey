@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import data.ColorKey;
 import domain.components.BitmaskSprite;
+import domain.components.Destructable;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -15,6 +16,7 @@ class RailroadPrefab extends Prefab
 		entity.add(new Sprite(RAILROAD_0, C_GRAY_1, C_RED_2, GROUND));
 		entity.add(new BitmaskSprite([BITMASK_RAILROAD]));
 		entity.add(new Moniker('Railroad track'));
+		entity.add(new Destructable());
 
 		return entity;
 	}

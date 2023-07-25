@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.EquippedSkillMod;
 import domain.components.Loot;
@@ -18,6 +19,7 @@ class CowboyHatPrefab extends Prefab
 		entity.add(new Moniker('Cowboy hat'));
 		entity.add(new Equipment([EQ_SLOT_HEAD]));
 		entity.add(new Loot());
+		entity.add(new Destructable());
 
 		var skills = new EquippedSkillMod();
 		skills.set(SKILL_DODGE, 1);

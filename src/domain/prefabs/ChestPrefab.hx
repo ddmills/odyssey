@@ -5,6 +5,7 @@ import domain.components.Collider;
 import domain.components.Inventory;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class ChestPrefab extends Prefab
@@ -31,6 +32,8 @@ class ChestPrefab extends Prefab
 		inventory.addLoot(Spawner.Spawn(STICK));
 		inventory.addLoot(Spawner.Spawn(STICK));
 		inventory.addLoot(Spawner.Spawn(STICK));
+
+		WoodBuiltDecorator.Decorate(chest);
 
 		return chest;
 	}

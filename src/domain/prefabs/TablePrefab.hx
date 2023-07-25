@@ -4,6 +4,7 @@ import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.prefabs.decorators.WoodBuiltDecorator;
 import ecs.Entity;
 
 class TablePrefab extends Prefab
@@ -15,6 +16,8 @@ class TablePrefab extends Prefab
 		entity.add(new Sprite(FURNITURE_TABLE, C_ORANGE_2, C_ORANGE_2, OBJECTS));
 		entity.add(new Moniker('Table'));
 		entity.add(new Collider());
+
+		WoodBuiltDecorator.Decorate(entity);
 
 		return entity;
 	}

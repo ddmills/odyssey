@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import data.ColorKey;
+import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.Loot;
 import domain.components.Moniker;
@@ -16,6 +17,7 @@ class RiflePrefab extends Prefab
 		entity.add(new Sprite(RIFLE, C_BLUE_1, C_RED_2, OBJECTS));
 		entity.add(new Moniker('Rifle'));
 		entity.add(new Loot());
+		entity.add(new Destructable());
 		entity.add(new Equipment([EQ_SLOT_HAND]));
 		entity.get(Equipment).extraSlotTypes = [EQ_SLOT_HAND];
 		entity.get(Equipment).equipAudio = GUN_HANDLE_1;

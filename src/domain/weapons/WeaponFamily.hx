@@ -58,6 +58,7 @@ class WeaponFamily
 						attacker: attacker,
 						toHit: toHit,
 						damage: damage,
+						damageType: DMG_PIERCE,
 						isCritical: isCritical,
 						defender: e,
 					});
@@ -87,6 +88,7 @@ class WeaponFamily
 				attacker: attacker,
 				toHit: toHit,
 				damage: damage,
+				damageType: DMG_BLUNT,
 				isCritical: isCritical,
 				defender: null,
 			}

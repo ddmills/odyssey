@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import data.ColorKey;
 import domain.components.Ammo;
+import domain.components.Destructable;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -19,6 +20,7 @@ class ShotgunAmmoPrefab extends Prefab
 		entity.add(new Loot());
 		entity.add(new Stackable(STACK_AMMO_SHOTGUN, 100));
 		entity.add(new Ammo(AMMO_SHOTGUN));
+		entity.add(new Destructable());
 
 		return entity;
 	}
