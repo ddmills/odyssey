@@ -1,6 +1,7 @@
 package screens.interaction;
 
 import core.Frame;
+import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
 import domain.events.QueryInteractionsEvent;
@@ -50,6 +51,12 @@ class InteractionScreen extends ListSelectScreen
 
 				interactable.fireEvent(action.evt);
 				refreshList();
+
+				if (interactable.has(IsDestroyed))
+				{
+					game.screens.pop();
+				}
+
 				return;
 			},
 		}));

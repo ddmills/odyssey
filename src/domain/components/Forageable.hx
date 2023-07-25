@@ -56,6 +56,11 @@ class Forageable extends Component
 			entity.get(Sprite).secondary = secondaryReplace;
 		}
 
+		if (destroyOnForage)
+		{
+			entity.add(new IsDestroyed());
+		}
+
 		entity.remove(this);
 	}
 }
