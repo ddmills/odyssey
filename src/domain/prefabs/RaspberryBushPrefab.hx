@@ -2,7 +2,7 @@ package domain.prefabs;
 
 import data.ColorKey;
 import domain.components.Collider;
-import domain.components.Harvestable;
+import domain.components.Forageable;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
@@ -13,10 +13,10 @@ class RaspberryBushPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(BUSH_1, C_GREEN_4, C_RED_1, OBJECTS));
+		entity.add(new Sprite(BUSH_1, C_GREEN_3, C_RED_1, OBJECTS));
 		entity.add(new Moniker('Raspberry bush'));
 		entity.add(new Collider());
-		entity.add(new Harvestable(RASPBERRY, RUSTLING_1, C_GREEN_4, C_GREEN_4));
+		entity.add(new Forageable(RASPBERRY, RUSTLING_1, false, C_GREEN_3, C_GREEN_4));
 
 		return entity;
 	}

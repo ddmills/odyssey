@@ -63,7 +63,14 @@ class PrairieBiome extends Biome
 			{
 				if (r.bool(.5))
 				{
-					Spawner.Spawn(YARROW, pos.asWorld());
+					if (r.bool(.5))
+					{
+						Spawner.Spawn(HEMLOCK, pos.asWorld());
+					}
+					else
+					{
+						Spawner.Spawn(YARROW, pos.asWorld());
+					}
 				}
 				else
 				{

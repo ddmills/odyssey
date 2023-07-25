@@ -21,6 +21,7 @@
 ### Data formats
 - json2object (use json schemas with vscode extension!)
 - hscript (scripting language)
+- toml https://toml.io/en/
 
 ### Designing NPCs
 - each npc should have a motivation

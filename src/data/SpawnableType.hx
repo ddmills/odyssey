@@ -15,6 +15,7 @@ enum SpawnableType
 	RIFLE;
 	WOLF;
 	YARROW;
+	HEMLOCK;
 	LAVENDER;
 	SNAKE;
 	CORPSE_SNAKE;

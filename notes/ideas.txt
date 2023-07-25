@@ -68,38 +68,39 @@ Buildings
 	- Nails
 
 
-- mounts
-- trains
-- companions
-- rumors
-- farming
-- systems/physics
-	- light/darkness 
-	- water physics
-	- fire physics
-	- rope physics
-		- lassos and whips
-	- temperature
-- construction
-	- building walls/windows 
-	- placing furniture 
-- Survival/Camping 
-	- sleeping
-	- making fire
-	- cooking
-	- foraging
-	- hunting
-	- tracking
-- gambling
-	- dice 
-	- cards 
-- diseases
-	- effect
-	- remedy
-	- contagion
-- drugs alcohol
-- explosives
-
+- [ ] mounts
+- [ ] trains
+- [ ] companions
+- [ ] rumors
+- [ ] farming
+- [ ] systems/physics
+	- [x] light/darkness 
+	- [ ] water physics
+	- [ ] fire physics
+	- [ ] rope physics
+		- [ ] lassos and whips
+	- [ ] destruction system
+	- [ ] temperature
+- [ ] construction
+	- [ ] building walls/windows 
+	- [ ] placing furniture 
+- [ ] Survival/Camping 
+	- [x] sleeping
+	- [ ] making fire
+	- [ ] cooking
+	- [x] foraging
+	- [ ] hunting
+	- [ ] tracking
+- [ ] gambling
+	- [ ] dice 
+	- [ ] cards 
+- [ ] diseases
+	- [ ] effect
+	- [ ] remedy
+	- [ ] contagion
+- [ ] drugs alcohol
+- [ ] explosives
+- [ ] limbs damage
 
 enemy concepts:
 - keep distance, fire projectiles
