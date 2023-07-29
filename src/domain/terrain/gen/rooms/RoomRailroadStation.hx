@@ -17,7 +17,8 @@ class RoomRailroadStation extends RoomDecorator
 
 			tile.tileKey = FLOORBOARDS;
 			tile.primary = C_RED_4;
-			tile.background = C_RED_3;
+			tile.secondary = C_RED_3;
+			tile.background = C_BLACK_1;
 
 			if (room.isOnEdge(pos))
 			{

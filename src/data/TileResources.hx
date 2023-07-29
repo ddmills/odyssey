@@ -25,7 +25,7 @@ class TileResources
 
 	public static function Init()
 	{
-		var t = hxd.Res.tiles.smol.sheet_14_14.toTile().divide(16, 16);
+		var t = hxd.Res.tiles.smol.sheet_16_16.toTile().divide(16, 16);
 		// var t = hxd.Res.tiles.smol.sheet_16_24.toTile().divide(16, 16);
 
 		tiles.set(TK_UNKNOWN, t[0][7]);
@@ -54,6 +54,11 @@ class TileResources
 		tiles.set(WATER_2, t[2][1]);
 		tiles.set(WATER_3, t[2][2]);
 		tiles.set(WATER_4, t[2][3]);
+
+		tiles.set(ROCK_ROUND_1, t[15][0]);
+		tiles.set(ROCK_ROUND_2, t[15][1]);
+		tiles.set(ROCK_ROUND_3, t[15][2]);
+		tiles.set(ROCK_ROUND_4, t[15][3]);
 
 		tiles.set(CAMPFIRE_1, t[0][8]);
 		tiles.set(CAMPFIRE_2, t[0][9]);
@@ -207,7 +212,7 @@ class TileResources
 		tiles.set(FURNITURE_BOOKSHELF, t[4][12]);
 		tiles.set(FURNITURE_SHELF, t[5][12]);
 
-		var walls = hxd.Res.tiles.smol.walls_14_14_2.toTile().divide(4, 4);
+		var walls = hxd.Res.tiles.smol.walls_16_16.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
 		tiles.set(WALL_1, walls[0][1]);
 		tiles.set(WALL_2, walls[0][2]);
@@ -225,7 +230,7 @@ class TileResources
 		tiles.set(WALL_14, walls[3][2]);
 		tiles.set(WALL_15, walls[3][3]);
 
-		var fenceIron = hxd.Res.tiles.smol.fence_iron_14_14.toTile().divide(4, 4);
+		var fenceIron = hxd.Res.tiles.smol.fence_iron_16_16.toTile().divide(4, 4);
 		tiles.set(FENCE_IRON_0, fenceIron[0][0]);
 		tiles.set(FENCE_IRON_1, fenceIron[0][1]);
 		tiles.set(FENCE_IRON_2, fenceIron[0][2]);
@@ -261,7 +266,7 @@ class TileResources
 		tiles.set(FENCE_BARBED_14, fenceBarbed[3][2]);
 		tiles.set(FENCE_BARBED_15, fenceBarbed[3][3]);
 
-		var fenceBars = hxd.Res.tiles.smol.fence_bars_14_14.toTile().divide(4, 4);
+		var fenceBars = hxd.Res.tiles.smol.fence_bars_16_16.toTile().divide(4, 4);
 		tiles.set(FENCE_BARS_0, fenceBars[0][0]);
 		tiles.set(FENCE_BARS_1, fenceBars[0][1]);
 		tiles.set(FENCE_BARS_2, fenceBars[0][2]);
@@ -279,7 +284,7 @@ class TileResources
 		tiles.set(FENCE_BARS_14, fenceBars[3][2]);
 		tiles.set(FENCE_BARS_15, fenceBars[3][3]);
 
-		var highlight = hxd.Res.tiles.smol.highlight_14_14.toTile().divide(4, 4);
+		var highlight = hxd.Res.tiles.smol.highlight_16_16.toTile().divide(4, 4);
 		tiles.set(HIGHLIGHT_0, highlight[0][0]);
 		tiles.set(HIGHLIGHT_1, highlight[0][1]);
 		tiles.set(HIGHLIGHT_2, highlight[0][2]);
@@ -297,7 +302,7 @@ class TileResources
 		tiles.set(HIGHLIGHT_14, highlight[3][2]);
 		tiles.set(HIGHLIGHT_15, highlight[3][3]);
 
-		var railroad = hxd.Res.tiles.smol.railroad_14_14.toTile().divide(4, 4);
+		var railroad = hxd.Res.tiles.smol.railroad_16_16.toTile().divide(4, 4);
 		tiles.set(RAILROAD_0, railroad[0][0]);
 		tiles.set(RAILROAD_1, railroad[0][1]);
 		tiles.set(RAILROAD_2, railroad[0][2]);

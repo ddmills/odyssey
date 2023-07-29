@@ -50,8 +50,9 @@ class RoomSheriffOffice extends RoomDecorator
 			if (room.isOnEdge(pos))
 			{
 				tile.tileKey = FLOORBOARDS;
-				tile.primary = C_BLACK_1;
-				tile.background = C_RED_3;
+				tile.primary = C_RED_4;
+				tile.secondary = C_RED_3;
+				tile.background = C_BLACK_1;
 
 				if (pos.y < midY || pos.y > midY)
 				{
@@ -90,8 +91,9 @@ class RoomSheriffOffice extends RoomDecorator
 			else
 			{
 				tile.tileKey = FLOORBOARDS;
-				tile.primary = C_BLACK_1;
-				tile.background = C_RED_3;
+				tile.primary = C_RED_4;
+				tile.secondary = C_RED_3;
+				tile.background = C_BLACK_1;
 
 				if (pos.y <= 2) // prison cell
 				{

@@ -16,7 +16,7 @@ class WoodWallPrefab extends Prefab
 		var entity = new Entity();
 
 		entity.add(new Sprite(WALL_0, C_RED_2, C_GRAY_2, OBJECTS));
-		entity.add(new BitmaskSprite([BITMASK_WALL, BITMASK_WINDOW]));
+		entity.add(new BitmaskSprite([BITMASK_WALL, BITMASK_WINDOW, BITMASK_FENCE_BAR]));
 		entity.add(new Moniker('Wood wall'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());
