@@ -24,10 +24,15 @@ class ForestBiome extends Biome
 	{
 		if (cell.terrain == TERRAIN_GRASS)
 		{
-			var perlin = perlin.get(pos, 8, 8);
-			if (perlin > .44)
+			var trees = perlin.get(pos, 8, 8);
+			var rocks = perlin.get(pos, 10, 2);
+			if (rocks > .65)
 			{
-				if (r.bool(.6))
+				Spawner.Spawn(ROCK, pos.asWorld());
+			}
+			else if (trees > .55)
+			{
+				if (r.bool(.75))
 				{
 					Spawner.Spawn(PINE_TREE, pos.asWorld());
 				}

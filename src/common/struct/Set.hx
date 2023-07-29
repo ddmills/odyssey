@@ -3,25 +3,17 @@ package common.struct;
 @:generic class Set<T>
 {
 	public var items:Array<T>;
-
 	public var isEmpty(get, never):Bool;
 	public var length(get, never):Int;
 
-	private var comparator:(a:T, b:T) -> Bool = (a, b) -> a == b;
-
-	public function new(comparator:(a:T, b:T) -> Bool = null)
+	public function new()
 	{
-		if (comparator != null)
-		{
-			this.comparator = comparator;
-		}
-
 		items = new Array();
 	}
 
-	inline public function has(v:T):Bool
+	public function has(v:T):Bool
 	{
-		return items.exists(x -> comparator(x, v));
+		return items.exists(x -> x == v);
 	}
 
 	public function add(v:T):Int

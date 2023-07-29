@@ -34,6 +34,7 @@ class TundraBiome extends Biome
 		{
 			var trees = perlin.get(pos, 8, 8);
 			var berries = perlin.get(pos, 12, 8);
+			var rocks = perlin.get(pos, 9, 8);
 
 			if (trees > .6)
 			{
@@ -42,6 +43,10 @@ class TundraBiome extends Biome
 			else if (berries > .8)
 			{
 				Spawner.Spawn(RASPBERRY_BUSH, pos.asWorld());
+			}
+			else if (rocks > .7)
+			{
+				Spawner.Spawn(ROCK, pos.asWorld());
 			}
 		}
 	}

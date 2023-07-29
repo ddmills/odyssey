@@ -10,7 +10,6 @@ import domain.components.Health;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
-import domain.components.Moniker;
 import domain.components.Move;
 import domain.components.Weapon;
 import domain.events.AttackedEvent;

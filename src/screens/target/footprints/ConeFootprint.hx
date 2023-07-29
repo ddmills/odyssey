@@ -1,6 +1,7 @@
 package screens.target.footprints;
 
 import common.algorithm.Bresenham;
+import common.struct.ComplexSet;
 import common.struct.Coordinate;
 import common.struct.FloatPoint;
 import common.struct.IntPoint;
@@ -35,7 +36,7 @@ class ConeFootprint implements Footprint
 		polygon.push(origin.add(left.round().asWorld()).toIntPoint());
 		polygon.push(origin.add(tip.asWorld()).toIntPoint());
 		polygon.push(origin.add(right.round().asWorld()).toIntPoint());
-		var points = new Set<IntPoint>(IntPoint.Equals);
+		var points = new ComplexSet<IntPoint>(IntPoint.Equals);
 
 		Bresenham.fillPolygon(polygon, (p) -> points.add(p));
 		Bresenham.strokePolygon(polygon, (p) -> points.add(p)); // TODO: fix polygon fill!!

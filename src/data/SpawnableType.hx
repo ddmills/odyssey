@@ -68,4 +68,6 @@ enum SpawnableType
 	DYNAMITE;
 	WOOD_PLANK;
 	LOG;
+	DESERT_ROCK;
+	ROCK;
 }

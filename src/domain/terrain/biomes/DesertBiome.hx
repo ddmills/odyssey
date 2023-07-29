@@ -30,9 +30,17 @@ class DesertBiome extends Biome
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (cell.terrain == TERRAIN_SAND && r.bool(.05))
+		if (cell.terrain == TERRAIN_SAND)
 		{
-			Spawner.Spawn(CACTUS, pos.asWorld());
+			var rocks = perlin.get(pos, 8, 8);
+			if (rocks > .6)
+			{
+				Spawner.Spawn(DESERT_ROCK, pos.asWorld());
+			}
+			else if (r.bool(.05))
+			{
+				Spawner.Spawn(CACTUS, pos.asWorld());
+			}
 		}
 	}
 }

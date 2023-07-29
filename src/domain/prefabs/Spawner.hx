@@ -80,6 +80,8 @@ class Spawner
 		prefabs.set(DYNAMITE, new DynamitePrefab());
 		prefabs.set(EXPLOSION, new ExplosionPrefab());
 		prefabs.set(LOG, new LogPrefab());
+		prefabs.set(DESERT_ROCK, new DesertRockPrefab());
+		prefabs.set(ROCK, new RockPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
