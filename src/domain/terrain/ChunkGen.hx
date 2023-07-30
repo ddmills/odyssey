@@ -258,8 +258,8 @@ class ChunkGen
 
 	function pickBiome(r:Rand, pos:IntPoint, biomes:BiomeChunkData):BiomeType
 	{
-		var x = pos.x / world.chunkSize;
-		var y = pos.y / world.chunkSize;
+		var x = pos.x / world.zoneSize;
+		var y = pos.y / world.zoneSize;
 
 		var isSouth = r.bool(y);
 		var isEast = r.bool(x);
@@ -276,7 +276,8 @@ class ChunkGen
 	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeChunkData, idx:Int):Cell
 	{
 		var pos = chunk.getCellCoord(idx);
-		var biomeKey = pickBiome(r, pos, biomes);
+		var zoneCoord = chunk.getZoneLocalOffset().add(pos);
+		var biomeKey = pickBiome(r, zoneCoord, biomes);
 		var biome = world.map.getBiome(biomeKey);
 
 		var cell:Cell = {
