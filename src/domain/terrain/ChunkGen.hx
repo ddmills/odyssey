@@ -191,12 +191,12 @@ class ChunkGen
 
 		if (connections.west.length > 0)
 		{
+			hasRailroad = true;
 			for (x in 0...halfZoneSize)
 			{
 				var p = zone.worldPos.add(x, halfZoneSize);
 				if (chunk.hasWorldPoint(p))
 				{
-					hasRailroad = true;
 					var localPos = p.sub(chunk.worldPos);
 					addRailroadTrack(chunk, localPos);
 				}
@@ -205,13 +205,13 @@ class ChunkGen
 
 		if (connections.east.length > 0)
 		{
-			for (x in(halfZoneSize + 1)...zoneSize)
+			hasRailroad = true;
+			for (x in (halfZoneSize + 1)...zoneSize)
 			{
 				var p = zone.worldPos.add(x, halfZoneSize);
 
 				if (chunk.hasWorldPoint(p))
 				{
-					hasRailroad = true;
 					var localPos = p.sub(chunk.worldPos);
 					addRailroadTrack(chunk, localPos);
 				}
@@ -220,13 +220,13 @@ class ChunkGen
 
 		if (connections.north.length > 0)
 		{
+			hasRailroad = true;
 			for (y in 0...halfZoneSize)
 			{
 				var p = zone.worldPos.add(halfZoneSize, y);
 
 				if (chunk.hasWorldPoint(p))
 				{
-					hasRailroad = true;
 					var localPos = p.sub(chunk.worldPos);
 					addRailroadTrack(chunk, localPos);
 				}
@@ -235,7 +235,8 @@ class ChunkGen
 
 		if (connections.south.length > 0)
 		{
-			for (y in(halfZoneSize + 1)...zoneSize)
+			hasRailroad = true;
+			for (y in (halfZoneSize + 1)...zoneSize)
 			{
 				var p = zone.worldPos.add(halfZoneSize, y);
 

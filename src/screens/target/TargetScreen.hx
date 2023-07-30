@@ -4,7 +4,6 @@ import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
-import core.input.Command;
 import data.Bitmasks;
 import data.ColorKey;
 import data.TileResources;
