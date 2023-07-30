@@ -58,7 +58,8 @@ class SwampBiome extends Biome
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
 	{
-		if (r.bool(.085))
+		var trees = perlin.get(pos, 8, 8);
+		if (trees > .6 && r.bool(.85))
 		{
 			Spawner.Spawn(BALD_CYPRESS, pos.asWorld());
 		}

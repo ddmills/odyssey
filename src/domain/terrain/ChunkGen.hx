@@ -5,13 +5,23 @@ import common.rand.Perlin;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
+import common.util.Colors;
 import core.Game;
 import data.BiomeMap.BiomeChunkData;
 import data.BiomeType;
+import data.Cardinal;
 import data.ColorKey;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
 import hxd.Rand;
+
+typedef BiomeWeights =
+{
+	se:Float,
+	sw:Float,
+	ne:Float,
+	nw:Float,
+}
 
 class ChunkGen
 {
@@ -258,13 +268,10 @@ class ChunkGen
 		}
 	}
 
-	function pickBiome(r:Rand, worldPos:Coordinate, biomes:BiomeChunkData):BiomeType
+	function pickBiome(p1:Perlin, p2:Perlin, worldPos:Coordinate, biomes:BiomeChunkData):BiomeType
 	{
 		var x = (worldPos.x % world.zoneSize) / world.zoneSize;
 		var y = (worldPos.y % world.zoneSize) / world.zoneSize;
-
-		var p1 = new Perlin(0);
-		var p2 = new Perlin(1);
 
 		var isSouth = p1.get(worldPos.x, worldPos.y, 35, 5) < y;
 		var isEast = p2.get(worldPos.x, worldPos.y, 35, 5) < x;
@@ -278,11 +285,18 @@ class ChunkGen
 		}
 	}
 
+	private function isUniformBiome(biomes:BiomeChunkData):Bool
+	{
+		return (biomes.se == biomes.se) && (biomes.se == biomes.sw) && (biomes.se == biomes.ne) && (biomes.se == biomes.nw);
+	}
+
 	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeChunkData, idx:Int):Cell
 	{
+		var p1 = new Perlin(0);
+		var p2 = new Perlin(1);
 		var pos = chunk.getCellCoord(idx);
 		var worldCoordinate = chunk.worldPos.add(pos).asWorld();
-		var biomeKey = pickBiome(r, worldCoordinate, biomes);
+		var biomeKey = pickBiome(p1, p2, worldCoordinate, biomes);
 		var biome = world.map.getBiome(biomeKey);
 
 		var cell:Cell = {
@@ -299,6 +313,31 @@ class ChunkGen
 		var worldPos = pos.add(chunk.worldPos);
 
 		biome.setCellData(worldPos, cell);
+
+		if (!isUniformBiome(biomes))
+		{
+			var mixBiomeColor = (coord:Coordinate, color:Int) ->
+			{
+				if (!chunk.hasWorldPoint(coord.toIntPoint()))
+				{
+					return color;
+				}
+
+				var mixBiomeType = pickBiome(p1, p2, coord, biomes);
+				var mixBiome = world.map.getBiome(mixBiomeType);
+				return Colors.Mix(color, mixBiome.background, .25);
+			}
+
+			if (pos.x > 0 && pos.y > 0 && pos.x < (world.chunkSize) && pos.y < (world.chunkSize))
+			{
+				var color = cell.background;
+				color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, -1)), color);
+				color = mixBiomeColor(worldCoordinate.add(new Coordinate(1, 0)), color);
+				color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, 1)), color);
+				color = mixBiomeColor(worldCoordinate.add(new Coordinate(-1, 0)), color);
+				cell.background = color;
+			}
+		}
 
 		return cell;
 	}

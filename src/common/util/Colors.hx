@@ -31,7 +31,7 @@ class Colors
 		return v.nthRoot(2);
 	}
 
-	public static function Mix(a:Int, b:Int, t:Float):Int
+	public static function Mix(a:Int, b:Int, t:Float = .5):Int
 	{
 		var c1 = Components(a);
 		var c2 = Components(b);
