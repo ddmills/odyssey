@@ -1,6 +1,8 @@
 package domain.terrain;
 
 import common.algorithm.Bresenham;
+import common.rand.Perlin;
+import common.struct.Coordinate;
 import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import core.Game;
@@ -256,13 +258,16 @@ class ChunkGen
 		}
 	}
 
-	function pickBiome(r:Rand, pos:IntPoint, biomes:BiomeChunkData):BiomeType
+	function pickBiome(r:Rand, worldPos:Coordinate, biomes:BiomeChunkData):BiomeType
 	{
-		var x = pos.x / world.zoneSize;
-		var y = pos.y / world.zoneSize;
+		var x = (worldPos.x % world.zoneSize) / world.zoneSize;
+		var y = (worldPos.y % world.zoneSize) / world.zoneSize;
 
-		var isSouth = r.bool(y);
-		var isEast = r.bool(x);
+		var p1 = new Perlin(0);
+		var p2 = new Perlin(1);
+
+		var isSouth = p1.get(worldPos.x, worldPos.y, 35, 5) < y;
+		var isEast = p2.get(worldPos.x, worldPos.y, 35, 5) < x;
 
 		return switch [isSouth, isEast]
 		{
@@ -276,8 +281,8 @@ class ChunkGen
 	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeChunkData, idx:Int):Cell
 	{
 		var pos = chunk.getCellCoord(idx);
-		var zoneCoord = chunk.getZoneLocalOffset().add(pos);
-		var biomeKey = pickBiome(r, zoneCoord, biomes);
+		var worldCoordinate = chunk.worldPos.add(pos).asWorld();
+		var biomeKey = pickBiome(r, worldCoordinate, biomes);
 		var biome = world.map.getBiome(biomeKey);
 
 		var cell:Cell = {
