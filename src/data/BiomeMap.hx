@@ -17,7 +17,7 @@ typedef RiverData =
 	nw:Bool,
 };
 
-typedef BiomeChunkData =
+typedef BiomeZoneData =
 {
 	nw:BiomeType,
 	ne:BiomeType,
@@ -30,7 +30,7 @@ class BiomeMap
 {
 	private static var landImg:Pixels;
 	private static var waterImg:Pixels;
-	private static var data:Grid<BiomeChunkData>;
+	private static var data:Grid<BiomeZoneData>;
 
 	public static function Init()
 	{
@@ -67,7 +67,7 @@ class BiomeMap
 		return ColorToWater(px);
 	}
 
-	public static function Compute(pos:IntPoint):BiomeChunkData
+	public static function Compute(pos:IntPoint):BiomeZoneData
 	{
 		var nw = GetBiome({x: pos.x, y: pos.y});
 		var ne = GetBiome({x: pos.x + 1, y: pos.y});
@@ -96,7 +96,7 @@ class BiomeMap
 				sw: sw,
 				w: w,
 				nw: nw,
-			}
+			};
 		}
 
 		return {
@@ -108,12 +108,12 @@ class BiomeMap
 		};
 	}
 
-	public static function Get(pos:IntPoint):Null<BiomeChunkData>
+	public static function Get(pos:IntPoint):Null<BiomeZoneData>
 	{
 		return data.get(pos.x, pos.y);
 	}
 
-	public static function GetAt(idx:Int):Null<BiomeChunkData>
+	public static function GetAt(idx:Int):Null<BiomeZoneData>
 	{
 		return data.getAt(idx);
 	}

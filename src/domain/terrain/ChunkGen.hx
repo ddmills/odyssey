@@ -7,7 +7,7 @@ import common.struct.IntPoint;
 import common.struct.WeightedTable;
 import common.util.Colors;
 import core.Game;
-import data.BiomeMap.BiomeChunkData;
+import data.BiomeMap.BiomeZoneData;
 import data.BiomeType;
 import data.Cardinal;
 import data.ColorKey;
@@ -44,6 +44,7 @@ class ChunkGen
 		table.add(CAMPFIRE, 5);
 		table.add(LANTERN, 4);
 		table.add(SNAKE, 6);
+		table.add(WOLF, 6);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(LOCKBOX, 1);
@@ -77,15 +78,15 @@ class ChunkGen
 
 		if (biomes.river != null)
 		{
-			var riverOffset = (((world.chunkSize) - riverWidth) / 2).floor();
-			var chunkSize = world.chunkSize - 1;
+			var riverOffset = (((world.zoneSize) - riverWidth) / 2).floor();
+			var zoneSize = world.zoneSize - 1;
 			var river = biomes.river;
 			var polygon = new Array<IntPoint>();
 
 			if (river.n)
 			{
 				var left = river.nw ? 0 : riverOffset;
-				var right = river.ne ? chunkSize : chunkSize - riverOffset;
+				var right = river.ne ? zoneSize : zoneSize - riverOffset;
 				polygon.push({
 					x: left,
 					y: 0,
@@ -98,33 +99,33 @@ class ChunkGen
 			if (river.e)
 			{
 				var top = river.ne ? 0 : riverOffset;
-				var bottom = river.se ? chunkSize : chunkSize - riverOffset;
+				var bottom = river.se ? zoneSize : zoneSize - riverOffset;
 				polygon.push({
-					x: chunkSize,
+					x: zoneSize,
 					y: top,
 				});
 				polygon.push({
-					x: chunkSize,
+					x: zoneSize,
 					y: bottom,
 				});
 			}
 			if (river.s)
 			{
 				var left = river.sw ? 0 : riverOffset;
-				var right = river.se ? chunkSize : chunkSize - riverOffset;
+				var right = river.se ? zoneSize : zoneSize - riverOffset;
 				polygon.push({
 					x: right,
-					y: chunkSize,
+					y: zoneSize,
 				});
 				polygon.push({
 					x: left,
-					y: chunkSize,
+					y: zoneSize,
 				});
 			}
 			if (river.w)
 			{
 				var top = river.nw ? 0 : riverOffset;
-				var bottom = river.sw ? chunkSize : chunkSize - riverOffset;
+				var bottom = river.sw ? zoneSize : zoneSize - riverOffset;
 				polygon.push({
 					x: 0,
 					y: bottom,
@@ -135,9 +136,23 @@ class ChunkGen
 				});
 			}
 
-			// todo: shouldn't have to bresenham stroke when filling
-			Bresenham.strokePolygon(polygon, (p) -> setWater(chunk, p));
-			Bresenham.fillPolygon(polygon, (p) -> setWater(chunk, p));
+			// todo: shouldn't have to bresenham stroke when f``illing
+			// Bresenham.strokePolygon(polygon, (p) ->
+			// {
+			// 	var world = chunk.zone.worldPos.add(p);
+			// 	if (chunk.hasWorldPoint(world))
+			// 	{
+			// 		setWater(chunk, p);
+			// 	}
+			// });
+			// Bresenham.fillPolygon(polygon, (p) ->
+			// {
+			// 	var world = chunk.zone.worldPos.add(p);
+			// 	if (chunk.hasWorldPoint(world))
+			// 	{
+			// 		setWater(chunk, p);
+			// 	}
+			// });
 		}
 
 		var poi = chunk.zone.poi;
@@ -268,7 +283,7 @@ class ChunkGen
 		}
 	}
 
-	function pickBiome(p1:Perlin, p2:Perlin, worldPos:Coordinate, biomes:BiomeChunkData):BiomeType
+	function pickBiome(p1:Perlin, p2:Perlin, worldPos:Coordinate, biomes:BiomeZoneData):BiomeType
 	{
 		var x = (worldPos.x % world.zoneSize) / world.zoneSize;
 		var y = (worldPos.y % world.zoneSize) / world.zoneSize;
@@ -285,12 +300,12 @@ class ChunkGen
 		}
 	}
 
-	private function isUniformBiome(biomes:BiomeChunkData):Bool
+	private function isUniformBiome(biomes:BiomeZoneData):Bool
 	{
 		return (biomes.se == biomes.se) && (biomes.se == biomes.sw) && (biomes.se == biomes.ne) && (biomes.se == biomes.nw);
 	}
 
-	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeChunkData, idx:Int):Cell
+	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeZoneData, idx:Int):Cell
 	{
 		var p1 = new Perlin(0);
 		var p2 = new Perlin(1);
@@ -355,9 +370,12 @@ class ChunkGen
 	function setWater(chunk:Chunk, p:IntPoint)
 	{
 		var cell = chunk.cells.get(p.x, p.y);
-		cell.terrain = TERRAIN_RIVER;
-		cell.primary = C_BLUE_2;
-		cell.background = C_BLUE_3;
-		cell.tileKey = WATER_4;
+		if (cell != null)
+		{
+			cell.terrain = TERRAIN_RIVER;
+			cell.primary = C_BLUE_2;
+			cell.background = C_BLUE_3;
+			cell.tileKey = WATER_4;
+		}
 	}
 }

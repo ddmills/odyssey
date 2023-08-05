@@ -103,7 +103,7 @@ class InspectScreen extends Screen
 				var targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
 				targetBm.x = px.x;
 				targetBm.y = px.y;
-				var shader = new SpriteShader(C_WHITE_1);
+				var shader = new SpriteShader(C_YELLOW_0);
 				shader.isShrouded = 0;
 				shader.clearBackground = 0;
 				targetBm.addShader(shader);
@@ -208,7 +208,7 @@ class InspectScreen extends Screen
 			{
 				b.isBlinking = true;
 				b.ob.visible = isBlinkActive;
-				b.shader.primary = C_WHITE_1.toHxdColor();
+				b.shader.primary = C_YELLOW_0.toHxdColor();
 			}
 		});
 	}

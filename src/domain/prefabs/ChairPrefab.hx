@@ -13,7 +13,7 @@ class ChairPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FURNITURE_CHAIR, C_ORANGE_2, C_ORANGE_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_CHAIR, C_RED_3, C_RED_1, OBJECTS));
 		entity.add(new Moniker('Chair'));
 		entity.add(new Collider());
 

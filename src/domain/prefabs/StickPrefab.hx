@@ -17,7 +17,7 @@ class StickPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(STICK, C_RED_1, C_BLACK_1, OBJECTS));
+		entity.add(new Sprite(STICK, C_RED_3, C_BLACK, OBJECTS));
 		entity.add(new Moniker('Stick'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND]));

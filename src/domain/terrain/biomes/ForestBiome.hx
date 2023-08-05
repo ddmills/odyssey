@@ -9,15 +9,15 @@ class ForestBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, FOREST, C_GREEN_3, C_RED_2, C_GREEN_4);
+		super(seed, FOREST, C_GREEN_4, C_RED_2, C_GREEN_5);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
 		cell.tileKey = r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
 		cell.terrain = TERRAIN_GRASS;
-		cell.primary = C_GREEN_3;
-		cell.background = C_GREEN_4;
+		cell.primary = C_GREEN_4;
+		cell.background = C_GREEN_5;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

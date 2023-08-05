@@ -55,7 +55,7 @@ class LegacyShootingScreen extends Screen
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
 
-		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
+		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
@@ -64,7 +64,7 @@ class LegacyShootingScreen extends Screen
 		targetBm.addShader(targetShader);
 
 		hitChanceTxt = new Text(TextResources.BIZCAT);
-		hitChanceTxt.color = ColorKey.C_WHITE_1.toHxdColor();
+		hitChanceTxt.color = ColorKey.C_YELLOW_0.toHxdColor();
 		hitChanceTxt.x = 16;
 		hitChanceTxt.y = 16;
 
@@ -131,7 +131,7 @@ class LegacyShootingScreen extends Screen
 			{
 				highlight.showArrow = false;
 				highlight.showRing = true;
-				highlight.color = ColorKey.C_WHITE_1;
+				highlight.color = ColorKey.C_YELLOW_0;
 			}
 		});
 

@@ -8,7 +8,7 @@ class TundraBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, TUNDRA, C_GRAY_1, C_BLUE_1, C_GRAY_2);
+		super(seed, TUNDRA, C_GRAY_2, C_GRAY_2, C_GRAY_3);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -24,8 +24,8 @@ class TundraBiome extends Biome
 			cell.terrain = TERRAIN_SNOW;
 		}
 
-		cell.primary = C_GRAY_1;
-		cell.background = C_GRAY_2;
+		cell.primary = C_GRAY_2;
+		cell.background = C_GRAY_3;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

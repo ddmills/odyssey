@@ -15,7 +15,7 @@ class PantsPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(PANTS_1, C_ORANGE_2, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(PANTS_1, C_RED_2, C_GRAY_2, OBJECTS));
 		entity.add(new Moniker('Pants'));
 		entity.add(new Equipment([EQ_SLOT_LEGS]));
 		entity.add(new Loot());

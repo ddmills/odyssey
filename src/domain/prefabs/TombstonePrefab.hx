@@ -12,7 +12,7 @@ class TombstonePrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(TOMBSTONE_1, C_GRAY_1, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(TOMBSTONE_1, C_GRAY_3, C_GRAY_4, OBJECTS));
 		entity.add(new Moniker('Tombstone'));
 		entity.add(new Collider());
 

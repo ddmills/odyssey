@@ -1,6 +1,7 @@
 package domain.components;
 
 import core.rendering.RenderLayerManager.RenderLayerType;
+import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
 import h2d.Bitmap;
@@ -15,7 +16,7 @@ class Sprite extends Drawable
 	public var ob(default, null):Bitmap;
 	public var tile(get, never):Tile;
 
-	public function new(tileKey:TileKey, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS)
+	public function new(tileKey:TileKey, primary = C_WHITE, secondary = C_BLACK, layer = OBJECTS)
 	{
 		super(primary, secondary, layer);
 		this.tileKey = tileKey;

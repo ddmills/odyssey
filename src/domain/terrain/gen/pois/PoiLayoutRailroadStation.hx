@@ -18,7 +18,7 @@ class PoiLayoutRailroadStation extends PoiLayout
 		var tlX = middleX - roomWidth - 1;
 		var tlY = middleY - roomHeight - 1;
 
-		for (x in(tlX - 1)...(tlX + roomWidth + 1))
+		for (x in (tlX - 1)...(tlX + roomWidth + 1))
 		{
 			poi.setTile({
 				x: x,
@@ -52,7 +52,7 @@ class PoiLayoutRailroadStation extends PoiLayout
 		var tile:RoomTile = {
 			content: [],
 			tileKey: TERRAIN_BASIC_5,
-			primary: C_BLACK_1,
+			primary: C_RED_5,
 			background: C_RED_3,
 		};
 		return tile;

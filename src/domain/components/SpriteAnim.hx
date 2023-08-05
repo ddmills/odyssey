@@ -3,6 +3,7 @@ package domain.components;
 import core.rendering.RenderLayerManager.RenderLayerType;
 import data.AnimationKey;
 import data.AnimationResources;
+import data.ColorKey;
 import h2d.Anim;
 import h2d.Tile;
 import shaders.SpriteShader;
@@ -17,7 +18,7 @@ class SpriteAnim extends Drawable
 	public var ob(default, null):Anim;
 	public var tiles(get, never):Array<Tile>;
 
-	public function new(animationKey:AnimationKey, speed:Float = 15, primary = 0xffffff, secondary = 0x000000, layer = OBJECTS, loop = true)
+	public function new(animationKey:AnimationKey, speed:Float = 15, primary = C_WHITE, secondary = C_BLACK, layer = OBJECTS, loop = true)
 	{
 		this.animationKey = animationKey;
 		this.speed = speed;

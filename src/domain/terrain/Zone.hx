@@ -32,7 +32,7 @@ class Zone
 	public var zoneId(default, null):Int;
 	public var zonePos(get, never):IntPoint;
 	public var worldPos(get, never):IntPoint;
-	public var biomes(default, null):BiomeChunkData;
+	public var biomes(default, null):BiomeZoneData;
 	public var primaryBiome(get, never):BiomeType;
 	public var poi(get, never):ZonePoi;
 	public var size(get, never):Int;

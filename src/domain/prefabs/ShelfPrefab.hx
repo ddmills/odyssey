@@ -14,7 +14,7 @@ class ShelfPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FURNITURE_SHELF, C_ORANGE_2, C_ORANGE_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_SHELF, C_RED_3, C_RED_1, OBJECTS));
 		entity.add(new Moniker('Shelf'));
 		entity.add(new Collider());
 		entity.add(new Inventory());

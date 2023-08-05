@@ -45,7 +45,7 @@ class PoiLayoutScattered extends PoiLayout
 						var tile:RoomTile = {
 							content: [],
 							tileKey: TERRAIN_BASIC_5,
-							primary: C_BLACK_1,
+							primary: C_RED_5,
 							background: C_RED_3,
 						};
 
@@ -65,7 +65,7 @@ class PoiLayoutScattered extends PoiLayout
 						var tile:RoomTile = {
 							content: [],
 							tileKey: TERRAIN_BASIC_5,
-							primary: C_BLACK_1,
+							primary: C_RED_5,
 							background: C_RED_3,
 						};
 

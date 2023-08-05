@@ -1,5 +1,6 @@
 package domain.components;
 
+import data.ColorKey;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.EntityLoadedEvent;
 import domain.events.EntitySpawnedEvent;
@@ -14,13 +15,13 @@ import ecs.Component;
 class Lightable extends Component
 {
 	@save private var allowEquipped:Bool;
-	@save private var litColor:Int;
+	@save private var litColor:Null<ColorKey>;
 
 	public var light(get, never):LightSource;
 	public var isLit(get, never):Bool;
 	public var displayName(get, never):String;
 
-	public function new(allowEquipped:Bool = false, litColor:Int = -1)
+	public function new(allowEquipped:Bool = false, litColor:ColorKey = null)
 	{
 		this.allowEquipped = allowEquipped;
 		this.litColor = litColor;
@@ -45,7 +46,7 @@ class Lightable extends Component
 
 	private function updateColorOverride()
 	{
-		if (litColor >= 0 && entity != null && entity.drawable != null)
+		if (!litColor.isNull() && entity != null && entity.drawable != null)
 		{
 			entity.drawable.secondaryOverride = isLit ? litColor : null;
 		}

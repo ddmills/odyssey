@@ -35,7 +35,7 @@
 	- [x] show item actions
 	- [x] dont ask quantity when pickup stack from ground
 - [ ] attacking
-	- [ ] shotgun cone
+	- [x] shotgun cone
 	- [x] add weapon range
 	- [ ] dual wield
 	- [ ] melee SFX
@@ -126,7 +126,7 @@
 - [x] reset save on new game
 - [x] generate tiles on chunk spawn (!)
 - [x] separate chunks from zone
-- [ ] cleanup chunk gen between biomes
+- [x] cleanup chunk gen between biomes
 - [x] doors
 - [ ] locked doors
 - [ ] lock picking

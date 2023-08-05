@@ -13,7 +13,7 @@ class LogPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(LOG, C_RED_1, C_BLACK_1, OBJECTS));
+		entity.add(new Sprite(LOG, C_RED_1, C_RED_2, OBJECTS));
 		entity.add(new Moniker('Log'));
 		entity.add(new Loot());
 		entity.add(new Fuel(FUEL_WOOD, 1200));

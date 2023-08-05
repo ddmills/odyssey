@@ -3,7 +3,6 @@ package domain.prefabs;
 import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
-import domain.components.Destructable;
 import domain.components.Door;
 import domain.components.LightBlocker;
 import domain.components.Moniker;
@@ -18,7 +17,7 @@ class WoodDoorPrefab extends Prefab
 		var isOpen = options.isOpen == null ? false : options.isOpen;
 		var entity = new Entity();
 
-		entity.add(new Sprite(DOOR, C_RED_2, C_GRAY_1, OBJECTS));
+		entity.add(new Sprite(DOOR, C_RED_3, C_GRAY_1, OBJECTS));
 		entity.add(new Moniker('Door'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

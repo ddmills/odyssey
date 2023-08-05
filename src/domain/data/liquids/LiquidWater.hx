@@ -6,6 +6,6 @@ class LiquidWater extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_WATER, 'water', C_WHITE_1, C_BLUE_2);
+		super(LIQUID_WATER, 'water', C_BLUE_0, C_BLUE_2);
 	}
 }

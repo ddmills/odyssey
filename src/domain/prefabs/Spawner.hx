@@ -82,6 +82,7 @@ class Spawner
 		prefabs.set(LOG, new LogPrefab());
 		prefabs.set(DESERT_ROCK, new DesertRockPrefab());
 		prefabs.set(ROCK, new RockPrefab());
+		prefabs.set(CACTUS_FRUIT, new CactusFruitPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)

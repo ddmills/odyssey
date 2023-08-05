@@ -14,7 +14,7 @@ class BookshelfPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(FURNITURE_BOOKSHELF, C_ORANGE_2, C_BLUE_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_BOOKSHELF, C_RED_3, C_BLUE_1, OBJECTS));
 		entity.add(new Moniker('Bookshelf'));
 		entity.add(new Collider());
 		entity.add(new Inventory());

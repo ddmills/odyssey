@@ -1,7 +1,5 @@
 package data;
 
-import common.struct.IntPoint;
-
 @:enum
 enum abstract Cardinal(Int) to Int from Int
 {

@@ -25,7 +25,7 @@ class LookScreen extends CursorScreen
 	public function new()
 	{
 		super();
-		targetShader = new SpriteShader(ColorKey.C_WHITE_1);
+		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
@@ -74,7 +74,7 @@ class LookScreen extends CursorScreen
 			}
 			var w = p.asWorld();
 			var bm = new Bitmap(TileResources.Get(DOT), lineOb);
-			var color = world.isVisible(w) ? ColorKey.C_WHITE_1 : ColorKey.C_GRAY_1;
+			var color = world.isVisible(w) ? ColorKey.C_YELLOW_0 : ColorKey.C_GRAY_1;
 			var shader = new SpriteShader(color);
 			shader.isShrouded = 0;
 			bm.addShader(shader);

@@ -2,28 +2,24 @@ package domain.prefabs;
 
 import data.ColorKey;
 import domain.components.Destructable;
-import domain.components.Equipment;
-import domain.components.EquippedSkillMod;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.components.Stackable;
 import ecs.Entity;
 
-class BootsPrefab extends Prefab
+class CactusFruitPrefab extends Prefab
 {
 	public function Create(options:Dynamic):Entity
 	{
+		var quantity:Int = options.quantity == null ? 1 : options.quantity;
+
 		var entity = new Entity();
 
-		entity.add(new Sprite(BOOTS, C_RED_2, C_GRAY_5, OBJECTS));
-		entity.add(new Moniker('Boots'));
-		entity.add(new Equipment([EQ_SLOT_FEET]));
+		entity.add(new Sprite(RASPBERRY, C_RED_4, C_GREEN_4, OBJECTS));
+		entity.add(new Moniker('Cactus Fruit'));
+		entity.add(new Stackable(STACK_FRUIT_CACTUS, quantity));
 		entity.add(new Loot());
-
-		var skills = new EquippedSkillMod();
-		skills.set(SKILL_SPEED, 2);
-		entity.add(skills);
-
 		entity.add(new Destructable());
 
 		return entity;

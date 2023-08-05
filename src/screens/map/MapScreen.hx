@@ -86,7 +86,7 @@ class MapScreen extends Screen
 		if (zone.poi != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
-			primary = C_ORANGE_1;
+			primary = C_RED_1;
 		}
 		else if (zone.railroad != null)
 		{
@@ -157,7 +157,7 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		var white = Tile.fromColor(C_WHITE_1, game.TILE_W, game.TILE_H, 0);
+		var white = Tile.fromColor(C_YELLOW_0, game.TILE_W, game.TILE_H, 0);
 		var red = Tile.fromColor(C_RED_1, game.TILE_W, game.TILE_H);
 		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_H);
 		ob = {

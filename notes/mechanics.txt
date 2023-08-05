@@ -68,7 +68,6 @@ Combat 2
 Mounts
 - While on a mount, your accuracy decreases
 
-
 Lighting/Vision
 - Calculate lighting first
 - Cast player vision at full size
@@ -86,3 +85,19 @@ Sleeping
 Harvesting/Foraging
 - Can harvest things from plants - (Forage Skill - SAVVY)
 - Number of items foraged = skill 
+
+Temperature
+- Keep it simple
+	- Ambient - Biome + Weather
+	- Nearby - Campfires
+
+Hunting
+- Wildlife can have a rating (1-5 stars)
+- Rating impacts hp + speed + damage etc. 5 stars has a given name 
+- They mostly run away from you, unless very aggressive
+- Ability to "track" an animal
+- Tracking will lead to a bigger fight (with multiple enemies)
+- Animal fatigue (after being tracked for a while, they will slow down)
+- Can be skinned
+- Gain notoriety for getting a 4-5 star hunt 
+- 

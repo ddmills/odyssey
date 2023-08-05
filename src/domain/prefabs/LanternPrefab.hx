@@ -17,7 +17,7 @@ class LanternPrefab extends Prefab
 		var isLit = options.isLit == null ? false : options.isLit;
 		var entity = new Entity();
 
-		entity.add(new Sprite(LANTERN, C_BLUE_1, C_BLACK_1, OBJECTS));
+		entity.add(new Sprite(LANTERN, C_BLUE_1, C_BLACK, OBJECTS));
 		entity.add(new Moniker('Oil lantern'));
 		entity.add(new Lightable(true, C_YELLOW_1));
 		entity.add(new LightSource(.5, C_YELLOW_1, 5, isLit));

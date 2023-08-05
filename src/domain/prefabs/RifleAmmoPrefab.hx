@@ -15,7 +15,7 @@ class RifleAmmoPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(CARTON, C_GREEN_1, C_WHITE_1, OBJECTS));
+		entity.add(new Sprite(CARTON, C_GREEN_1, C_YELLOW_0, OBJECTS));
 		entity.add(new Moniker('Ammo, rifle'));
 		entity.add(new Loot());
 		entity.add(new Stackable(STACK_AMMO_RIFLE, 100));

@@ -31,7 +31,7 @@ class CoachGunPrefab extends Prefab
 		weapon.ammo = 3;
 		weapon.ammoCapacity = 3;
 		weapon.range = 6;
-		weapon.reloadAudio = RELOAD_CLIP_1;
+		weapon.reloadAudio = RELOAD_CLIP_6;
 		weapon.unloadAudio = UNLOAD_CLIP_1;
 		entity.add(weapon);
 

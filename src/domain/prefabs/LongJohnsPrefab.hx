@@ -15,7 +15,7 @@ class LongJohnsPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(LONG_JOHNS, C_WHITE_1, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(LONG_JOHNS, C_YELLOW_0, C_GRAY_2, OBJECTS));
 		entity.add(new Moniker('Long johns'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY], [EQ_SLOT_LEGS]));

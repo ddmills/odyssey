@@ -26,7 +26,7 @@ class VillagerPrefab extends Prefab
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
 
-		entity.add(new Sprite(tkey, C_WHITE_1, C_GREEN_2, ACTORS));
+		entity.add(new Sprite(tkey, C_YELLOW_0, C_GREEN_2, ACTORS));
 		entity.add(new Vision(6));
 		entity.add(new Energy(-10));
 		entity.add(new FactionMember(FACTION_VILLAGE));

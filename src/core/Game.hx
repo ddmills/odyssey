@@ -6,6 +6,9 @@ import core.input.InputManager;
 import core.rendering.RenderLayerManager;
 import data.ColorKey;
 import data.TextResources;
+import data.core.ColorPalette;
+import data.core.ColorPaletteKey;
+import data.core.ColorPaletteResources;
 import domain.World;
 import ecs.Registry;
 import h2d.Console;
@@ -19,14 +22,16 @@ class Game
 
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
-	public var CLEAR_COLOR:Int = 0x0C0A0A;
-	public var TEXT_COLOR:Int = C_WHITE_1;
-	public var TEXT_COLOR_FOCUS:Int = C_YELLOW_2;
+	public var CLEAR_COLOR:ColorKey = ColorKey.C_CLEAR;
+	public var TEXT_COLOR:ColorKey = C_YELLOW_0;
+	public var TEXT_COLOR_FOCUS:ColorKey = C_YELLOW_2;
 	public var SHOW_BG_COLORS:Bool = true;
+	public var PALETTE_KEY:ColorPaletteKey = PALETTE_ODYSSEY;
 
 	public static var instance:Game;
 
 	public var backgroundColor(get, set):Int;
+	public var palette(get, null):ColorPalette;
 	public var frame(default, null):Frame;
 	public var app(default, null):hxd.App;
 	public var camera(default, null):Camera;
@@ -125,5 +130,11 @@ class Game
 	private function setWorld(world:World)
 	{
 		this.world = world;
+	}
+
+	function get_palette():ColorPalette
+	{
+		// todo: this should only be retrieved once? on game load? move to world?
+		return ColorPaletteResources.Get(PALETTE_KEY);
 	}
 }

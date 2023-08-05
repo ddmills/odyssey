@@ -7,6 +7,7 @@ import data.Commands;
 import data.Factions;
 import data.TextResources;
 import data.TileResources;
+import data.core.ColorPaletteResources;
 import data.dialog.DialogTrees;
 import data.storylines.Stories;
 import data.tables.SpawnTables;
@@ -36,6 +37,7 @@ class Main extends hxd.App
 
 		TextResources.Init();
 		TileResources.Init();
+		ColorPaletteResources.Init();
 		AnimationResources.Init();
 		AudioResources.Init();
 		Bitmasks.Init();

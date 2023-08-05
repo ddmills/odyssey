@@ -19,7 +19,7 @@ class SnakePrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(SNAKE, C_ORANGE_1, C_BLACK_1, ACTORS));
+		entity.add(new Sprite(SNAKE, C_RED_1, C_BLACK, ACTORS));
 		entity.add(new Energy());
 		entity.add(new Level(1));
 		entity.add(new FactionMember(FACTION_WILDLIFE));

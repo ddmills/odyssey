@@ -37,7 +37,7 @@ biomes https://www2.palomar.edu/users/scrouthamel/wildlife.htm
 slang https://www.legendsofamerica.com/we-slang/13/
 drugs https://www.legendsofamerica.com/we-drugs/
 remedies https://www.legendsofamerica.com/we-oldremedies/
-
+shockfrost https://www.roguebasin.com/index.php/ShockFrost#Ideas_brought_forward_by_ShockFrost
 
 Buildings
 - Blacksmith

@@ -17,7 +17,7 @@ class RockPrefab extends Prefab
 		var r = Game.instance.world.rand;
 		var tileKey = r.pick([ROCK_ROUND_1, ROCK_ROUND_2, ROCK_ROUND_3, ROCK_ROUND_4]);
 
-		entity.add(new Sprite(tileKey, C_GRAY_1, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(tileKey, C_BLUE_1, C_GRAY_2, OBJECTS));
 		entity.add(new Moniker('Rock'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

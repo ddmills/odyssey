@@ -13,7 +13,7 @@ class RailroadPrefab extends Prefab
 	{
 		var entity = new Entity();
 
-		entity.add(new Sprite(RAILROAD_0, C_GRAY_1, C_RED_2, GROUND));
+		entity.add(new Sprite(RAILROAD_0, C_BLUE_0, C_RED_2, GROUND));
 		entity.add(new BitmaskSprite([BITMASK_RAILROAD]));
 		entity.add(new Moniker('Railroad track'));
 		entity.add(new Destructable());

@@ -33,7 +33,7 @@ abstract class Drawable extends Component
 	public var shader(default, null):SpriteShader;
 	public var drawable(get, never):h2d.Drawable;
 
-	public function new(primary = C_WHITE_1, secondary = C_BLACK_1, layer = OBJECTS)
+	public function new(primary = C_WHITE, secondary = C_BLACK, layer = OBJECTS)
 	{
 		shader = new SpriteShader();
 
