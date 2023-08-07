@@ -18,11 +18,13 @@ class LoadingScreen extends Screen
 	{
 		if (key == KEY_N)
 		{
+			var seed = Std.random(0xffffff);
+			trace('seed - ${seed}');
 			game.files.deleteSave('test');
 			game.files.setSaveName('test');
 			game.setWorld(new World());
 			game.world.initialize();
-			game.world.newGame(10);
+			game.world.newGame(seed);
 			start();
 		}
 		if (key == KEY_L)

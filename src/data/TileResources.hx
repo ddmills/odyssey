@@ -320,7 +320,7 @@ class TileResources
 		tiles.set(RAILROAD_14, railroad[3][2]);
 		tiles.set(RAILROAD_15, railroad[3][3]);
 
-		var progressBar = hxd.Res.tiles.smol.progress_bar.toTile().divide(14, 1);
+		var progressBar = hxd.Res.tiles.smol.progress_bar.toTile().divide(16, 1);
 		tiles.set(PROGRESS_BAR_0, progressBar[0][0]);
 		tiles.set(PROGRESS_BAR_1, progressBar[0][1]);
 		tiles.set(PROGRESS_BAR_2, progressBar[0][2]);

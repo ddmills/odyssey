@@ -39,7 +39,7 @@ class HealthBarSystem extends System
 		{
 			var ob = new Object();
 			var bar = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
-			var shader = new SpriteShader(ColorKey.C_RED_1);
+			var shader = new SpriteShader(ColorKey.C_RED_1, ColorKey.C_GRAY_3);
 			shader.isShrouded = 0;
 			bar.addShader(shader);
 			var offsetPos = new Coordinate(0, -1, WORLD).toPx();

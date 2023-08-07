@@ -72,10 +72,7 @@ class MapData
 			z.value.railroad = null;
 		}
 
-		// r = new Rand(seed);
-		r = Rand.create();
-
-		trace('seed', r.getSeed());
+		r = new Rand(seed);
 
 		var poiTemplates:Array<PoiTemplate> = [
 			{
