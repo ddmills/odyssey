@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Destructable;
@@ -10,9 +11,9 @@ import ecs.Entity;
 
 class RaspberryBushPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(BUSH_1, C_GREEN_3, C_RED_1, OBJECTS));
 		entity.add(new Moniker('Raspberry bush'));

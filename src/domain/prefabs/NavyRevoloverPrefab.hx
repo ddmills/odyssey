@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Equipment;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class NavyRevoloverPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		entity.add(new Sprite(PISTOL_3, C_BLUE_1, C_RED_2, OBJECTS));
 		entity.add(new Moniker('Navy revolover'));
 		entity.add(new Loot());

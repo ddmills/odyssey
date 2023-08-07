@@ -27,9 +27,9 @@ class PlayerManager
 
 	public function initialize() {}
 
-	public function create()
+	public function create(pos:Coordinate)
 	{
-		entityRef.entity = Spawner.Spawn(PLAYER);
+		entityRef.entity = Spawner.Spawn(PLAYER, pos);
 	}
 
 	public function save(?unload:Bool = false):SavePlayer

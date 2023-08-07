@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
@@ -9,9 +10,9 @@ import ecs.Entity;
 
 class FenceBarsPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(FENCE_BARS_0, C_GRAY_2, C_GRAY_2, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_FENCE_BAR, BITMASK_WALL, BITMASK_FENCE_IRON]));

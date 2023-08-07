@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Equipment;
@@ -13,9 +14,9 @@ import ecs.Entity;
 
 class StickPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(STICK, C_RED_3, C_BLACK, OBJECTS));
 		entity.add(new Moniker('Stick'));

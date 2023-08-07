@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Equipment;
 import domain.components.Fuel;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class WoodPlankPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(PLANK, C_RED_3, C_BLACK, OBJECTS));
 		entity.add(new Moniker('Wood plank'));

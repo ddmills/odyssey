@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Combustible;
 import domain.components.Destructable;
@@ -12,9 +13,9 @@ import hxd.Rand;
 
 class CampfirePrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		var r = Rand.create();
 
 		var speed = (r.rand() * 3) + 3;

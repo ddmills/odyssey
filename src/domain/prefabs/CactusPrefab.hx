@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import core.Game;
 import data.ColorKey;
 import data.TileKey;
@@ -12,14 +13,14 @@ import ecs.Entity;
 
 class CactusPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var r = Game.instance.world.rand;
 		var isFlowering = r.bool(.75);
 
 		var tile:TileKey = isFlowering ? r.pick([CACTUS_1_FLOWER, CACTUS_2_FLOWER]) : r.pick([CACTUS_1, CACTUS_2]);
 
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		var sprite = new Sprite(tile, C_GREEN_2, C_RED_1, OBJECTS);
 
 		entity.add(sprite);

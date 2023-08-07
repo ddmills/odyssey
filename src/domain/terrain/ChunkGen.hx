@@ -1,6 +1,5 @@
 package domain.terrain;
 
-import common.algorithm.Bresenham;
 import common.rand.Perlin;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
@@ -9,7 +8,6 @@ import common.util.Colors;
 import core.Game;
 import data.BiomeMap.BiomeZoneData;
 import data.BiomeType;
-import data.Cardinal;
 import data.ColorKey;
 import data.SpawnableType;
 import domain.prefabs.Spawner;

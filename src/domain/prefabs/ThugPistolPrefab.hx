@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import data.TileKey;
 import domain.components.Dialog;
@@ -19,10 +20,10 @@ import hxd.Rand;
 
 class ThugPistolPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var r = Rand.create();
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
 
@@ -51,12 +52,12 @@ class ThugPistolPrefab extends Prefab
 
 		entity.get(Health).corpsePrefab = CORPSE_HUMAN;
 
-		rhand.equip(Spawner.Spawn(NAVY_REVOLVER));
+		rhand.equip(Spawner.Spawn(NAVY_REVOLVER, pos));
 
 		var inv = entity.get(Inventory);
 		inv.isOpenable = false;
-		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
-		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO, pos));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO, pos));
 
 		return entity;
 	}

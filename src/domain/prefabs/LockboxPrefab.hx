@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Inventory;
@@ -10,9 +11,9 @@ import ecs.Entity;
 
 class LockboxPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(CHEST_SMALL_CLOSED, C_BLUE_2, C_YELLOW_2, OBJECTS));
 		entity.add(new Moniker('Lockbox'));
@@ -27,11 +28,11 @@ class LockboxPrefab extends Prefab
 
 		entity.add(inventory);
 
-		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER));
+		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER, pos));
 
-		inventory.addLoot(Spawner.Spawn(STICK));
-		inventory.addLoot(Spawner.Spawn(STICK));
-		inventory.addLoot(Spawner.Spawn(STICK));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
 
 		return entity;
 	}

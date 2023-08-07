@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Fuel;
 import domain.components.Loot;
@@ -10,9 +11,9 @@ import ecs.Entity;
 
 class WagonWheelPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(WAGON_WHEEL, C_RED_3, C_BLUE_1, OBJECTS));
 		entity.add(new Moniker('Wagon wheel'));

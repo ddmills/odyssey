@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Equipment;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class PonchoPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		entity.add(new Sprite(PONCHO, C_GREEN_1, C_PURPLE_2, OBJECTS));
 		entity.add(new Moniker('Poncho'));
 		entity.add(new Loot());

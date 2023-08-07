@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Destructable;
@@ -9,9 +10,9 @@ import ecs.Entity;
 
 class RailroadPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(RAILROAD_0, C_BLUE_0, C_RED_2, GROUND));
 		entity.add(new BitmaskSprite([BITMASK_RAILROAD]));

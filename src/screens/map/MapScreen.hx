@@ -126,11 +126,11 @@ class MapScreen extends Screen
 
 	function teleport(pos:IntPoint)
 	{
-		trace('teleport', pos.toString());
-
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
-		trace('world', targetPos.toString());
+		trace('teleport', pos.toString(), targetPos.toString());
 
+		world.chunks.loadChunks(targetPos.toChunkIdx());
+		world.chunks.loadChunk(targetPos.toChunkIdx());
 		world.player.pos = targetPos;
 	}
 

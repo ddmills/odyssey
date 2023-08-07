@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
 import domain.events.EntitySpawnedEvent;
@@ -90,7 +91,7 @@ class Spawner
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
 		var o = options == null ? {} : options;
 		var d = isDetachable == null ? false : isDetachable;
-		var entity = prefabs.get(type).Create(o);
+		var entity = prefabs.get(type).Create(o, p);
 
 		if (d)
 		{

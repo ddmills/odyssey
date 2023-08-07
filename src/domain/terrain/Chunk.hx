@@ -6,6 +6,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
+import domain.components.Moniker;
 import domain.events.EntityLoadedEvent;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -287,12 +288,13 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
+			// trace('add entity, not loaded', entity.get(Moniker).displayName);
 			// TODO: put these somewhere on spawn
-			// trace('PLACING ENTITY IN UNLOADED CHUNK');
-			// if (entity.has(Moniker))
-			// {
-			// 	trace(entity.get(Moniker).displayName);
-			// }
+			trace('PLACING ENTITY IN UNLOADED CHUNK', entity.id);
+			if (entity.has(Moniker))
+			{
+				trace(entity.get(Moniker).displayName);
+			}
 			return;
 		}
 		var local = entity.pos.toChunkLocal().toWorld();

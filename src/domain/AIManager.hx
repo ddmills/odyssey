@@ -53,6 +53,14 @@ class AIManager
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 
+		var chunkIdx = goal.toChunkIdx();
+		var chunk = Game.instance.world.chunks.getChunkById(chunkIdx);
+
+		if (!chunk.isLoaded)
+		{
+			return false;
+		}
+
 		if (Game.instance.world.getEntitiesAt(goal).exists((e) -> e.has(Collider)))
 		{
 			return false;

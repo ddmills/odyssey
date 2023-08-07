@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
@@ -15,9 +16,9 @@ import ecs.Entity;
 
 class SnakePrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(SNAKE, C_RED_1, C_BLACK, ACTORS));
 		entity.add(new Energy());
@@ -33,7 +34,7 @@ class SnakePrefab extends Prefab
 
 		entity.get(Health).corpsePrefab = CORPSE_SNAKE;
 
-		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
+		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK, pos));
 
 		entity.get(Inventory).isOpenable = false;
 

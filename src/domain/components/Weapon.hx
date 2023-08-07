@@ -68,7 +68,7 @@ class Weapon extends Component
 		var f = Weapons.Get(family);
 		evt.unloader.fireEvent(new ConsumeEnergyEvent(reloadCost));
 
-		var spawnedAmmo = Spawner.Spawn(Ammo.GetSpawnable(f.ammo));
+		var spawnedAmmo = Spawner.Spawn(Ammo.GetSpawnable(f.ammo), entity.pos);
 		spawnedAmmo.get(Stackable).quantity = ammo;
 		ammo = 0;
 
@@ -79,10 +79,6 @@ class Weapon extends Component
 			{
 				Game.instance.world.playAudio(evt.unloader.pos.toIntPoint(), unloadAudio);
 			}
-		}
-		else
-		{
-			spawnedAmmo.pos = entity.pos;
 		}
 	}
 

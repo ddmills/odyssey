@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Ammo;
 import domain.components.Destructable;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class ShotgunAmmoPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(CARTON, C_YELLOW_2, C_WHITE, OBJECTS));
 		entity.add(new Moniker('Ammo, shotgun'));

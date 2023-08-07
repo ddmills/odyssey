@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Moniker;
@@ -9,9 +10,9 @@ import ecs.Entity;
 
 class ChairPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(FURNITURE_CHAIR, C_RED_3, C_RED_1, OBJECTS));
 		entity.add(new Moniker('Chair'));

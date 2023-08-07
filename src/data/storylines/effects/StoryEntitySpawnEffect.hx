@@ -25,18 +25,18 @@ class StoryEntitySpawnEffect extends StoryEffect
 
 	public function apply(storyline:Storyline)
 	{
-		var pos = Game.instance.world.player.pos.floor().add(new Coordinate(0, -10, WORLD));
+		// var pos = Game.instance.world.player.pos.floor().add(new Coordinate(0, -10, WORLD));
 
-		if (params.zone != null)
-		{
-			var zone = storyline.getZoneVariable(params.zone);
-			pos = zone.worldPos.add(25, 25).asWorld();
-			trace('spawned in ${zone.zonePos.toString()} - ${pos.toString()}');
-		}
+		// if (params.zone != null)
+		// {
+		// 	var zone = storyline.getZoneVariable(params.zone);
+		// 	pos = zone.worldPos.add(25, 25).asWorld();
+		// 	trace('spawned in ${zone.zonePos.toString()} - ${pos.toString()}');
+		// }
 
-		var entity = Spawner.Spawn(params.spawnable, pos, {}, true);
+		// var entity = Spawner.Spawn(params.spawnable, pos, {}, true);
 
-		storyline.setEntityVariable(params.store, entity);
+		// storyline.setEntityVariable(params.store, entity);
 	}
 
 	public static function FromJson(json:Dynamic):StoryEntitySpawnEffect

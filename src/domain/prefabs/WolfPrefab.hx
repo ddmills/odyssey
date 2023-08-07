@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Dialog;
 import domain.components.Energy;
@@ -16,9 +17,9 @@ import ecs.Entity;
 
 class WolfPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(WOLF, C_GRAY_3, C_RED_4, ACTORS));
 		entity.add(new Dialog([DIALOG_WOLF]));
@@ -35,7 +36,7 @@ class WolfPrefab extends Prefab
 
 		entity.get(Health).corpsePrefab = CORPSE_SNAKE;
 
-		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK));
+		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK, pos));
 
 		entity.get(Inventory).isOpenable = false;
 

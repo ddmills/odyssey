@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Inventory;
@@ -10,9 +11,9 @@ import ecs.Entity;
 
 class ChestPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var chest = new Entity();
+		var chest = new Entity(pos);
 
 		chest.add(new Sprite(CHEST_LARGE_CLOSED, C_RED_3, C_BLUE_1, OBJECTS));
 		chest.add(new Moniker('Chest'));
@@ -25,13 +26,13 @@ class ChestPrefab extends Prefab
 
 		chest.add(inventory);
 
-		inventory.addLoot(Spawner.Spawn(STICK));
-		inventory.addLoot(Spawner.Spawn(LOCKBOX));
-		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER));
-		inventory.addLoot(Spawner.Spawn(PONCHO));
-		inventory.addLoot(Spawner.Spawn(STICK));
-		inventory.addLoot(Spawner.Spawn(STICK));
-		inventory.addLoot(Spawner.Spawn(STICK));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
+		inventory.addLoot(Spawner.Spawn(LOCKBOX, pos));
+		inventory.addLoot(Spawner.Spawn(NAVY_REVOLVER, pos));
+		inventory.addLoot(Spawner.Spawn(PONCHO, pos));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
+		inventory.addLoot(Spawner.Spawn(STICK, pos));
 
 		WoodBuiltDecorator.Decorate(chest);
 

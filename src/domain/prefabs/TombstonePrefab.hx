@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Collider;
 import domain.components.Moniker;
@@ -8,9 +9,9 @@ import ecs.Entity;
 
 class TombstonePrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(TOMBSTONE_1, C_GRAY_3, C_GRAY_4, OBJECTS));
 		entity.add(new Moniker('Tombstone'));

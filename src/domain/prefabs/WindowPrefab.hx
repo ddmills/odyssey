@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
@@ -10,9 +11,9 @@ import ecs.Entity;
 
 class WindowPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(WALL_WINDOW_H, C_RED_2, C_BLUE_1, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_WINDOW, BITMASK_WALL]));

@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
@@ -12,10 +13,10 @@ import ecs.Entity;
 
 class WoodDoorPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var isOpen = options.isOpen == null ? false : options.isOpen;
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(DOOR, C_RED_3, C_GRAY_1, OBJECTS));
 		entity.add(new Moniker('Door'));

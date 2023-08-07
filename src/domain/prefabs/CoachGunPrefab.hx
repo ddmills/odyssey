@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.AudioResources;
 import data.ColorKey;
 import data.TileResources;
@@ -13,9 +14,9 @@ import ecs.Entity;
 
 class CoachGunPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		entity.add(new Sprite(SHOTGUN_1, C_BLUE_1, C_RED_2, OBJECTS));
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());

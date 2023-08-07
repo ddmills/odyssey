@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import data.SpawnableType;
 import data.TileKey;
@@ -20,10 +21,10 @@ import hxd.Rand;
 
 class PlayerPrefab extends Prefab
 {
-	public function Create(options:Dynamic)
+	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var r = Rand.create();
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		var tkey:TileKey = r.pick([
 			PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7, PERSON_8, PERSON_9, PERSON_10,
@@ -56,32 +57,32 @@ class PlayerPrefab extends Prefab
 		entity.add(new Stats(3, 2, 1));
 
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
-		rhand.equip(Spawner.Spawn(COACH_GUN));
-		body.equip(Spawner.Spawn(LONG_JOHNS));
+		rhand.equip(Spawner.Spawn(COACH_GUN, pos));
+		body.equip(Spawner.Spawn(LONG_JOHNS, pos));
 
 		var inv = entity.get(Inventory);
 
-		inv.addLoot(Spawner.Spawn(LANTERN));
-		inv.addLoot(Spawner.Spawn(BEDROLL));
-		inv.addLoot(Spawner.Spawn(PISTOL_AMMO));
-		inv.addLoot(Spawner.Spawn(RIFLE_AMMO));
-		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO));
-		inv.addLoot(Spawner.Spawn(REVOLVER));
-		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(DYNAMITE));
-		inv.addLoot(Spawner.Spawn(STICK));
-		inv.addLoot(Spawner.Spawn(STICK));
-		inv.addLoot(Spawner.Spawn(STICK));
-		inv.addLoot(Spawner.Spawn(STICK));
-		inv.addLoot(Spawner.Spawn(STICK));
-		inv.addLoot(Spawner.Spawn(STICK));
+		inv.addLoot(Spawner.Spawn(LANTERN, pos));
+		inv.addLoot(Spawner.Spawn(BEDROLL, pos));
+		inv.addLoot(Spawner.Spawn(PISTOL_AMMO, pos));
+		inv.addLoot(Spawner.Spawn(RIFLE_AMMO, pos));
+		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO, pos));
+		inv.addLoot(Spawner.Spawn(REVOLVER, pos));
+		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
+		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
+		inv.addLoot(Spawner.Spawn(STICK, pos));
 
 		return entity;
 	}

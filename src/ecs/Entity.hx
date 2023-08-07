@@ -35,7 +35,7 @@ class Entity
 
 	private var isCandidacyEnabled = true;
 
-	public function new(register = true)
+	public function new(register = true, ?pos:Coordinate)
 	{
 		_x = 0;
 		_y = 0;
@@ -44,9 +44,15 @@ class Entity
 		isDestroyed = false;
 		isDetached = false;
 		isDetachable = false;
+
 		if (register)
 		{
 			setId(UniqueId.Create());
+		}
+
+		if (!pos.isNull())
+		{
+			this.pos = pos;
 		}
 	}
 

@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import core.Game;
 import data.ColorKey;
 import data.TileKey;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class DesertRockPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 		var r = Game.instance.world.rand;
 		var tileKey = r.pick([ROCK_ROUND_1, ROCK_ROUND_2, ROCK_ROUND_3, ROCK_ROUND_4]);
 

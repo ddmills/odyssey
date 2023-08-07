@@ -1,5 +1,6 @@
 package domain.prefabs;
 
+import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Ammo;
 import domain.components.Destructable;
@@ -11,9 +12,9 @@ import ecs.Entity;
 
 class RifleAmmoPrefab extends Prefab
 {
-	public function Create(options:Dynamic):Entity
+	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var entity = new Entity();
+		var entity = new Entity(pos);
 
 		entity.add(new Sprite(CARTON, C_GREEN_1, C_YELLOW_0, OBJECTS));
 		entity.add(new Moniker('Ammo, rifle'));

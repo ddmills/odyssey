@@ -101,9 +101,10 @@ class World
 		Performance.start('map-generate');
 		map.generate();
 		Performance.stop('map-generate', true);
-		player.create();
-		player.entity.x = (mapWidth / 2).floor();
-		player.entity.y = (mapHeight / 2).floor();
+		var pos = new Coordinate((mapWidth / 2).floor(), (mapHeight / 2).floor(), WORLD);
+		chunks.loadChunks(pos.toChunkIdx());
+		chunks.loadChunk(pos.toChunkIdx());
+		player.create(pos);
 		systems.storylines.addStoryline('wolf');
 	}
 
