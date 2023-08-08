@@ -1,6 +1,7 @@
 package domain.systems;
 
 import core.Frame;
+import domain.components.FloatingText;
 
 class SystemManager
 {
@@ -20,6 +21,7 @@ class SystemManager
 	public var highlight(default, null):HighlightSystem;
 	public var hitBlink(default, null):HitBlinkSystem;
 	public var healthBar(default, null):HealthBarSystem;
+	public var floatingText(default, null):FloatingTextSystem;
 	public var storylines(default, null):StorylineSystem;
 	public var destroy(default, null):DestroySystem;
 
@@ -43,6 +45,7 @@ class SystemManager
 		highlight = new HighlightSystem();
 		hitBlink = new HitBlinkSystem();
 		healthBar = new HealthBarSystem();
+		floatingText = new FloatingTextSystem();
 		storylines = new StorylineSystem();
 		destroy = new DestroySystem();
 	}
@@ -65,6 +68,7 @@ class SystemManager
 		bullets.update(frame);
 		hitBlink.update(frame);
 		healthBar.update(frame);
+		floatingText.update(frame);
 		storylines.update(frame);
 		destroy.update(frame);
 	}

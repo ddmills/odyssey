@@ -7,6 +7,11 @@ class RandExtensions
 		return min + (r.rand() * (max - min)).floor();
 	}
 
+	public static function float<T>(r:hxd.Rand, min:Float, max:Float):Float
+	{
+		return min + (r.rand() * (max - min)).floor();
+	}
+
 	public static function bool<T>(r:hxd.Rand, chance = .5):Bool
 	{
 		return r.rand() < chance;

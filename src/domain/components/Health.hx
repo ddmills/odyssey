@@ -2,6 +2,7 @@ package domain.components;
 
 import common.struct.Coordinate;
 import core.Game;
+import data.ColorKey;
 import data.SpawnableType;
 import domain.events.AttackedEvent;
 import domain.events.DamagedEvent;
@@ -65,6 +66,11 @@ class Health extends Component
 			entity.add(new HitBlink());
 			evt.isHit = true;
 			entity.fireEvent(new DamagedEvent());
+			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
+				text: '-' + value.toString(),
+				color: ColorKey.C_RED_3,
+				speed: r.float(.3, 1),
+			});
 		}
 		else
 		{

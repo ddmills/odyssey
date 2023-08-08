@@ -84,6 +84,7 @@ class Spawner
 		prefabs.set(DESERT_ROCK, new DesertRockPrefab());
 		prefabs.set(ROCK, new RockPrefab());
 		prefabs.set(CACTUS_FRUIT, new CactusFruitPrefab());
+		prefabs.set(FLOATING_TEXT, new FloatingTextPrefab());
 	}
 
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)

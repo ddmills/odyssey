@@ -71,4 +71,5 @@ enum SpawnableType
 	LOG;
 	DESERT_ROCK;
 	ROCK;
+	FLOATING_TEXT;
 }
