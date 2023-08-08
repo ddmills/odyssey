@@ -67,13 +67,20 @@ class Health extends Component
 			evt.isHit = true;
 			entity.fireEvent(new DamagedEvent());
 			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
-				text: '-' + value.toString(),
-				color: ColorKey.C_RED_3,
+				text: '-' + evt.attack.damage.toString(),
+				color: ColorKey.C_RED_2,
 				speed: r.float(.3, 1),
+				duration: 120
 			});
 		}
 		else
 		{
+			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
+				text: 'dodge!',
+				color: ColorKey.C_BLUE_2,
+				speed: r.float(.3, 1),
+				duration: 120
+			});
 			evt.isHit = false;
 		}
 

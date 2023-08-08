@@ -8,13 +8,13 @@ class FloatingText extends Component
 	public var text:String;
 	public var color:ColorKey;
 	public var lifetime:Float;
-	public var speed:Float;
+	public var duration:Float;
 
-	public function new(text:String, color:ColorKey, lifetime:Float, speed:Float)
+	public function new(text:String, color:ColorKey, duration:Float)
 	{
 		this.text = text;
 		this.color = color;
-		this.lifetime = lifetime;
-		this.speed = speed;
+		this.duration = duration;
+		this.lifetime = 0;
 	}
 }

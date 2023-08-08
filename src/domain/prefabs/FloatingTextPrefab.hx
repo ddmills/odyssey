@@ -10,7 +10,7 @@ class FloatingTextPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new FloatingText(options.text, options.color, 100, options.speed));
+		entity.add(new FloatingText(options.text, options.color, options.duration));
 
 		return entity;
 	}

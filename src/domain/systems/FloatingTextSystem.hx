@@ -2,10 +2,8 @@ package domain.systems;
 
 import common.struct.Coordinate;
 import core.Frame;
-import data.ColorKey;
 import data.TextResources;
 import domain.components.FloatingText;
-import domain.components.Health;
 import ecs.Query;
 import ecs.System;
 import h2d.Object;
@@ -15,6 +13,7 @@ typedef FloatingTextOb =
 {
 	ob:Object,
 	text:Text,
+	start:Coordinate,
 };
 
 class FloatingTextSystem extends System
@@ -34,21 +33,23 @@ class FloatingTextSystem extends System
 			trace('added', e.pos.toWorld().toString());
 			var floater = e.get(FloatingText);
 			var ob = new Object();
+
 			var text = new Text(TextResources.BIZCAT, ob);
 			text.color = floater.color.toHxdColor();
 			text.text = floater.text;
 			text.textAlign = Center;
 			text.scale(.6);
-			text.visible = true;
 			text.dropShadow = {
-				dx: .8,
-				dy: .8,
-				color: 0x000000,
-				alpha: .75
+				dx: .75,
+				dy: .75,
+				color: 0x1c1c1c,
+				alpha: 1
 			};
-			var offsetPos = new Coordinate(.5, -1, WORLD).toPx();
+
+			var offsetPos = new Coordinate(.5, .5, WORLD).toPx();
 			text.x = offsetPos.x;
 			text.y = offsetPos.y;
+
 			game.render(OVERLAY, ob);
 			var targetPos = e.pos.toPx();
 			ob.x = targetPos.x;
@@ -56,6 +57,7 @@ class FloatingTextSystem extends System
 			floaters.set(e.id, {
 				ob: ob,
 				text: text,
+				start: targetPos,
 			});
 		});
 
@@ -73,10 +75,15 @@ class FloatingTextSystem extends System
 		{
 			var component = e.get(FloatingText);
 			var floater = floaters.get(e.id);
-			floater.ob.y -= component.speed * frame.tmod;
-			component.lifetime -= frame.tmod;
+			var life = (component.lifetime / component.duration);
 
-			if (component.lifetime <= 0)
+			var target = floater.start.y - 32;
+
+			floater.ob.y = floater.start.y.lerp(target, life.yoyo(EASE_OUT_QUAD));
+			floater.ob.alpha = (1 - life).ease(EASE_OUT_CUBIC);
+
+			component.lifetime += frame.tmod;
+			if (component.lifetime >= component.duration)
 			{
 				e.destroy();
 			}
