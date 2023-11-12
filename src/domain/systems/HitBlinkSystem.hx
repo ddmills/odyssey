@@ -29,7 +29,7 @@ class HitBlinkSystem extends System
 		{
 			if (e.has(Sprite))
 			{
-				e.get(Sprite).outlineOverride = Game.instance.CLEAR_COLOR;
+				e.get(Sprite).outlineOverride = null;
 			}
 		});
 	}
@@ -48,12 +48,12 @@ class HitBlinkSystem extends System
 			}
 			else
 			{
-				sprite.outlineOverride = blink.originalColor;
+				sprite.outlineOverride = null;
 			}
 
 			if (blink.timeSeconds > blink.durationSeconds)
 			{
-				sprite.outlineOverride = blink.originalColor;
+				sprite.outlineOverride = null;
 				entity.remove(HitBlink);
 			}
 		});

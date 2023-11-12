@@ -38,15 +38,15 @@ class FloatingTextSystem extends System
 			text.color = floater.color.toHxdColor();
 			text.text = floater.text;
 			text.textAlign = Center;
-			text.scale(.6);
+			text.scale(1);
 			text.dropShadow = {
-				dx: .75,
-				dy: .75,
+				dx: 1,
+				dy: 1,
 				color: 0x1c1c1c,
 				alpha: 1
 			};
 
-			var offsetPos = new Coordinate(.5, .5, WORLD).toPx();
+			var offsetPos = new Coordinate(.5, -1, WORLD).toPx();
 			text.x = offsetPos.x;
 			text.y = offsetPos.y;
 
@@ -77,13 +77,16 @@ class FloatingTextSystem extends System
 			var floater = floaters.get(e.id);
 			var life = (component.lifetime / component.duration);
 
-			var target = floater.start.y - 32;
+			var target = floater.start.y - 8;
 
-			floater.ob.y = floater.start.y.lerp(target, life.yoyo(EASE_OUT_QUAD));
-			floater.ob.alpha = (1 - life).ease(EASE_OUT_CUBIC);
+			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_OUT_QUINT));
+			floater.ob.alpha = (1 - life).ease(EASE_OUT_QUINT);
+
+			var scale = .4.lerp(1, life.ease(EASE_OUT_QUINT));
+			floater.text.setScale(scale);
 
 			component.lifetime += frame.tmod;
-			if (component.lifetime >= component.duration)
+			if (life > 1)
 			{
 				e.destroy();
 			}

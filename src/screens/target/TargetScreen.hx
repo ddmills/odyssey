@@ -80,7 +80,7 @@ class TargetScreen extends Screen
 		ob.y = originPx.y;
 
 		var area = settings.footprint.getFootprint(targeter.pos, mouse);
-		var shader = new SpriteShader(C_RED_3, C_RED_2);
+		var shader = new SpriteShader(C_RED_3, C_GRAY_1);
 		shader.isShrouded = 0;
 
 		for (p in area)
@@ -93,7 +93,7 @@ class TargetScreen extends Screen
 
 			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT, mask);
 			var a = new Bitmap(TileResources.Get(tileKey), ob);
-			a.alpha = .43;
+			a.alpha = .6;
 			a.addShader(shader);
 
 			var pos = p.asWorld().sub(targeter.pos).toPx();
