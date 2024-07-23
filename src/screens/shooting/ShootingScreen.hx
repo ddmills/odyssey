@@ -19,8 +19,8 @@ class ShootingScreen extends TargetScreen
 	public function new(shooter:Entity)
 	{
 		this.shooter = shooter;
-		var footprint = Weapons.Get(weapon.family).getFootprint();
 
+		var footprint = Weapons.Get(weapon.family).getFootprint();
 		super(shooter, {
 			origin: TARGETER,
 			footprint: footprint,

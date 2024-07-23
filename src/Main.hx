@@ -16,6 +16,7 @@ import domain.skills.Skills;
 import domain.terrain.gen.pois.PoiLayouts;
 import domain.terrain.gen.rooms.RoomDecorators;
 import domain.weapons.Weapons;
+import h3d.pass.ScreenFx;
 import screens.splash.SplashScreen;
 
 class Main extends hxd.App

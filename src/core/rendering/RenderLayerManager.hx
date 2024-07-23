@@ -4,6 +4,7 @@ import core.rendering.RenderLayer.RenderLayerSpace;
 import h2d.Bitmap;
 import h2d.Layers;
 import h2d.Tile;
+import shaders.ScanlineShader;
 import shaders.SpriteShader;
 
 enum RenderLayerType
@@ -53,6 +54,10 @@ class RenderLayerManager
 		root.addChildAt(bkg, 0);
 		root.addChildAt(scroller, 1);
 		root.addChildAt(screen, 2);
+
+		var scanlineShader = new h2d.filter.Shader<ScanlineShader>(new ScanlineShader(), "texture");
+
+		root.filter = scanlineShader;
 	}
 
 	function createLayer(type:RenderLayerType, space:RenderLayerSpace):RenderLayer

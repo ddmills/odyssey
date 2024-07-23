@@ -58,7 +58,7 @@ class Moniker extends Component
 		if (explosive != null && explosive.isFuseLit)
 		{
 			var t = ((explosive.remainingFuseTicks / Clock.TICKS_PER_MINUTE)).format(1);
-			name += ' [Lit ${t}m)]';
+			name += ' [Lit ${t}m]';
 		}
 
 		return name;
