@@ -16,7 +16,6 @@ import domain.skills.Skills;
 import domain.terrain.gen.pois.PoiLayouts;
 import domain.terrain.gen.rooms.RoomDecorators;
 import domain.weapons.Weapons;
-import h3d.pass.ScreenFx;
 import screens.splash.SplashScreen;
 
 class Main extends hxd.App
@@ -34,7 +33,16 @@ class Main extends hxd.App
 		// hack to fix audio not playing more than once
 		@:privateAccess haxe.MainLoop.add(() -> {});
 
-		@:privateAccess s2d.renderer.manager.globals.set("dayProgress", 0);
+		s2d.renderer.globals.set("dayProgress", 0);
+		s2d.renderer.globals.set("screenH", 800);
+
+		var window = hxd.Window.getInstance();
+
+		window.addResizeEvent(() ->
+		{
+			trace('resize', window.height);
+			s2d.renderer.globals.set("screenH", window.height);
+		});
 
 		TextResources.Init();
 		TileResources.Init();

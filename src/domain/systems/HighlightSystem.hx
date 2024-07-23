@@ -85,7 +85,7 @@ class HighlightSystem extends System
 			var bm = bitmaps.get(e.id);
 			bm.ob.x = targetPos.x;
 			bm.ob.y = targetPos.y;
-			bm.shader.primary = highlight.color.toHxdColor();
+			bm.shader.primary = highlight.color.toHxdColor().toVector();
 			bm.arrow.visible = highlight.showArrow;
 			bm.ring.visible = highlight.showRing;
 		});

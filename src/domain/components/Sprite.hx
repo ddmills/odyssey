@@ -39,7 +39,7 @@ class Sprite extends Drawable
 		else
 		{
 			sh.clearBackground = 1;
-			sh.background = backgroundColor.toHxdColor();
+			sh.background = backgroundColor.toHxdColor().toVector();
 		}
 		bm.addShader(sh);
 		return bm;

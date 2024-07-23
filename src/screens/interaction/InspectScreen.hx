@@ -202,13 +202,13 @@ class InspectScreen extends Screen
 			{
 				b.isBlinking = false;
 				b.ob.visible = true;
-				b.shader.primary = game.TEXT_COLOR_FOCUS.toHxdColor();
+				b.shader.primary = game.TEXT_COLOR_FOCUS.toHxdColor().toVector();
 			}
 			else
 			{
 				b.isBlinking = true;
 				b.ob.visible = isBlinkActive;
-				b.shader.primary = C_YELLOW_0.toHxdColor();
+				b.shader.primary = C_YELLOW_0.toHxdColor().toVector();
 			}
 		});
 	}

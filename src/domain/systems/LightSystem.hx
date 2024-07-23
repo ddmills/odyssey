@@ -160,7 +160,7 @@ class LightSystem extends System
 			if (shader != null)
 			{
 				var compiled = combine(fragmentList);
-				shader.light = compiled.color.toHxdColor();
+				shader.light = compiled.color.toHxdColor().toVector();
 				shader.lightIntensity = compiled.intensity.clamp(0, 1);
 				shader.isLit = 1;
 				litTiles.set(idx, compiled.intensity);
@@ -217,7 +217,7 @@ class LightSystem extends System
 			if (shader != null)
 			{
 				var outIntensity = intensity.clamp(0, 1);
-				shader.light = color.toHxdColor();
+				shader.light = color.toHxdColor().toVector();
 				shader.lightIntensity = outIntensity;
 				shader.isLit = 1;
 				litTiles.set(idx, outIntensity);

@@ -75,11 +75,11 @@ class HealthBarSystem extends System
 
 			if (bm.prevValue > health.value)
 			{
-				bm.shader.primary = C_YELLOW_1.toHxdColor();
+				bm.shader.primary = C_YELLOW_1.toHxdColor().toVector();
 			}
 			else
 			{
-				bm.shader.primary = C_RED_1.toHxdColor();
+				bm.shader.primary = C_RED_1.toHxdColor().toVector();
 			}
 
 			bm.prevValue = health.value;

@@ -110,7 +110,7 @@ class MapScreen extends Screen
 		var bm = new Bitmap(tile);
 		var shader = new SpriteShader(primary, secondary);
 		shader.clearBackground = 1;
-		shader.background = background.toHxdColor();
+		shader.background = background.toHxdColor().toVector();
 		bm.addShader(shader);
 
 		var clicker = new Interactive(game.TILE_W, game.TILE_H, bm);

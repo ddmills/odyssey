@@ -48,21 +48,21 @@ abstract class Drawable extends Component
 	function set_primary(value:ColorKey):ColorKey
 	{
 		primary = value;
-		shader.primary = value.toHxdColor();
+		shader.primary = value.toHxdColor().toVector();
 		return value;
 	}
 
 	function set_secondary(value:ColorKey):ColorKey
 	{
 		secondary = value;
-		shader.secondary = value.toHxdColor();
+		shader.secondary = value.toHxdColor().toVector();
 		return value;
 	}
 
 	function set_outline(value:ColorKey):ColorKey
 	{
 		outline = value;
-		shader.outline = value.toHxdColor();
+		shader.outline = value.toHxdColor().toVector();
 		return value;
 	}
 
@@ -72,7 +72,7 @@ abstract class Drawable extends Component
 		var clear = value != null;
 		if (clear)
 		{
-			shader.background = value.toHxdColor();
+			shader.background = value.toHxdColor().toVector();
 		}
 		shader.clearBackground = clear ? 1 : 0;
 		return value;
@@ -121,28 +121,28 @@ abstract class Drawable extends Component
 	function set_primaryOverride(value:Null<ColorKey>):Null<ColorKey>
 	{
 		primaryOverride = value;
-		shader.primary = primaryColor.toHxdColor();
+		shader.primary = primaryColor.toHxdColor().toVector();
 		return value;
 	}
 
 	function set_secondaryOverride(value:Null<ColorKey>):Null<ColorKey>
 	{
 		secondaryOverride = value;
-		shader.secondary = secondaryColor.toHxdColor();
+		shader.secondary = secondaryColor.toHxdColor().toVector();
 		return value;
 	}
 
 	function set_outlineOverride(value:Null<ColorKey>):Null<ColorKey>
 	{
 		outlineOverride = value;
-		shader.outline = outlineColor.toHxdColor();
+		shader.outline = outlineColor.toHxdColor().toVector();
 		return value;
 	}
 
 	function set_backgroundOverride(value:Null<ColorKey>):Null<ColorKey>
 	{
 		backgroundOverride = value;
-		shader.background = backgroundColor.toHxdColor();
+		shader.background = backgroundColor.toHxdColor().toVector();
 		return value;
 	}
 

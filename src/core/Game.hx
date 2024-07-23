@@ -81,6 +81,7 @@ class Game
 	public inline function update()
 	{
 		Performance.update(frame.dt * 1000);
+		app.s2d.renderer.globals.set("time", frame.elapsed);
 		frame.update();
 		screens.current.update(frame);
 	}

@@ -56,7 +56,7 @@ class AIManager
 		var chunkIdx = goal.toChunkIdx();
 		var chunk = Game.instance.world.chunks.getChunkById(chunkIdx);
 
-		if (!chunk.isLoaded)
+		if (chunk == null || !chunk.isLoaded)
 		{
 			return false;
 		}

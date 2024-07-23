@@ -45,7 +45,7 @@ class EntitySelectScreen extends ListSelectScreen
 				var icon = new Bitmap();
 				icon = entity.get(Sprite).getBitmapClone();
 				icon.getShader(SpriteShader).clearBackground = 0;
-				icon.getShader(SpriteShader).outline = 0x000000.toHxdColor(0);
+				icon.getShader(SpriteShader).outline = 0x000000.toHxdColor(0).toVector();
 				return icon;
 			},
 		};

@@ -2,7 +2,6 @@ package data;
 
 import core.Game;
 
-@:enum
 enum abstract ColorKey(String) to String from String
 {
 	var C_WHITE = 'C_WHITE';
@@ -51,7 +50,7 @@ enum abstract ColorKey(String) to String from String
 		return Game.instance.palette.getColor(this);
 	}
 
-	public function toHxdColor(a:Float = 1):h3d.Vector
+	public function toHxdColor(a:Float = 1):h3d.Vector4
 	{
 		return Game.instance.palette.getColor(this).toHxdColor(a);
 	}

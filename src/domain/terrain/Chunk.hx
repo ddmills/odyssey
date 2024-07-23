@@ -260,7 +260,7 @@ class Chunk
 
 		if (Game.instance.SHOW_BG_COLORS)
 		{
-			shader.background = background.toHxdColor();
+			shader.background = background.toHxdColor().toVector();
 			shader.clearBackground = 1;
 		}
 

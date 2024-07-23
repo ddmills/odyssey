@@ -91,11 +91,11 @@ class LookScreen extends CursorScreen
 			isBlinking = entities.length > 0;
 			if (entities.exists((e) -> e.has(IsEnemy)))
 			{
-				targetShader.primary = ColorKey.C_RED_1.toHxdColor();
+				targetShader.primary = ColorKey.C_RED_1.toHxdColor().toVector();
 			}
 			else
 			{
-				targetShader.primary = game.TEXT_COLOR_FOCUS.toHxdColor();
+				targetShader.primary = game.TEXT_COLOR_FOCUS.toHxdColor().toVector();
 			}
 
 			var names = entities.filter((e) -> e.has(Moniker)).map((e) ->
@@ -114,7 +114,7 @@ class LookScreen extends CursorScreen
 		else
 		{
 			targetText.text = '';
-			targetShader.primary = ColorKey.C_GRAY_1.toHxdColor();
+			targetShader.primary = ColorKey.C_GRAY_1.toHxdColor().toVector();
 			isBlinking = false;
 		}
 

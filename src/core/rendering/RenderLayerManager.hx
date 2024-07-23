@@ -1,6 +1,7 @@
 package core.rendering;
 
 import core.rendering.RenderLayer.RenderLayerSpace;
+import data.ColorKey;
 import h2d.Bitmap;
 import h2d.Layers;
 import h2d.Tile;
@@ -31,9 +32,11 @@ class RenderLayerManager
 
 	public function new()
 	{
-		var bkg = new Bitmap(Tile.fromColor(0xff0000));
-		var shader = new SpriteShader();
-		bkg.addShader(shader);
+		var bkg = new Bitmap(Tile.fromColor(ColorKey.C_CLEAR.toInt()));
+		// var shader = new SpriteShader(0xff0000);
+		// shader.isShrouded = 0;
+		// shader.isLit = 0;
+		// bkg.addShader(shader);
 		bkg.width = 10000;
 		bkg.height = 10000;
 

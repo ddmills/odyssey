@@ -182,7 +182,7 @@ class ListSelectScreen extends Screen
 			li.item.text.color = col.toHxdColor();
 			li.item.detail.color = col.toHxdColor();
 			li.item.bullet.tile = li.isSelected ? TileResources.Get(LIST_ARROW) : TileResources.Get(LIST_DASH);
-			li.item.bullet.getShader(SpriteShader).primary = col.toHxdColor();
+			li.item.bullet.getShader(SpriteShader).primary = col.toHxdColor().toVector();
 		});
 	}
 

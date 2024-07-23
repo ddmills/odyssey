@@ -58,7 +58,7 @@ class SpriteAnim extends Drawable
 		else
 		{
 			sh.clearBackground = 1;
-			sh.background = background.toHxdColor();
+			sh.background = background.toHxdColor().toVector();
 		}
 		bm.addShader(sh);
 		return bm;

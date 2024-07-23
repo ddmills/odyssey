@@ -27,12 +27,12 @@ class SplashScreen extends Screen
 		title = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
 		title.setScale(1);
 		title.text = "Odyssey";
-		title.color = new h3d.Vector(1, 1, .9);
+		title.color = new h3d.Vector4(1, 1, .9, 1);
 
 		next = new h2d.Text(hxd.Res.fnt.bizcat.toFont());
 		next.setScale(1);
 		next.text = "click anywhere to continue";
-		next.color = new h3d.Vector(1, 1, .9);
+		next.color = new h3d.Vector4(1, 1, .9, 1);
 
 		game.render(HUD, title);
 		game.render(HUD, next);
