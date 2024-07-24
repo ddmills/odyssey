@@ -37,6 +37,7 @@ class TargetScreen extends Screen
 	var targeter:Entity;
 	var settings:TargetSettings;
 	var origin:Coordinate;
+	var cursor:Coordinate;
 	var ob:Object;
 	var result:TargetResult;
 
@@ -59,18 +60,22 @@ class TargetScreen extends Screen
 		ob.remove();
 	}
 
+	override function onMouseMove(pos:Coordinate, previous:Coordinate)
+	{
+		cursor = pos;
+	}
+
 	override function update(frame:Frame)
 	{
 		world.updateSystems();
 
-		var mouse = game.input.mouse.toWorld().floor();
 		if (settings.origin == TARGETER)
 		{
 			origin = targeter.pos.floor();
 		}
 		else if (settings.origin == CURSOR)
 		{
-			origin = game.input.mouse.toWorld().floor();
+			origin = cursor.toWorld().floor();
 		}
 
 		ob.removeChildren();
@@ -79,7 +84,7 @@ class TargetScreen extends Screen
 		ob.x = originPx.x;
 		ob.y = originPx.y;
 
-		var area = settings.footprint.getFootprint(targeter.pos, mouse);
+		var area = settings.footprint.getFootprint(targeter.pos, cursor.toWorld().floor());
 		var shader = new SpriteShader(C_RED_3, C_GRAY_1);
 		shader.isShrouded = 0;
 
@@ -105,7 +110,7 @@ class TargetScreen extends Screen
 		result = {
 			area: area,
 			origin: targeter.pos.toIntPoint(),
-			cursor: mouse.toIntPoint(),
+			cursor: cursor.toIntPoint(),
 		};
 	}
 }
