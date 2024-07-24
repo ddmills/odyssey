@@ -1,5 +1,6 @@
 package domain.weapons;
 
+import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Game;
 import data.AmmoType;
@@ -11,6 +12,7 @@ import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.IsPlayer;
 import domain.components.Move;
+import domain.components.Tracer;
 import domain.components.Weapon;
 import domain.events.AttackedEvent;
 import domain.events.ConsumeEnergyEvent;
@@ -122,6 +124,11 @@ class WeaponFamily
 
 			var bullet = Spawner.Spawn(BULLET, attack.attacker.pos);
 			bullet.add(new Move(target.asWorld(), .9, LINEAR));
+
+			var start = attack.attacker.pos.add(new Coordinate(.5, .5));
+			var end = target.asWorld().add(new Coordinate(.5, .5));
+
+			bullet.add(new Tracer(start, end, data.ColorKey.C_GRAY_2));
 
 			if (isHit)
 			{

@@ -35,8 +35,7 @@ class ScanlineShader extends ScreenShader
 
 				var vPos = calculatedUV.y * screenH;
 				var r = fract(sin(dot(calculatedUV * time, vec2(12.9898, 78.233))) * 43758.5453);
-				// var t = cos(time * 4);
-				var lineIntensity = (subtleLevel + r * .15) + abs(cos(pi / scanlineSize * vPos));
+				var lineIntensity = (subtleLevel + r * .10) + abs(cos(pi / scanlineSize * vPos));
 
 				var amt = clamp(lineIntensity, 0.0, 1.125);
 

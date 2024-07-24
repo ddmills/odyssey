@@ -85,7 +85,7 @@ class LightSystem extends System
 						pos: pos,
 						intensity: i,
 						distance: d,
-						color: light.colour,
+						color: light.color,
 						source: entity.pos.toIntPoint(),
 						sourceId: entity.id,
 					});

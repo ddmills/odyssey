@@ -2,7 +2,6 @@ package domain.systems;
 
 import core.Frame;
 import data.EnergyActionType;
-import domain.components.Bullet;
 import domain.components.Energy;
 import domain.components.IsDead;
 import domain.components.IsDestroyed;
@@ -20,7 +19,6 @@ class EnergySystem extends System
 	public var isPlayersTurn(default, null):Bool;
 
 	var query:Query;
-	var bullets:Query;
 
 	public function new()
 	{
@@ -28,9 +26,6 @@ class EnergySystem extends System
 		query = new Query({
 			all: [Energy],
 			none: [IsDetached, IsDead, IsDestroyed],
-		});
-		bullets = new Query({
-			all: [Bullet]
 		});
 	}
 

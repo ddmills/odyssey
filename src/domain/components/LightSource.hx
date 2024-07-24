@@ -9,7 +9,7 @@ class LightSource extends Component
 	// must be between 0 and 1
 	@save public var intensity:Float;
 	@save public var range:Int;
-	@save public var colour:Int;
+	@save public var color:Int;
 	@save public var isEnabled(default, set):Bool;
 	@save public var disableLutShader(default, set):Bool;
 
@@ -17,7 +17,7 @@ class LightSource extends Component
 	{
 		this.intensity = intensity;
 		this.range = range;
-		this.colour = colour;
+		this.color = colour;
 		this.isEnabled = isEnabled;
 		this.disableLutShader = disableLutShader;
 
