@@ -72,7 +72,7 @@ class BulletSystem extends System
 			var tracer = e.get(Tracer);
 			tracer.age += frame.dt;
 
-			if (tracer.age >= .5)
+			if (tracer.age >= tracer.duration)
 			{
 				e.remove(Tracer);
 			}

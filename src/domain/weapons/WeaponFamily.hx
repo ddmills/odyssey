@@ -44,12 +44,13 @@ class WeaponFamily
 		for (p in aoe)
 		{
 			var entities = Game.instance.world.getEntitiesAt(p);
+
 			for (e in entities)
 			{
 				if (e != attacker && e.has(Health) && !e.has(IsInventoried) && !e.has(IsDestroyed))
 				{
 					var roll = r.roll(Game.instance.DIE_SIZE);
-					var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon) + 100; // todo
+					var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon);
 					var skillValue = Skills.GetValue(skill, attacker);
 					var damage = r.roll(weapon.die, weapon.modifier) + skillValue;
 					var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
@@ -112,6 +113,8 @@ class WeaponFamily
 			return;
 		}
 
+		var r = Rand.create();
+
 		getRangedAttacks(attacker, target, weapon).each((attack:Attack) ->
 		{
 			var defender = attack.defender;
@@ -126,9 +129,19 @@ class WeaponFamily
 			bullet.add(new Move(target.asWorld(), .9, LINEAR));
 
 			var start = attack.attacker.pos.add(new Coordinate(.5, .5));
-			var end = target.asWorld().add(new Coordinate(.5, .5));
 
-			bullet.add(new Tracer(start, end, data.ColorKey.C_GRAY_2));
+			if (attack.isCritical)
+			{
+				var end = target.asWorld().add(new Coordinate(.5, .5));
+				bullet.add(new Tracer(start, end, 1, data.ColorKey.C_YELLOW_2));
+			}
+			else
+			{
+				var endX = r.float(.25, .75);
+				var endY = r.float(.25, .75);
+				var end = target.asWorld().add(new Coordinate(endX, endY));
+				bullet.add(new Tracer(start, end, .5, data.ColorKey.C_GRAY_2));
+			}
 
 			if (isHit)
 			{
