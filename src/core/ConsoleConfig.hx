@@ -4,13 +4,11 @@ import common.util.Serial;
 import core.input.Command;
 import data.Commands;
 import data.save.SaveChunk;
+import domain.components.Attributes;
 import domain.components.Health;
 import domain.components.Level;
-import domain.components.Sprite;
-import domain.components.SpriteAnim;
-import domain.components.Stats;
 import domain.prefabs.Spawner;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import h2d.Console;
 import haxe.EnumTools;
 
@@ -80,22 +78,22 @@ class ConsoleConfig
 			chunk.load(data);
 		});
 
-		console.addCommand('stats', 'List player stats & skills', [], () ->
+		console.addCommand('attributes', 'List player attributes & stats', [], () ->
 		{
 			var player = game.world.player.entity;
-			console.log('STATS', game.TEXT_COLOR_FOCUS);
-			Stats.GetAll(player).each((sv) ->
+			console.log('ATTRIBUTES', game.TEXT_COLOR_FOCUS);
+			Attributes.GetAll(player).each((sv) ->
 			{
-				var name = EnumValueTools.getName(sv.stat) + ' ';
+				var name = EnumValueTools.getName(sv.attribute) + ' ';
 				console.log('${name.pad(41, '.')} ${sv.value}');
 			});
 
-			console.log('SKILLS', game.TEXT_COLOR_FOCUS);
-			Skills.GetAll(player).each((sv:SkillValue) ->
+			console.log('STATS', game.TEXT_COLOR_FOCUS);
+			Stats.GetAll(player).each((sv:StatValue) ->
 			{
-				var name = EnumValueTools.getName(sv.skill) + ' ';
-				var stat = EnumValueTools.getName(Skills.Get(sv.skill).getStat(player)) + ' ';
-				console.log('${name.pad(30, '.')} ${stat.pad(10, '.')} ${sv.value}');
+				var name = EnumValueTools.getName(sv.stat) + ' ';
+				var attribute = EnumValueTools.getName(Stats.Get(sv.stat).getAttribute(player)) + ' ';
+				console.log('${name.pad(30, '.')} ${attribute.pad(10, '.')} ${sv.value}');
 			});
 		});
 
@@ -131,7 +129,7 @@ class ConsoleConfig
 
 		console.addAlias('quit', 'exit');
 		console.addAlias('q', 'exit');
-		console.addAlias('skills', 'stats');
+		console.addAlias('stats', 'attributes');
 		console.addAlias('hp', 'heal');
 
 		console.addCommand('ecount', 'Entity Count', [], () -> entityCountCmd(console));

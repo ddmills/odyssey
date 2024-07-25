@@ -10,7 +10,7 @@ class RifleWeaponFamily extends WeaponFamily
 	public function new()
 	{
 		isRanged = true;
-		skill = SKILL_RIFLE;
+		stat = STAT_RIFLE;
 		ammo = AMMO_RIFLE;
 	}
 

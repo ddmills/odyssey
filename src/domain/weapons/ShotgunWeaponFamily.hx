@@ -10,7 +10,7 @@ class ShotgunWeaponFamily extends WeaponFamily
 	public function new()
 	{
 		isRanged = true;
-		skill = SKILL_SHOTGUN;
+		stat = STAT_SHOTGUN;
 		ammo = AMMO_SHOTGUN;
 	}
 

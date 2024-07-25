@@ -4,6 +4,7 @@ import common.struct.Coordinate;
 import data.ColorKey;
 import data.SpawnableType;
 import data.TileKey;
+import domain.components.Attributes;
 import domain.components.Energy;
 import domain.components.EquipmentSlot;
 import domain.components.FactionMember;
@@ -14,7 +15,6 @@ import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sleeper;
 import domain.components.Sprite;
-import domain.components.Stats;
 import domain.components.Vision;
 import ecs.Entity;
 import hxd.Rand;
@@ -54,7 +54,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		entity.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 		entity.add(new Health());
-		entity.add(new Stats(3, 2, 1));
+		entity.add(new Attributes(3, 2, 1));
 
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
 		rhand.equip(Spawner.Spawn(COACH_GUN, pos));

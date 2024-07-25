@@ -8,7 +8,7 @@ class PistolWeaponFamily extends WeaponFamily
 	public function new()
 	{
 		isRanged = true;
-		skill = SKILL_PISTOL;
+		stat = STAT_PISTOL;
 		ammo = AMMO_PISTOL;
 	}
 

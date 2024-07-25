@@ -4,8 +4,8 @@ import data.EquipmentSlotType;
 import data.WeaponFamilyType;
 import domain.events.MeleeEvent;
 import domain.events.MovedEvent;
-import domain.events.QuerySkillModEquippedEvent;
-import domain.events.QuerySkillModEvent;
+import domain.events.QueryStatModEquippedEvent;
+import domain.events.QueryStatModEvent;
 import domain.events.ReloadEvent;
 import domain.events.ShootEvent;
 import domain.events.UnequippedEvent;
@@ -37,7 +37,7 @@ class EquipmentSlot extends Component
 		this.isPrimary = isPrimary;
 		this.defaultWpn = defaultWpn;
 
-		addHandler(QuerySkillModEvent, onQuerySkillMod);
+		addHandler(QueryStatModEvent, onQueryStatMod);
 		addHandler(MeleeEvent, onMelee);
 		addHandler(ShootEvent, onShoot);
 		addHandler(ReloadEvent, onReload);
@@ -99,14 +99,14 @@ class EquipmentSlot extends Component
 		}
 	}
 
-	private function onQuerySkillMod(evt:QuerySkillModEvent)
+	private function onQueryStatMod(evt:QueryStatModEvent)
 	{
 		if (content == null)
 		{
 			return;
 		}
 
-		var equipped = new QuerySkillModEquippedEvent(evt.skill);
+		var equipped = new QueryStatModEquippedEvent(evt.stat);
 		equipped.mods = evt.mods;
 
 		content.fireEvent(equipped);

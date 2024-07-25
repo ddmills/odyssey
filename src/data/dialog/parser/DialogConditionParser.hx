@@ -1,7 +1,7 @@
 package data.dialog.parser;
 
 import data.dialog.conditions.DialogRelationCondition;
-import data.dialog.conditions.DialogSkillCondition;
+import data.dialog.conditions.DialogStatCondition;
 
 class DialogConditionParser
 {
@@ -10,7 +10,7 @@ class DialogConditionParser
 		return switch json.type
 		{
 			case DialogConditionType.CONDITION_RELATION: DialogRelationCondition.FromJson(json);
-			case DialogConditionType.CONDITION_SKILL: DialogSkillCondition.FromJson(json);
+			case DialogConditionType.CONDITION_STAT: DialogStatCondition.FromJson(json);
 			case _: null;
 		}
 	}

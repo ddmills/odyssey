@@ -4,7 +4,7 @@ import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Equipment;
-import domain.components.EquippedSkillMod;
+import domain.components.EquippedStatMod;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -22,9 +22,9 @@ class PantsPrefab extends Prefab
 		entity.add(new Loot());
 		entity.add(new Destructable());
 
-		var skills = new EquippedSkillMod();
-		skills.set(SKILL_DODGE, 1);
-		entity.add(skills);
+		var stats = new EquippedStatMod();
+		stats.set(STAT_DODGE, 1);
+		entity.add(stats);
 
 		return entity;
 	}

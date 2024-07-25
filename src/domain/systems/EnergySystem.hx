@@ -9,7 +9,7 @@ import domain.components.IsDetached;
 import domain.components.IsPlayer;
 import domain.components.IsSleeping;
 import domain.events.ConsumeEnergyEvent;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import ecs.Entity;
 import ecs.Query;
 import ecs.System;
@@ -96,7 +96,7 @@ class EnergySystem extends System
 	{
 		if (type == ACT_MOVE)
 		{
-			var speed = Skills.GetValue(SKILL_SPEED, entity);
+			var speed = Stats.GetValue(STAT_SPEED, entity);
 
 			return 80 - (speed * 5);
 		}

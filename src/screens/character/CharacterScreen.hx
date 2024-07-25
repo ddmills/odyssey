@@ -1,7 +1,7 @@
 package screens.character;
 
-import data.StatType;
-import domain.components.Stats;
+import data.AttributeType;
+import domain.components.Attributes;
 import ecs.Entity;
 import haxe.EnumTools.EnumValueTools;
 import screens.listSelect.ListSelectScreen;
@@ -14,7 +14,7 @@ class CharacterScreen extends ListSelectScreen
 	{
 		this.target = target;
 		super([]);
-		title = 'Stats';
+		title = 'Attributes';
 		cancelText = 'Close';
 	}
 
@@ -32,27 +32,27 @@ class CharacterScreen extends ListSelectScreen
 
 	function refreshList()
 	{
-		var stats = target.get(Stats);
-		title = 'Stats (${stats.unspentStatPoints} unspent)';
-		var items = Stats.GetAll(target).map(makeListItem);
+		var attributes = target.get(Attributes);
+		title = 'Attributes (${attributes.unspentAttributePoints} unspent)';
+		var items = Attributes.GetAll(target).map(makeListItem);
 
 		setItems(items);
 	}
 
-	function incrementStat(stat:StatType)
+	function incrementAttribute(attribute:AttributeType)
 	{
-		var stats = target.get(Stats);
-		stats.incrementStat(stat);
+		var attributes = target.get(Attributes);
+		attributes.incrementAttribute(attribute);
 		refreshList();
 	}
 
-	function makeListItem(v:{stat:StatType, value:Int}):ListItem
+	function makeListItem(v:{attribute:AttributeType, value:Int}):ListItem
 	{
 		return {
-			title: EnumValueTools.getName(v.stat),
+			title: EnumValueTools.getName(v.attribute),
 			detail: v.value.toString(),
 			getIcon: null,
-			onSelect: () -> incrementStat(v.stat),
+			onSelect: () -> incrementAttribute(v.attribute),
 		};
 	}
 }

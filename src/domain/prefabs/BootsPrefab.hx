@@ -4,7 +4,7 @@ import common.struct.Coordinate;
 import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Equipment;
-import domain.components.EquippedSkillMod;
+import domain.components.EquippedStatMod;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -21,9 +21,9 @@ class BootsPrefab extends Prefab
 		entity.add(new Equipment([EQ_SLOT_FEET]));
 		entity.add(new Loot());
 
-		var skills = new EquippedSkillMod();
-		skills.set(SKILL_SPEED, 2);
-		entity.add(skills);
+		var stats = new EquippedStatMod();
+		stats.set(STAT_SPEED, 2);
+		entity.add(stats);
 
 		entity.add(new Destructable());
 

@@ -8,7 +8,7 @@ import data.TileKey;
 import domain.events.ForageEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.prefabs.Spawner;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import ecs.Component;
 
 class Forageable extends Component
@@ -44,7 +44,7 @@ class Forageable extends Component
 
 	private function onForageEvent(evt:ForageEvent)
 	{
-		var amount = Skills.GetValue(SKILL_FORAGE, evt.forager);
+		var amount = Stats.GetValue(STAT_FORAGE, evt.forager);
 		var result = Spawner.Spawn(foragePrefab, evt.forager.pos, {quantity: amount});
 		evt.forager.get(Inventory).addLoot(result);
 

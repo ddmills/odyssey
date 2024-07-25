@@ -5,6 +5,6 @@ class UnarmedWeaponFamily extends WeaponFamily
 	public function new()
 	{
 		isRanged = false;
-		skill = SKILL_UNARMED;
+		stat = STAT_UNARMED;
 	}
 }

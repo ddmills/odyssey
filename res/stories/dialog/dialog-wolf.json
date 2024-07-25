@@ -7,8 +7,8 @@
 					"option": "Can we strike a deal? You have been terrorizing the village.",
 					"conditions": [
 						{
-							"type": "CONDITION_SKILL",
-							"skill": "SKILL_ANIMAL_HANDLING",
+							"type": "CONDITION_STAT",
+							"stat": "STAT_ANIMAL_HANDLING",
 							"min": 3
 						}
 					],

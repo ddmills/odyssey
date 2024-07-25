@@ -12,7 +12,7 @@ import data.dialog.DialogTrees;
 import data.storylines.Stories;
 import data.tables.SpawnTables;
 import domain.data.liquids.Liquids;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import domain.terrain.gen.pois.PoiLayouts;
 import domain.terrain.gen.rooms.RoomDecorators;
 import domain.weapons.Weapons;
@@ -52,7 +52,7 @@ class Main extends hxd.App
 		Bitmasks.Init();
 		SpawnTables.Init();
 		Commands.Init();
-		Skills.Init();
+		Stats.Init();
 		Weapons.Init();
 		Liquids.Init();
 		BiomeMap.Init();

@@ -9,7 +9,7 @@ import domain.events.DamagedEvent;
 import domain.events.EnemyKilledEvent;
 import domain.events.EntitySpawnedEvent;
 import domain.prefabs.Spawner;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import ecs.Component;
 import hxd.Rand;
 
@@ -31,11 +31,11 @@ class Health extends Component
 
 	public function get_max():Int
 	{
-		var skill = Skills.GetValue(SKILL_FORTITUDE, entity);
+		var stat = Stats.GetValue(STAT_FORTITUDE, entity);
 		var lvlComp = entity.get(Level);
 		var level = lvlComp == null ? 0 : lvlComp.level;
 
-		return GameMath.GetMaxHealth(level, skill);
+		return GameMath.GetMaxHealth(level, stat);
 	}
 
 	public function toString():String
@@ -51,7 +51,7 @@ class Health extends Component
 	private function onAttacked(evt:AttackedEvent)
 	{
 		var r = Rand.create();
-		var dodge = Skills.GetValue(SKILL_DODGE, entity);
+		var dodge = Stats.GetValue(STAT_DODGE, entity);
 		var ac = r.roll(Game.instance.DIE_SIZE, dodge);
 
 		if (evt.attack.isCritical)

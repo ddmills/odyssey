@@ -5,7 +5,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.AmmoType;
 import data.AudioKey;
-import data.SkillType;
+import data.StatType;
 import domain.components.Bullet;
 import domain.components.Health;
 import domain.components.IsDestroyed;
@@ -17,7 +17,7 @@ import domain.components.Weapon;
 import domain.events.AttackedEvent;
 import domain.events.ConsumeEnergyEvent;
 import domain.prefabs.Spawner;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import ecs.Entity;
 import hxd.Rand;
 import screens.target.footprints.CircleFootprint;
@@ -26,7 +26,7 @@ import screens.target.footprints.Footprint;
 class WeaponFamily
 {
 	public var isRanged:Bool;
-	public var skill:SkillType;
+	public var stat:StatType;
 	public var ammo:Null<AmmoType>;
 
 	public function getSound():AudioKey
@@ -51,8 +51,8 @@ class WeaponFamily
 				{
 					var roll = r.roll(Game.instance.DIE_SIZE);
 					var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon);
-					var skillValue = Skills.GetValue(skill, attacker);
-					var damage = r.roll(weapon.die, weapon.modifier) + skillValue;
+					var statValue = Stats.GetValue(stat, attacker);
+					var damage = r.roll(weapon.die, weapon.modifier) + statValue;
 					var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
 					// todo: do we actually have a clear trajectory to the target?
@@ -81,8 +81,8 @@ class WeaponFamily
 		var r = Rand.create();
 		var roll = r.roll(Game.instance.DIE_SIZE);
 		var toHit = roll + GameMath.GetMeleeAttackToHit(attacker, weapon);
-		var skill = Skills.GetValue(skill, attacker);
-		var damage = r.roll(weapon.die, weapon.modifier) + skill;
+		var stat = Stats.GetValue(stat, attacker);
+		var damage = r.roll(weapon.die, weapon.modifier) + stat;
 		var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
 		return [

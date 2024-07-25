@@ -5,7 +5,7 @@ import common.struct.IntPoint;
 import core.Game;
 import domain.components.IsPlayer;
 import domain.components.Weapon;
-import domain.skills.Skills;
+import domain.stats.Stats;
 import domain.weapons.Weapons;
 import ecs.Entity;
 
@@ -17,9 +17,9 @@ class GameMath
 	public static var XP_SPREAD = 3;
 	public static var XP_POWER = 2.5;
 
-	public static function GetMaxHealth(level:Int, fortitudeSkill:Int):Int
+	public static function GetMaxHealth(level:Int, fortitudeStat:Int):Int
 	{
-		return 10 + level * 10 + fortitudeSkill * 10;
+		return 10 + level * 10 + fortitudeStat * 10;
 	}
 
 	public static function GetLevelXpReq(level:Int):Int
@@ -54,14 +54,14 @@ class GameMath
 
 		var rangePenalty = GetRangePenalty(attacker.pos.toIntPoint(), target, weapon.range);
 
-		return Skills.GetValue(wpnFamily.skill, attacker) + weapon.accuracy - rangePenalty;
+		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy - rangePenalty;
 	}
 
 	public static function GetMeleeAttackToHit(attacker:Entity, weapon:Weapon)
 	{
 		var wpnFamily = Weapons.Get(weapon.family);
 
-		return Skills.GetValue(wpnFamily.skill, attacker) + weapon.accuracy;
+		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy;
 	}
 
 	public static function GetHitChance(attacker:Entity, defender:Entity, weapon:Weapon, isRanged = false)
@@ -78,7 +78,7 @@ class GameMath
 			toHit = GetMeleeAttackToHit(attacker, weapon);
 		}
 
-		var dodge = Skills.GetValue(SKILL_DODGE, defender);
+		var dodge = Stats.GetValue(STAT_DODGE, defender);
 		var difference = toHit - dodge;
 		var faces = [for (i in 0...dieSize) (i + 1)];
 		var critAllowed = attacker.has(IsPlayer);

@@ -1,0 +1,45 @@
+ATTRIBUTES - Strength, Dex, etc.
+STATS - Derived from attributes. Can be influenced by other things as well (modifiers)
+SKILLS - Something that can be learned, which grants new abilities, proficiencies, passives, etc.
+ABILITIES - An activated thing
+PROFICIENCIES
+
+
+STATS
+
+Level up grants you +2 points to spend in Grit, Finesse, or Savvy. You start with zero.
+
+STATS LIST:
+- Grit      = Affects health. Damage focused items.
+- Finesse   = Affects dodge. Accuracy focused items.
+- Savvy     = Affects social/surviving and instruments.
+
+
+Skills are booleans that can be unlocked/learned. These belong to categories and can have prerequisites (CoQ). 
+Skills can grant weapon proficiencies, unlock abilities, passives, etc.
+
+
+SKILLS LIST:
+- Foraging
+- Rifles 
+- Bows
+- Pistols
+- Mining
+
+PROFICIENCIES:
+- Every weapon family
+
+
+Health/Armor/Dodge:
+- DODGE
+	- Based on equipment/items and Finess (Dex) attribute
+	- Allows you to avoid an attack completely
+- HEALTH
+	- Can be increased by increasing Grit
+	- does not auto regenerate
+	- some items can increase maximum hp
+	- some consumables can grant hp regenration or immediate hp 
+- ARMOR
+	- Based on equipment/items
+	- Regenerates quickly when out of combat 
+	- Can be regenerated during combat with the use of consumables or abilities
