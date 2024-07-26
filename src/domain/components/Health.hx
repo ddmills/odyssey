@@ -16,12 +16,18 @@ import hxd.Rand;
 class Health extends Component
 {
 	@save private var _value:Int = 10;
+	@save private var _armoveValue:Int = 10;
 
+	@save public var regenDelayTicks:Int = 10;
 	@save public var corpsePrefab:SpawnableType;
 
 	public var value(get, set):Int;
 	public var max(get, never):Int;
 	public var percent(get, never):Float;
+
+	public var armor(get, set):Int;
+	public var armorMax(get, never):Int;
+	public var armorPercent(get, never):Float;
 
 	public function new()
 	{
@@ -29,23 +35,45 @@ class Health extends Component
 		addHandler(AttackedEvent, onAttacked);
 	}
 
-	public function get_max():Int
-	{
-		var stat = Stats.GetValue(STAT_FORTITUDE, entity);
-		var lvlComp = entity.get(Level);
-		var level = lvlComp == null ? 0 : lvlComp.level;
-
-		return GameMath.GetMaxHealth(level, stat);
-	}
-
 	public function toString():String
 	{
-		return '$value/$max';
+		return '$value/$max ($armor/$armorMax)';
+	}
+
+	public function onTickDelta(tickDelta:Int)
+	{
+		regenDelayTicks -= tickDelta;
+
+		if (armor < armorMax && regenDelayTicks <= 0)
+		{
+			regenDelayTicks = 0;
+
+			var regenStat = Stats.GetValue(STAT_ARMOR_REGEN, entity);
+			var rate = GameMath.GetArmorRegenRatePerTurn(regenStat) / 100;
+			armor += (rate * tickDelta).round().clampLower(1);
+		}
 	}
 
 	private function onEntitySpawned(evt:EntitySpawnedEvent)
 	{
 		value = max;
+		armor = armorMax;
+	}
+
+	private function takeDamage(amount:Int):Bool
+	{
+		var remaining = armor - amount;
+
+		if (remaining >= 0)
+		{
+			armor = remaining;
+			return false;
+		}
+
+		armor = 0;
+
+		value += remaining;
+		return true;
 	}
 
 	private function onAttacked(evt:AttackedEvent)
@@ -61,8 +89,13 @@ class Health extends Component
 
 		if (evt.attack.toHit >= ac)
 		{
-			value -= evt.attack.damage;
-			makeBloodEffect(evt.attack.attacker.pos);
+			var regenStat = Stats.GetValue(STAT_ARMOR_REGEN, entity);
+			regenDelayTicks = GameMath.GetArmorRegenDelay(regenStat);
+
+			if (takeDamage(evt.attack.damage))
+			{
+				makeBloodEffect(evt.attack.attacker.pos);
+			}
 			entity.add(new HitBlink());
 			evt.isHit = true;
 			entity.fireEvent(new DamagedEvent());
@@ -70,7 +103,7 @@ class Health extends Component
 			if (evt.attack.isCritical)
 			{
 				Spawner.Spawn(FLOATING_TEXT, entity.pos, {
-					text: '-' + evt.attack.damage.toString(),
+					text: 'crit! -' + evt.attack.damage.toString(),
 					color: ColorKey.C_YELLOW_2,
 					duration: 100
 				});
@@ -87,7 +120,7 @@ class Health extends Component
 		else
 		{
 			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
-				text: 'dodge!',
+				text: 'dodged',
 				color: ColorKey.C_BLUE_2,
 				duration: 40
 			});
@@ -125,5 +158,40 @@ class Health extends Component
 	function get_percent():Float
 	{
 		return value / max;
+	}
+
+	public function get_max():Int
+	{
+		var stat = Stats.GetValue(STAT_FORTITUDE, entity);
+		var lvlComp = entity.get(Level);
+		var level = lvlComp == null ? 0 : lvlComp.level;
+
+		return GameMath.GetMaxHealth(level, stat);
+	}
+
+	function set_armor(value:Int):Int
+	{
+		_armoveValue = value.clamp(0, armorMax);
+
+		return _armoveValue;
+	}
+
+	function get_armor():Int
+	{
+		return _armoveValue;
+	}
+
+	function get_armorPercent():Float
+	{
+		return _armoveValue / armorMax;
+	}
+
+	function get_armorMax():Int
+	{
+		var stat = Stats.GetValue(STAT_ARMOR, entity);
+		var lvlComp = entity.get(Level);
+		var level = lvlComp == null ? 0 : lvlComp.level;
+
+		return GameMath.GetMaxArmor(level, stat);
 	}
 }

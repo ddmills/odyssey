@@ -92,8 +92,10 @@ class ConsoleConfig
 			Stats.GetAll(player).each((sv:StatValue) ->
 			{
 				var name = EnumValueTools.getName(sv.stat) + ' ';
-				var attribute = EnumValueTools.getName(Stats.Get(sv.stat).getAttribute(player)) + ' ';
-				console.log('${name.pad(30, '.')} ${attribute.pad(10, '.')} ${sv.value}');
+				var stat = Stats.Get(sv.stat);
+				var attribute = stat.getAttribute(player);
+				var atts = attribute == null ? '' : ' ' + EnumValueTools.getName(attribute) + ' ';
+				console.log('${name.pad(30, '.')}${atts.pad(10, '.')} ${sv.value}');
 			});
 		});
 
@@ -102,6 +104,7 @@ class ConsoleConfig
 			var player = game.world.player.entity;
 			var health = player.get(Health);
 			health.value = health.max;
+			health.armor = health.armorMax;
 		});
 
 		console.addCommand('entity', 'Lookup entity', [{name: 'entityId', t: AString}], (id:String) ->

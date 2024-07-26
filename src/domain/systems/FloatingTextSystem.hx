@@ -30,7 +30,6 @@ class FloatingTextSystem extends System
 
 		query.onEntityAdded((e) ->
 		{
-			trace('added', e.pos.toWorld().toString());
 			var floater = e.get(FloatingText);
 			var ob = new Object();
 
@@ -77,12 +76,12 @@ class FloatingTextSystem extends System
 			var floater = floaters.get(e.id);
 			var life = (component.lifetime / component.duration);
 
-			var target = floater.start.y - 8;
+			var target = floater.start.y - 20;
 
-			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_OUT_QUINT));
+			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_LINEAR));
 			floater.ob.alpha = (1 - life).ease(EASE_OUT_QUINT);
 
-			var scale = .4.lerp(1, life.ease(EASE_OUT_QUINT));
+			var scale = .2.lerp(.75, life.ease(EASE_OUT_QUINT));
 			floater.text.setScale(scale);
 
 			component.lifetime += frame.tmod;

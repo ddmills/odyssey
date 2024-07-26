@@ -22,6 +22,22 @@ class GameMath
 		return 10 + level * 10 + fortitudeStat * 10;
 	}
 
+	public static function GetMaxArmor(level:Int, armorStat:Int):Int
+	{
+		return 5 + level * 5 + armorStat * 5;
+	}
+
+	public static function GetArmorRegenRatePerTurn(armorRegenStat:Int):Int
+	{
+		return 4 + armorRegenStat;
+	}
+
+	// note: 1 turn = 100 ticks. Waiting = 500 ticks
+	public static function GetArmorRegenDelay(armorRegenStat:Int):Int
+	{
+		return 500 * 8;
+	}
+
 	public static function GetLevelXpReq(level:Int):Int
 	{
 		return ((level * XP_REQ_CAP) / (level + XP_LVL_INTENSITY)).floor();
@@ -54,14 +70,16 @@ class GameMath
 
 		var rangePenalty = GetRangePenalty(attacker.pos.toIntPoint(), target, weapon.range);
 
-		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy - rangePenalty;
+		// TODO. the +6 is just random
+		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy - rangePenalty + 6;
 	}
 
 	public static function GetMeleeAttackToHit(attacker:Entity, weapon:Weapon)
 	{
 		var wpnFamily = Weapons.Get(weapon.family);
 
-		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy;
+		// TODO. the +6 is just random
+		return Stats.GetValue(wpnFamily.stat, attacker) + weapon.accuracy + 6;
 	}
 
 	public static function GetHitChance(attacker:Entity, defender:Entity, weapon:Weapon, isRanged = false)

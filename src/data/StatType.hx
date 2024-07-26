@@ -3,6 +3,8 @@ package data;
 enum StatType
 {
 	STAT_FORTITUDE;
+	STAT_ARMOR;
+	STAT_ARMOR_REGEN;
 	STAT_SPEED;
 	STAT_DODGE;
 	STAT_PISTOL;

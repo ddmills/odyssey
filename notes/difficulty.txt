@@ -1,0 +1,12 @@
+Difficulty
+
+- Each zone will have a difficulty tier (1-n)
+- Each biome type will have different monsters associated with each tier
+- monster difficulty scales with tier, not player
+- important to keep monster behavior/difficulty static based on appearance
+	(i.e, if two monsters _look_ the same, they should always be the same difficulty)
+- as player progresses, potentially litter in a few more deadly monsters in lower tiers
+- areas of different difficulty should be separated by land features?
+
+
+

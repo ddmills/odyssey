@@ -21,6 +21,8 @@ class Stats
 	public static function Init()
 	{
 		stats.register(STAT_FORTITUDE, new FortitudeStat());
+		stats.register(STAT_ARMOR, new ArmorStat());
+		stats.register(STAT_ARMOR_REGEN, new ArmorStat());
 		stats.register(STAT_SPEED, new SpeedStat());
 		stats.register(STAT_UNARMED, new UnarmedStat());
 		stats.register(STAT_CUDGEL, new CudgelStat());

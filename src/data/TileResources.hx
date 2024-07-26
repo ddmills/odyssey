@@ -335,5 +335,6 @@ class TileResources
 		tiles.set(PROGRESS_BAR_11, progressBar[0][11]);
 		tiles.set(PROGRESS_BAR_12, progressBar[0][12]);
 		tiles.set(PROGRESS_BAR_13, progressBar[0][13]);
+		tiles.set(PROGRESS_BAR_14, progressBar[0][14]);
 	}
 }

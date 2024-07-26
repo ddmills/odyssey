@@ -34,7 +34,7 @@ class Stat
 	public function compute(entity:Entity):Int
 	{
 		var attribute = getAttribute(entity);
-		var base = attribute != null ? Attributes.Get(entity, attribute) : 0;
+		var base = attribute == null ? 0 : Attributes.Get(entity, attribute);
 		var modifier = getModifierSum(entity);
 
 		return base + modifier;

@@ -88,6 +88,7 @@ class AnimationResources
 			TileResources.Get(PROGRESS_BAR_11),
 			TileResources.Get(PROGRESS_BAR_12),
 			TileResources.Get(PROGRESS_BAR_13),
+			TileResources.Get(PROGRESS_BAR_14),
 		]);
 	}
 }

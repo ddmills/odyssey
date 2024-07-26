@@ -41,10 +41,18 @@
 	- [ ] melee SFX
 	- [ ] hit bump fx
 	- [x] hit color fx (blink)
-	- [ ] directional blood sprite
+	- [-] directional blood sprite
 	- [x] ranged enemy
 	- [ ] cover
-	- [ ] use TAB on shooting screen to switch targets fast
+	- [x] use TAB on shooting screen to switch targets fast
+- [ ] mechanics
+	- [x] Attributes
+	- [x] Stats 
+	- [x] Health
+	- [x] Armor
+	- [ ] Skills
+	- [ ] Proficiencies
+	- [ ] Rework damage/health values (increase overall. More predictable.)
 - [x] leveling
 	- [x] XP on kill
 	- [x] Level up spend points on stats
