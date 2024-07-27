@@ -1,14 +1,14 @@
-package screens.skill;
+package screens.ability;
 
-import data.SkillType;
+import data.AbilityType;
+import domain.abilities.Abilities;
 import domain.components.Attributes;
-import domain.events.QuerySkillsEvent;
+import domain.events.QueryAbilitiesEvent;
 import domain.skills.Skill;
-import domain.skills.Skills;
 import ecs.Entity;
 import screens.listSelect.ListSelectScreen;
 
-class SkillScreen extends ListSelectScreen
+class AbilityScreen extends ListSelectScreen
 {
 	public var target:Entity;
 
@@ -17,7 +17,7 @@ class SkillScreen extends ListSelectScreen
 		this.target = target;
 		super([]);
 
-		title = 'Skills';
+		title = 'Abilities';
 		cancelText = 'Close';
 	}
 
@@ -35,12 +35,8 @@ class SkillScreen extends ListSelectScreen
 
 	function refreshList()
 	{
-		var attributes = target.get(Attributes);
-		title = 'Skills (${attributes.getUnspentSkillPoints()} unspent SP)';
-
-		var evt = target.fireEvent(new QuerySkillsEvent());
-
-		var items = Skills.GetAll().map((skill) -> makeListItem(skill, evt.skills));
+		var evt = target.fireEvent(new QueryAbilitiesEvent());
+		var items = evt.abilities.map(makeListItem);
 
 		setItems(items);
 	}
@@ -55,16 +51,25 @@ class SkillScreen extends ListSelectScreen
 		refreshList();
 	}
 
-	function makeListItem(skill:Skill, learned:Array<SkillType>):ListItem
+	function makeListItem(abilityType:AbilityType):ListItem
 	{
-		var hasSkill = learned.contains(skill.type);
-		var title = '[${hasSkill ? 'x' : ' '}] ${skill.name}';
+		var ability = Abilities.Get(abilityType);
+		var reqMet = ability.isRequirementsMet(target);
+
+		var title = '${reqMet ? '(yes)' : '(no)'} ${ability.name}';
 
 		return {
 			title: title,
-			detail: skill.getCost().toString(),
+			detail: ability.getDescription(target),
 			getIcon: null,
-			onSelect: () -> unlockSkill(skill),
+			onSelect: () ->
+			{
+				if (reqMet)
+				{
+					game.screens.pop();
+					ability.initiate(target);
+				}
+			},
 		};
 	}
 }

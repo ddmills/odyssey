@@ -13,6 +13,7 @@ class Skills
 		skills.register(SKILL_SHOTGUNS, new SkillShotgun());
 		skills.register(SKILL_PISTOLS, new SkillPistol());
 		skills.register(SKILL_BRAWLER, new SkillBrawler());
+		skills.register(SKILL_BARRAGE, new SkillBarrage());
 	}
 
 	public static function Get(type:SkillType):Skill

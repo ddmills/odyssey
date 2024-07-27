@@ -25,6 +25,7 @@ import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
 import h2d.Object;
 import h2d.Text;
+import screens.ability.AbilityScreen;
 import screens.character.CharacterScreen;
 import screens.console.ConsoleScreen;
 import screens.cursor.LookScreen;
@@ -33,7 +34,7 @@ import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
 import screens.map.MapScreen;
 import screens.save.SaveScreen;
-import screens.shooting.ShootingScreen;
+import screens.shooting.BasicShootingScreen;
 import screens.skill.SkillScreen;
 
 typedef HudText =
@@ -183,10 +184,12 @@ class AdventureScreen extends Screen
 				game.screens.push(new CharacterScreen(world.player.entity));
 			case CMD_SKILLS:
 				game.screens.push(new SkillScreen(world.player.entity));
+			case CMD_ABILITIES:
+				game.screens.push(new AbilityScreen(world.player.entity));
 			case CMD_MAP:
 				game.screens.push(new MapScreen());
 			case CMD_SHOOT:
-				game.screens.push(new ShootingScreen(world.player.entity));
+				game.screens.push(new BasicShootingScreen(world.player.entity));
 			case CMD_SAVE:
 				game.screens.push(new SaveScreen(true));
 			case _:

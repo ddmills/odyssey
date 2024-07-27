@@ -4,6 +4,7 @@ import data.EquipmentSlotType;
 import data.WeaponFamilyType;
 import domain.events.MeleeEvent;
 import domain.events.MovedEvent;
+import domain.events.QueryEquippedWeaponsEvent;
 import domain.events.QueryStatModEquippedEvent;
 import domain.events.QueryStatModEvent;
 import domain.events.ReloadEvent;
@@ -42,6 +43,7 @@ class EquipmentSlot extends Component
 		addHandler(ShootEvent, onShoot);
 		addHandler(ReloadEvent, onReload);
 		addHandler(MovedEvent, onMoved);
+		addHandler(QueryEquippedWeaponsEvent, onQueryEquippedWeapons);
 	}
 
 	function onMoved(evt:MovedEvent)
@@ -110,6 +112,23 @@ class EquipmentSlot extends Component
 		equipped.mods = evt.mods;
 
 		content.fireEvent(equipped);
+	}
+
+	private function onQueryEquippedWeapons(evt:QueryEquippedWeaponsEvent)
+	{
+		if (isEmpty || isExtraSlot)
+		{
+			return;
+		}
+
+		var weapon = content.get(Weapon);
+
+		if (weapon == null)
+		{
+			return;
+		}
+
+		evt.add(weapon, this);
 	}
 
 	public function unequip(combineStackables:Bool = true)

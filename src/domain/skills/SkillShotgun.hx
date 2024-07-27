@@ -13,7 +13,7 @@ class SkillShotgun extends Skill
 	{
 		return [
 			{
-				source: "Shotgun Expert",
+				source: "Shotgun skill",
 				stat: STAT_SHOTGUN,
 				mod: 4,
 			}

@@ -40,6 +40,7 @@ class Commands
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_INVENTORY,           KEY_I);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_CHARACTER,           KEY_C);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_SKILLS,              KEY_K);
+		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_ABILITIES,           KEY_A);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_MAP,                 KEY_M);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_SHOOT,               KEY_F);
 		cmd(INPUT_DOMAIN_ADVENTURE,   CMD_RELOAD,              KEY_R);

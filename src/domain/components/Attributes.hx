@@ -1,8 +1,10 @@
 package domain.components;
 
+import data.AbilityType;
 import data.AttributeType;
 import data.SkillType;
-import domain.events.LevelUpEvent;
+import domain.events.QueryAbilitiesEvent;
+import domain.events.QuerySkillsEvent;
 import domain.events.QueryStatModEvent;
 import domain.skills.Skills;
 import ecs.Component;
@@ -15,6 +17,7 @@ class Attributes extends Component
 	@save public var finesse:Int = 0;
 	@save public var skills:Array<SkillType> = [];
 	@save public var freeSkills:Array<SkillType> = [];
+	@save public var abilities:Array<AbilityType> = [];
 
 	public function new(grit:Int = 0, savvy:Int = 0, finesse:Int = 0)
 	{
@@ -23,6 +26,8 @@ class Attributes extends Component
 		this.finesse = finesse;
 
 		addHandler(QueryStatModEvent, onQueryStatMod);
+		addHandler(QuerySkillsEvent, onQuerySkills);
+		addHandler(QueryAbilitiesEvent, onQueryAbilities);
 	}
 
 	public function get(attributes:AttributeType)
@@ -123,6 +128,14 @@ class Attributes extends Component
 		}
 	}
 
+	public function unlockAbility(ability:AbilityType)
+	{
+		if (!abilities.contains(ability))
+		{
+			abilities.push(ability);
+		}
+	}
+
 	private function onQueryStatMod(evt:QueryStatModEvent)
 	{
 		for (skill in skills)
@@ -132,6 +145,22 @@ class Attributes extends Component
 				.filter((mod) -> mod.stat == evt.stat);
 
 			evt.addMods(mods);
+		}
+	}
+
+	private function onQuerySkills(evt:QuerySkillsEvent)
+	{
+		evt.addSkills(skills);
+	}
+
+	private function onQueryAbilities(evt:QueryAbilitiesEvent)
+	{
+		evt.addAbilities(abilities);
+
+		for (skillType in skills)
+		{
+			var skill = Skills.Get(skillType);
+			evt.addAbilities(skill.getAbilities());
 		}
 	}
 }

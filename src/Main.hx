@@ -11,6 +11,7 @@ import data.core.ColorPaletteResources;
 import data.dialog.DialogTrees;
 import data.storylines.Stories;
 import data.tables.SpawnTables;
+import domain.abilities.Abilities;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.stats.Stats;
@@ -55,6 +56,7 @@ class Main extends hxd.App
 		Commands.Init();
 		Stats.Init();
 		Skills.Init();
+		Abilities.Init();
 		Weapons.Init();
 		Liquids.Init();
 		BiomeMap.Init();

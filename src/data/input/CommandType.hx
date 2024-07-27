@@ -21,6 +21,7 @@ enum abstract CommandType(String) to String
 	var CMD_EQUIPMENT = 'open equipment';
 	var CMD_CHARACTER = 'open character';
 	var CMD_SKILLS = 'open skills';
+	var CMD_ABILITIES = 'open abilities';
 	var CMD_MAP = 'open map';
 	var CMD_LOOK = 'look';
 	var CMD_INTERACT = 'interact';

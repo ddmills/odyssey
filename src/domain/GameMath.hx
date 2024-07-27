@@ -32,10 +32,9 @@ class GameMath
 		return 4 + armorRegenStat;
 	}
 
-	// note: 1 turn = 100 ticks. Waiting = 500 ticks
 	public static function GetArmorRegenDelay(armorRegenStat:Int):Int
 	{
-		return 500 * 8;
+		return 800;
 	}
 
 	public static function GetLevelXpReq(level:Int):Int

@@ -55,12 +55,12 @@ class PlayerPrefab extends Prefab
 		entity.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 		entity.add(new Health());
 
-		var attributes = new Attributes(3, 2, 1);
-		attributes.unlockSkill(SKILL_SHOTGUNS, true);
+		var attributes = new Attributes(2, 2, 2);
+		attributes.unlockSkill(SKILL_PISTOLS, true);
+		attributes.unlockSkill(SKILL_BARRAGE, true);
 		entity.add(attributes);
 
-		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
-		rhand.equip(Spawner.Spawn(COACH_GUN, pos));
+		rhand.equip(Spawner.Spawn(NAVY_REVOLVER, pos));
 		body.equip(Spawner.Spawn(LONG_JOHNS, pos));
 
 		var inv = entity.get(Inventory);
@@ -71,6 +71,7 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(RIFLE_AMMO, pos));
 		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO, pos));
 		inv.addLoot(Spawner.Spawn(REVOLVER, pos));
+		inv.addLoot(Spawner.Spawn(RIFLE, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
@@ -80,12 +81,6 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
-		inv.addLoot(Spawner.Spawn(STICK, pos));
 
 		return entity;
 	}

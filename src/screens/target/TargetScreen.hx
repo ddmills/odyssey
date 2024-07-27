@@ -4,12 +4,19 @@ import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
 import core.Screen;
+import core.input.Command;
+import data.AnimationResources;
 import data.Bitmasks;
+import data.Cardinal;
 import data.ColorKey;
 import data.TileResources;
+import domain.components.Highlight;
 import ecs.Entity;
+import ecs.Query;
+import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Object;
+import screens.console.ConsoleScreen;
 import screens.target.footprints.Footprint;
 import shaders.SpriteShader;
 
@@ -30,6 +37,10 @@ typedef TargetSettings =
 {
 	origin:TargetOrigin,
 	footprint:Footprint,
+	showFootprint:Bool,
+	targetQuery:Query,
+	onConfirm:(result:TargetResult) -> Void,
+	onCancel:() -> Void,
 }
 
 class TargetScreen extends Screen
@@ -41,6 +52,14 @@ class TargetScreen extends Screen
 	var ob:Object;
 	var result:TargetResult;
 
+	var targetBm:Anim;
+	var targetShader:SpriteShader;
+
+	var targets:Query;
+	var highlights:Query;
+	var targetEntityId:Null<String>;
+	var target(get, never):Null<Entity>;
+
 	public function new(targeter:Entity, settings:TargetSettings)
 	{
 		this.targeter = targeter;
@@ -48,27 +67,83 @@ class TargetScreen extends Screen
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
 		ob = new Object();
+
+		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
+		targetShader.isShrouded = 0;
+		targetShader.clearBackground = 0;
+
+		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);
+		targetBm.addShader(targetShader);
+
+		targets = settings.targetQuery;
+		highlights = new Query({
+			all: [Highlight],
+		});
 	}
 
 	override function onEnter()
 	{
 		game.render(GROUND, ob);
+		targetEntityId = null;
+		cursor = targeter.pos.floor();
+		var closest = getClosestTarget();
+		if (closest != null)
+		{
+			targetEntityId = closest.id;
+		}
 	}
 
 	override function onDestroy()
 	{
 		ob.remove();
+
+		var highlights = new Query({
+			all: [Highlight],
+		});
+
+		highlights.each((entity:Entity) ->
+		{
+			entity.remove(Highlight);
+		});
+
+		targetEntityId = null;
 	}
 
 	override function onMouseMove(pos:Coordinate, previous:Coordinate)
 	{
 		cursor = pos;
+		var prevWorld = previous.toWorld().floor();
+		var curWorld = pos.toWorld().floor();
+
+		if (!curWorld.equals(prevWorld))
+		{
+			cursor = curWorld;
+			targetEntityId = null;
+		}
+	}
+
+	override function onMouseDown(pos:Coordinate)
+	{
+		onConfirm();
+	}
+
+	function onConfirm()
+	{
+		settings.onConfirm(result);
+	}
+
+	function onCancel()
+	{
+		settings.onCancel();
+	}
+
+	private function look(dir:Cardinal)
+	{
+		cursor = cursor.add(dir.toOffset().asWorld());
 	}
 
 	override function update(frame:Frame)
 	{
-		world.updateSystems();
-
 		if (settings.origin == TARGETER)
 		{
 			origin = targeter.pos.floor();
@@ -76,6 +151,58 @@ class TargetScreen extends Screen
 		else if (settings.origin == CURSOR)
 		{
 			origin = cursor.toWorld().floor();
+		}
+
+		if (target != null)
+		{
+			cursor = target.pos;
+		}
+
+		highlights.each((e:Entity) ->
+		{
+			if (!targets.has(e))
+			{
+				e.remove(Highlight);
+			}
+		});
+
+		targets.each((t:Entity, idx:Int) ->
+		{
+			var highlight = t.get(Highlight);
+			if (highlight == null)
+			{
+				highlight = new Highlight();
+				t.add(highlight);
+			}
+
+			if (cursor.equals(t.pos))
+			{
+				targetEntityId = t.id;
+			}
+
+			if (t.id == targetEntityId)
+			{
+				highlight.showArrow = true;
+				highlight.showRing = false;
+				highlight.color = ColorKey.C_YELLOW_1;
+			}
+			else
+			{
+				highlight.showArrow = false;
+				highlight.showRing = true;
+				highlight.color = ColorKey.C_YELLOW_0;
+			}
+		});
+
+		world.updateSystems();
+
+		if (world.systems.energy.isPlayersTurn)
+		{
+			var cmd = game.commands.peek();
+			if (cmd != null)
+			{
+				handleInput(game.commands.next());
+			}
 		}
 
 		ob.removeChildren();
@@ -107,10 +234,107 @@ class TargetScreen extends Screen
 			a.y = pos.y;
 		}
 
+		var targetPosPx = cursor.toPx();
+		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
+		targetBm.visible = targetEntityId == null;
+
 		result = {
 			area: area,
 			origin: targeter.pos.toIntPoint(),
 			cursor: cursor.toIntPoint(),
 		};
+	}
+
+	private function handleInput(command:Command)
+	{
+		switch (command.type)
+		{
+			case CMD_MOVE_NW:
+				look(NORTH_WEST);
+			case CMD_MOVE_N:
+				look(NORTH);
+			case CMD_MOVE_NE:
+				look(NORTH_EAST);
+			case CMD_MOVE_E:
+				look(EAST);
+			case CMD_MOVE_W:
+				look(WEST);
+			case CMD_MOVE_SW:
+				look(SOUTH_WEST);
+			case CMD_MOVE_S:
+				look(SOUTH);
+			case CMD_MOVE_SE:
+				look(SOUTH_EAST);
+			case CMD_CONFIRM, CMD_SHOOT:
+				onConfirm();
+			case CMD_CANCEL:
+				onCancel();
+			case CMD_CONSOLE:
+				game.screens.push(new ConsoleScreen());
+			case CMD_CYCLE_INPUT:
+				cycleNextTarget();
+			case CMD_CYCLE_INPUT_REVERSE:
+				cyclePreviousTarget();
+			case _:
+		}
+	}
+
+	private function cycleNextTarget()
+	{
+		if (target == null)
+		{
+			var closest = getClosestTarget();
+			targetEntityId = closest == null ? null : closest.id;
+			return;
+		}
+
+		var sorted = getSortedTargets();
+		var idx = sorted.indexOf(target);
+		var nextIdx = idx + 1;
+		var next = nextIdx >= sorted.length ? sorted[0] : sorted[nextIdx];
+		if (next != null)
+		{
+			targetEntityId = next.id;
+		}
+	}
+
+	private function cyclePreviousTarget()
+	{
+		if (target == null)
+		{
+			var closest = getClosestTarget();
+			targetEntityId = closest == null ? null : closest.id;
+			return;
+		}
+
+		var sorted = getSortedTargets();
+		var idx = sorted.indexOf(target);
+		var nextIdx = idx - 1;
+		var next = nextIdx < 0 ? sorted.last() : sorted[nextIdx];
+		if (next != null)
+		{
+			targetEntityId = next.id;
+		}
+	}
+
+	private function getSortedTargets()
+	{
+		return targets.sort((a, b) ->
+		{
+			var aDist = a.pos.sub(targeter.pos).radians();
+			var bDist = b.pos.sub(targeter.pos).radians();
+
+			return aDist > bDist ? 1 : -1;
+		});
+	}
+
+	private function getClosestTarget()
+	{
+		return targets.min(e -> e.pos.distance(targeter.pos));
+	}
+
+	function get_target():Null<Entity>
+	{
+		return targets.find((t) -> t.id == targetEntityId);
 	}
 }

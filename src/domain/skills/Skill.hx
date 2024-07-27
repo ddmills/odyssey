@@ -1,8 +1,8 @@
 package domain.skills;
 
+import data.AbilityType;
 import data.SkillType;
 import domain.stats.StatModifier;
-import ecs.Entity;
 
 class Skill
 {
@@ -15,13 +15,18 @@ class Skill
 		this.name = name;
 	}
 
+	public function getCost():Int
+	{
+		return 120;
+	}
+
 	public function getStatModifiers():Array<StatModifier>
 	{
 		return [];
 	}
 
-	public function getCost():Int
+	public function getAbilities():Array<AbilityType>
 	{
-		return 120;
+		return [];
 	}
 }
