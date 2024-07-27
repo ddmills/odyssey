@@ -21,7 +21,8 @@ class PonchoPrefab extends Prefab
 		entity.add(new Destructable());
 
 		var stats = new EquippedStatMod();
-		stats.set(STAT_FORTITUDE, 2);
+		stats.set(STAT_ARMOR, 3);
+		stats.set(STAT_DODGE, 2);
 
 		entity.add(stats);
 

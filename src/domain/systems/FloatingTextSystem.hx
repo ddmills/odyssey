@@ -76,12 +76,12 @@ class FloatingTextSystem extends System
 			var floater = floaters.get(e.id);
 			var life = (component.lifetime / component.duration);
 
-			var target = floater.start.y - 20;
+			var target = floater.start.y - 25;
 
-			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_LINEAR));
-			floater.ob.alpha = (1 - life).ease(EASE_OUT_QUINT);
+			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_OUT_QUAD));
+			floater.ob.alpha = 1; // (1 - life).ease(EASE_LINEAR);
 
-			var scale = .2.lerp(.75, life.ease(EASE_OUT_QUINT));
+			var scale = .75; // .2.lerp(.75, life.ease(EASE_LINEAR));
 			floater.text.setScale(scale);
 
 			component.lifetime += frame.tmod;

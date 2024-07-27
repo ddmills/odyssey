@@ -34,6 +34,7 @@ import screens.inventory.InventoryScreen;
 import screens.map.MapScreen;
 import screens.save.SaveScreen;
 import screens.shooting.ShootingScreen;
+import screens.skill.SkillScreen;
 
 typedef HudText =
 {
@@ -79,7 +80,7 @@ class AdventureScreen extends Screen
 		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.friendlyString();
 		var hp = world.player.entity.get(Health);
-		hudText.health.text = '${hp.value}/${hp.max}';
+		hudText.health.text = '${hp.value}/${hp.max} (${hp.armor}/${hp.armorMax}})';
 
 		var mpos = game.input.mouse;
 		var zpos = mpos.toZone().toIntPoint();
@@ -180,6 +181,8 @@ class AdventureScreen extends Screen
 				game.screens.push(new EquipmentScreen(world.player.entity));
 			case CMD_CHARACTER:
 				game.screens.push(new CharacterScreen(world.player.entity));
+			case CMD_SKILLS:
+				game.screens.push(new SkillScreen(world.player.entity));
 			case CMD_MAP:
 				game.screens.push(new MapScreen());
 			case CMD_SHOOT:

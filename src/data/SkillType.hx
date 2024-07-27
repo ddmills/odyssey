@@ -1,0 +1,9 @@
+package data;
+
+enum SkillType
+{
+	SKILL_RIFLES;
+	SKILL_PISTOLS;
+	SKILL_SHOTGUNS;
+	SKILL_BRAWLER;
+}

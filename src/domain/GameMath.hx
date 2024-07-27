@@ -11,11 +11,11 @@ import ecs.Entity;
 
 class GameMath
 {
-	public static var XP_REQ_CAP = 3000;
+	public static var XP_REQ_CAP = 4000;
 	public static var XP_LVL_INTENSITY = 10;
-	public static var XP_BASE_GAIN = 100;
-	public static var XP_SPREAD = 3;
-	public static var XP_POWER = 2.5;
+	public static var XP_BASE_GAIN = 120;
+	public static var XP_SPREAD = 8;
+	public static var XP_POWER = 3;
 
 	public static function GetMaxHealth(level:Int, fortitudeStat:Int):Int
 	{
@@ -111,5 +111,17 @@ class GameMath
 
 			return n;
 		});
+	}
+
+	public static function GetSkillPointTotal(entity:Entity, level:Int):Int
+	{
+		var learning = Stats.GetValue(STAT_LEARNING, entity).clampLower(0);
+
+		return 120 + (learning * 12 * level);
+	}
+
+	public static function GetAttributePointTotal(level:Int):Int
+	{
+		return 7 + level;
 	}
 }

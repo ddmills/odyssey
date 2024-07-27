@@ -33,7 +33,8 @@ class CharacterScreen extends ListSelectScreen
 	function refreshList()
 	{
 		var attributes = target.get(Attributes);
-		title = 'Attributes (${attributes.unspentAttributePoints} unspent)';
+		var unspent = attributes.getUnspentAttributePoints();
+		title = 'Attributes (${unspent} unspent)';
 		var items = Attributes.GetAll(target).map(makeListItem);
 
 		setItems(items);

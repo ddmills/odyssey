@@ -7,7 +7,7 @@ PROFICIENCIES
 
 STATS
 
-Level up grants you +2 points to spend in Grit, Finesse, or Savvy. You start with zero.
+Level up grants you +1 points to spend in Grit, Finesse, or Savvy. You start with 7.
 
 STATS LIST:
 - Grit      = Affects health. Damage focused items.

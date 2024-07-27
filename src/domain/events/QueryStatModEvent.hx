@@ -14,8 +14,16 @@ class QueryStatModEvent extends EntityEvent
 		this.stat = stat;
 	}
 
-	public function addMod(mod:StatModifier)
+	public inline function addMod(mod:StatModifier)
 	{
 		mods.push(mod);
+	}
+
+	public inline function addMods(mods:Array<StatModifier>)
+	{
+		for (mod in mods)
+		{
+			addMod(mod);
+		}
 	}
 }

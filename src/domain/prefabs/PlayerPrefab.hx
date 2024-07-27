@@ -34,7 +34,7 @@ class PlayerPrefab extends Prefab
 		entity.add(new IsPlayer());
 		entity.add(new FactionMember(FACTION_PLAYER));
 		entity.add(new Energy(10));
-		entity.add(new Level(120));
+		entity.add(new Level(2));
 		entity.add(new Vision(20));
 		entity.add(new Sleeper());
 		entity.add(new Moniker('Cowboy'));
@@ -54,7 +54,10 @@ class PlayerPrefab extends Prefab
 		entity.add(new EquipmentSlot('Legs', 'legs', EQ_SLOT_LEGS));
 		entity.add(new EquipmentSlot('Feet', 'feet', EQ_SLOT_FEET));
 		entity.add(new Health());
-		entity.add(new Attributes(3, 2, 1));
+
+		var attributes = new Attributes(3, 2, 1);
+		attributes.unlockSkill(SKILL_SHOTGUNS, true);
+		entity.add(attributes);
 
 		var wpns:Array<SpawnableType> = [NAVY_REVOLVER, COACH_GUN, RIFLE];
 		rhand.equip(Spawner.Spawn(COACH_GUN, pos));

@@ -23,6 +23,7 @@ class CowboyHatPrefab extends Prefab
 		entity.add(new Destructable());
 
 		var stats = new EquippedStatMod();
+		stats.set(STAT_ARMOR, 1);
 		stats.set(STAT_DODGE, 1);
 		entity.add(stats);
 

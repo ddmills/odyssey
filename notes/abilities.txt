@@ -1,0 +1,8 @@
+- stance (toggle one stance on/off)
+	- sprinting
+	- sniper (reduce movement speed, increase accuracy)
+
+- targetable (select a target)
+	- volly (unload entire clip at once)
+	- draw a bead (mark a target. while marked, your accuracy against it doubles)
+

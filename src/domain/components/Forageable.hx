@@ -46,7 +46,16 @@ class Forageable extends Component
 	{
 		var amount = Stats.GetValue(STAT_FORAGE, evt.forager);
 		var result = Spawner.Spawn(foragePrefab, evt.forager.pos, {quantity: amount});
+
 		evt.forager.get(Inventory).addLoot(result);
+
+		var name = result.get(Moniker).displayName;
+
+		Spawner.Spawn(FLOATING_TEXT, evt.forager.pos, {
+			text: '+${name}',
+			color: ColorKey.C_GREEN_1,
+			duration: 120
+		});
 
 		Game.instance.world.playAudio(entity.pos.toIntPoint(), forageAudio);
 

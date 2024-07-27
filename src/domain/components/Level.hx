@@ -1,7 +1,9 @@
 package domain.components;
 
+import data.ColorKey;
 import domain.events.EnemyKilledEvent;
 import domain.events.LevelUpEvent;
+import domain.prefabs.Spawner;
 import ecs.Component;
 
 class Level extends Component
@@ -25,13 +27,27 @@ class Level extends Component
 			return;
 		}
 
-		xp += GameMath.GetXpGain(level, evt.enemy.get(Level).level);
+		var gain = GameMath.GetXpGain(level, evt.enemy.get(Level).level);
+
+		xp += gain;
+
+		Spawner.Spawn(FLOATING_TEXT, entity.pos, {
+			text: '+${gain}xp',
+			color: ColorKey.C_GRAY_2,
+			duration: 80
+		});
 	}
 
 	function levelUp()
 	{
 		level++;
 		entity.fireEvent(new LevelUpEvent(level));
+
+		Spawner.Spawn(FLOATING_TEXT, entity.pos, {
+			text: 'LEVEL UP',
+			color: ColorKey.C_BLUE_1,
+			duration: 300
+		});
 	}
 
 	function set_xp(value:Int):Int

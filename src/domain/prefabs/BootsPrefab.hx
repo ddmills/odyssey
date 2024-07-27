@@ -23,6 +23,7 @@ class BootsPrefab extends Prefab
 
 		var stats = new EquippedStatMod();
 		stats.set(STAT_SPEED, 2);
+		stats.set(STAT_ARMOR, 1);
 		entity.add(stats);
 
 		entity.add(new Destructable());

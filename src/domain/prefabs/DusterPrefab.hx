@@ -23,6 +23,7 @@ class DusterPrefab extends Prefab
 
 		var stats = new EquippedStatMod();
 		stats.set(STAT_FORTITUDE, 2);
+		stats.set(STAT_ARMOR, 2);
 
 		entity.add(stats);
 

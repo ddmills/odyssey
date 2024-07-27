@@ -12,6 +12,7 @@ import data.dialog.DialogTrees;
 import data.storylines.Stories;
 import data.tables.SpawnTables;
 import domain.data.liquids.Liquids;
+import domain.skills.Skills;
 import domain.stats.Stats;
 import domain.terrain.gen.pois.PoiLayouts;
 import domain.terrain.gen.rooms.RoomDecorators;
@@ -53,6 +54,7 @@ class Main extends hxd.App
 		SpawnTables.Init();
 		Commands.Init();
 		Stats.Init();
+		Skills.Init();
 		Weapons.Init();
 		Liquids.Init();
 		BiomeMap.Init();

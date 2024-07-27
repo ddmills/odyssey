@@ -304,6 +304,11 @@ class MapData
 			return n.poi == null && n.biomes.river == null;
 		});
 
+		if (open == null)
+		{
+			return;
+		}
+
 		railroad.addStop({
 			stopId: stopId,
 			zoneId: open.zoneId,

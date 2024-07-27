@@ -33,6 +33,7 @@ class Stats
 		stats.register(STAT_DODGE, new DodgeStats());
 		stats.register(STAT_ANIMAL_HANDLING, new AnimalHandlingStat());
 		stats.register(STAT_FORAGE, new ForageStat());
+		stats.register(STAT_LEARNING, new LearningStat());
 	}
 
 	public static function Get(type:StatType):Stat

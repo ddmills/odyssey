@@ -99,7 +99,7 @@ Buildings
 	- [ ] remedy
 	- [ ] contagion
 - [ ] drugs alcohol
-- [ ] explosives
+- [x] explosives
 - [ ] limbs damage
 
 enemy concepts:

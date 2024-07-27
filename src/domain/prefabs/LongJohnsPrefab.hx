@@ -23,7 +23,9 @@ class LongJohnsPrefab extends Prefab
 		entity.add(new Destructable());
 
 		var stats = new EquippedStatMod();
-		stats.set(STAT_FORTITUDE, 2);
+		stats.set(STAT_ARMOR, 2);
+		stats.set(STAT_DODGE, 2);
+
 		entity.add(stats);
 		entity.get(Equipment).equipAudio = CLOTH_EQUIP_1;
 		entity.get(Equipment).unequipAudio = CLOTH_UNEQUIP_1;

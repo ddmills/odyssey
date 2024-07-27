@@ -52,6 +52,10 @@ class Health extends Component
 			var rate = GameMath.GetArmorRegenRatePerTurn(regenStat) / 100;
 			armor += (rate * tickDelta).round().clampLower(1);
 		}
+		else if (armor > armorMax)
+		{
+			armor = armorMax;
+		}
 	}
 
 	private function onEntitySpawned(evt:EntitySpawnedEvent)
@@ -105,7 +109,7 @@ class Health extends Component
 				Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 					text: 'crit! -' + evt.attack.damage.toString(),
 					color: ColorKey.C_YELLOW_2,
-					duration: 100
+					duration: 120
 				});
 			}
 			else
@@ -113,7 +117,7 @@ class Health extends Component
 				Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 					text: '-' + evt.attack.damage.toString(),
 					color: ColorKey.C_RED_2,
-					duration: 50
+					duration: 100
 				});
 			}
 		}
@@ -122,7 +126,7 @@ class Health extends Component
 			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 				text: 'dodged',
 				color: ColorKey.C_BLUE_2,
-				duration: 40
+				duration: 80
 			});
 			evt.isHit = false;
 		}

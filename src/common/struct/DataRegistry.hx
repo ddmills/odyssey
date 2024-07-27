@@ -14,6 +14,11 @@ class DataRegistry<K:EnumValue, V>
 		return data.get(key);
 	}
 
+	public function getAll():Array<V>
+	{
+		return data.values();
+	}
+
 	public function iterator():Iterator<V>
 	{
 		return data.iterator();
