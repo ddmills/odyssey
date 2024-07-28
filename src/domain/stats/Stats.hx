@@ -34,6 +34,7 @@ class Stats
 		stats.register(STAT_ANIMAL_HANDLING, new AnimalHandlingStat());
 		stats.register(STAT_FORAGE, new ForageStat());
 		stats.register(STAT_LEARNING, new LearningStat());
+		stats.register(STAT_THROWING, new ThrowingStat());
 	}
 
 	public static function Get(type:StatType):Stat

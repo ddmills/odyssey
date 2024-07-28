@@ -9,7 +9,6 @@ import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.components.Weapon;
 import domain.events.ReloadEvent;
-import domain.events.ShootEvent;
 import domain.weapons.Weapons;
 import ecs.Entity;
 import ecs.Query;

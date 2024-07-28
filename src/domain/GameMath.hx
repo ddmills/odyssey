@@ -123,4 +123,9 @@ class GameMath
 	{
 		return 7 + level;
 	}
+
+	public static function GetThrowingDistance(throwStat:Int):Int
+	{
+		return 5 + throwStat;
+	}
 }

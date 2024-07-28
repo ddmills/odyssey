@@ -3,8 +3,6 @@ package domain.components;
 import core.Game;
 import data.AudioKey;
 import data.EquipmentSlotType;
-import domain.events.ConsumeEnergyEvent;
-import domain.events.DropEvent;
 import domain.events.EquipEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.UnequipEvent;

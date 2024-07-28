@@ -241,7 +241,7 @@ class TargetScreen extends Screen
 		result = {
 			area: area,
 			origin: targeter.pos.toIntPoint(),
-			cursor: cursor.toIntPoint(),
+			cursor: cursor.toWorld().toIntPoint(),
 		};
 	}
 

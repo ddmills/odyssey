@@ -1,5 +1,6 @@
 package screens.interaction;
 
+import common.algorithm.Distance.DistanceFormula;
 import core.Frame;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
@@ -25,6 +26,11 @@ class InteractionScreen extends ListSelectScreen
 
 	public function refreshList()
 	{
+		if (isOutOfReach())
+		{
+			game.screens.pop();
+		}
+
 		title = interactable.get(Moniker).displayName;
 
 		if (interactable.has(IsInventoried))
@@ -62,6 +68,15 @@ class InteractionScreen extends ListSelectScreen
 		}));
 
 		setItems(items);
+	}
+
+	function isOutOfReach()
+	{
+		var distance = interactable.pos.distance(interactor.pos, DistanceFormula.CHEBYSHEV);
+
+		trace('NEW DISTANCE', distance);
+
+		return distance > 1;
 	}
 
 	override function onResume()

@@ -131,7 +131,17 @@ class EnergySystem extends System
 			return 150;
 		}
 
+		if (type == ACT_THROW)
+		{
+			return 150;
+		}
+
 		if (type == ACT_EQUIP || type == ACT_UNEQUIP)
+		{
+			return 80;
+		}
+
+		if (type == ACT_DOOR_OPEN || type == ACT_DOOR_CLOSE)
 		{
 			return 80;
 		}

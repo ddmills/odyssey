@@ -73,8 +73,13 @@ class Loot extends Component
 
 	public function drop(pos:Coordinate, ?quantity:Int)
 	{
-		container.dropLoot(entity, pos, quantity);
+		removeFromInventory(pos, quantity);
 		Game.instance.audio.play(dropSound);
+	}
+
+	public function removeFromInventory(pos:Coordinate, ?quantity:Int):Entity
+	{
+		return container.dropLoot(entity, pos, quantity);
 	}
 
 	public function pickup(taker:Entity, ?quantity:Int)
