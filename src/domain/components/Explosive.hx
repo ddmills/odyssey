@@ -14,8 +14,8 @@ import hxd.Rand;
 
 class Explosive extends Component
 {
-	@save public var fuseTimeTicks:Int = 750;
-	@save public var remainingFuseTicks:Int = 750;
+	@save public var fuseTimeTicks:Int = 550;
+	@save public var remainingFuseTicks:Int = 550;
 	@save public var explodeAudio:AudioKey = EXPLOSION_STONE;
 	@save public var igniteAudio:AudioKey = IGNITE_MATCH;
 	@save public var radius:Int = 3;
@@ -53,6 +53,11 @@ class Explosive extends Component
 		}
 
 		fuseLighterEntityId = evt.lighter.id;
+
+		if (!entity.has(Energy))
+		{
+			entity.add(new Energy(50));
+		}
 
 		var blink = new HitBlink();
 		blink.rateSeconds = .8;

@@ -86,10 +86,11 @@ class EnergySystem extends System
 		}
 	}
 
-	public static function ConsumeEnergy(entity:Entity, type:EnergyActionType)
+	public static function ConsumeEnergy(entity:Entity, type:EnergyActionType):Int
 	{
 		var cost = GetEnergyCost(entity, type);
 		entity.fireEvent(new ConsumeEnergyEvent(cost));
+		return cost;
 	}
 
 	public static function GetEnergyCost(entity:Entity, type:EnergyActionType):Int
@@ -99,6 +100,11 @@ class EnergySystem extends System
 			var speed = Stats.GetValue(STAT_SPEED, entity);
 
 			return 80 - (speed * 5);
+		}
+
+		if (type == ACT_FUSE_TICK)
+		{
+			return 25;
 		}
 
 		if (type == ACT_SLEEP)

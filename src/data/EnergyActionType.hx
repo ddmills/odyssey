@@ -15,4 +15,5 @@ enum EnergyActionType
 	ACT_DOOR_CLOSE;
 	ACT_SLEEP;
 	ACT_THROW;
+	ACT_FUSE_TICK;
 }

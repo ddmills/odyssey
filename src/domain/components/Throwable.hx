@@ -55,10 +55,11 @@ class Throwable extends Component
 		if (entity.has(IsInventoried))
 		{
 			var loot = entity.get(Loot);
-			thing = loot.removeFromInventory(targetPos, 1);
+			thing = loot.removeFromInventory(thrower.pos, 1);
 		}
 
-		thing.pos = targetPos;
+		thing.pos = thrower.pos;
+		thing.add(new Move(targetPos, .9, LINEAR));
 
 		var cost = EnergySystem.GetEnergyCost(thrower, ACT_THROW);
 		thrower.fireEvent(new ConsumeEnergyEvent(cost));

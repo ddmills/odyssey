@@ -42,7 +42,7 @@ class BulletSystem extends System
 			var tracer = e.get(Tracer);
 			var g = new h2d.Graphics();
 
-			g.lineStyle(1, tracer.color, .6);
+			g.lineStyle(1, tracer.color, .4);
 
 			var start = tracer.start.toPx();
 			var end = tracer.end.toPx();

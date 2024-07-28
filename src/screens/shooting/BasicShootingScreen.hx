@@ -35,6 +35,11 @@ class BasicShootingScreen extends ShootingScreen
 		var evt = shooter.fireEvent(new QueryEquippedWeaponsEvent());
 		var w = evt.getPrimaryRanged();
 
+		if (w == null)
+		{
+			return null;
+		}
+
 		return w.weapon;
 	}
 }

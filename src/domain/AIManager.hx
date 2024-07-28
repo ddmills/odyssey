@@ -3,6 +3,7 @@ package domain;
 import core.Game;
 import data.Cardinal;
 import domain.components.Collider;
+import domain.components.Explosive;
 import domain.components.Health;
 import domain.components.Move;
 import domain.events.MeleeEvent;
@@ -24,6 +25,11 @@ class AIManager
 	public function takeAction(entity:Entity)
 	{
 		Game.instance.world.systems.movement.finishMoveFast(entity);
+
+		if (tryExploding(entity))
+		{
+			return;
+		}
 
 		if (tryAttackingNearby(entity))
 		{
@@ -48,6 +54,22 @@ class AIManager
 		EnergySystem.ConsumeEnergy(entity, ACT_WAIT);
 	}
 
+	public function tryExploding(entity:Entity):Bool
+	{
+		var explosive = entity.get(Explosive);
+
+		if (explosive == null || !explosive.isFuseLit)
+		{
+			return false;
+		}
+
+		var cost = EnergySystem.ConsumeEnergy(entity, ACT_FUSE_TICK);
+
+		explosive.onTickDelta(cost);
+
+		return true;
+	}
+
 	public function tryMove(entity:Entity):Bool
 	{
 		var delta = rand.pick(Cardinal.values).toOffset();
@@ -68,7 +90,7 @@ class AIManager
 
 		EnergySystem.ConsumeEnergy(entity, ACT_MOVE);
 
-		entity.add(new Move(goal, .5, LINEAR));
+		entity.add(new Move(goal, .5, INSTANT));
 		return true;
 	}
 

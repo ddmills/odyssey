@@ -55,20 +55,23 @@ class MovementSystem extends System
 	public function finishMoveFast(entity:Entity):Bool
 	{
 		var move = entity.get(Move);
-		if (move != null)
+
+		if (move == null)
 		{
-			entity.remove(Move);
-
-			if (entity.x.floor() != move.goal.x.floor() || entity.y.floor() != move.goal.y.floor())
-			{
-				entity.add(new Moved());
-			}
-
-			entity.pos = move.goal;
-			entity.add(new MoveComplete());
-			return true;
+			return false;
 		}
-		return false;
+
+		entity.remove(Move);
+
+		if (entity.x.floor() != move.goal.x.floor() || entity.y.floor() != move.goal.y.floor())
+		{
+			entity.add(new Moved());
+		}
+
+		entity.pos = move.goal;
+		entity.add(new MoveComplete());
+
+		return true;
 	}
 
 	public override function update(frame:Frame)
@@ -80,8 +83,10 @@ class MovementSystem extends System
 				var cost = EnergySystem.GetEnergyCost(entity, ACT_MOVE);
 				entity.fireEvent(new ConsumeEnergyEvent(cost));
 			}
+
 			entity.remove(MoveComplete);
 		}
+
 		for (entity in moved)
 		{
 			entity.remove(Moved);
