@@ -100,6 +100,7 @@ class Inventory extends Component
 	{
 		var l = removeLoot(loot, quantity);
 		l.pos = pos == null ? entity.pos : pos;
+		l.drawable.pos = null;
 		return l;
 	}
 

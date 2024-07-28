@@ -16,7 +16,7 @@ class ScanlineShader extends ScreenShader
 				var blurSize = 0.25;
 				var subtleLevel = .54;
 				var scanlineSize = 4;
-				var boost = 1.05;
+				var boost = 1.125;
 				var invH = 1. / screenH;
 
 				var blur = vec4(0., 0., 0., 0.);

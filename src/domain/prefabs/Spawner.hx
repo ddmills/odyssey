@@ -1,11 +1,11 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import common.struct.Coordinate;
 import core.Game;
 import data.SpawnableType;
 import domain.events.EntitySpawnedEvent;
 import domain.prefabs.BloodSpatterPrefab.BloodSplatterPrefab;
+import domain.prefabs.NavyRevolverPrefab;
 
 class Spawner
 {
@@ -19,9 +19,9 @@ class Spawner
 		prefabs.set(CACTUS, new CactusPrefab());
 		prefabs.set(CHEST, new ChestPrefab());
 		prefabs.set(LOCKBOX, new LockboxPrefab());
-		prefabs.set(NAVY_REVOLVER, new NavyRevoloverPrefab());
+		prefabs.set(NAVY_REVOLVER, new NavyRevolverPrefab());
 		prefabs.set(SNUB_NOSE_REVOLVER, new SnubNoseRevolverPrefab());
-		prefabs.set(REVOLVER, new RevoloverPrefab());
+		prefabs.set(REVOLVER, new RevolverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(WOLF, new WolfPrefab());
 		prefabs.set(YARROW, new YarrowPrefab());

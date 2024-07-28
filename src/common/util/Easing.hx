@@ -3,6 +3,7 @@ package common.util;
 enum EasingType
 {
 	EASE_LINEAR;
+	EASE_INSTANT;
 	EASE_IN_QUAD;
 	EASE_OUT_QUAD;
 	EASE_IN_OUT_QUAD;
@@ -56,6 +57,8 @@ class Easing
 		{
 			case EASE_LINEAR:
 				return Easing.easeLinear;
+			case EASE_INSTANT:
+				return Easing.easeInstant;
 			case EASE_IN_QUAD:
 				return Easing.easeInQuad;
 			case EASE_OUT_QUAD:
@@ -122,6 +125,11 @@ class Easing
 	static inline public function easeLinear(x:Float):Float
 	{
 		return x;
+	}
+
+	static inline public function easeInstant(x:Float):Float
+	{
+		return 1;
 	}
 
 	static public function easeInQuad(x:Float):Float

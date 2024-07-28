@@ -126,21 +126,21 @@ class WeaponFamily
 			}
 
 			var bullet = Spawner.Spawn(BULLET, attack.attacker.pos);
-			bullet.add(new Move(target.asWorld(), .9, LINEAR));
+			bullet.add(new Move(target.asWorld(), .25, EASE_LINEAR));
 
 			var start = attack.attacker.pos.add(new Coordinate(.5, .5));
 
 			if (attack.isCritical)
 			{
 				var end = target.asWorld().add(new Coordinate(.5, .5));
-				bullet.add(new Tracer(start, end, 1, data.ColorKey.C_YELLOW_2));
+				bullet.add(new Tracer(start, end, .3, data.ColorKey.C_YELLOW_3));
 			}
 			else
 			{
 				var endX = r.float(.25, .75);
 				var endY = r.float(.25, .75);
 				var end = target.asWorld().add(new Coordinate(endX, endY));
-				bullet.add(new Tracer(start, end, .5, data.ColorKey.C_GRAY_2));
+				bullet.add(new Tracer(start, end, .10, data.ColorKey.C_GRAY_1));
 			}
 
 			if (isHit)

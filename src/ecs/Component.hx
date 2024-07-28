@@ -43,6 +43,8 @@ abstract class Component
 
 	function onRemove() {}
 
+	function onAttach() {}
+
 	@:allow(ecs.Entity)
 	private function onEvent(evt:EntityEvent)
 	{
@@ -59,6 +61,7 @@ abstract class Component
 	function _attach(entity:Entity)
 	{
 		this.entity = entity;
+		onAttach();
 	}
 
 	@:allow(ecs.Entity)

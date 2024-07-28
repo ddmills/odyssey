@@ -2,7 +2,6 @@ package domain.systems;
 
 import core.Frame;
 import core.rendering.RenderLayerManager.RenderLayerType;
-import data.ColorKey;
 import domain.components.Bullet;
 import domain.components.IsDestroyed;
 import domain.components.MoveComplete;

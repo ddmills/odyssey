@@ -11,6 +11,7 @@ import data.Bitmasks;
 import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
+import domain.components.Move;
 import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Interactive;
@@ -129,8 +130,10 @@ class MapScreen extends Screen
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('teleport', pos.toString(), targetPos.toString());
 
+		world.player.entity.remove(Move);
 		world.chunks.loadChunks(targetPos.toChunkIdx());
 		world.chunks.loadChunk(targetPos.toChunkIdx());
+		world.player.entity.drawable.pos = null;
 		world.player.pos = targetPos;
 	}
 

@@ -1,5 +1,6 @@
 package domain.components;
 
+import common.struct.Coordinate;
 import core.Game;
 import core.rendering.RenderLayerManager.RenderLayerType;
 import data.ColorKey;
@@ -24,6 +25,7 @@ abstract class Drawable extends Component
 	@save public var isVisible(default, set):Bool = false;
 	@save public var offsetX(default, set):Float = 0;
 	@save public var offsetY(default, set):Float = 0;
+	@save public var pos(default, set):Coordinate = null;
 
 	public var primaryColor(get, never):ColorKey;
 	public var secondaryColor(get, never):ColorKey;
@@ -78,10 +80,44 @@ abstract class Drawable extends Component
 		return value;
 	}
 
+	public function getDrawnPosition()
+	{
+		if (pos != null)
+		{
+			return pos;
+		}
+
+		return new Coordinate(drawable.x, drawable.y, PIXEL);
+	}
+
 	public function updatePos(px:Float, py:Float)
 	{
-		drawable.x = px - offsetX;
-		drawable.y = py - offsetY;
+		if (pos != null)
+		{
+			var pix = pos.toPx();
+			drawable.x = pix.x - offsetX;
+			drawable.y = pix.y - offsetY;
+		}
+		else
+		{
+			drawable.x = px - offsetX;
+			drawable.y = py - offsetY;
+		}
+	}
+
+	function set_pos(value:Coordinate):Coordinate
+	{
+		if (value != null)
+		{
+			pos = value.toPx();
+		}
+		else
+		{
+			pos = null;
+		}
+
+		updatePos(drawable.x, drawable.y);
+		return value;
 	}
 
 	inline function set_isVisible(value:Bool):Bool

@@ -24,8 +24,6 @@ class AIManager
 
 	public function takeAction(entity:Entity)
 	{
-		Game.instance.world.systems.movement.finishMoveFast(entity);
-
 		if (tryExploding(entity))
 		{
 			return;
@@ -90,7 +88,9 @@ class AIManager
 
 		EnergySystem.ConsumeEnergy(entity, ACT_MOVE);
 
-		entity.add(new Move(goal, .5, INSTANT));
+		var fast = entity.has(Move);
+		entity.add(new Move(goal, fast ? .05 : .15, EASE_LINEAR));
+
 		return true;
 	}
 

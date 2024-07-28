@@ -74,8 +74,6 @@ class InteractionScreen extends ListSelectScreen
 	{
 		var distance = interactable.pos.distance(interactor.pos, DistanceFormula.CHEBYSHEV);
 
-		trace('NEW DISTANCE', distance);
-
 		return distance > 1;
 	}
 

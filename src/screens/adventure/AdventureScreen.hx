@@ -19,6 +19,7 @@ import domain.components.Level;
 import domain.components.Move;
 import domain.components.Path;
 import domain.components.Sprite;
+import domain.events.ConsumeEnergyEvent;
 import domain.events.MeleeEvent;
 import domain.events.OpenDoorEvent;
 import domain.prefabs.Spawner;
@@ -77,7 +78,7 @@ class AdventureScreen extends Screen
 	public override function update(frame:Frame)
 	{
 		world.updateSystems();
-		game.camera.focus = world.player.pos;
+		game.camera.focus = world.player.entity.drawable.getDrawnPosition();
 		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.friendlyString();
 		var hp = world.player.entity.get(Health);
@@ -229,7 +230,10 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		world.player.entity.add(new Move(target.asWorld(), .15, LINEAR));
+		world.player.entity.add(new Move(target.asWorld(), .1, EASE_LINEAR));
+
+		var cost = EnergySystem.GetEnergyCost(world.player.entity, ACT_MOVE);
+		world.player.entity.fireEvent(new ConsumeEnergyEvent(cost));
 	}
 
 	private function onInteract(pos:Coordinate)

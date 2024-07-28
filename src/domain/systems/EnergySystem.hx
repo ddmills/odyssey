@@ -114,7 +114,7 @@ class EnergySystem extends System
 
 		if (type == ACT_WAIT)
 		{
-			return 500;
+			return 100;
 		}
 
 		if (type == ACT_DROP)

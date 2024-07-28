@@ -3,6 +3,8 @@ package common.extensions;
 import common.algorithm.Distance;
 import common.struct.Coordinate;
 import common.struct.FloatPoint;
+import common.util.Easing.EasingType;
+import common.util.Easing;
 import common.util.Projection;
 import core.Game;
 import data.Cardinal;
@@ -233,5 +235,19 @@ class CoordinateExtensions
 	static public inline function direction(a:Coordinate, b:Coordinate):FloatPoint
 	{
 		return b.sub(a).normalized();
+	}
+
+	/**
+	 * Returns Coordinate eased from a to b
+	**/
+	static public inline function ease(a:Coordinate, b:Coordinate, x:Float, easing:EasingType):Coordinate
+	{
+		var progress = Easing.apply(x, easing);
+		var direction = a.direction(b);
+		var distance = a.toWorld().distance(b.toWorld(), EUCLIDEAN);
+
+		var newPx = direction.multiply(progress * distance);
+
+		return newPx.asWorld().add(a);
 	}
 }

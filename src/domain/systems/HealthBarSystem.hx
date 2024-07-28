@@ -81,7 +81,7 @@ class HealthBarSystem extends System
 		for (e in query)
 		{
 			var health = e.get(Health);
-			var targetPos = e.pos.toPx();
+			var targetPos = e.drawable.getDrawnPosition().toPx();
 			var bm = bars.get(e.id);
 			bm.ob.x = targetPos.x;
 			bm.ob.y = targetPos.y;

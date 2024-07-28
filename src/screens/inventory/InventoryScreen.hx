@@ -1,5 +1,6 @@
 package screens.inventory;
 
+import core.Frame;
 import domain.components.Inventory;
 import domain.components.Moniker;
 import ecs.Entity;
@@ -33,5 +34,11 @@ class InventoryScreen extends EntitySelectScreen
 		fetchEntities = () -> accessible.get(Inventory).content;
 
 		title = '${accessible.get(Moniker).displayName} Inventory';
+	}
+
+	override function update(frame:Frame)
+	{
+		super.update(frame);
+		world.updateSystems();
 	}
 }

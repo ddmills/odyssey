@@ -1,6 +1,8 @@
 package domain.components;
 
 import common.struct.Coordinate;
+import common.util.Easing;
+import core.Game;
 import ecs.Component;
 
 enum Tween
@@ -13,15 +15,20 @@ enum Tween
 class Move extends Component
 {
 	@save public var goal:Coordinate;
-	@save public var tween:Tween;
-	@save public var speed:Float;
+	@save public var start:Coordinate;
+	@save public var ease:EasingType;
+	@save public var duration:Float;
 	@save public var epsilon:Float;
+	@save public var isMovedFired:Bool;
 
-	public function new(goal:Coordinate, speed:Float = 0.05, tween:Tween = LINEAR, epsilon:Float = .0075)
+	public var startTime:Float;
+
+	public function new(goal:Coordinate, duration:Float = 0.5, ease:EasingType = EASE_LINEAR, epsilon:Float = .0025)
 	{
 		this.goal = goal;
-		this.tween = tween;
-		this.speed = speed;
+		this.ease = ease;
+		this.duration = duration;
 		this.epsilon = epsilon;
+		isMovedFired = false;
 	}
 }

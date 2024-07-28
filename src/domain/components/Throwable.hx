@@ -31,9 +31,13 @@ class Throwable extends Component
 
 	public function onThrow(evt:ThrowEvent)
 	{
+		var explosive = entity.get(Explosive);
+
+		var radius = explosive != null ? explosive.radius : 0;
+
 		Game.instance.screens.push(new TargetScreen(evt.thrower, {
 			origin: CURSOR,
-			footprint: new CircleFootprint(2),
+			footprint: new CircleFootprint(radius),
 			showFootprint: true,
 			targetQuery: new Query({
 				all: [Visible, Health, IsEnemy],
@@ -59,7 +63,7 @@ class Throwable extends Component
 		}
 
 		thing.pos = thrower.pos;
-		thing.add(new Move(targetPos, .9, LINEAR));
+		thing.add(new Move(targetPos, .75, EASE_IN_QUAD));
 
 		var cost = EnergySystem.GetEnergyCost(thrower, ACT_THROW);
 		thrower.fireEvent(new ConsumeEnergyEvent(cost));
