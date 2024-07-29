@@ -1,0 +1,39 @@
+Gun Mechanics
+=============
+
+Each gun will belong to a weapon family, which you can get a skill to boost the stats associated with it.
+
+
+Attributes that can be tweaked:
+- Range
+- Accuracy (%)
+- Damage
+- Reload speed
+- Firing rate
+- Clip size
+- Ammo type
+- on-handed, two-handed
+- on-crit effects
+- On-hit effects (poison, knockback, stun, burn)
+- Footprint (AOE - Point, Line, Circle, Cone)
+- Bullets per shot
+
+
+How gun types should feel:
+- Rifles: Powerful, long range, accurate, slow
+- Shotguns, Powerful, Short range, innacurate, fast
+- Pistols: Quick, Mix of the two
+
+
+
+
+
+Question:
+How should shooting work when you have two guns equipped?
+	- Alternate?
+	- Decrease accuracy, and shot-cost?
+	- Fire at same time, second gun has decreased accuracy
+	- Energy cost for shooting two weapons...? Highest of the two? Avg of the two? Sum? Primary gun cost?
+
+Can you shoot outside of the gun range?
+

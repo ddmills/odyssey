@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
 import domain.components.Ammo;
 import domain.components.Destructable;
 import domain.components.Loot;

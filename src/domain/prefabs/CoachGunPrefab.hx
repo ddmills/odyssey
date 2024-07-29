@@ -1,9 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.AudioResources;
-import data.ColorKey;
-import data.TileResources;
 import domain.components.Destructable;
 import domain.components.Equipment;
 import domain.components.Loot;
@@ -21,7 +18,7 @@ class CoachGunPrefab extends Prefab
 		entity.add(new Moniker('Coach gun'));
 		entity.add(new Loot());
 		entity.add(new Destructable());
-		entity.add(new Equipment([EQ_SLOT_HAND], [EQ_SLOT_HAND]));
+		entity.add(new Equipment([EQ_SLOT_HAND]));
 		entity.get(Equipment).equipAudio = GUN_HANDLE_1;
 		entity.get(Equipment).unequipAudio = GUN_HANDLE_4;
 

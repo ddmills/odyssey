@@ -25,11 +25,26 @@ class QueryEquippedWeaponsEvent extends EntityEvent
 		});
 	}
 
-	public function getPrimaryRanged()
+	public function getPrimaryRanged():WeaponData
 	{
 		return weapons.find((w) ->
 		{
 			if (!w.slot.isPrimary)
+			{
+				return false;
+			}
+
+			var family = Weapons.Get(w.weapon.family);
+
+			return family.isRanged;
+		});
+	}
+
+	public function getOffhandRanged():Array<WeaponData>
+	{
+		return weapons.filter((w) ->
+		{
+			if (w.slot.isPrimary)
 			{
 				return false;
 			}

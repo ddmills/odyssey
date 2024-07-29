@@ -20,8 +20,8 @@ import domain.prefabs.Spawner;
 import domain.stats.Stats;
 import ecs.Entity;
 import hxd.Rand;
-import screens.target.footprints.CircleFootprint;
 import screens.target.footprints.Footprint;
+import screens.target.footprints.PointFootprint;
 
 class WeaponFamily
 {
@@ -43,17 +43,20 @@ class WeaponFamily
 
 		for (p in aoe)
 		{
+			var hitEntity = false;
 			var entities = Game.instance.world.getEntitiesAt(p);
+
+			var roll = r.roll(Game.instance.DIE_SIZE);
+			var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon);
+			var statValue = Stats.GetValue(stat, attacker);
+			var damage = r.roll(weapon.die, weapon.modifier) + statValue;
+			var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
 
 			for (e in entities)
 			{
 				if (e != attacker && e.has(Health) && !e.has(IsInventoried) && !e.has(IsDestroyed))
 				{
-					var roll = r.roll(Game.instance.DIE_SIZE);
-					var toHit = roll + GameMath.GetRangedAttackToHit(attacker, target, weapon);
-					var statValue = Stats.GetValue(stat, attacker);
-					var damage = r.roll(weapon.die, weapon.modifier) + statValue;
-					var isCritical = attacker.has(IsPlayer) && roll == Game.instance.DIE_SIZE;
+					hitEntity = true;
 
 					// todo: do we actually have a clear trajectory to the target?
 					attacks.push({
@@ -64,7 +67,21 @@ class WeaponFamily
 						isCritical: isCritical,
 						defender: e,
 					});
+
+					continue;
 				}
+			}
+
+			if (!hitEntity)
+			{
+				attacks.push({
+					attacker: attacker,
+					toHit: toHit,
+					damage: damage,
+					damageType: DMG_PIERCE,
+					isCritical: isCritical,
+					defender: null,
+				});
 			}
 		}
 
@@ -73,7 +90,7 @@ class WeaponFamily
 
 	public function getFootprint():Footprint
 	{
-		return new CircleFootprint(1);
+		return new PointFootprint();
 	}
 
 	public function getMeleeAttacks(attacker:Entity, weapon:Weapon):Array<Attack>
@@ -137,9 +154,10 @@ class WeaponFamily
 			}
 			else
 			{
-				var endX = r.float(.25, .75);
-				var endY = r.float(.25, .75);
-				var end = target.asWorld().add(new Coordinate(endX, endY));
+				var endX = isHit ? r.float(-1, 1) : r.float(-4, 4);
+				var endY = isHit ? r.float(-1, 1) : r.float(-4, 4);
+
+				var end = target.asWorld().add(new Coordinate(endX, endY, WORLD)).add(new Coordinate(.5, .5));
 				bullet.add(new Tracer(start, end, .10, data.ColorKey.C_GRAY_1));
 			}
 

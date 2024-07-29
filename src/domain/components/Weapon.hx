@@ -27,6 +27,7 @@ class Weapon extends Component
 	@save public var ammoCapacity:Int;
 	@save public var reloadAudio:AudioKey = RELOAD_CLIP_1;
 	@save public var unloadAudio:AudioKey = LOOT_PICKUP_1;
+
 	public var isLoaded(get, never):Bool;
 
 	public function new(family:WeaponFamilyType)

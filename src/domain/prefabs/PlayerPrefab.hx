@@ -43,9 +43,10 @@ class PlayerPrefab extends Prefab
 		entity.add(new EquipmentSlot('Face', 'face', EQ_SLOT_FACE));
 
 		var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);
+		var lhand = new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, false);
 
 		entity.add(rhand);
-		entity.add(new EquipmentSlot('Left hand', 'handLeft', EQ_SLOT_HAND, true));
+		entity.add(lhand);
 		entity.add(new EquipmentSlot('Holster', 'holster', EQ_SLOT_HOLSTER));
 		entity.add(new EquipmentSlot('Belt', 'belt', EQ_SLOT_BELT));
 
@@ -61,6 +62,7 @@ class PlayerPrefab extends Prefab
 		entity.add(attributes);
 
 		rhand.equip(Spawner.Spawn(NAVY_REVOLVER, pos));
+		lhand.equip(Spawner.Spawn(REVOLVER, pos));
 		body.equip(Spawner.Spawn(LONG_JOHNS, pos));
 
 		var inv = entity.get(Inventory);
@@ -72,6 +74,7 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO, pos));
 		inv.addLoot(Spawner.Spawn(REVOLVER, pos));
 		inv.addLoot(Spawner.Spawn(RIFLE, pos));
+		inv.addLoot(Spawner.Spawn(COACH_GUN, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));

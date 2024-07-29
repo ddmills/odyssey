@@ -302,6 +302,24 @@ class TileResources
 		tiles.set(HIGHLIGHT_14, highlight[3][2]);
 		tiles.set(HIGHLIGHT_15, highlight[3][3]);
 
+		var highlight_dash = hxd.Res.tiles.smol.highlight_dashed_16_16.toTile().divide(4, 4);
+		tiles.set(HIGHLIGHT_DASH_0, highlight_dash[0][0]);
+		tiles.set(HIGHLIGHT_DASH_1, highlight_dash[0][1]);
+		tiles.set(HIGHLIGHT_DASH_2, highlight_dash[0][2]);
+		tiles.set(HIGHLIGHT_DASH_3, highlight_dash[0][3]);
+		tiles.set(HIGHLIGHT_DASH_4, highlight_dash[1][0]);
+		tiles.set(HIGHLIGHT_DASH_5, highlight_dash[1][1]);
+		tiles.set(HIGHLIGHT_DASH_6, highlight_dash[1][2]);
+		tiles.set(HIGHLIGHT_DASH_7, highlight_dash[1][3]);
+		tiles.set(HIGHLIGHT_DASH_8, highlight_dash[2][0]);
+		tiles.set(HIGHLIGHT_DASH_9, highlight_dash[2][1]);
+		tiles.set(HIGHLIGHT_DASH_10, highlight_dash[2][2]);
+		tiles.set(HIGHLIGHT_DASH_11, highlight_dash[2][3]);
+		tiles.set(HIGHLIGHT_DASH_12, highlight_dash[3][0]);
+		tiles.set(HIGHLIGHT_DASH_13, highlight_dash[3][1]);
+		tiles.set(HIGHLIGHT_DASH_14, highlight_dash[3][2]);
+		tiles.set(HIGHLIGHT_DASH_15, highlight_dash[3][3]);
+
 		var railroad = hxd.Res.tiles.smol.railroad_16_16.toTile().divide(4, 4);
 		tiles.set(RAILROAD_0, railroad[0][0]);
 		tiles.set(RAILROAD_1, railroad[0][1]);

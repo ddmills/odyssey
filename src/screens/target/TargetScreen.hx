@@ -19,6 +19,7 @@ import h2d.Bitmap;
 import h2d.Graphics;
 import h2d.Object;
 import screens.console.ConsoleScreen;
+import screens.target.footprints.CircleFootprint;
 import screens.target.footprints.Footprint;
 import shaders.SpriteShader;
 
@@ -53,6 +54,8 @@ class TargetScreen extends Screen
 	var origin:Coordinate;
 	var cursor:Coordinate;
 	var ob:Object;
+	var rangeOb:Object;
+	var footprintOb:Object;
 	var result:TargetResult;
 
 	var targetBm:Anim;
@@ -70,6 +73,8 @@ class TargetScreen extends Screen
 
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
 		ob = new Object();
+		rangeOb = new Object(ob);
+		footprintOb = new Object(ob);
 
 		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
 		targetShader.isShrouded = 0;
@@ -94,6 +99,7 @@ class TargetScreen extends Screen
 		{
 			targetEntityId = closest.id;
 		}
+		drawRangeCircle();
 	}
 
 	override function onDestroy()
@@ -208,20 +214,37 @@ class TargetScreen extends Screen
 			}
 		}
 
-		ob.removeChildren();
-
 		var originPx = targeter.pos.toPx();
 		ob.x = originPx.x;
 		ob.y = originPx.y;
 
-		var g = new Graphics();
-		g.lineStyle(1, ColorKey.C_BLUE_2.toInt());
-		g.drawCircle(0, 0, settings.range * game.TILE_W);
-		g.setPosition(game.TILE_W_HALF, game.TILE_H_HALF);
-		ob.addChild(g);
+		var cursorPx = cursor.sub(originPx).toPx();
 
 		var area = settings.footprint.getFootprint(targeter.pos, cursor.toWorld().floor());
-		var shader = new SpriteShader(C_RED_3, C_GRAY_1);
+
+		drawFootprint(area);
+
+		var targetPosPx = cursor.toPx();
+		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
+		targetBm.visible = targetEntityId == null;
+
+		result = {
+			area: area,
+			origin: targeter.pos.toIntPoint(),
+			cursor: cursor.toWorld().toIntPoint(),
+		};
+	}
+
+	private function drawFootprint(area:Array<IntPoint>)
+	{
+		footprintOb.removeChildren();
+
+		if (!settings.showFootprint)
+		{
+			return;
+		}
+
+		var shader = new SpriteShader(C_RED_4, C_GRAY_1);
 		shader.isShrouded = 0;
 
 		for (p in area)
@@ -233,8 +256,9 @@ class TargetScreen extends Screen
 			});
 
 			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT, mask);
-			var a = new Bitmap(TileResources.Get(tileKey), ob);
-			a.alpha = .6;
+			var a = new Bitmap(TileResources.Get(tileKey), footprintOb);
+			a.visible = settings.showFootprint;
+			a.alpha = .5;
 			a.addShader(shader);
 
 			var pos = p.asWorld().sub(targeter.pos).toPx();
@@ -242,16 +266,33 @@ class TargetScreen extends Screen
 			a.x = pos.x;
 			a.y = pos.y;
 		}
+	}
 
-		var targetPosPx = cursor.toPx();
-		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
-		targetBm.visible = targetEntityId == null;
+	private function drawRangeCircle()
+	{
+		rangeOb.removeChildren();
+		var rangeArea = (new CircleFootprint(settings.range)).getFootprint(targeter.pos, targeter.pos.floor());
+		var shader = new SpriteShader(C_GRAY_1, C_GRAY_1);
+		shader.isShrouded = 0;
 
-		result = {
-			area: area,
-			origin: targeter.pos.toIntPoint(),
-			cursor: cursor.toWorld().toIntPoint(),
-		};
+		for (p in rangeArea)
+		{
+			var mask = Bitmasks.SumMask((x, y) ->
+			{
+				var local = p.add(x, y);
+				return rangeArea.exists((point) -> point.equals(local));
+			});
+
+			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT_DASH, mask);
+			var bm = new Bitmap(TileResources.Get(tileKey), rangeOb);
+			bm.alpha = .2;
+			bm.addShader(shader);
+
+			var pos = p.asWorld().sub(targeter.pos).toPx();
+
+			bm.x = pos.x;
+			bm.y = pos.y;
+		}
 	}
 
 	private function handleInput(command:Command)

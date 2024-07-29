@@ -24,8 +24,8 @@ class RevolverPrefab extends Prefab
 
 		var weapon = new Weapon(WPN_FAMILY_PISTOL);
 		weapon.baseCost = 52;
-		weapon.ammo = 5;
-		weapon.ammoCapacity = 5;
+		weapon.ammo = 3;
+		weapon.ammoCapacity = 3;
 		weapon.range = 6;
 		weapon.reloadAudio = RELOAD_CLIP_5;
 		weapon.unloadAudio = UNLOAD_CLIP_2;

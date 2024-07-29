@@ -17,7 +17,8 @@ import screens.target.footprints.EmptyFootprint;
 
 typedef ShootingScreenSettings =
 {
-	weapon:Weapon,
+	primaryWeapon:Weapon,
+	offhandWeapons:Array<Weapon>,
 	onConfirm:(result:TargetResult) -> Void,
 	onCancel:() -> Void,
 }
@@ -36,7 +37,7 @@ class ShootingScreen extends TargetScreen
 			none: [IsInventoried, IsDestroyed],
 		});
 
-		var weapon = shootingSettings.weapon;
+		var weapon = shootingSettings.primaryWeapon;
 
 		var fp = weapon == null ? new EmptyFootprint() : Weapons.Get(weapon.family).getFootprint();
 		var range = weapon == null ? 0 : weapon.range;
@@ -46,7 +47,7 @@ class ShootingScreen extends TargetScreen
 			footprint: fp,
 			range: range,
 			targetQuery: targetQuery,
-			showFootprint: true,
+			showFootprint: false,
 			onConfirm: tryShoot,
 			onCancel: shootingSettings.onCancel,
 		});
@@ -54,7 +55,7 @@ class ShootingScreen extends TargetScreen
 
 	override function update(frame:Frame)
 	{
-		if (shootingSettings.weapon == null)
+		if (shootingSettings.primaryWeapon == null)
 		{
 			game.screens.pop();
 		}
@@ -64,22 +65,22 @@ class ShootingScreen extends TargetScreen
 
 	private function tryShoot(target:TargetResult)
 	{
-		if (shootingSettings.weapon == null)
-		{
-			return;
-		}
-
 		shootingSettings.onConfirm(target);
 	}
 
 	function tryReload()
 	{
-		if (shootingSettings.weapon == null)
+		if (shootingSettings.primaryWeapon == null)
 		{
 			return;
 		}
 
-		shootingSettings.weapon.entity.fireEvent(new ReloadEvent(shooter));
+		shootingSettings.primaryWeapon.entity.fireEvent(new ReloadEvent(shooter));
+
+		for (weapon in shootingSettings.offhandWeapons)
+		{
+			weapon.entity.fireEvent(new ReloadEvent(shooter));
+		}
 	}
 
 	override function handleInput(command:Command)

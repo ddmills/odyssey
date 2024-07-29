@@ -8,29 +8,36 @@ import screens.target.TargetScreen;
 
 class BasicShootingScreen extends ShootingScreen
 {
-	var weapon(get, never):Weapon;
+	var primaryWeapon(get, never):Weapon;
+	var offhandWeapons(get, never):Array<Weapon>;
 
 	public function new(shooter:Entity)
 	{
 		this.shooter = shooter;
+
 		super(shooter, {
-			weapon: weapon,
-			onConfirm: fireShot,
+			primaryWeapon: primaryWeapon,
+			offhandWeapons: offhandWeapons,
+			onConfirm: onConfirmShot,
 			onCancel: () -> game.screens.pop(),
 		});
 	}
 
-	private function fireShot(target:TargetResult)
+	private function onConfirmShot(target:TargetResult)
 	{
-		if (weapon == null)
+		if (primaryWeapon != null)
 		{
-			return;
+			primaryWeapon.entity.fireEvent(new ShootEvent(target.cursor, shooter));
 		}
 
-		weapon.entity.fireEvent(new ShootEvent(target.cursor, shooter));
+		for (weapon in offhandWeapons)
+		{
+			trace('shoot offhand weapon');
+			weapon.entity.fireEvent(new ShootEvent(target.cursor, shooter));
+		}
 	}
 
-	function get_weapon():Weapon
+	function get_primaryWeapon():Weapon
 	{
 		var evt = shooter.fireEvent(new QueryEquippedWeaponsEvent());
 		var w = evt.getPrimaryRanged();
@@ -41,5 +48,13 @@ class BasicShootingScreen extends ShootingScreen
 		}
 
 		return w.weapon;
+	}
+
+	function get_offhandWeapons():Array<Weapon>
+	{
+		var evt = shooter.fireEvent(new QueryEquippedWeaponsEvent());
+		var w = evt.getOffhandRanged();
+
+		return w.map((w) -> w.weapon);
 	}
 }

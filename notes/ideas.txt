@@ -7,6 +7,7 @@ Weapons
 - Rifles
 	- Repeater
 	- Rolling Block Rifle
+	- Winchester Rifle
 - Shotguns
 	- Coach Gun
 - Blades

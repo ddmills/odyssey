@@ -34,7 +34,8 @@ class AbilityBarrage extends Ability
 
 		// if player, push screen, if AI, choose target
 		Game.instance.screens.push(new ShootingScreen(entity, {
-			weapon: pistol,
+			primaryWeapon: pistol,
+			offhandWeapons: [],
 			onConfirm: (target) ->
 			{
 				while (pistol.isLoaded)
