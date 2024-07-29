@@ -36,9 +36,9 @@ class ChunkManager
 		var loaded = chunks.filter((item) -> item.value.isLoaded).map((item) -> item.value.chunkId);
 		var activeChunkIdxs = new Set<Int>();
 
-		for (x in [-1, 0, 1])
+		for (x in [-2, -1, 0, 1, 2])
 		{
-			for (y in [-1, 0, 1])
+			for (y in [-2, -1, 0, 1, 2])
 			{
 				var chunkPos = curChunkPos.add(x, y);
 				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)

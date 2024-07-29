@@ -5,6 +5,7 @@ import core.Game;
 import domain.events.ConsumeEnergyEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.ThrowEvent;
+import domain.stats.Stats;
 import domain.systems.EnergySystem;
 import ecs.Component;
 import ecs.Entity;
@@ -34,11 +35,14 @@ class Throwable extends Component
 		var explosive = entity.get(Explosive);
 
 		var radius = explosive != null ? explosive.radius : 0;
+		var throwinStat = Stats.GetValue(STAT_THROWING, evt.thrower);
+		var range = GameMath.GetThrowingDistance(throwinStat);
 
 		Game.instance.screens.push(new TargetScreen(evt.thrower, {
 			origin: CURSOR,
 			footprint: new CircleFootprint(radius),
 			showFootprint: true,
+			range: range,
 			targetQuery: new Query({
 				all: [Visible, Health, IsEnemy],
 				none: [IsInventoried, IsDestroyed],

@@ -3,6 +3,7 @@ package screens.target;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
+import core.Game;
 import core.Screen;
 import core.input.Command;
 import data.AnimationResources;
@@ -15,6 +16,7 @@ import ecs.Entity;
 import ecs.Query;
 import h2d.Anim;
 import h2d.Bitmap;
+import h2d.Graphics;
 import h2d.Object;
 import screens.console.ConsoleScreen;
 import screens.target.footprints.Footprint;
@@ -39,6 +41,7 @@ typedef TargetSettings =
 	footprint:Footprint,
 	showFootprint:Bool,
 	targetQuery:Query,
+	range:Int,
 	onConfirm:(result:TargetResult) -> Void,
 	onCancel:() -> Void,
 }
@@ -210,6 +213,12 @@ class TargetScreen extends Screen
 		var originPx = targeter.pos.toPx();
 		ob.x = originPx.x;
 		ob.y = originPx.y;
+
+		var g = new Graphics();
+		g.lineStyle(1, ColorKey.C_BLUE_2.toInt());
+		g.drawCircle(0, 0, settings.range * game.TILE_W);
+		g.setPosition(game.TILE_W_HALF, game.TILE_H_HALF);
+		ob.addChild(g);
 
 		var area = settings.footprint.getFootprint(targeter.pos, cursor.toWorld().floor());
 		var shader = new SpriteShader(C_RED_3, C_GRAY_1);

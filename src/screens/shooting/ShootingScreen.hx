@@ -39,10 +39,12 @@ class ShootingScreen extends TargetScreen
 		var weapon = shootingSettings.weapon;
 
 		var fp = weapon == null ? new EmptyFootprint() : Weapons.Get(weapon.family).getFootprint();
+		var range = weapon == null ? 0 : weapon.range;
 
 		super(shooter, {
 			origin: TARGETER,
 			footprint: fp,
+			range: range,
 			targetQuery: targetQuery,
 			showFootprint: true,
 			onConfirm: tryShoot,

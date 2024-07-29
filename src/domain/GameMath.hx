@@ -126,6 +126,6 @@ class GameMath
 
 	public static function GetThrowingDistance(throwStat:Int):Int
 	{
-		return 5 + throwStat;
+		return 10 + throwStat;
 	}
 }
