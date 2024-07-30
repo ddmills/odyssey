@@ -146,6 +146,7 @@ class TileResources
 		tiles.set(ARROW_BOUNCE_2, t[8][5]);
 		tiles.set(ARROW_BOUNCE_3, t[8][6]);
 		tiles.set(ARROW_BOUNCE_4, t[8][7]);
+		tiles.set(ARROW_BOUNCE_5, t[8][8]);
 
 		tiles.set(AK_UNKNOWN_1, t[10][4]);
 		tiles.set(AK_UNKNOWN_2, t[10][5]);
@@ -156,11 +157,11 @@ class TileResources
 		tiles.set(AK_UNKNOWN_7, t[10][10]);
 		tiles.set(AK_UNKNOWN_8, t[10][11]);
 
-		tiles.set(LIQUID_SPURT_1, t[8][8]);
-		tiles.set(LIQUID_SPURT_2, t[8][9]);
-		tiles.set(LIQUID_SPURT_3, t[8][10]);
-		tiles.set(LIQUID_SPURT_4, t[8][11]);
-		tiles.set(LIQUID_SPURT_5, t[8][12]);
+		tiles.set(LIQUID_SPURT_1, t[10][8]);
+		tiles.set(LIQUID_SPURT_2, t[10][9]);
+		tiles.set(LIQUID_SPURT_3, t[10][10]);
+		tiles.set(LIQUID_SPURT_4, t[10][11]);
+		tiles.set(LIQUID_SPURT_5, t[10][12]);
 		tiles.set(EXPLOSION_1, t[9][8]);
 		tiles.set(EXPLOSION_2, t[9][9]);
 		tiles.set(EXPLOSION_3, t[9][10]);

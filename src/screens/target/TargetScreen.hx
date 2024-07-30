@@ -192,14 +192,16 @@ class TargetScreen extends Screen
 			if (t.id == targetEntityId)
 			{
 				highlight.showArrow = true;
-				highlight.showRing = false;
-				highlight.color = ColorKey.C_YELLOW_1;
+				highlight.showRing = true;
+				highlight.animated = true;
+				highlight.color = ColorKey.C_YELLOW_2;
 			}
 			else
 			{
 				highlight.showArrow = false;
 				highlight.showRing = true;
-				highlight.color = ColorKey.C_YELLOW_0;
+				highlight.animated = false;
+				highlight.color = ColorKey.C_YELLOW_2;
 			}
 		});
 

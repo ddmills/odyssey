@@ -27,6 +27,8 @@ Weapons
 - Items
 	- Lantern
 	- Dynamite
+	- Brass Knuckles
+	- Bear Claws
 
 - 12-Pounder “Napoleon” Gun (Cannon)
 - Gatling Gun

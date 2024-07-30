@@ -44,6 +44,7 @@ class AnimationResources
 			TileResources.Get(ARROW_BOUNCE_2),
 			TileResources.Get(ARROW_BOUNCE_3),
 			TileResources.Get(ARROW_BOUNCE_4),
+			TileResources.Get(ARROW_BOUNCE_5),
 		]);
 
 		animations.set(LIQUID_SPURT, [

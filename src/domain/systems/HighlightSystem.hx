@@ -9,6 +9,7 @@ import ecs.Entity;
 import ecs.Query;
 import ecs.System;
 import h2d.Anim;
+import h2d.Bitmap;
 import h2d.Object;
 import shaders.SpriteShader;
 
@@ -18,6 +19,7 @@ typedef HighlightOb =
 	shader:SpriteShader,
 	arrow:Anim,
 	ring:Anim,
+	ringStatic:Bitmap,
 };
 
 class HighlightSystem extends System
@@ -40,19 +42,23 @@ class HighlightSystem extends System
 			shader.isShrouded = 0;
 			shader.clearBackground = 0;
 			var ob = new Object();
-			var ring = new Anim(AnimationResources.Get(CURSOR_SPIN), 10);
-			var arrow = new Anim(AnimationResources.Get(ARROW_BOUNCE), 10);
+			var ring = new Anim(AnimationResources.Get(CURSOR_SPIN), 12);
+			var ringStatic = new Bitmap(TileResources.Get(CURSOR));
+			var arrow = new Anim(AnimationResources.Get(ARROW_BOUNCE), 12);
 			var targetPos = e.pos.toPx();
 			var offsetPos = new Coordinate(0, -1.2, WORLD).toPx();
 			arrow.x = offsetPos.x;
 			arrow.y = offsetPos.y;
 			arrow.visible = highlight.showArrow;
-			ring.visible = highlight.showRing;
+			ring.visible = highlight.showRing && highlight.animated;
+			ringStatic.visible = highlight.showRing && !highlight.animated;
 			ob.x = targetPos.x;
 			ob.y = targetPos.y;
 			ob.addChild(arrow);
 			ob.addChild(ring);
+			ob.addChild(ringStatic);
 			ring.addShader(shader);
+			ringStatic.addShader(shader);
 			arrow.addShader(shader);
 			game.render(OVERLAY, ob);
 			bitmaps.set(e.id, {
@@ -60,6 +66,7 @@ class HighlightSystem extends System
 				shader: shader,
 				arrow: arrow,
 				ring: ring,
+				ringStatic: ringStatic,
 			});
 		});
 
@@ -87,7 +94,8 @@ class HighlightSystem extends System
 			bm.ob.y = targetPos.y;
 			bm.shader.primary = highlight.color.toHxdColor().toVector();
 			bm.arrow.visible = highlight.showArrow;
-			bm.ring.visible = highlight.showRing;
+			bm.ring.visible = highlight.showRing && highlight.animated;
+			bm.ringStatic.visible = highlight.showRing && !highlight.animated;
 		});
 	}
 }

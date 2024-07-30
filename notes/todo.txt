@@ -37,7 +37,7 @@
 - [ ] attacking
 	- [x] shotgun cone
 	- [x] add weapon range
-	- [ ] dual wield
+	- [x] dual wield
 	- [ ] melee SFX
 	- [ ] hit bump fx
 	- [x] hit color fx (blink)
@@ -45,13 +45,13 @@
 	- [x] ranged enemy
 	- [ ] cover
 	- [x] use TAB on shooting screen to switch targets fast
+	- [ ] show hit chance
 - [ ] mechanics
 	- [x] Attributes
 	- [x] Stats 
 	- [x] Health
 	- [x] Armor
 	- [ ] Skills
-	- [ ] Proficiencies
 	- [ ] Rework damage/health values (increase overall. More predictable.)
 - [x] leveling
 	- [x] XP on kill
