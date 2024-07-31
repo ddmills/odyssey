@@ -23,13 +23,13 @@ class PoiLayoutScattered extends PoiLayout
 		{
 			if (node.isLeaf)
 			{
-				var wpad = r.integer(2, 6);
-				var hpad = r.integer(2, 6);
+				var wpad = 3;
+				var hpad = 3;
 				var width = node.width - wpad;
 				var height = node.height - hpad;
 
-				var offX = node.offsetX + r.integer(1, wpad);
-				var offY = node.offsetY + r.integer(1, hpad);
+				var offX = node.offsetX + 2;
+				var offY = node.offsetY + 2;
 
 				rooms.push(new Room(offX, offY, width, height));
 

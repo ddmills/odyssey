@@ -9,6 +9,7 @@ import domain.components.LiquidContainer;
 import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.components.Throwable;
 import ecs.Entity;
 
 class VialPrefab extends Prefab
@@ -26,6 +27,7 @@ class VialPrefab extends Prefab
 		entity.add(new Loot());
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));
 		entity.add(new Destructable());
+		entity.add(new Throwable());
 
 		return entity;
 	}

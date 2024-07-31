@@ -9,6 +9,7 @@ import domain.components.Loot;
 import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.components.Stackable;
+import domain.components.Throwable;
 import domain.components.Weapon;
 import ecs.Entity;
 
@@ -26,6 +27,7 @@ class StickPrefab extends Prefab
 		entity.add(new Stackable(STACK_STICK));
 		entity.add(new Fuel(FUEL_WOOD, 200));
 		entity.add(new Destructable());
+		entity.add(new Throwable());
 
 		return entity;
 	}

@@ -90,6 +90,9 @@ class MapData
 						type: ROOM_GRAVEYARD,
 					},
 					{
+						type: ROOM_GROVE_PRAIRIE,
+					},
+					{
 						type: ROOM_RAILROAD_STATION,
 					}
 				],
@@ -105,6 +108,9 @@ class MapData
 					quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
 				},
 				rooms: [
+					{
+						type: ROOM_GROVE_PRAIRIE,
+					},
 					{
 						type: ROOM_GRAVEYARD,
 					}
@@ -159,6 +165,9 @@ class MapData
 					quadrants: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}],
 				},
 				rooms: [
+					{
+						type: ROOM_GROVE_PRAIRIE,
+					},
 					{
 						type: ROOM_GRAVEYARD,
 					},

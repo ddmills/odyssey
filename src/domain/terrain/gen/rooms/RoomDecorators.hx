@@ -12,6 +12,7 @@ class RoomDecorators
 		decorators = new DataRegistry();
 
 		decorators.register(ROOM_GRAVEYARD, new RoomGraveyard());
+		decorators.register(ROOM_GROVE_PRAIRIE, new RoomGrove(OAK_TREE));
 		decorators.register(ROOM_SHERIFF_OFFICE, new RoomSheriffOffice());
 		decorators.register(ROOM_RAILROAD_STATION, new RoomRailroadStation());
 	}
