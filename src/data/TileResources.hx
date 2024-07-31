@@ -114,6 +114,8 @@ class TileResources
 		tiles.set(WAGON_WHEEL, t[1][8]);
 		tiles.set(DYNAMITE, t[1][9]);
 		tiles.set(TOMBSTONE_1, t[1][10]);
+		tiles.set(CROSS, t[1][11]);
+		tiles.set(SIGNPOST, t[0][15]);
 		tiles.set(BOOTS, t[4][6]);
 		tiles.set(COAT, t[4][7]);
 		tiles.set(COWBOY_HAT_1, t[3][8]);

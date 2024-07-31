@@ -2,7 +2,6 @@ package domain.prefabs;
 
 import common.struct.Coordinate;
 import core.Game;
-import data.ColorKey;
 import data.LiquidType;
 import domain.components.Destructable;
 import domain.components.LiquidContainer;
@@ -16,9 +15,9 @@ class VialPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
-		var liquidType:LiquidType = options.liquidType == null ? LIQUID_WATER : options.liquidType;
-		var volume:Int = options.volume == null ? 0 : options.volume;
-		var maxVolume:Int = options.maxVolume == null ? 80 : options.maxVolume;
+		var liquidType:LiquidType = options.liquidType ?? LIQUID_WATER;
+		var volume:Int = options.volume ?? 0;
+		var maxVolume:Int = options.maxVolume ?? 80;
 
 		var entity = new Entity(pos);
 

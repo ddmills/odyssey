@@ -3,7 +3,7 @@ package domain.terrain.gen.rooms;
 import common.struct.WeightedTable;
 import hxd.Rand;
 
-class RoomSheriffOffice extends RoomDecorator
+class RoomChurch extends RoomDecorator
 {
 	private var clutter:WeightedTable<RoomContent>;
 
@@ -16,27 +16,31 @@ class RoomSheriffOffice extends RoomDecorator
 			spawnableSettings: {
 				isLit: true,
 			}
-		}, 200);
+		}, 180);
 		clutter.add({
 			spawnableType: TABLE,
 			spawnableSettings: {}
-		}, 100);
+		}, 50);
+		clutter.add({
+			spawnableType: WOOD_CROSS,
+			spawnableSettings: {}
+		}, 120);
 		clutter.add({
 			spawnableType: CHAIR,
 			spawnableSettings: {}
 		}, 100);
 		clutter.add({
-			spawnableType: CABINET,
+			spawnableType: LOCKBOX,
 			spawnableSettings: {}
 		}, 100);
 		clutter.add({
-			spawnableType: CHEST,
+			spawnableType: BOOKSHELF,
 			spawnableSettings: {}
-		}, 100);
+		}, 200);
 		clutter.add({
 			spawnableType: VILLAGER,
 			spawnableSettings: {}
-		}, 200);
+		}, 120);
 	}
 
 	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void
@@ -63,21 +67,21 @@ class RoomSheriffOffice extends RoomDecorator
 					if (pos.y > midY + 1 && pos.y < room.height - 1 && r.bool(.25))
 					{
 						tile.content.push({
-							spawnableType: WOOD_WALL_WINDOW,
+							spawnableType: STONE_WALL_WINDOW,
 							spawnableSettings: {},
 						});
 					}
 					else if (pos.y > 2 && pos.x > 0 && pos.x < room.width - 1 && r.bool(.25))
 					{
 						tile.content.push({
-							spawnableType: WOOD_WALL_WINDOW,
+							spawnableType: STONE_WALL_WINDOW,
 							spawnableSettings: {},
 						});
 					}
 					else
 					{
 						tile.content.push({
-							spawnableType: WOOD_WALL,
+							spawnableType: STONE_WALL,
 							spawnableSettings: {},
 						});
 					}
@@ -99,42 +103,9 @@ class RoomSheriffOffice extends RoomDecorator
 				tile.secondary = C_RED_3;
 				tile.background = C_RED_5;
 
-				if (pos.y <= 2) // prison cell
+				if (r.bool(.15))
 				{
-					if (pos.y == 2)
-					{
-						if (pos.x == midX)
-						{
-							tile.content.push({
-								spawnableType: BARS_DOOR,
-								spawnableSettings: {},
-							});
-						}
-						else
-						{
-							tile.content.push({
-								spawnableType: FENCE_BARS,
-								spawnableSettings: {},
-							});
-						}
-					}
-					else
-					{
-						if (r.bool(.15))
-						{
-							tile.content.push({
-								spawnableType: BEDROLL,
-								spawnableSettings: {},
-							});
-						}
-					}
-				}
-				else
-				{
-					if (r.bool(.05))
-					{
-						tile.content.push(clutter.pick(r));
-					}
+					tile.content.push(clutter.pick(r));
 				}
 			}
 

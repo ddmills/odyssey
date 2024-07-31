@@ -35,6 +35,8 @@ class ChunkGen
 		table.add(TABLE, 3);
 		table.add(CHAIR, 3);
 		table.add(CABINET, 3);
+		table.add(SIGNPOST, 30);
+		table.add(WOOD_CROSS, 30);
 		table.add(TALL_CABINET, 3);
 		table.add(SHELF, 3);
 		table.add(BOOKSHELF, 3);

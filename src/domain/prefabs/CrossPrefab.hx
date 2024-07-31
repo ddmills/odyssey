@@ -6,14 +6,14 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class TombstonePrefab extends Prefab
+class CrossPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(TOMBSTONE_1, C_GRAY_3, C_GRAY_4, OBJECTS));
-		entity.add(new Moniker('Tombstone'));
+		entity.add(new Sprite(CROSS, C_RED_3, C_RED_5, OBJECTS));
+		entity.add(new Moniker('Cross'));
 		entity.add(new Collider());
 
 		return entity;

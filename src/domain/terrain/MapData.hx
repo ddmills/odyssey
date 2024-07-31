@@ -90,10 +90,13 @@ class MapData
 						type: ROOM_GRAVEYARD,
 					},
 					{
-						type: ROOM_GROVE_PRAIRIE,
+						type: ROOM_GROVE_OAK,
 					},
 					{
 						type: ROOM_RAILROAD_STATION,
+					},
+					{
+						type: ROOM_CHURCH,
 					}
 				],
 			},
@@ -109,10 +112,13 @@ class MapData
 				},
 				rooms: [
 					{
-						type: ROOM_GROVE_PRAIRIE,
+						type: ROOM_GROVE_OAK,
 					},
 					{
 						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_CHURCH,
 					}
 				],
 			},
@@ -132,6 +138,9 @@ class MapData
 					},
 					{
 						type: ROOM_RAILROAD_STATION,
+					},
+					{
+						type: ROOM_CHURCH,
 					}
 				],
 			},
@@ -151,6 +160,9 @@ class MapData
 					},
 					{
 						type: ROOM_RAILROAD_STATION,
+					},
+					{
+						type: ROOM_CHURCH,
 					}
 				],
 			},
@@ -166,7 +178,7 @@ class MapData
 				},
 				rooms: [
 					{
-						type: ROOM_GROVE_PRAIRIE,
+						type: ROOM_GROVE_PINE,
 					},
 					{
 						type: ROOM_GRAVEYARD,
@@ -208,6 +220,9 @@ class MapData
 				rooms: [
 					{
 						type: ROOM_GRAVEYARD,
+					},
+					{
+						type: ROOM_GROVE_PINE,
 					},
 					{
 						type: ROOM_RAILROAD_STATION,

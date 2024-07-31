@@ -22,21 +22,7 @@ class RoomGrove extends RoomDecorator
 				content: [],
 			};
 
-			tile.tileKey = TERRAIN_BASIC_5;
-
-			if (room.isOnEdge(pos))
-			{
-				var midX = (room.width / 2).floor();
-
-				if (pos.x < (midX - 1) || pos.x > (midX + 1))
-				{
-					tile.content.push({
-						spawnableType: FENCE_BARBED,
-						spawnableSettings: {},
-					});
-				}
-			}
-			else
+			if (!room.isOnEdge(pos))
 			{
 				if (r.bool(.5))
 				{

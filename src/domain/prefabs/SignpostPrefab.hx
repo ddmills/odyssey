@@ -6,14 +6,15 @@ import domain.components.Moniker;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class TombstonePrefab extends Prefab
+class SignpostPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
+		var text = options.text ?? 'scribbles';
 
-		entity.add(new Sprite(TOMBSTONE_1, C_GRAY_3, C_GRAY_4, OBJECTS));
-		entity.add(new Moniker('Tombstone'));
+		entity.add(new Sprite(SIGNPOST, C_RED_3, C_YELLOW_1, OBJECTS));
+		entity.add(new Moniker('Signpost ($text)'));
 		entity.add(new Collider());
 
 		return entity;
