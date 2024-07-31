@@ -1,13 +1,14 @@
 package screens.cursor;
 
 import common.algorithm.Bresenham;
-import common.util.Timeout;
 import core.Frame;
+import data.AnimationResources;
 import data.ColorKey;
 import data.TileResources;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
+import h2d.Anim;
 import h2d.Bitmap;
 import screens.cursor.CursorScreen.CursorRenderOpts;
 import shaders.SpriteShader;
@@ -16,11 +17,9 @@ class LookScreen extends CursorScreen
 {
 	var ob:h2d.Object;
 	var lineOb:h2d.Object;
-	var targetBm:h2d.Bitmap;
+	var targetBm:Anim;
 	var targetShader:SpriteShader;
 	var targetText:h2d.Text;
-	var isBlinking:Bool = false;
-	var timeout:Timeout;
 
 	public function new()
 	{
@@ -30,12 +29,9 @@ class LookScreen extends CursorScreen
 		targetShader.clearBackground = 0;
 		ob = new h2d.Object();
 		lineOb = new h2d.Object(ob);
-		targetBm = new Bitmap(TileResources.Get(CURSOR), ob);
+		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);
 		targetBm.addShader(targetShader);
 		renderText();
-
-		timeout = new Timeout(.25);
-		timeout.onComplete = blink;
 	}
 
 	override function onEnter()
@@ -63,7 +59,6 @@ class LookScreen extends CursorScreen
 		targetBm.x = end.x;
 		targetBm.y = end.y;
 		targetBm.visible = true;
-		timeout.reset();
 		lineOb.removeChildren();
 
 		opts.line.each((p, idx) ->
@@ -88,7 +83,6 @@ class LookScreen extends CursorScreen
 			var entities = world.getEntitiesAt(opts.end)
 				.filter((e) -> !e.has(IsInventoried));
 
-			isBlinking = entities.length > 0;
 			if (entities.exists((e) -> e.has(IsEnemy)))
 			{
 				targetShader.primary = ColorKey.C_RED_1.toHxdColor().toVector();
@@ -102,8 +96,8 @@ class LookScreen extends CursorScreen
 			{
 				var name = e.get(Moniker).displayName;
 				var relation = world.factions.getEntityRelation(e, world.player.entity);
-				var disp = world.factions.getDisplay(relation);
-				return '$name [$disp ($relation)]';
+				var disp = world.factions.getDisplay(relation, true);
+				return '$name [$disp]';
 			});
 
 			if (names.length > 0)
@@ -115,7 +109,6 @@ class LookScreen extends CursorScreen
 		{
 			targetText.text = '';
 			targetShader.primary = ColorKey.C_GRAY_1.toHxdColor().toVector();
-			isBlinking = false;
 		}
 
 		targetText.x = game.window.width / 2;
@@ -124,7 +117,6 @@ class LookScreen extends CursorScreen
 
 	override function update(frame:Frame)
 	{
-		timeout.update();
 		render({
 			start: start,
 			end: target,
@@ -139,12 +131,6 @@ class LookScreen extends CursorScreen
 				handleInput(game.commands.next());
 			}
 		}
-	}
-
-	private function blink()
-	{
-		timeout.reset();
-		targetBm.visible = isBlinking ? !targetBm.visible : true;
 	}
 
 	private function renderText()

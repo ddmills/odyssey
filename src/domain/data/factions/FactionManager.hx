@@ -69,7 +69,19 @@ class FactionManager
 		return 0;
 	}
 
-	public function getDisplay(value:Int)
+	public function getDisplay(value:Int, includeValue:Bool = false)
+	{
+		var str = getDisplayBasic(value);
+
+		if (includeValue == true)
+		{
+			return '$str ($value)';
+		}
+
+		return str;
+	}
+
+	private function getDisplayBasic(value:Int):String
 	{
 		if (value <= -300)
 		{

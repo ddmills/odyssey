@@ -28,8 +28,7 @@ class VillagerPreacherPrefab extends Prefab
 		});
 		HumanoidDecorator.Decorate(entity);
 
-		entity.add(new Sprite(PERSON_4, C_YELLOW_0, C_BLUE_2, ACTORS));
-
+		entity.add(new Sprite(PERSON_10, C_YELLOW_0, C_BLUE_2, ACTORS));
 		entity.add(new Dialog([DIALOG_VILLAGER_PREACHER], [DIALOG_OPTION_RUMORS]));
 
 		var eqSlots = entity.getAll(EquipmentSlot);
