@@ -13,6 +13,7 @@ class Factions
 
 		addFaction('Player', FACTION_PLAYER);
 		addFaction('Bandit', FACTION_BANDIT);
+		addFaction('Church', FACTION_CHURCH);
 		addFaction('Village', FACTION_VILLAGE);
 		addFaction('Wildlife', FACTION_WILDLIFE);
 	}

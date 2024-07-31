@@ -35,7 +35,7 @@ class DialogRelationCondition extends DialogCondition
 			return false;
 		}
 
-		if (params.min != null && relation < params.min)
+		if (params.min != null && relation <= params.min)
 		{
 			return false;
 		}

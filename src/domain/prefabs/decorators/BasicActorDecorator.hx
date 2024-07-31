@@ -8,6 +8,7 @@ import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.IsEnemy;
 import domain.components.Level;
+import domain.components.Moniker;
 import domain.components.Vision;
 import ecs.Entity;
 
@@ -27,6 +28,7 @@ class BasicActorDecorator
 {
 	public static function Decorate(entity:Entity, options:ActorOptions)
 	{
+		entity.add(new Moniker(options.moniker ?? 'Unknown'));
 		entity.add(new Vision(6));
 		entity.add(new Energy(options.energy ?? -10));
 		entity.add(new Level(options.level ?? 1));

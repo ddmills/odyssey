@@ -37,6 +37,11 @@ class GameMath
 		return 800;
 	}
 
+	public static function GetMoveCost(speedStat:Int):Int
+	{
+		return 100 - (speedStat * 2);
+	}
+
 	public static function GetLevelXpReq(level:Int):Int
 	{
 		return ((level * XP_REQ_CAP) / (level + XP_LVL_INTENSITY)).floor();

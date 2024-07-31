@@ -99,7 +99,7 @@ class EnergySystem extends System
 		{
 			var speed = Stats.GetValue(STAT_SPEED, entity);
 
-			return 80 - (speed * 5);
+			return GameMath.GetMoveCost(speed);
 		}
 
 		if (type == ACT_FUSE_TICK)

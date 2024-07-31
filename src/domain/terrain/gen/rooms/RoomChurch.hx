@@ -45,6 +45,9 @@ class RoomChurch extends RoomDecorator
 
 	public function decorate(r:Rand, room:Room, zone:ZonePoi):Void
 	{
+		var midY = (room.height / 2).round();
+		var midX = (room.width / 2).round();
+
 		room.tiles.fillFn((idx) ->
 		{
 			var pos = room.tiles.coord(idx);
@@ -52,8 +55,8 @@ class RoomChurch extends RoomDecorator
 			var tile:RoomTile = {
 				content: [],
 			};
-			var midY = (room.height / 2).round();
-			var midX = (room.width / 2).round();
+
+			var isMiddle = pos.x == midX && pos.y == midY;
 
 			if (room.isOnEdge(pos))
 			{
@@ -91,7 +94,7 @@ class RoomChurch extends RoomDecorator
 					tile.content.push({
 						spawnableType: WOOD_DOOR,
 						spawnableSettings: {
-							isOpen: r.bool(.25),
+							isOpen: r.bool(.15),
 						},
 					});
 				}
@@ -103,7 +106,14 @@ class RoomChurch extends RoomDecorator
 				tile.secondary = C_RED_3;
 				tile.background = C_RED_5;
 
-				if (r.bool(.15))
+				if (isMiddle)
+				{
+					tile.content.push({
+						spawnableType: VILLAGER_PREACHER,
+						spawnableSettings: {},
+					});
+				}
+				else if (r.bool(.15))
 				{
 					tile.content.push(clutter.pick(r));
 				}

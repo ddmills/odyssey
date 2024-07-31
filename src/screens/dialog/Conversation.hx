@@ -23,13 +23,7 @@ class Conversation
 		this.interactor = interactor;
 		this.target = target;
 
-		var targetDialog = target.get(domain.components.Dialog);
-		targetExtraOptions = targetDialog.options;
-
-		var trees = targetDialog.trees;
-		var tree = r.pick(trees);
-		start = pickNextDialog(tree.dialogs);
-		current = start;
+		resetDialog();
 	}
 
 	public function getCurrent()
@@ -44,6 +38,12 @@ class Conversation
 
 	public function resetDialog()
 	{
+		var targetDialog = target.get(domain.components.Dialog);
+		targetExtraOptions = targetDialog.options;
+
+		var trees = targetDialog.trees;
+		var tree = r.pick(trees);
+		start = pickNextDialog(tree.dialogs);
 		current = start;
 	}
 
@@ -57,6 +57,17 @@ class Conversation
 		}
 
 		var options = current.options.concat(extras);
+
+		if (options.length == 0)
+		{
+			options.push({
+				option: 'Ok',
+				dialogs: [],
+				conditions: [],
+				effects: [],
+				isEnd: false,
+			});
+		}
 
 		return options.filter((o) -> o.conditions.every((c) -> c.check(this)));
 	}
@@ -76,9 +87,16 @@ class Conversation
 
 		current = pickNextDialog(o.dialogs);
 
-		for (effect in current.effects)
+		if (isEnded())
 		{
-			effect.apply(this);
+			resetDialog();
+		}
+		else
+		{
+			for (effect in current.effects)
+			{
+				effect.apply(this);
+			}
 		}
 	}
 

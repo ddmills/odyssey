@@ -5,6 +5,8 @@ import data.Cardinal;
 import domain.components.Collider;
 import domain.components.Explosive;
 import domain.components.Health;
+import domain.components.IsEnemy;
+import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.events.MeleeEvent;
 import domain.events.ReloadEvent;
@@ -81,7 +83,7 @@ class AIManager
 			return false;
 		}
 
-		if (Game.instance.world.getEntitiesAt(goal).exists((e) -> e.has(Collider)))
+		if (Game.instance.world.getEntitiesAt(goal).exists((e) -> e.has(Collider) || e.has(IsPlayer) || e.has(IsEnemy)))
 		{
 			return false;
 		}

@@ -81,6 +81,7 @@ class Spawner
 		prefabs.set(BARS_DOOR, new BarsDoorPrefab());
 		prefabs.set(RAILROAD, new RailroadPrefab());
 		prefabs.set(VILLAGER, new VillagerPrefab());
+		prefabs.set(VILLAGER_PREACHER, new VillagerPreacherPrefab());
 		prefabs.set(BEDROLL, new BedrollPrefab());
 		prefabs.set(DYNAMITE, new DynamitePrefab());
 		prefabs.set(EXPLOSION, new ExplosionPrefab());

@@ -27,8 +27,10 @@ class FactionManager
 		setRelation(FACTION_PLAYER, FACTION_BANDIT, -400);
 		setRelation(FACTION_PLAYER, FACTION_VILLAGE, 100);
 		setRelation(FACTION_PLAYER, FACTION_WILDLIFE, -100);
+		setRelation(FACTION_PLAYER, FACTION_CHURCH, 200);
 		setRelation(FACTION_VILLAGE, FACTION_BANDIT, -400);
 		setRelation(FACTION_VILLAGE, FACTION_WILDLIFE, -100);
+		setRelation(FACTION_VILLAGE, FACTION_CHURCH, 400);
 	}
 
 	public function save():FactionManagerSave

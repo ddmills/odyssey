@@ -8,6 +8,7 @@ import domain.events.AttackedEvent;
 import domain.events.DamagedEvent;
 import domain.events.EnemyKilledEvent;
 import domain.events.EntitySpawnedEvent;
+import domain.events.HealEvent;
 import domain.prefabs.Spawner;
 import domain.stats.Stats;
 import ecs.Component;
@@ -33,6 +34,7 @@ class Health extends Component
 	{
 		addHandler(EntitySpawnedEvent, onEntitySpawned);
 		addHandler(AttackedEvent, onAttacked);
+		addHandler(HealEvent, onHeal);
 	}
 
 	public function toString():String
@@ -78,6 +80,12 @@ class Health extends Component
 
 		value += remaining;
 		return true;
+	}
+
+	private function onHeal(evt:HealEvent)
+	{
+		value = max;
+		armor = armorMax;
 	}
 
 	private function onAttacked(evt:AttackedEvent)

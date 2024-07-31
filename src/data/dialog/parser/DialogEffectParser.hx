@@ -1,5 +1,6 @@
 package data.dialog.parser;
 
+import data.dialog.effects.DialogHealEffect;
 import data.dialog.effects.DialogRelationEffect;
 
 class DialogEffectParser
@@ -9,6 +10,7 @@ class DialogEffectParser
 		return switch json.type
 		{
 			case DialogEffectType.EFFECT_RELATION: DialogRelationEffect.FromJson(json);
+			case DialogEffectType.EFFECT_HEAL: DialogHealEffect.FromJson(json);
 			case _: null;
 		}
 	}

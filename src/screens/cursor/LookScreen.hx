@@ -103,7 +103,7 @@ class LookScreen extends CursorScreen
 				var name = e.get(Moniker).displayName;
 				var relation = world.factions.getEntityRelation(e, world.player.entity);
 				var disp = world.factions.getDisplay(relation);
-				return '$name [$disp]';
+				return '$name [$disp ($relation)]';
 			});
 
 			if (names.length > 0)

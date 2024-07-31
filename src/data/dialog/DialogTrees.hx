@@ -18,6 +18,10 @@ class DialogTrees
 		var villager = DialogTreeParser.FromJson(villagerJson);
 		dialog.register(DIALOG_VILLAGER, villager);
 
+		var preacherJson = hxd.Res.stories.dialog.dialog_preacher.toJson();
+		var preacher = DialogTreeParser.FromJson(preacherJson);
+		dialog.register(DIALOG_VILLAGER_PREACHER, preacher);
+
 		var wolfJson = hxd.Res.stories.dialog.dialog_wolf.toJson();
 		var wolf = DialogTreeParser.FromJson(wolfJson);
 		dialog.register(DIALOG_WOLF, wolf);
