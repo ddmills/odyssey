@@ -3,7 +3,6 @@ package screens.target;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
 import core.Frame;
-import core.Game;
 import core.Screen;
 import core.input.Command;
 import data.AnimationResources;
@@ -16,7 +15,6 @@ import ecs.Entity;
 import ecs.Query;
 import h2d.Anim;
 import h2d.Bitmap;
-import h2d.Graphics;
 import h2d.Object;
 import screens.console.ConsoleScreen;
 import screens.target.footprints.CircleFootprint;
@@ -43,6 +41,7 @@ typedef TargetSettings =
 	showFootprint:Bool,
 	targetQuery:Query,
 	range:Int,
+	allowOutsideRange:Bool,
 	onConfirm:(result:TargetResult) -> Void,
 	onCancel:() -> Void,
 }
@@ -52,11 +51,12 @@ class TargetScreen extends Screen
 	var targeter:Entity;
 	var settings:TargetSettings;
 	var origin:Coordinate;
-	var cursor:Coordinate;
+	var cursor(default, set):Coordinate;
 	var ob:Object;
 	var rangeOb:Object;
 	var footprintOb:Object;
 	var result:TargetResult;
+	var rangeArea:Array<IntPoint>;
 
 	var targetBm:Anim;
 	var targetShader:SpriteShader;
@@ -93,22 +93,18 @@ class TargetScreen extends Screen
 	{
 		game.render(GROUND, ob);
 		targetEntityId = null;
+		drawRangeCircle();
 		cursor = targeter.pos.floor();
 		var closest = getClosestTarget();
 		if (closest != null)
 		{
 			targetEntityId = closest.id;
 		}
-		drawRangeCircle();
 	}
 
 	override function onDestroy()
 	{
 		ob.remove();
-
-		var highlights = new Query({
-			all: [Highlight],
-		});
 
 		highlights.each((entity:Entity) ->
 		{
@@ -120,7 +116,6 @@ class TargetScreen extends Screen
 
 	override function onMouseMove(pos:Coordinate, previous:Coordinate)
 	{
-		cursor = pos;
 		var prevWorld = previous.toWorld().floor();
 		var curWorld = pos.toWorld().floor();
 
@@ -148,7 +143,8 @@ class TargetScreen extends Screen
 
 	private function look(dir:Cardinal)
 	{
-		cursor = cursor.add(dir.toOffset().asWorld());
+		targetEntityId = null;
+		cursor = cursor.toWorld().add(dir.toOffset().asWorld());
 	}
 
 	override function update(frame:Frame)
@@ -177,6 +173,19 @@ class TargetScreen extends Screen
 
 		targets.each((t:Entity, idx:Int) ->
 		{
+			var localPos = targeter.pos.sub(t.pos).toIntPoint();
+
+			if (!isInRange(localPos))
+			{
+				t.remove(Highlight);
+
+				if (t.id == targetEntityId)
+				{
+					targetEntityId = null;
+				}
+				return;
+			}
+
 			var highlight = t.get(Highlight);
 			if (highlight == null)
 			{
@@ -220,15 +229,14 @@ class TargetScreen extends Screen
 		ob.x = originPx.x;
 		ob.y = originPx.y;
 
-		var cursorPx = cursor.sub(originPx).toPx();
-
 		var area = settings.footprint.getFootprint(targeter.pos, cursor.toWorld().floor());
 
 		drawFootprint(area);
 
-		var targetPosPx = cursor.toPx();
-		targetBm.setPosition(targetPosPx.x, targetPosPx.y);
-		targetBm.visible = targetEntityId == null;
+		var cursorPx = cursor.toWorld().sub(origin.toWorld()).floor().toPx();
+
+		targetBm.setPosition(cursorPx.x, cursorPx.y);
+		targetBm.visible = target.isNull();
 
 		result = {
 			area: area,
@@ -273,7 +281,7 @@ class TargetScreen extends Screen
 	private function drawRangeCircle()
 	{
 		rangeOb.removeChildren();
-		var rangeArea = (new CircleFootprint(settings.range)).getFootprint(targeter.pos, targeter.pos.floor());
+		rangeArea = (new CircleFootprint(settings.range)).getFootprint(new Coordinate(0, 0, WORLD), new Coordinate(0, 0, WORLD));
 		var shader = new SpriteShader(C_GRAY_1, C_GRAY_1);
 		shader.isShrouded = 0;
 
@@ -290,7 +298,7 @@ class TargetScreen extends Screen
 			bm.alpha = .2;
 			bm.addShader(shader);
 
-			var pos = p.asWorld().sub(targeter.pos).toPx();
+			var pos = p.asWorld().toPx();
 
 			bm.x = pos.x;
 			bm.y = pos.y;
@@ -369,24 +377,72 @@ class TargetScreen extends Screen
 		}
 	}
 
-	private function getSortedTargets()
+	private function getValidTargets():Array<Entity>
 	{
-		return targets.sort((a, b) ->
+		return targets.filter(t ->
+		{
+			var localPos = targeter.pos.sub(t.pos).toIntPoint();
+			return isInRange(localPos);
+		});
+	}
+
+	private function isInRange(localPos:IntPoint):Bool
+	{
+		if (settings.allowOutsideRange)
+		{
+			return true;
+		}
+
+		return rangeArea.exists((p) -> p.equals(localPos));
+	}
+
+	private function getSortedTargets():Array<Entity>
+	{
+		var valid = getValidTargets();
+
+		valid.sort((a, b) ->
 		{
 			var aDist = a.pos.sub(targeter.pos).radians();
 			var bDist = b.pos.sub(targeter.pos).radians();
 
 			return aDist > bDist ? 1 : -1;
 		});
+
+		return valid;
 	}
 
 	private function getClosestTarget()
 	{
-		return targets.min(e -> e.pos.distance(targeter.pos));
+		return getSortedTargets()?.first();
 	}
 
 	function get_target():Null<Entity>
 	{
 		return targets.find((t) -> t.id == targetEntityId);
+	}
+
+	function set_cursor(value:Coordinate):Coordinate
+	{
+		var world = value.toWorld();
+		var localPos = world.sub(targeter.pos).toIntPoint();
+
+		if (isInRange(localPos))
+		{
+			cursor = value;
+			return value;
+		}
+
+		if (rangeArea.exists((p) -> p.equals(localPos)))
+		{
+			cursor = value;
+			return value;
+		}
+
+		if (cursor == null)
+		{
+			cursor = targeter.pos;
+		}
+
+		return cursor;
 	}
 }

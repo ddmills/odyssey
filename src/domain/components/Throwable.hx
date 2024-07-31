@@ -39,10 +39,11 @@ class Throwable extends Component
 		var range = GameMath.GetThrowingDistance(throwinStat);
 
 		Game.instance.screens.push(new TargetScreen(evt.thrower, {
-			origin: CURSOR,
+			origin: TARGETER,
 			footprint: new CircleFootprint(radius),
 			showFootprint: true,
 			range: range,
+			allowOutsideRange: false,
 			targetQuery: new Query({
 				all: [Visible, Health, IsEnemy],
 				none: [IsInventoried, IsDestroyed],

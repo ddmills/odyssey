@@ -47,6 +47,7 @@ class ShootingScreen extends TargetScreen
 			footprint: fp,
 			range: range,
 			targetQuery: targetQuery,
+			allowOutsideRange: false,
 			showFootprint: false,
 			onConfirm: tryShoot,
 			onCancel: shootingSettings.onCancel,
