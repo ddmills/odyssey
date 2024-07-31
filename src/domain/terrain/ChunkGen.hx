@@ -35,11 +35,8 @@ class ChunkGen
 		table.add(TABLE, 3);
 		table.add(CHAIR, 3);
 		table.add(CABINET, 3);
-		table.add(SIGNPOST, 30);
-		table.add(WOOD_CROSS, 30);
-		table.add(TALL_CABINET, 3);
-		table.add(SHELF, 3);
-		table.add(BOOKSHELF, 3);
+		table.add(SIGNPOST, 2);
+		table.add(WOOD_CROSS, 2);
 		table.add(WAGON_WHEEL, 3);
 		table.add(CAMPFIRE, 5);
 		table.add(LANTERN, 4);
@@ -47,6 +44,7 @@ class ChunkGen
 		table.add(WOLF, 6);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
+		table.add(JAR, 1);
 		table.add(LOCKBOX, 1);
 		table.add(SNUB_NOSE_REVOLVER, 1);
 		table.add(REVOLVER, 1);

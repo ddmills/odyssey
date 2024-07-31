@@ -27,8 +27,9 @@ class Inventory extends Component
 
 	public var content(get, never):Array<Entity>;
 
-	public function new()
+	public function new(isOpenable:Bool = true)
 	{
+		this.isOpenable = isOpenable;
 		addHandler(QueryInteractionsEvent, onQueryInteractions);
 		addHandler(OpenInventoryEvent, onOpenInventory);
 		addHandler(StashInventoryEvent, onStashInventory);

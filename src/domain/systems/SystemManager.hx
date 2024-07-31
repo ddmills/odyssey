@@ -7,7 +7,6 @@ class SystemManager
 {
 	public var energy(default, null):EnergySystem;
 	public var fuel(default, null):FuelSystem;
-	public var johnny(default, null):JohnnyAppleseedSystem;
 	public var movement(default, null):MovementSystem;
 	public var chunks(default, null):ChunkSystem;
 	public var sprites(default, null):SpriteSystem;
@@ -31,7 +30,6 @@ class SystemManager
 	{
 		energy = new EnergySystem();
 		fuel = new FuelSystem();
-		johnny = new JohnnyAppleseedSystem();
 		bullets = new BulletSystem();
 		movement = new MovementSystem();
 		chunks = new ChunkSystem();
@@ -55,7 +53,6 @@ class SystemManager
 		death.update(frame);
 		energy.update(frame);
 		fuel.update(frame);
-		johnny.update(frame);
 		chunks.update(frame);
 		movement.update(frame);
 		path.update(frame);

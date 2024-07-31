@@ -1,8 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
-import data.SpawnableType;
 import data.TileKey;
 import domain.components.Attributes;
 import domain.components.Energy;
@@ -62,7 +60,6 @@ class PlayerPrefab extends Prefab
 		entity.add(attributes);
 
 		rhand.equip(Spawner.Spawn(NAVY_REVOLVER, pos));
-		lhand.equip(Spawner.Spawn(REVOLVER, pos));
 		body.equip(Spawner.Spawn(LONG_JOHNS, pos));
 
 		var inv = entity.get(Inventory);

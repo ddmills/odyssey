@@ -30,6 +30,10 @@ class RoomSheriffOffice extends RoomDecorator
 			spawnableSettings: {}
 		}, 100);
 		clutter.add({
+			spawnableType: TALL_CABINET,
+			spawnableSettings: {}
+		}, 100);
+		clutter.add({
 			spawnableType: CHEST,
 			spawnableSettings: {}
 		}, 100);
