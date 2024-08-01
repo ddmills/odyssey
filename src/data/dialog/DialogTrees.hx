@@ -29,6 +29,10 @@ class DialogTrees
 		var rumorsJson = hxd.Res.stories.dialog.options_rumors.toJson();
 		var rumors = DialogExtraOptionParser.FromJson(rumorsJson);
 		options.register(DIALOG_OPTION_RUMORS, rumors);
+
+		var preacherOptJson = hxd.Res.stories.dialog.options_preacher.toJson();
+		var preacherOpt = DialogExtraOptionParser.FromJson(preacherOptJson);
+		options.register(DIALOG_OPTION_PREACHER, preacherOpt);
 	}
 
 	public static function Get(tree:DialogTreeType):DialogTree

@@ -2,6 +2,7 @@
 	"dialogs": [
 		{
 			"say": "Sinner Repent!",
+			"allowExtraOptions": true,
 			"conditions": [
 				{
 					"type": "CONDITION_RELATION",
@@ -27,59 +28,15 @@
 			]
 		},
 		{
-			"say": "The end is nigh, repent now!",
-			"allowExtraOptions": true,
-			"conditions": [
-				{
-					"type": "CONDITION_RELATION",
-					"max": 100,
-					"min": 0
-				}
-			]
-		},
-		{
 			"say": "Greetings friend.",
 			"allowExtraOptions": true,
 			"conditions": [
 				{
 					"type": "CONDITION_RELATION",
-					"min": 100
+					"min": 0
 				}
 			],
-			"options": [
-				{
-					"option": "Can you heal me? [heal] [-20 relation]",
-					"dialogs": [
-						{
-							"say": "Bless you.",
-							"effects": [
-								{
-									"type": "EFFECT_HEAL"
-								},
-								{
-									"type": "EFFECT_RELATION",
-									"value": -20
-								}
-							]
-						}
-					]
-				},
-				{
-					"option": "I've come to collect your soul, preacher. [-100 relation]",
-					"effects": [
-						{
-							"type": "EFFECT_RELATION",
-							"isModifier": false,
-							"value": -100
-						}
-					],
-					"dialogs": [
-						{
-							"say": "Rot in hell demon."
-						}
-					]
-				}
-			]
+			"options": []
 		}
 	]
 }

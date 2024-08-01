@@ -15,6 +15,7 @@ class Dialog extends Component
 {
 	@save public var treeTypes:Array<DialogTreeType>;
 	@save public var optionTypes:Array<DialogExtraOptionType>;
+	@save public var flags:Array<String>;
 
 	public var options(get, never):Array<DialogExtraOptions>;
 	public var trees(get, never):Array<DialogTree>;
@@ -23,8 +24,30 @@ class Dialog extends Component
 	{
 		this.treeTypes = treeTypes;
 		this.optionTypes = optionTypes.or([]);
+		this.flags = [];
+
 		addHandler(TalkEvent, onTalk);
 		addHandler(QueryInteractionsEvent, onQueryInteractions);
+	}
+
+	public function setFlag(flag:String, value:Bool)
+	{
+		if (value)
+		{
+			if (!hasFlag(flag))
+			{
+				flags.push(flag);
+			}
+		}
+		else
+		{
+			flags.remove(flag);
+		}
+	}
+
+	public function hasFlag(flag:String):Bool
+	{
+		return flags.contains(flag);
 	}
 
 	private function onQueryInteractions(evt:QueryInteractionsEvent)

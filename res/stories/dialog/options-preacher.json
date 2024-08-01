@@ -1,0 +1,61 @@
+{
+	"options": [
+		{
+			"option": "Pray with me [+80 relation]",
+			"conditions": [
+				{
+					"type": "CONDITION_FLAG",
+					"flag": "PRAYED",
+					"invert": true
+				}
+			],
+			"dialogs": [
+				{
+					"say": "Let us pray.",
+					"effects": [
+						{
+							"type": "EFFECT_FLAG",
+							"flag": "PRAYED",
+							"value": true
+						},
+						{
+							"type": "EFFECT_RELATION",
+							"value": 80
+						}
+					]
+				}
+			]
+		},
+		{
+			"option": "Can you heal me? [heal] [-60 relation]",
+			"conditions": [
+				{
+					"type": "CONDITION_RELATION",
+					"min": 60
+				}
+			],
+			"dialogs": [
+				{
+					"say": "Bless you.",
+					"effects": [
+						{
+							"type": "EFFECT_HEAL"
+						},
+						{
+							"type": "EFFECT_RELATION",
+							"value": -60
+						},
+						{
+							"type": "EFFECT_AUDIO",
+							"key": "PRAY_1"
+						}
+					]
+				}
+			]
+		},
+		{
+			"option": "Bye.",
+			"isEnd": true
+		}
+	]
+}

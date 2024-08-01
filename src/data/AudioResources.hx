@@ -67,6 +67,7 @@ class AudioResources
 			audio.set(WOOD_DESTROY_1, r.wood_destroy_1);
 			audio.set(WOOD_DESTROY_2, r.wood_destroy_2);
 			audio.set(TREE_FALL_1, r.tree_fall_1);
+			audio.set(PRAY_1, r.pray_1);
 		}
 		else
 		{

@@ -39,4 +39,5 @@ enum AudioKey
 	WOOD_DESTROY_1;
 	WOOD_DESTROY_2;
 	TREE_FALL_1;
+	PRAY_1;
 }

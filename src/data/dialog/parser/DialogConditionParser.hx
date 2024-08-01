@@ -1,5 +1,6 @@
 package data.dialog.parser;
 
+import data.dialog.conditions.DialogFlagCondition;
 import data.dialog.conditions.DialogRelationCondition;
 import data.dialog.conditions.DialogStatCondition;
 
@@ -11,6 +12,7 @@ class DialogConditionParser
 		{
 			case DialogConditionType.CONDITION_RELATION: DialogRelationCondition.FromJson(json);
 			case DialogConditionType.CONDITION_STAT: DialogStatCondition.FromJson(json);
+			case DialogConditionType.CONDITION_FLAG: DialogFlagCondition.FromJson(json);
 			case _: null;
 		}
 	}
