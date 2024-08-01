@@ -26,7 +26,7 @@ class RoomGraveyard extends RoomDecorator
 				content: [],
 			};
 
-			tile.tileKey = TERRAIN_BASIC_5;
+			tile.tileKey = TERRAIN_BASIC_1;
 
 			if (room.isOnEdge(pos))
 			{

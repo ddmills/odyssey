@@ -4,6 +4,7 @@ enum EnergyActionType
 {
 	ACT_WAIT;
 	ACT_MOVE;
+	ACT_SWAPPED;
 	ACT_PICKUP;
 	ACT_DROP;
 	ACT_TAKE;

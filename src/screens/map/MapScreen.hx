@@ -6,6 +6,7 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.KeyCode;
+import data.BiomeMap;
 import data.BiomeType;
 import data.Bitmasks;
 import data.ColorKey;
@@ -77,7 +78,7 @@ class MapScreen extends Screen
 		var secondary = biome.secondary;
 		var background = biome.background;
 
-		if (zone.biomes.river != null)
+		if (zone.biomes.river.nw)
 		{
 			tile = TileResources.Get(OVERWORLD_RIVER);
 			primary = C_BLUE_2;

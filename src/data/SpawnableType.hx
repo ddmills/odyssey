@@ -46,6 +46,7 @@ enum SpawnableType
 	JAR;
 	VIAL;
 	VIAL_WHISKEY;
+	VIAL_WATER;
 	WAGON_WHEEL;
 	PUDDLE;
 	TOMBSTONE;

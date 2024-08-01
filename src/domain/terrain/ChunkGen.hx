@@ -1,5 +1,6 @@
 package domain.terrain;
 
+import common.algorithm.Bresenham;
 import common.rand.Perlin;
 import common.struct.Coordinate;
 import common.struct.IntPoint;
@@ -7,8 +8,11 @@ import common.struct.WeightedTable;
 import common.util.Colors;
 import core.Game;
 import data.BiomeMap.BiomeZoneData;
+import data.BiomeMap.RiverData;
+import data.BiomeMap;
 import data.BiomeType;
 import data.ColorKey;
+import data.LiquidType;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
 import hxd.Rand;
@@ -25,7 +29,7 @@ class ChunkGen
 {
 	private var seed(get, null):Int;
 	private var world(get, null):World;
-	private var riverWidth:Int = 8;
+	private var riverWidth:Int = 4;
 
 	var table:WeightedTable<SpawnableType>;
 
@@ -74,85 +78,6 @@ class ChunkGen
 
 		chunk.cells.fillFn((idx) -> generateCell(r, chunk, biomes, idx));
 
-		if (biomes.river != null)
-		{
-			var riverOffset = (((world.zoneSize) - riverWidth) / 2).floor();
-			var zoneSize = world.zoneSize - 1;
-			var river = biomes.river;
-			var polygon = new Array<IntPoint>();
-
-			if (river.n)
-			{
-				var left = river.nw ? 0 : riverOffset;
-				var right = river.ne ? zoneSize : zoneSize - riverOffset;
-				polygon.push({
-					x: left,
-					y: 0,
-				});
-				polygon.push({
-					x: right,
-					y: 0,
-				});
-			}
-			if (river.e)
-			{
-				var top = river.ne ? 0 : riverOffset;
-				var bottom = river.se ? zoneSize : zoneSize - riverOffset;
-				polygon.push({
-					x: zoneSize,
-					y: top,
-				});
-				polygon.push({
-					x: zoneSize,
-					y: bottom,
-				});
-			}
-			if (river.s)
-			{
-				var left = river.sw ? 0 : riverOffset;
-				var right = river.se ? zoneSize : zoneSize - riverOffset;
-				polygon.push({
-					x: right,
-					y: zoneSize,
-				});
-				polygon.push({
-					x: left,
-					y: zoneSize,
-				});
-			}
-			if (river.w)
-			{
-				var top = river.nw ? 0 : riverOffset;
-				var bottom = river.sw ? zoneSize : zoneSize - riverOffset;
-				polygon.push({
-					x: 0,
-					y: bottom,
-				});
-				polygon.push({
-					x: 0,
-					y: top,
-				});
-			}
-
-			// todo: shouldn't have to bresenham stroke when f``illing
-			// Bresenham.strokePolygon(polygon, (p) ->
-			// {
-			// 	var world = chunk.zone.worldPos.add(p);
-			// 	if (chunk.hasWorldPoint(world))
-			// 	{
-			// 		setWater(chunk, p);
-			// 	}
-			// });
-			// Bresenham.fillPolygon(polygon, (p) ->
-			// {
-			// 	var world = chunk.zone.worldPos.add(p);
-			// 	if (chunk.hasWorldPoint(world))
-			// 	{
-			// 		setWater(chunk, p);
-			// 	}
-			// });
-		}
-
 		var poi = chunk.zone.poi;
 
 		if (poi != null)
@@ -166,6 +91,15 @@ class ChunkGen
 		for (cell in chunk.cells)
 		{
 			var worldPos = chunk.worldPos.add(cell.pos);
+
+			var p1 = new Perlin(2);
+			var p2 = new Perlin(3);
+			var hasRiver = pickRiver(p1, p2, worldPos, biomes);
+
+			if (hasRiver)
+			{
+				setWater(chunk, cell.pos);
+			}
 
 			if (poi != null)
 			{
@@ -298,6 +232,29 @@ class ChunkGen
 		}
 	}
 
+	function pickRiver(p1:Perlin, p2:Perlin, worldPos:IntPoint, zone:BiomeZoneData):Bool
+	{
+		if (!BiomeMap.HasRiver(zone))
+		{
+			return false;
+		}
+
+		var rivers = zone.river;
+
+		var x = (worldPos.x % world.zoneSize) / world.zoneSize;
+		var y = (worldPos.y % world.zoneSize) / world.zoneSize;
+
+		var isSouth = p1.get(worldPos.x, worldPos.y, 20, 5) < y;
+		var isEast = p2.get(worldPos.x, worldPos.y, 20, 5) < x;
+		return switch [isSouth, isEast]
+		{
+			case [true, true]: rivers.se;
+			case [true, false]: rivers.sw;
+			case [false, true]: rivers.ne;
+			case [false, false]: rivers.nw;
+		}
+	}
+
 	private function isUniformBiome(biomes:BiomeZoneData):Bool
 	{
 		return (biomes.se == biomes.se) && (biomes.se == biomes.sw) && (biomes.se == biomes.ne) && (biomes.se == biomes.nw);
@@ -374,6 +331,11 @@ class ChunkGen
 			cell.primary = C_BLUE_2;
 			cell.background = C_BLUE_3;
 			cell.tileKey = WATER_4;
+
+			Spawner.Spawn(PUDDLE, p.add(chunk.worldPos).asWorld(), {
+				liquidType: LiquidType.LIQUID_WATER,
+				volume: 1000,
+			});
 		}
 	}
 }

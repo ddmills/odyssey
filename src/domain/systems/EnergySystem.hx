@@ -152,6 +152,11 @@ class EnergySystem extends System
 			return 80;
 		}
 
+		if (type == ACT_SWAPPED)
+		{
+			return 25;
+		}
+
 		return 50;
 	}
 }

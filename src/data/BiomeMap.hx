@@ -7,13 +7,9 @@ import hxd.Pixels;
 
 typedef RiverData =
 {
-	n:Bool,
 	ne:Bool,
-	e:Bool,
 	se:Bool,
-	s:Bool,
 	sw:Bool,
-	w:Bool,
 	nw:Bool,
 };
 
@@ -23,7 +19,7 @@ typedef BiomeZoneData =
 	ne:BiomeType,
 	se:BiomeType,
 	sw:BiomeType,
-	?river:RiverData,
+	river:RiverData,
 };
 
 class BiomeMap
@@ -69,35 +65,22 @@ class BiomeMap
 
 	public static function Compute(pos:IntPoint):BiomeZoneData
 	{
+		var rnw = GetRiver({x: pos.x, y: pos.y});
+		var rne = GetRiver({x: pos.x + 1, y: pos.y});
+		var rse = GetRiver({x: pos.x + 1, y: pos.y + 1});
+		var rsw = GetRiver({x: pos.x, y: pos.y + 1});
+
+		var river:RiverData = {
+			ne: rne,
+			se: rse,
+			sw: rsw,
+			nw: rnw,
+		};
+
 		var nw = GetBiome({x: pos.x, y: pos.y});
 		var ne = GetBiome({x: pos.x + 1, y: pos.y});
 		var se = GetBiome({x: pos.x + 1, y: pos.y + 1});
 		var sw = GetBiome({x: pos.x, y: pos.y + 1});
-
-		var isRiver = GetRiver(pos);
-		var river:RiverData = null;
-
-		if (isRiver)
-		{
-			var n = GetRiver({x: pos.x, y: pos.y - 1});
-			var e = GetRiver({x: pos.x + 1, y: pos.y});
-			var s = GetRiver({x: pos.x, y: pos.y + 1});
-			var w = GetRiver({x: pos.x - 1, y: pos.y});
-			var ne = n && e && GetRiver({x: pos.x + 1, y: pos.y - 1});
-			var se = s && e && GetRiver({x: pos.x + 1, y: pos.y + 1});
-			var sw = s && w && GetRiver({x: pos.x - 1, y: pos.y + 1});
-			var nw = n && w && GetRiver({x: pos.x - 1, y: pos.y - 1});
-			river = {
-				n: n,
-				ne: ne,
-				e: e,
-				se: se,
-				s: s,
-				sw: sw,
-				w: w,
-				nw: nw,
-			};
-		}
 
 		return {
 			nw: nw,
@@ -116,6 +99,16 @@ class BiomeMap
 	public static function GetAt(idx:Int):Null<BiomeZoneData>
 	{
 		return data.getAt(idx);
+	}
+
+	public static function HasRiver(d:BiomeZoneData):Bool
+	{
+		if (d == null)
+		{
+			return false;
+		}
+
+		return d.river.nw || d.river.ne || d.river.sw || d.river.se;
 	}
 
 	public static function ColorToBiome(color:Int):BiomeType

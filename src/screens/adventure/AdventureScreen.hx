@@ -211,13 +211,6 @@ class AdventureScreen extends Screen
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
 		var entities = world.getEntitiesAt(target);
-		var enemy = entities.find((e) -> e.has(IsEnemy));
-
-		if (enemy != null)
-		{
-			world.player.entity.fireEvent(new MeleeEvent(enemy, world.player.entity));
-			return;
-		}
 
 		var collider = entities.find((e) -> e.has(Collider) && !e.has(IsInventoried));
 
@@ -228,6 +221,24 @@ class AdventureScreen extends Screen
 				collider.fireEvent(new OpenDoorEvent(world.player.entity));
 			}
 			return;
+		}
+
+		var enemy = entities.find((e) -> e.has(IsEnemy));
+
+		if (enemy != null)
+		{
+			var isHostile = world.factions.areEntitiesHostile(enemy, world.player.entity);
+			if (isHostile)
+			{
+				world.player.entity.fireEvent(new MeleeEvent(enemy, world.player.entity));
+				return;
+			}
+			else
+			{
+				enemy.add(new Move(world.player.pos, .1, EASE_LINEAR));
+				var eMove = EnergySystem.GetEnergyCost(enemy, ACT_SWAPPED);
+				enemy.fireEvent(new ConsumeEnergyEvent(eMove));
+			}
 		}
 
 		world.player.entity.add(new Move(target.asWorld(), .1, EASE_LINEAR));

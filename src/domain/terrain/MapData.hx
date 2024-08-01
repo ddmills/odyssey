@@ -3,6 +3,7 @@ package domain.terrain;
 import common.rand.PoissonDiscSampler;
 import common.struct.IntPoint;
 import core.Game;
+import data.BiomeMap;
 import data.BiomeType;
 import data.PoiLayoutType;
 import data.PoiType;
@@ -67,6 +68,7 @@ class MapData
 		pois = [];
 		railroad.stops = [];
 		railroad.lines = [];
+
 		for (z in world.zones.zones)
 		{
 			z.value.railroad = null;
@@ -325,7 +327,7 @@ class MapData
 
 		var open = neighbors.find((n) ->
 		{
-			return n.poi == null && n.biomes.river == null;
+			return n.poi == null && !BiomeMap.HasRiver(n.biomes);
 		});
 
 		if (open == null)
@@ -378,7 +380,7 @@ class MapData
 			return null;
 		}
 
-		if (criteria.river == (zone.biomes.river == null))
+		if (criteria.river != BiomeMap.HasRiver(zone.biomes))
 		{
 			return null;
 		}

@@ -74,6 +74,8 @@ class PlayerPrefab extends Prefab
 		inv.addLoot(Spawner.Spawn(COACH_GUN, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
 		inv.addLoot(Spawner.Spawn(VIAL_WHISKEY, pos));
+		inv.addLoot(Spawner.Spawn(VIAL_WATER, pos));
+		inv.addLoot(Spawner.Spawn(VIAL_WATER, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));
 		inv.addLoot(Spawner.Spawn(DYNAMITE, pos));

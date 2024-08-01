@@ -72,6 +72,13 @@ class AIManager
 
 	public function tryMove(entity:Entity):Bool
 	{
+		var doMove = rand.bool(.5);
+
+		if (!doMove)
+		{
+			return false;
+		}
+
 		var delta = rand.pick(Cardinal.values).toOffset();
 		var goal = entity.pos.add(delta.asWorld()).ciel();
 
@@ -91,7 +98,7 @@ class AIManager
 		EnergySystem.ConsumeEnergy(entity, ACT_MOVE);
 
 		var fast = entity.has(Move);
-		entity.add(new Move(goal, fast ? .05 : .15, EASE_LINEAR));
+		entity.add(new Move(goal, fast ? .1 : .2, EASE_LINEAR));
 
 		return true;
 	}

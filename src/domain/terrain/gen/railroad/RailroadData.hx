@@ -3,6 +3,7 @@ package domain.terrain.gen.railroad;
 import common.algorithm.AStar;
 import common.rand.Perlin;
 import core.Game;
+import data.BiomeMap;
 
 typedef RailroadLine =
 {
@@ -111,7 +112,7 @@ class RailroadData
 						return .15;
 					}
 
-					if (zone.biomes.river != null)
+					if (BiomeMap.HasRiver(zone.biomes))
 					{
 						return 1.5;
 					}

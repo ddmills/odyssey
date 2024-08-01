@@ -56,6 +56,7 @@ class Spawner
 		prefabs.set(JAR, new JarPrefab());
 		prefabs.set(PUDDLE, new PuddlePrefab());
 		prefabs.set(VIAL_WHISKEY, new VialWhiskeyPrefab());
+		prefabs.set(VIAL_WATER, new VialWaterPrefab());
 		prefabs.set(WAGON_WHEEL, new WagonWheelPrefab());
 		prefabs.set(TOMBSTONE, new TombstonePrefab());
 		prefabs.set(BOOTS, new BootsPrefab());

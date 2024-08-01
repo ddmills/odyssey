@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import common.struct.Coordinate;
 import data.LiquidType;
+import domain.components.BitmaskSprite;
 import domain.components.LiquidContainer;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -20,6 +21,8 @@ class PuddlePrefab extends Prefab
 		var entity = new Entity(pos);
 
 		entity.add(new Sprite(PUDDLE_1, liquid.primaryColor, liquid.secondaryColor, GROUND));
+		entity.add(new BitmaskSprite([BITMASK_HIGHLIGHT]));
+
 		entity.add(new Moniker('Puddle'));
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, true, false, true, true));
 
