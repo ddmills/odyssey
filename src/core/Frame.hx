@@ -48,6 +48,15 @@ class Frame
 		return hxd.Timer.elapsedTime;
 	}
 
+	/**
+	 * Get the current elapsed wall clock time of _this_ frame
+	 */
+	public function getTimeSinceLastFrame():Float
+	{
+		var now = haxe.Timer.stamp();
+		return now - hxd.Timer.lastTimeStamp;
+	}
+
 	@:allow(core.Game)
 	function new() {}
 

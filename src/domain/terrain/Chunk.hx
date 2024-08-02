@@ -7,7 +7,6 @@ import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
 import domain.components.Moniker;
-import domain.events.EntityLoadedEvent;
 import ecs.Entity;
 import h2d.Bitmap;
 import shaders.SpriteShader;
@@ -314,6 +313,7 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
+			trace('Warning: Loading chunk on demand');
 			Game.instance.world.chunks.loadChunk(chunkId);
 			return;
 		}

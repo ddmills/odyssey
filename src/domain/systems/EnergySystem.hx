@@ -109,7 +109,7 @@ class EnergySystem extends System
 
 		if (type == ACT_SLEEP)
 		{
-			return 1000;
+			return 2000;
 		}
 
 		if (type == ACT_WAIT)

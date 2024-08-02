@@ -5,12 +5,14 @@ import common.struct.IntPoint;
 import common.struct.Set;
 import common.tools.Performance;
 import core.Game;
+import hxd.Timer;
 
 class ChunkManager
 {
 	private var game(get, never):Game;
 	private var chunks:Grid<Chunk>;
 
+	private var chunksToLoad:Set<Int>;
 	private var chunksToUnload:Set<Int>;
 
 	public var chunkGen(default, null):ChunkGen;
@@ -57,15 +59,45 @@ class ChunkManager
 				chunksToUnload.add(chunkIdx);
 			}
 		}
+
+		chunksToLoad = new Set<Int>();
+
+		for (chunkIdx in activeChunkIdxs)
+		{
+			if (!loaded.contains(chunkIdx))
+			{
+				chunksToLoad.add(chunkIdx);
+			}
+		}
 	}
 
 	public function update()
 	{
-		var chunkIdx = chunksToUnload.pop();
+		var toLoad = chunksToLoad.pop();
 
-		if (chunkIdx != null)
+		if (toLoad != null)
 		{
-			saveChunk(chunkIdx, true);
+			var t = Game.instance.frame.getTimeSinceLastFrame();
+
+			if (t > .0005)
+			{
+				trace('Warning: delaying loading chunk for frame delay');
+				return;
+			}
+		}
+
+		if (toLoad != null)
+		{
+			loadChunk(toLoad);
+		}
+		else
+		{
+			var chunkIdx = chunksToUnload.pop();
+
+			if (chunkIdx != null)
+			{
+				saveChunk(chunkIdx, true);
+			}
 		}
 	}
 

@@ -99,12 +99,17 @@ class Query
 
 	public function refresh()
 	{
-		size = 0;
-		cache.clear();
+		_clearCache();
 		for (entity in registry)
 		{
 			candidate(entity);
 		}
+	}
+
+	public function _clearCache()
+	{
+		size = 0;
+		cache.clear();
 	}
 
 	public inline function iterator():Iterator<Entity>

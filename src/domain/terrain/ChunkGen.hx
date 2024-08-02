@@ -328,9 +328,10 @@ class ChunkGen
 		if (cell != null)
 		{
 			cell.terrain = TERRAIN_RIVER;
-			cell.primary = C_BLUE_2;
-			cell.background = C_BLUE_3;
-			cell.tileKey = WATER_4;
+			// cell.primary = C_BLUE_2;
+			// cell.background = C_BLUE_3;
+			// cell.tileKey = WATER_4;
+			cell.tileKey = TERRAIN_BASIC_1;
 
 			Spawner.Spawn(PUDDLE, p.add(chunk.worldPos).asWorld(), {
 				liquidType: LiquidType.LIQUID_WATER,

@@ -2,7 +2,7 @@
 
 - https://github-wiki-see.page/m/HaxeFoundation/hashlink/wiki/Profiler
 
-1. add "profileSamples" : 10000, to HL configuration, OR, add `-D hl-profile` to `compile.hxml`
+1. add `"profileSamples" : 10000`, to vscode HashLink launch configuration, AND, add `-D hl-profile` to `compile.hxml`
 2. run app
 3. stop app
 4. an `hlprofile.dump` will be generated, this needs to be converted to json format for chrome to read

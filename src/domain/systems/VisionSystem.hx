@@ -11,6 +11,7 @@ import domain.components.Explored;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.LightBlocker;
+import domain.components.LiquidContainer;
 import domain.components.Visible;
 import domain.components.Vision;
 import ecs.Entity;
@@ -140,7 +141,6 @@ class VisionSystem extends System
 
 	public function computeVision()
 	{
-		flagRecompute = false;
 		for (entity in visibles)
 		{
 			entity.remove(Visible);
@@ -171,6 +171,8 @@ class VisionSystem extends System
 				}
 			}
 		});
+
+		flagRecompute = false;
 	}
 
 	public override function update(frame:Frame)
