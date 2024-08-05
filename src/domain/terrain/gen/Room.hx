@@ -10,6 +10,7 @@ import common.struct.IntPoint;
 	public var height(default, null):Int;
 	public var offsetX:Int;
 	public var offsetY:Int;
+	public var includeWalls:Bool;
 
 	public function new(offsetX:Int, offsetY:Int, width:Int, height:Int)
 	{
@@ -17,6 +18,7 @@ import common.struct.IntPoint;
 		this.offsetY = offsetY;
 		this.width = width;
 		this.height = height;
+		this.includeWalls = true;
 
 		tiles = new Grid(width, height);
 	}

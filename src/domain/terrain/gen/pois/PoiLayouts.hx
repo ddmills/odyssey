@@ -12,6 +12,7 @@ class PoiLayouts
 		layouts = new DataRegistry();
 		layouts.register(POI_LAYOUT_SCATTERED, new PoiLayoutScattered());
 		layouts.register(POI_LAYOUT_RAILROAD_STATION, new PoiLayoutRailroadStation());
+		layouts.register(POI_LAYOUT_FORTRESS, new PoiLayoutFortress());
 	}
 
 	public static function Get(poiLayoutType:PoiLayoutType):PoiLayout

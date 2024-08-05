@@ -55,7 +55,7 @@ class RoomSheriffOffice extends RoomDecorator
 			var midY = (room.height / 2).round();
 			var midX = (room.width / 2).round();
 
-			if (room.isOnEdge(pos))
+			if (room.includeWalls && room.isOnEdge(pos))
 			{
 				tile.tileKey = FLOORBOARDS;
 				tile.primary = C_RED_4;

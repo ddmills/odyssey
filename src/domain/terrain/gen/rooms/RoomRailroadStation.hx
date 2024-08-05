@@ -20,7 +20,7 @@ class RoomRailroadStation extends RoomDecorator
 			tile.secondary = C_RED_3;
 			tile.background = C_RED_5;
 
-			if (room.isOnEdge(pos))
+			if (room.includeWalls && room.isOnEdge(pos))
 			{
 				if (pos.x == midX)
 				{

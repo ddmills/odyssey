@@ -58,7 +58,7 @@ class RoomChurch extends RoomDecorator
 
 			var isMiddle = pos.x == midX && pos.y == midY;
 
-			if (room.isOnEdge(pos))
+			if (room.includeWalls && room.isOnEdge(pos))
 			{
 				tile.tileKey = FLOORBOARDS;
 				tile.primary = C_RED_4;

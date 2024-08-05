@@ -193,7 +193,7 @@ class MapData
 			{
 				name: 'Skinny Snag',
 				type: POI_TOWN,
-				layout: POI_LAYOUT_SCATTERED,
+				layout: POI_LAYOUT_FORTRESS,
 				railroadStop: 5,
 				criteria: {
 					river: false,
@@ -201,18 +201,18 @@ class MapData
 					quadrants: [{x: 0, y: 2}, {x: 1, y: 2}],
 				},
 				rooms: [
-					{
-						type: ROOM_GRAVEYARD,
-					},
-					{
-						type: ROOM_RAILROAD_STATION,
-					}
+					// {
+					// 	type: ROOM_GRAVEYARD,
+					// },
+					// {
+					// 	type: ROOM_RAILROAD_STATION,
+					// }
 				],
 			},
 			{
 				name: 'Fort Mills',
 				type: POI_TOWN,
-				layout: POI_LAYOUT_SCATTERED,
+				layout: POI_LAYOUT_FORTRESS,
 				railroadStop: 3,
 				criteria: {
 					river: false,
@@ -220,15 +220,15 @@ class MapData
 					quadrants: [{x: 3, y: 1}],
 				},
 				rooms: [
-					{
-						type: ROOM_GRAVEYARD,
-					},
-					{
-						type: ROOM_GROVE_PINE,
-					},
-					{
-						type: ROOM_RAILROAD_STATION,
-					}
+					// {
+					// 	type: ROOM_GRAVEYARD,
+					// },
+					// {
+					// 	type: ROOM_GROVE_PINE,
+					// },
+					// {
+					// 	type: ROOM_RAILROAD_STATION,
+					// }
 				],
 			}
 		];
