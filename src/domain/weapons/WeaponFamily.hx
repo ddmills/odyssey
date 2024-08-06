@@ -150,7 +150,7 @@ class WeaponFamily
 			if (attack.isCritical)
 			{
 				var end = target.asWorld().add(new Coordinate(.5, .5));
-				bullet.add(new Tracer(start, end, .3, data.ColorKey.C_YELLOW_3));
+				bullet.add(new Tracer(start, end, .3, data.ColorKey.C_YELLOW));
 			}
 			else
 			{
@@ -158,7 +158,7 @@ class WeaponFamily
 				var endY = isHit ? r.float(-1, 1) : r.float(-2, 2);
 
 				var end = target.asWorld().add(new Coordinate(endX, endY, WORLD)).add(new Coordinate(.5, .5));
-				bullet.add(new Tracer(start, end, .10, data.ColorKey.C_GRAY_1));
+				bullet.add(new Tracer(start, end, .10, data.ColorKey.C_LIGHT_GRAY));
 			}
 
 			if (isHit)

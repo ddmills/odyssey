@@ -15,7 +15,7 @@ class TallCabinetPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(FURNITURE_TALL_CABINET, C_RED_3, C_RED_1, OBJECTS));
+		entity.add(new Sprite(FURNITURE_TALL_CABINET, C_WOOD, C_RED, OBJECTS));
 		entity.add(new Moniker('Cabinet'));
 		entity.add(new Collider());
 

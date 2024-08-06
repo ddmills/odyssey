@@ -74,9 +74,9 @@ class TargetScreen extends Screen
 		inputDomain = INPUT_DOMAIN_ADVENTURE;
 		ob = new Object();
 		rangeOb = new Object(ob);
-		footprintOb = new Object(ob);
+		footprintOb = new Object();
 
-		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
+		targetShader = new SpriteShader(ColorKey.C_YELLOW);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 
@@ -91,7 +91,8 @@ class TargetScreen extends Screen
 
 	override function onEnter()
 	{
-		game.render(GROUND, ob);
+		game.render(OVERLAY, ob);
+		game.render(GROUND, footprintOb);
 		targetEntityId = null;
 		drawRangeCircle();
 		cursor = targeter.pos.floor();
@@ -105,6 +106,7 @@ class TargetScreen extends Screen
 	override function onDestroy()
 	{
 		ob.remove();
+		footprintOb.remove();
 
 		highlights.each((entity:Entity) ->
 		{
@@ -203,14 +205,14 @@ class TargetScreen extends Screen
 				highlight.showArrow = true;
 				highlight.showRing = true;
 				highlight.animated = true;
-				highlight.color = ColorKey.C_YELLOW_2;
+				highlight.color = ColorKey.C_YELLOW;
 			}
 			else
 			{
 				highlight.showArrow = false;
 				highlight.showRing = true;
 				highlight.animated = false;
-				highlight.color = ColorKey.C_YELLOW_2;
+				highlight.color = ColorKey.C_YELLOW;
 			}
 		});
 
@@ -228,6 +230,8 @@ class TargetScreen extends Screen
 		var originPx = targeter.pos.toPx();
 		ob.x = originPx.x;
 		ob.y = originPx.y;
+		footprintOb.x = originPx.x;
+		footprintOb.y = originPx.y;
 
 		var area = settings.footprint.getFootprint(targeter.pos, cursor.toWorld().floor());
 
@@ -254,7 +258,7 @@ class TargetScreen extends Screen
 			return;
 		}
 
-		var shader = new SpriteShader(C_RED_4, C_GRAY_1);
+		var shader = new SpriteShader(C_DARK_RED, C_LIGHT_GRAY);
 		shader.isShrouded = 0;
 
 		for (p in area)
@@ -282,7 +286,7 @@ class TargetScreen extends Screen
 	{
 		rangeOb.removeChildren();
 		rangeArea = (new CircleFootprint(settings.range)).getFootprint(new Coordinate(0, 0, WORLD), new Coordinate(0, 0, WORLD));
-		var shader = new SpriteShader(C_GRAY_1, C_GRAY_1);
+		var shader = new SpriteShader(C_LIGHT_GRAY, C_LIGHT_GRAY);
 		shader.isShrouded = 0;
 
 		for (p in rangeArea)
@@ -295,7 +299,7 @@ class TargetScreen extends Screen
 
 			var tileKey = Bitmasks.GetTileKey(BITMASK_HIGHLIGHT_DASH, mask);
 			var bm = new Bitmap(TileResources.Get(tileKey), rangeOb);
-			bm.alpha = .2;
+			bm.alpha = .5;
 			bm.addShader(shader);
 
 			var pos = p.asWorld().toPx();

@@ -15,7 +15,7 @@ class BedrollPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(BEDROLL, C_PURPLE_1, C_BLUE_2, OBJECTS));
+		entity.add(new Sprite(BEDROLL, C_PURPLE, C_BLUE, OBJECTS));
 		entity.add(new Moniker('Bedroll'));
 		entity.add(new Sleepable());
 		entity.add(new Loot());

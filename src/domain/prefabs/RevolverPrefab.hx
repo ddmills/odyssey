@@ -14,7 +14,7 @@ class RevolverPrefab extends Prefab
 	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var entity = new Entity(pos);
-		entity.add(new Sprite(PISTOL_1, C_BLUE_1, C_RED_2, OBJECTS));
+		entity.add(new Sprite(PISTOL_1, C_BLUE, C_WOOD, OBJECTS));
 		entity.add(new Moniker('Revolver'));
 		entity.add(new Loot());
 		entity.add(new Destructable());

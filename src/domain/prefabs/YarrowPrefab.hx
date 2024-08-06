@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
 import domain.components.Destructable;
 import domain.components.Forageable;
 import domain.components.Moniker;
@@ -14,7 +13,9 @@ class YarrowPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(FLOWER_1, C_YELLOW_0, C_GREEN_1, OBJECTS));
+		var s = new Sprite(FLOWER_1, C_YELLOW, C_GREEN, OBJECTS);
+		s.background = C_CLEAR;
+		entity.add(s);
 		entity.add(new Moniker('Yarrow'));
 		entity.add(new Forageable(YARROW_LEAF, RUSTLING_1, true));
 		entity.add(new Destructable());

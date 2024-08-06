@@ -81,14 +81,14 @@ class MapScreen extends Screen
 		if (zone.biomes.river.nw)
 		{
 			tile = TileResources.Get(OVERWORLD_RIVER);
-			primary = C_BLUE_2;
-			background = C_BLUE_3;
+			primary = C_BLUE;
+			background = C_BLUE;
 		}
 
 		if (zone.poi != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
-			primary = C_RED_1;
+			primary = C_RED;
 		}
 		else if (zone.railroad != null)
 		{
@@ -105,8 +105,8 @@ class MapScreen extends Screen
 			}
 
 			tile = TileResources.Get(tileKey);
-			primary = C_GRAY_1;
-			secondary = C_RED_2;
+			primary = C_LIGHT_GRAY;
+			secondary = C_RED;
 		}
 
 		var bm = new Bitmap(tile);
@@ -161,8 +161,8 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		var white = Tile.fromColor(C_YELLOW_0, game.TILE_W, game.TILE_H, 0);
-		var red = Tile.fromColor(C_RED_1, game.TILE_W, game.TILE_H);
+		var white = Tile.fromColor(C_YELLOW, game.TILE_W, game.TILE_H, 0);
+		var red = Tile.fromColor(C_RED, game.TILE_W, game.TILE_H);
 		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_H);
 		ob = {
 			root: new Object(),

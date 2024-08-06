@@ -15,7 +15,7 @@ class DusterPrefab extends Prefab
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
-		entity.add(new Sprite(DUSTER, C_RED_2, C_GRAY_5, OBJECTS));
+		entity.add(new Sprite(DUSTER, C_RED, C_GRAY, OBJECTS));
 		entity.add(new Moniker('Duster'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY]));

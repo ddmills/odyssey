@@ -28,12 +28,12 @@ class PlayerPrefab extends Prefab
 			PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7, PERSON_8, PERSON_9, PERSON_10,
 		]);
 
-		entity.add(new Sprite(tkey, C_YELLOW_0, C_BLUE_4, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE, C_DARK_BLUE, ACTORS));
 		entity.add(new IsPlayer());
 		entity.add(new FactionMember(FACTION_PLAYER));
 		entity.add(new Energy(10));
 		entity.add(new Level(200));
-		entity.add(new Vision(16));
+		entity.add(new Vision(20));
 		entity.add(new Sleeper());
 		entity.add(new Moniker('Cowboy'));
 		entity.add(new Inventory());

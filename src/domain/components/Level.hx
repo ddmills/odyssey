@@ -33,7 +33,7 @@ class Level extends Component
 
 		Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 			text: '+${gain}xp',
-			color: ColorKey.C_GRAY_2,
+			color: ColorKey.C_GRAY,
 			duration: 80
 		});
 	}
@@ -45,7 +45,7 @@ class Level extends Component
 
 		Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 			text: 'LEVEL UP',
-			color: ColorKey.C_BLUE_1,
+			color: ColorKey.C_BLUE,
 			duration: 300
 		});
 	}

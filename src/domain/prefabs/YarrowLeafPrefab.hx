@@ -17,7 +17,7 @@ class YarrowLeafPrefab extends Prefab
 
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(RASPBERRY, C_GREEN_1, C_GREEN_4, OBJECTS));
+		entity.add(new Sprite(RASPBERRY, C_GREEN, C_GREEN, OBJECTS));
 		entity.add(new Moniker('Yarrow leaf'));
 		entity.add(new Stackable(STACK_YARROW_LEAF, quantity));
 		entity.add(new Loot());

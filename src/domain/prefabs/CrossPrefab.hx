@@ -12,7 +12,7 @@ class CrossPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(CROSS, C_RED_3, C_RED_5, OBJECTS));
+		entity.add(new Sprite(CROSS, C_WOOD, C_DARK_RED, OBJECTS));
 		entity.add(new Moniker('Cross'));
 		entity.add(new Collider());
 

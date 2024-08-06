@@ -15,7 +15,7 @@ class LockboxPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(CHEST_SMALL_CLOSED, C_BLUE_2, C_YELLOW_2, OBJECTS));
+		entity.add(new Sprite(CHEST_SMALL_CLOSED, C_BLUE, C_YELLOW, OBJECTS));
 		entity.add(new Moniker('Lockbox'));
 		entity.add(new Loot());
 		entity.add(new Destructable());

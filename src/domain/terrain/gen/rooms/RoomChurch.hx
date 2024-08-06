@@ -61,9 +61,9 @@ class RoomChurch extends RoomDecorator
 			if (room.includeWalls && room.isOnEdge(pos))
 			{
 				tile.tileKey = FLOORBOARDS;
-				tile.primary = C_RED_4;
-				tile.secondary = C_RED_3;
-				tile.background = C_RED_5;
+				tile.primary = C_DARK_GRAY;
+				tile.secondary = C_WOOD;
+				tile.background = C_DARK_RED;
 
 				if (pos.y < midY || pos.y > midY)
 				{
@@ -102,9 +102,9 @@ class RoomChurch extends RoomDecorator
 			else
 			{
 				tile.tileKey = FLOORBOARDS;
-				tile.primary = C_RED_4;
-				tile.secondary = C_RED_3;
-				tile.background = C_RED_5;
+				tile.primary = C_DARK_GRAY;
+				tile.secondary = C_WOOD;
+				tile.background = C_DARK_RED;
 
 				if (isMiddle)
 				{

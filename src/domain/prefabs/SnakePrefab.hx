@@ -13,7 +13,7 @@ class SnakePrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(SNAKE, C_RED_1, C_BLACK, ACTORS));
+		entity.add(new Sprite(SNAKE, C_ORANGE, C_BLACK, ACTORS));
 
 		BasicActorDecorator.Decorate(entity, {
 			level: 1,

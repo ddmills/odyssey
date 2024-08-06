@@ -34,50 +34,33 @@ class ColorPaletteResources
 	{
 		var p = new ColorPalette();
 
-		p.setColor(C_WHITE, img.getPixel(0, 0));
-		p.setColor(C_GRAY_1, img.getPixel(1, 0));
-		p.setColor(C_GRAY_2, img.getPixel(2, 0));
-		p.setColor(C_GRAY_3, img.getPixel(3, 0));
-		p.setColor(C_GRAY_4, img.getPixel(4, 0));
-		p.setColor(C_GRAY_5, img.getPixel(5, 0));
-		p.setColor(C_GRAY_6, img.getPixel(6, 0));
-		p.setColor(C_BLACK, img.getPixel(7, 0));
-		p.setColor(C_CLEAR, img.getPixel(7, 1));
+		p.setColor(C_WHITE, 0xcecba9);
+		p.setColor(C_LIGHT_GRAY, 0xB1C0C5);
+		p.setColor(C_GRAY, 0x5B6D72);
+		p.setColor(C_DARK_GRAY, 0x252525);
+		p.setColor(C_BLACK, 0x1f1313);
+		p.setColor(C_CLEAR, 0x0F151B);
+		p.setColor(C_SHROUD, 0x242930);
 
-		p.setColor(C_GREEN_0, img.getPixel(0, 1));
-		p.setColor(C_GREEN_1, img.getPixel(1, 1));
-		p.setColor(C_GREEN_2, img.getPixel(2, 1));
-		p.setColor(C_GREEN_3, img.getPixel(3, 1));
-		p.setColor(C_GREEN_4, img.getPixel(4, 1));
-		p.setColor(C_GREEN_5, img.getPixel(5, 1));
+		p.setColor(C_PURPLE, 0x763279);
+		p.setColor(C_DARK_GREEN, 0x25381A);
+		p.setColor(C_GREEN, 0x536D3D);
 
-		p.setColor(C_BLUE_0, img.getPixel(0, 2));
-		p.setColor(C_BLUE_1, img.getPixel(1, 2));
-		p.setColor(C_BLUE_2, img.getPixel(2, 2));
-		p.setColor(C_BLUE_3, img.getPixel(3, 2));
-		p.setColor(C_BLUE_4, img.getPixel(4, 2));
-		p.setColor(C_BLUE_5, img.getPixel(5, 2));
+		p.setColor(C_DARK_RED, 0x502828);
+		p.setColor(C_RED, 0xb15555);
+		p.setColor(C_ORANGE, 0xd67215);
 
-		p.setColor(C_PURPLE_0, img.getPixel(0, 3));
-		p.setColor(C_PURPLE_1, img.getPixel(1, 3));
-		p.setColor(C_PURPLE_2, img.getPixel(2, 3));
-		p.setColor(C_PURPLE_3, img.getPixel(3, 3));
-		p.setColor(C_PURPLE_4, img.getPixel(4, 3));
-		p.setColor(C_PURPLE_5, img.getPixel(5, 3));
+		p.setColor(C_DARK_BLUE, 0x28424D);
+		p.setColor(C_BLUE, 0x427396);
 
-		p.setColor(C_YELLOW_0, img.getPixel(0, 4));
-		p.setColor(C_YELLOW_1, img.getPixel(1, 4));
-		p.setColor(C_YELLOW_2, img.getPixel(2, 4));
-		p.setColor(C_YELLOW_3, img.getPixel(3, 4));
-		p.setColor(C_YELLOW_4, img.getPixel(4, 4));
-		p.setColor(C_YELLOW_5, img.getPixel(5, 4));
+		p.setColor(C_YELLOW, 0xd4ce4b);
+		p.setColor(C_BROWN, 0x814C2F);
+		p.setColor(C_DARK_BROWN, 0x442819);
 
-		p.setColor(C_RED_0, img.getPixel(0, 5));
-		p.setColor(C_RED_1, img.getPixel(1, 5));
-		p.setColor(C_RED_2, img.getPixel(2, 5));
-		p.setColor(C_RED_3, img.getPixel(3, 5));
-		p.setColor(C_RED_4, img.getPixel(4, 5));
-		p.setColor(C_RED_5, img.getPixel(5, 5));
+		p.setColor(C_WOOD, p.getColor(C_BROWN));
+		p.setColor(C_STONE, p.getColor(C_GRAY));
+
+		p.setColor(C_TEXT_PRIMARY, 0xcecba9);
 
 		return p;
 	}

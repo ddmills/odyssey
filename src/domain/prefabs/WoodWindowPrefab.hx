@@ -15,7 +15,7 @@ class WoodWindowPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(WALL_WINDOW_H, C_RED_2, C_BLUE_1, OBJECTS));
+		entity.add(new Sprite(WALL_WINDOW_H, C_WOOD, C_BLUE, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_WINDOW, BITMASK_WALL]));
 		entity.add(new Moniker('Window'));
 		entity.add(new Collider());

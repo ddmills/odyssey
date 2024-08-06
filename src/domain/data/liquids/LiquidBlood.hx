@@ -6,6 +6,6 @@ class LiquidBlood extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_BLOOD, 'blood', C_RED_2, C_RED_1);
+		super(LIQUID_BLOOD, 'blood', C_RED, C_RED);
 	}
 }

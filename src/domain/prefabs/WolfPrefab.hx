@@ -14,7 +14,7 @@ class WolfPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(WOLF, C_GRAY_3, C_RED_4, ACTORS));
+		entity.add(new Sprite(WOLF, C_GRAY, C_DARK_RED, ACTORS));
 		entity.add(new Dialog([DIALOG_WOLF]));
 		entity.add(new Inventory(false));
 

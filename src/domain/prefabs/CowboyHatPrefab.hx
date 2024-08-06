@@ -16,7 +16,7 @@ class CowboyHatPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(COWBOY_HAT_1, C_RED_2, C_YELLOW_1, OBJECTS));
+		entity.add(new Sprite(COWBOY_HAT_1, C_RED, C_YELLOW, OBJECTS));
 		entity.add(new Moniker('Cowboy hat'));
 		entity.add(new Equipment([EQ_SLOT_HEAD]));
 		entity.add(new Loot());

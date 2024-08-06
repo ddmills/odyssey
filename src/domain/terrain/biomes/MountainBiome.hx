@@ -7,7 +7,7 @@ class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, MOUNTAIN, C_GRAY_2, C_GRAY_1, C_GRAY_5);
+		super(seed, MOUNTAIN, C_GRAY, C_LIGHT_GRAY, C_GRAY);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -23,7 +23,7 @@ class MountainBiome extends Biome
 			cell.terrain = TERRAIN_ROCK;
 		}
 
-		cell.primary = C_GRAY_2;
-		cell.background = C_GRAY_5;
+		cell.primary = C_GRAY;
+		cell.background = C_GRAY;
 	}
 }

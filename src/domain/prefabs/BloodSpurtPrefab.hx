@@ -11,7 +11,7 @@ class BloodSpurtPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		var anim = new SpriteAnim(LIQUID_SPURT, 10, ColorKey.C_RED_1, ColorKey.C_RED_2, FX, false);
+		var anim = new SpriteAnim(LIQUID_SPURT, 10, ColorKey.C_RED, ColorKey.C_RED, FX, false);
 		anim.destroyOnComplete = true;
 
 		entity.add(anim);

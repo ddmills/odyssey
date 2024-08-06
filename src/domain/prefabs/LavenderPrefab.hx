@@ -13,7 +13,7 @@ class LavenderPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(FLOWER_2, C_PURPLE_1, C_GREEN_1, OBJECTS));
+		entity.add(new Sprite(FLOWER_2, C_PURPLE, C_GREEN, OBJECTS));
 		entity.add(new Moniker('Lavender'));
 		entity.add(new Destructable());
 

@@ -244,8 +244,9 @@ class ChunkGen
 		var x = (worldPos.x % world.zoneSize) / world.zoneSize;
 		var y = (worldPos.y % world.zoneSize) / world.zoneSize;
 
-		var isSouth = p1.get(worldPos.x, worldPos.y, 20, 5) < y;
-		var isEast = p2.get(worldPos.x, worldPos.y, 20, 5) < x;
+		var isSouth = p1.get(worldPos.x, worldPos.y, 30, 2) < y;
+		var isEast = p2.get(worldPos.x, worldPos.y, 30, 2) < x;
+
 		return switch [isSouth, isEast]
 		{
 			case [true, true]: rivers.se;
@@ -328,15 +329,15 @@ class ChunkGen
 		if (cell != null)
 		{
 			cell.terrain = TERRAIN_RIVER;
-			// cell.primary = C_BLUE_2;
-			// cell.background = C_BLUE_3;
-			// cell.tileKey = WATER_4;
-			cell.tileKey = TERRAIN_BASIC_1;
+			cell.primary = C_BLUE;
+			// cell.background = C_BLUE;
+			cell.tileKey = WATER_4;
+			// cell.tileKey = TERRAIN_BASIC_1;
 
-			Spawner.Spawn(PUDDLE, p.add(chunk.worldPos).asWorld(), {
-				liquidType: LiquidType.LIQUID_WATER,
-				volume: 1000,
-			});
+			// Spawner.Spawn(PUDDLE, p.add(chunk.worldPos).asWorld(), {
+			// 	liquidType: LiquidType.LIQUID_WATER,
+			// 	volume: 1000,
+			// });
 		}
 	}
 }

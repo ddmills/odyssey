@@ -52,8 +52,8 @@ class PoiLayoutRailroadStation extends PoiLayout
 		var tile:RoomTile = {
 			content: [],
 			tileKey: TERRAIN_BASIC_5,
-			primary: C_RED_5,
-			background: C_RED_3,
+			primary: C_DARK_RED,
+			background: C_WOOD,
 		};
 		return tile;
 	}

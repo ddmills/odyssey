@@ -21,7 +21,7 @@ class OakTreePrefab extends Prefab
 		var tileKey:TileKey = r.pick([TREE_OAK_1, TREE_OAK_2, TREE_OAK_3]);
 		var destroyAudio = r.pick([WOOD_DESTROY_1, WOOD_DESTROY_2, TREE_FALL_1]);
 
-		entity.add(new Sprite(tileKey, C_GREEN_2, C_RED_2, OBJECTS));
+		entity.add(new Sprite(tileKey, C_DARK_GREEN, C_WOOD, OBJECTS));
 		entity.add(new Moniker('Oak tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

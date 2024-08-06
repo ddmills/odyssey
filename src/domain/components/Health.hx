@@ -116,7 +116,7 @@ class Health extends Component
 			{
 				Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 					text: 'crit! -' + evt.attack.damage.toString(),
-					color: ColorKey.C_YELLOW_2,
+					color: ColorKey.C_YELLOW,
 					duration: 120
 				});
 			}
@@ -124,7 +124,7 @@ class Health extends Component
 			{
 				Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 					text: '-' + evt.attack.damage.toString(),
-					color: ColorKey.C_RED_2,
+					color: ColorKey.C_RED,
 					duration: 100
 				});
 			}
@@ -133,7 +133,7 @@ class Health extends Component
 		{
 			Spawner.Spawn(FLOATING_TEXT, entity.pos, {
 				text: 'dodged',
-				color: ColorKey.C_BLUE_2,
+				color: ColorKey.C_BLUE,
 				duration: 80
 			});
 			evt.isHit = false;

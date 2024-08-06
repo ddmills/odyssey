@@ -16,7 +16,7 @@ class WoodPlankPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(PLANK, C_RED_3, C_BLACK, OBJECTS));
+		entity.add(new Sprite(PLANK, C_WOOD, C_BLACK, OBJECTS));
 		entity.add(new Moniker('Wood plank'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_HAND]));

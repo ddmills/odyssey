@@ -35,7 +35,7 @@ class VillagerPrefab extends Prefab
 		HumanoidDecorator.Decorate(entity);
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
-		entity.add(new Sprite(tkey, C_YELLOW_0, C_GREEN_2, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE, C_GREEN, ACTORS));
 
 		entity.add(new Dialog([DIALOG_VILLAGER], [DIALOG_OPTION_RUMORS]));
 

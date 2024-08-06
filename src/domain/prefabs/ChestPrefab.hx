@@ -15,7 +15,7 @@ class ChestPrefab extends Prefab
 	{
 		var chest = new Entity(pos);
 
-		chest.add(new Sprite(CHEST_LARGE_CLOSED, C_RED_3, C_BLUE_1, OBJECTS));
+		chest.add(new Sprite(CHEST_LARGE_CLOSED, C_WOOD, C_BLUE, OBJECTS));
 		chest.add(new Moniker('Chest'));
 		chest.add(new Collider());
 

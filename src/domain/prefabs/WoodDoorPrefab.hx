@@ -18,7 +18,7 @@ class WoodDoorPrefab extends Prefab
 		var isOpen = options.isOpen == null ? false : options.isOpen;
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(DOOR, C_RED_3, C_GRAY_1, OBJECTS));
+		entity.add(new Sprite(DOOR, C_WOOD, C_LIGHT_GRAY, OBJECTS));
 		entity.add(new Moniker('Door'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

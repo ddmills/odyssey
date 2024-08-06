@@ -14,7 +14,7 @@ class TablePrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(FURNITURE_TABLE, C_RED_3, C_RED_2, OBJECTS));
+		entity.add(new Sprite(FURNITURE_TABLE, C_WOOD, C_RED, OBJECTS));
 		entity.add(new Moniker('Table'));
 		entity.add(new Collider());
 

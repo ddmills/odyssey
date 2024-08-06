@@ -14,7 +14,7 @@ class PonchoPrefab extends Prefab
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
-		entity.add(new Sprite(PONCHO, C_GREEN_1, C_PURPLE_2, OBJECTS));
+		entity.add(new Sprite(PONCHO, C_GREEN, C_PURPLE, OBJECTS));
 		entity.add(new Moniker('Poncho'));
 		entity.add(new Loot());
 		entity.add(new Equipment([EQ_SLOT_BODY]));

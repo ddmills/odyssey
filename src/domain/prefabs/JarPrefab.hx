@@ -21,7 +21,7 @@ class JarPrefab extends Prefab
 
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(JAR, Game.instance.CLEAR_COLOR, C_BLUE_1, OBJECTS));
+		entity.add(new Sprite(JAR, Game.instance.CLEAR_COLOR, C_BLUE, OBJECTS));
 		entity.add(new Moniker('Jar'));
 		entity.add(new Loot());
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));

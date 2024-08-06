@@ -16,7 +16,7 @@ class BootsPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(BOOTS, C_RED_2, C_GRAY_5, OBJECTS));
+		entity.add(new Sprite(BOOTS, C_RED, C_GRAY, OBJECTS));
 		entity.add(new Moniker('Boots'));
 		entity.add(new Equipment([EQ_SLOT_FEET]));
 		entity.add(new Loot());

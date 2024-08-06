@@ -9,7 +9,7 @@ class PoiLayoutFortress extends PoiLayout
 {
 	public function apply(poi:ZonePoi, r:Rand):Array<Room>
 	{
-		var exteriorPad = 2;
+		var exteriorPad = 4;
 		var interiorPad = 2;
 		var interiorOffX = exteriorPad + (interiorPad * 2);
 		var interiorOffY = exteriorPad + (interiorPad * 2);
@@ -50,12 +50,12 @@ class PoiLayoutFortress extends PoiLayout
 					var p = new IntPoint(offX + x, offY - 1);
 
 					poi.setTile(p, {
-						primary: C_GRAY_4,
+						primary: C_GRAY,
 						tileKey: TERRAIN_BASIC_1,
-						background: C_BLUE_4,
+						background: C_DARK_BLUE,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -69,12 +69,12 @@ class PoiLayoutFortress extends PoiLayout
 				{
 					var p = new IntPoint(offX - 1, offY + y);
 					poi.setTile(p, {
-						primary: C_GRAY_4,
+						primary: C_GRAY,
 						tileKey: TERRAIN_BASIC_1,
-						background: C_BLUE_4,
+						background: C_DARK_BLUE,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -132,9 +132,9 @@ class PoiLayoutFortress extends PoiLayout
 				var door = r.pick(doorCandidates);
 
 				poi.setTile(door, {
-					primary: C_GRAY_4,
+					primary: C_GRAY,
 					tileKey: TERRAIN_BASIC_2,
-					background: C_PURPLE_3,
+					background: C_PURPLE,
 					content: [
 						{
 							spawnableType: WOOD_DOOR,
@@ -154,7 +154,7 @@ class PoiLayoutFortress extends PoiLayout
 				var wallBot = new IntPoint(x, poi.height - exteriorPad - 1);
 
 				poi.setTile(wallTop, {
-					primary: C_GRAY_5,
+					primary: C_DARK_GRAY,
 					tileKey: TERRAIN_BASIC_1,
 					content: [
 						{
@@ -164,7 +164,7 @@ class PoiLayoutFortress extends PoiLayout
 					],
 				});
 				poi.setTile(wallBot, {
-					primary: C_GRAY_5,
+					primary: C_DARK_GRAY,
 					tileKey: TERRAIN_BASIC_1,
 					content: [
 						{
@@ -184,12 +184,12 @@ class PoiLayoutFortress extends PoiLayout
 				if (!(r.bool(.15) && tryDoor(interiorWallTop, poi, true)))
 				{
 					poi.setTile(interiorWallTop, {
-						primary: C_RED_5,
-						background: C_RED_5,
+						primary: C_DARK_RED,
+						background: C_DARK_RED,
 						tileKey: TERRAIN_BASIC_1,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -198,12 +198,12 @@ class PoiLayoutFortress extends PoiLayout
 				if (!(r.bool(.15) && tryDoor(interiorWallBot, poi, true)))
 				{
 					poi.setTile(interiorWallBot, {
-						primary: C_RED_5,
-						background: C_RED_5,
+						primary: C_DARK_RED,
+						background: C_DARK_RED,
 						tileKey: TERRAIN_BASIC_1,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -217,35 +217,35 @@ class PoiLayoutFortress extends PoiLayout
 				var b = new IntPoint(x, poi.height - exteriorPad - y - 2);
 
 				poi.setTile(t, {
-					primary: C_GRAY_5,
-					background: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
+					primary: C_DARK_GRAY,
+					background: C_DARK_GRAY,
+					tileKey: FLOORBOARDS,
 					content: [],
 				});
 				poi.setTile(b, {
-					primary: C_GRAY_5,
-					background: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
+					primary: C_DARK_GRAY,
+					background: C_DARK_GRAY,
+					tileKey: FLOORBOARDS,
 					content: [],
 				});
 			}
 
-			for (y in 0...exteriorPad)
-			{
-				var t = new IntPoint(x, y);
-				var b = new IntPoint(x, poi.height - y - 1);
+			// for (y in 0...exteriorPad)
+			// {
+			// 	var t = new IntPoint(x, y);
+			// 	var b = new IntPoint(x, poi.height - y - 1);
 
-				poi.setTile(t, {
-					primary: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
-					content: [],
-				});
-				poi.setTile(b, {
-					primary: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
-					content: [],
-				});
-			}
+			// 	poi.setTile(t, {
+			// 		primary: C_GRAY,
+			// 		tileKey: TERRAIN_BASIC_1,
+			// 		content: [],
+			// 	});
+			// 	poi.setTile(b, {
+			// 		primary: C_GRAY,
+			// 		tileKey: TERRAIN_BASIC_1,
+			// 		content: [],
+			// 	});
+			// }
 		}
 
 		for (y in exteriorPad...(poi.height - exteriorPad))
@@ -257,7 +257,7 @@ class PoiLayoutFortress extends PoiLayout
 				var wallRight = new IntPoint(poi.width - exteriorPad - 1, y);
 
 				poi.setTile(wallLeft, {
-					primary: C_GRAY_5,
+					primary: C_GRAY,
 					tileKey: TERRAIN_BASIC_1,
 					content: [
 						{
@@ -267,7 +267,7 @@ class PoiLayoutFortress extends PoiLayout
 					],
 				});
 				poi.setTile(wallRight, {
-					primary: C_GRAY_5,
+					primary: C_GRAY,
 					tileKey: TERRAIN_BASIC_1,
 					content: [
 						{
@@ -287,12 +287,12 @@ class PoiLayoutFortress extends PoiLayout
 				if (!(r.bool(.15) && tryDoor(interiorWallLeft, poi, false)))
 				{
 					poi.setTile(interiorWallLeft, {
-						primary: C_RED_5,
-						background: C_RED_5,
+						primary: C_DARK_RED,
+						background: C_DARK_RED,
 						tileKey: TERRAIN_BASIC_1,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -302,12 +302,12 @@ class PoiLayoutFortress extends PoiLayout
 				if (!(r.bool(.15) && tryDoor(interiorWallRight, poi, false)))
 				{
 					poi.setTile(interiorWallRight, {
-						primary: C_RED_5,
-						background: C_RED_5,
+						primary: C_DARK_RED,
+						background: C_DARK_RED,
 						tileKey: TERRAIN_BASIC_1,
 						content: [
 							{
-								spawnableType: WOOD_WALL,
+								spawnableType: STONE_WALL,
 								spawnableSettings: {},
 							}
 						],
@@ -323,37 +323,35 @@ class PoiLayoutFortress extends PoiLayout
 					var b = new IntPoint(poi.width - exteriorPad - x - 2, y);
 
 					poi.setTile(t, {
-						primary: C_GRAY_5,
-						background: C_GRAY_5,
-						tileKey: TERRAIN_BASIC_1,
+						primary: C_DARK_GRAY,
+						tileKey: FLOORBOARDS,
 						content: [],
 					});
 
 					poi.setTile(b, {
-						primary: C_GRAY_5,
-						background: C_GRAY_5,
-						tileKey: TERRAIN_BASIC_1,
+						primary: C_DARK_GRAY,
+						tileKey: FLOORBOARDS,
 						content: [],
 					});
 				}
 			}
 
-			for (x in 0...exteriorPad)
-			{
-				var t = new IntPoint(x, y);
-				var b = new IntPoint(poi.width - x - 1, y);
+			// for (x in 0...exteriorPad)
+			// {
+			// 	var t = new IntPoint(x, y);
+			// 	var b = new IntPoint(poi.width - x - 1, y);
 
-				poi.setTile(t, {
-					primary: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
-					content: [],
-				});
-				poi.setTile(b, {
-					primary: C_GRAY_5,
-					tileKey: TERRAIN_BASIC_1,
-					content: [],
-				});
-			}
+			// 	poi.setTile(t, {
+			// 		primary: C_GRAY,
+			// 		tileKey: TERRAIN_BASIC_1,
+			// 		content: [],
+			// 	});
+			// 	poi.setTile(b, {
+			// 		primary: C_GRAY,
+			// 		tileKey: TERRAIN_BASIC_1,
+			// 		content: [],
+			// 	});
+			// }
 		}
 
 		return rooms;
@@ -373,8 +371,8 @@ class PoiLayoutFortress extends PoiLayout
 		}
 
 		poi.setTile(p, {
-			primary: C_GRAY_5,
-			background: C_GRAY_5,
+			primary: C_GRAY,
+			background: C_GRAY,
 			tileKey: TERRAIN_BASIC_1,
 			content: [
 				{

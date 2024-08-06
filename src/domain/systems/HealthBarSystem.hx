@@ -42,11 +42,11 @@ class HealthBarSystem extends System
 			var bar = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
 			var barArmor = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
 
-			var shader = new SpriteShader(ColorKey.C_RED_1, ColorKey.C_GRAY_5);
+			var shader = new SpriteShader(ColorKey.C_RED, ColorKey.C_GRAY);
 			shader.isShrouded = 0;
 			bar.addShader(shader);
 
-			var barArmorShader = new SpriteShader(ColorKey.C_BLUE_1, ColorKey.C_GRAY_5);
+			var barArmorShader = new SpriteShader(ColorKey.C_BLUE, ColorKey.C_GRAY);
 			barArmorShader.isShrouded = 0;
 			barArmor.addShader(barArmorShader);
 
@@ -87,12 +87,12 @@ class HealthBarSystem extends System
 			bm.ob.y = targetPos.y;
 
 			bm.barArmor.currentFrame = (health.armorPercent * (bm.barHealth.frames.length - 1));
-			// bm.shader.primary = C_BLUE_1.toHxdColor().toVector();
-			// bm.shader.secondary = C_GRAY_5.toHxdColor().toVector();
+			// bm.shader.primary = C_BLUE.toHxdColor().toVector();
+			// bm.shader.secondary = C_GRAY.toHxdColor().toVector();
 
 			bm.barHealth.currentFrame = (health.percent * (bm.barHealth.frames.length - 1));
-			bm.shader.primary = C_RED_1.toHxdColor().toVector();
-			bm.shader.secondary = C_GRAY_5.toHxdColor().toVector();
+			bm.shader.primary = C_RED.toHxdColor().toVector();
+			bm.shader.secondary = C_GRAY.toHxdColor().toVector();
 
 			bm.prevValue = health.value;
 		}

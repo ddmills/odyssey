@@ -12,11 +12,11 @@ class ExplosionPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		var anim = new SpriteAnim(EXPLOSION, 10, ColorKey.C_RED_1, ColorKey.C_WHITE, FX, false);
+		var anim = new SpriteAnim(EXPLOSION, 10, ColorKey.C_RED, ColorKey.C_WHITE, FX, false);
 		anim.destroyOnComplete = true;
 
 		entity.add(anim);
-		entity.add(new LightSource(.25, C_RED_1, 8));
+		entity.add(new LightSource(.25, C_RED, 8));
 
 		return entity;
 	}

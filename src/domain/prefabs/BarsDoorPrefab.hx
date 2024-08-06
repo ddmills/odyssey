@@ -16,7 +16,7 @@ class BarsDoorPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(BARS_DOOR, C_GRAY_2, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(BARS_DOOR, C_GRAY, C_GRAY, OBJECTS));
 		entity.add(new Moniker('Iron bar door'));
 		entity.add(new Collider());
 		entity.add(new BitmaskSprite([BITMASK_FENCE_BAR], false));

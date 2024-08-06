@@ -15,10 +15,10 @@ class RaspberryBushPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(BUSH_1, C_GREEN_3, C_RED_1, OBJECTS));
+		entity.add(new Sprite(BUSH_1, C_GREEN, C_RED, OBJECTS));
 		entity.add(new Moniker('Raspberry bush'));
 		entity.add(new Collider());
-		entity.add(new Forageable(RASPBERRY, RUSTLING_1, false, C_GREEN_3, C_GREEN_4));
+		entity.add(new Forageable(RASPBERRY, RUSTLING_1, false, C_GREEN, C_GREEN));
 		entity.add(new Destructable());
 
 		return entity;

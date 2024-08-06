@@ -11,12 +11,12 @@ class SwampBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, SWAMP, C_PURPLE_2, C_GREEN_3, C_PURPLE_3);
+		super(seed, SWAMP, C_PURPLE, C_GREEN, C_PURPLE);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey
 	{
-		var grass = r.bool(.05);
+		var grass = r.bool(.1);
 		if (grass)
 		{
 			return GRASS_V1_3;
@@ -52,8 +52,8 @@ class SwampBiome extends Biome
 	{
 		cell.tileKey = getBackgroundTileKey(pos);
 		cell.terrain = TERRAIN_MUD;
-		cell.primary = C_PURPLE_2;
-		cell.background = C_PURPLE_3;
+		cell.primary = C_PURPLE;
+		cell.background = C_PURPLE;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

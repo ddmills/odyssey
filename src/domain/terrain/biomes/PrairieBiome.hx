@@ -9,29 +9,34 @@ class PrairieBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE, C_GREEN_2, C_GREEN_1, C_GREEN_3);
+		super(seed, PRAIRIE, C_GREEN, C_GREEN, C_GREEN);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey
 	{
 		var h = perlin.get(pos, 6);
 
-		if (h > .7)
+		if (h > .6)
+		{
+			return GRASS_V2_5;
+		}
+
+		if (h > .55)
 		{
 			return GRASS_V2_4;
 		}
 
-		if (h > .6)
+		if (h > .5)
 		{
 			return GRASS_V2_3;
 		}
 
-		if (h > .5)
+		if (h > .4)
 		{
 			return GRASS_V2_2;
 		}
 
-		if (h > .4)
+		if (h > .3)
 		{
 			return GRASS_V2_1;
 		}
@@ -43,8 +48,8 @@ class PrairieBiome extends Biome
 	{
 		cell.tileKey = getBackgroundTileKey(pos);
 		cell.terrain = TERRAIN_GRASS;
-		cell.primary = C_GREEN_2;
-		cell.background = C_GREEN_3;
+		cell.primary = C_DARK_GREEN;
+		cell.background = C_GREEN;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

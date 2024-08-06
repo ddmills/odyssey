@@ -53,7 +53,7 @@ class Forageable extends Component
 
 		Spawner.Spawn(FLOATING_TEXT, evt.forager.pos, {
 			text: '+${name}',
-			color: ColorKey.C_GREEN_1,
+			color: ColorKey.C_GREEN,
 			duration: 120
 		});
 

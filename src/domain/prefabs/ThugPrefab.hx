@@ -18,7 +18,7 @@ class ThugPrefab extends Prefab
 		var entity = new Entity(pos);
 
 		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
-		entity.add(new Sprite(tkey, C_YELLOW_0, C_RED_1, ACTORS));
+		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
 
 		BasicActorDecorator.Decorate(entity, {
 			moniker: 'Thug brute',

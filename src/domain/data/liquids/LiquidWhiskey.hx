@@ -6,6 +6,6 @@ class LiquidWhiskey extends Liquid
 {
 	public function new()
 	{
-		super(LIQUID_WHISKEY, 'whiskey', C_YELLOW_2, C_WHITE);
+		super(LIQUID_WHISKEY, 'whiskey', C_YELLOW, C_WHITE);
 	}
 }

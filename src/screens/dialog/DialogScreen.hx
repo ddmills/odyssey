@@ -27,7 +27,7 @@ class DialogScreen extends ListSelectScreen
 		this.conversation = new Conversation(r, interactor, target);
 		super([]);
 
-		targetShader = new SpriteShader(ColorKey.C_YELLOW_0);
+		targetShader = new SpriteShader(ColorKey.C_YELLOW);
 		targetShader.isShrouded = 0;
 		targetShader.clearBackground = 0;
 		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);

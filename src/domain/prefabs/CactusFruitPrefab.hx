@@ -17,7 +17,7 @@ class CactusFruitPrefab extends Prefab
 
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(RASPBERRY, C_RED_4, C_GREEN_4, OBJECTS));
+		entity.add(new Sprite(RASPBERRY, C_DARK_RED, C_GREEN, OBJECTS));
 		entity.add(new Moniker('Cactus Fruit'));
 		entity.add(new Stackable(STACK_FRUIT_CACTUS, quantity));
 		entity.add(new Loot());

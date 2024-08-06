@@ -15,7 +15,7 @@ class SnubNoseRevolverPrefab extends Prefab
 	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var entity = new Entity(pos);
-		entity.add(new Sprite(PISTOL_2, C_BLUE_1, C_RED_2, OBJECTS));
+		entity.add(new Sprite(PISTOL_2, C_BLUE, C_RED, OBJECTS));
 		entity.add(new Moniker('Snub nose revolover'));
 		entity.add(new Loot());
 		entity.add(new Destructable());

@@ -21,7 +21,7 @@ class BaldCypressPrefab extends Prefab
 		var tileKey:TileKey = r.pick([TREE_BALD_CYPRESS_1, TREE_BALD_CYPRESS_2, TREE_BALD_CYPRESS_3]);
 		var destroyAudio = r.pick([WOOD_DESTROY_1, WOOD_DESTROY_2, TREE_FALL_1,]);
 
-		entity.add(new Sprite(tileKey, C_GRAY_2, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(tileKey, C_GRAY, C_GRAY, OBJECTS));
 		entity.add(new Moniker('Bald cypress tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

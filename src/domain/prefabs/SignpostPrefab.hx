@@ -13,7 +13,7 @@ class SignpostPrefab extends Prefab
 		var entity = new Entity(pos);
 		var text = options.text ?? 'scribbles';
 
-		entity.add(new Sprite(SIGNPOST, C_RED_3, C_YELLOW_1, OBJECTS));
+		entity.add(new Sprite(SIGNPOST, C_WOOD, C_WHITE, OBJECTS));
 		entity.add(new Moniker('Signpost ($text)'));
 		entity.add(new Collider());
 

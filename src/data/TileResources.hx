@@ -39,6 +39,7 @@ class TileResources
 		tiles.set(GRASS_V2_2, t[0][1]);
 		tiles.set(GRASS_V2_3, t[0][2]);
 		tiles.set(GRASS_V2_4, t[0][3]);
+		tiles.set(GRASS_V2_5, t[9][0]);
 
 		tiles.set(SWAMP_V1_1, t[3][0]);
 		tiles.set(SWAMP_V1_2, t[3][1]);

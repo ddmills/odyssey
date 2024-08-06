@@ -14,7 +14,7 @@ class FenceBarbedPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(FENCE_BARBED_0, C_RED_2, C_GRAY_2, OBJECTS));
+		entity.add(new Sprite(FENCE_BARBED_0, C_RED, C_GRAY, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_FENCE_BARBED]));
 		entity.add(new Moniker('Barbed wire fence'));
 		entity.add(new Collider());
