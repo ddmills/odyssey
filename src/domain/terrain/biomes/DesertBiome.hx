@@ -24,7 +24,9 @@ class DesertBiome extends Biome
 			cell.terrain = TERRAIN_SAND;
 		}
 
-		cell.primary = C_DARK_RED;
+		var c = r.pick([C_BROWN, C_DARK_BROWN, C_DARK_RED, C_ORANGE, C_DARK_GRAY]);
+
+		cell.primary = c;
 		cell.background = C_YELLOW;
 	}
 

@@ -24,7 +24,9 @@ class TundraBiome extends Biome
 			cell.terrain = TERRAIN_SNOW;
 		}
 
-		cell.primary = C_GRAY;
+		var c = r.pick([C_GRAY, C_DARK_GREEN, C_DARK_GRAY]);
+
+		cell.primary = c;
 		cell.background = C_GRAY;
 	}
 

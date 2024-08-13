@@ -41,5 +41,5 @@ class ScanlineShader extends ScreenShader
 
 				pixelColor = blur * amt * boost;
 			}
-		}
+		};
 }

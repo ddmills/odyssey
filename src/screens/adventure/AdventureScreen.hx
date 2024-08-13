@@ -153,6 +153,8 @@ class AdventureScreen extends Screen
 	{
 		switch (command.type)
 		{
+			case CMD_SCANLINES:
+				game.layers.toggleScanlines();
 			case CMD_MOVE_NW:
 				move(NORTH_WEST);
 			case CMD_MOVE_N:

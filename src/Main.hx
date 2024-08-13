@@ -35,7 +35,7 @@ class Main extends hxd.App
 		// hack to fix audio not playing more than once
 		@:privateAccess haxe.MainLoop.add(() -> {});
 
-		s2d.renderer.globals.set("dayProgress", 0);
+		// s2d.renderer.globals.set("dayProgress", 0);
 		s2d.renderer.globals.set("screenH", 800);
 
 		var window = hxd.Window.getInstance();

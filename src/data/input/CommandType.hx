@@ -16,6 +16,7 @@ enum abstract CommandType(String) to String
 	var CMD_MOVE_SW = 'move south west';
 	var CMD_MOVE_S = 'move south';
 	var CMD_MOVE_SE = 'move south east';
+	var CMD_SCANLINES = 'toggle scanline shader';
 	var CMD_CONSOLE = 'open console';
 	var CMD_INVENTORY = 'open inventory';
 	var CMD_EQUIPMENT = 'open equipment';

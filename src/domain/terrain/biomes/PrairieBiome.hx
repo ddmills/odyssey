@@ -48,7 +48,12 @@ class PrairieBiome extends Biome
 	{
 		cell.tileKey = getBackgroundTileKey(pos);
 		cell.terrain = TERRAIN_GRASS;
-		cell.primary = C_DARK_GREEN;
+
+		var c = r.pick([C_DARK_GREEN, C_DARK_GREEN, C_DARK_GRAY]);
+
+		cell.primary = c;
+
+		// cell.primary = C_DARK_GREEN;
 		cell.background = C_GREEN;
 	}
 

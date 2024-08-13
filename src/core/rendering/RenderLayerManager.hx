@@ -52,7 +52,8 @@ class RenderLayerManager
 		root.addChildAt(scroller, 1);
 		root.addChildAt(screen, 2);
 
-		var scanlineShader = new h2d.filter.Shader<ScanlineShader>(new ScanlineShader(), "texture");
+		var scanlineShader = new h2d.filter.Shader<ScanlineShader>(new ScanlineShader());
+		scanlineShader.enable = false;
 
 		root.filter = scanlineShader;
 	}
@@ -72,6 +73,11 @@ class RenderLayerManager
 		layers.set(type, layer);
 
 		return layer;
+	}
+
+	public function toggleScanlines()
+	{
+		root.filter.enable = !root.filter.enable;
 	}
 
 	public function render(layer:RenderLayerType, ob:h2d.Object)

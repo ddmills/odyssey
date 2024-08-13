@@ -31,15 +31,15 @@ class SpriteSystem extends System
 
 		anims.onEntityAdded((entity) -> renderSprite(entity.get(SpriteAnim)));
 		anims.onEntityRemoved((entity) -> removeSprite(entity.get(SpriteAnim)));
-		game.app.s2d.renderer.globals.set("dayProgress", world.clock.getDaylight());
+		// game.app.s2d.renderer.globals.set("dayProgress", world.clock.getDaylight());
 	}
 
 	public override function update(frame:Frame)
 	{
-		if (world.clock.tickDelta > 0)
-		{
-			game.app.s2d.renderer.globals.set("dayProgress", world.clock.getDaylight());
-		}
+		// if (world.clock.tickDelta > 0)
+		// {
+		// 	game.app.s2d.renderer.globals.set("dayProgress", world.clock.getDaylight());
+		// }
 	}
 
 	private function renderSprite(drawable:Drawable)

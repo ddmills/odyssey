@@ -15,6 +15,7 @@ class Commands
 		// @formatter:off
 		//  Domain                    Type                     Key            Shift   Ctrl   Alt
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CONSOLE,             KEY_COMMA,     true);
+		cmd(INPUT_DOMAIN_DEFAULT,     CMD_SCANLINES,           KEY_BACK_SLASH);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CYCLE_INPUT,         KEY_TAB);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_CYCLE_INPUT_REVERSE, KEY_TAB,       true);
 		cmd(INPUT_DOMAIN_DEFAULT,     CMD_SAVE,                KEY_S,         false,   true);
