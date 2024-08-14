@@ -122,6 +122,7 @@ class BiomeMap
 			case 0xb3904d: DESERT;
 			case 0x7a6681: SWAMP;
 			case 0x5e8e97: TUNDRA;
+			case 0x474747: MOUNTAIN;
 			case _: MOUNTAIN;
 		}
 	}

@@ -21,7 +21,7 @@ class PineTreePrefab extends Prefab
 		var tileKey:TileKey = r.pick([TREE_PINE_1, TREE_PINE_2, TREE_PINE_3, TREE_PINE_4,]);
 		var destroyAudio = r.pick([WOOD_DESTROY_1, WOOD_DESTROY_2, TREE_FALL_1,]);
 
-		entity.add(new Sprite(tileKey, C_DARK_GREEN, C_WOOD));
+		entity.add(new Sprite(tileKey, C_GREEN, C_WOOD));
 		entity.add(new Moniker('Pine tree'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

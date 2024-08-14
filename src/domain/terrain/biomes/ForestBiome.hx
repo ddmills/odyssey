@@ -25,7 +25,7 @@ class ForestBiome extends Biome
 	{
 		if (cell.terrain == TERRAIN_GRASS)
 		{
-			var trees = perlin.get(pos, 5, 8);
+			var trees = perlin.get(pos, 8, 8);
 			var rocks = perlin.get(pos, 12, 2);
 			if (rocks > .67)
 			{
