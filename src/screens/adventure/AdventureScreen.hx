@@ -7,12 +7,17 @@ import core.Frame;
 import core.Screen;
 import core.input.Command;
 import core.input.KeyCode;
+import data.BitmaskType;
+import data.Bitmasks;
 import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
+import domain.components.BitmaskSprite;
 import domain.components.Collider;
 import domain.components.Door;
+import domain.components.Explored;
 import domain.components.Health;
+import domain.components.IsDestroyed;
 import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Level;
@@ -48,6 +53,7 @@ typedef HudText =
 	cpos:Text,
 	zpos:Text,
 	xp:Text,
+	dbg:Text,
 }
 
 class AdventureScreen extends Screen
@@ -97,6 +103,28 @@ class AdventureScreen extends Screen
 		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
 		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
 		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + '(${mpos.toZoneIdx()}) $ztext';
+		hudText.dbg.text = 'zoink';
+
+		var wpos = mpos.toWorld();
+		var bmTypes:Array<BitmaskType> = [BITMASK_WALL_THICK];
+		var mask = Bitmasks.SumMask((x, y) ->
+		{
+			var offset = new Coordinate(x, y, WORLD);
+			var entities = game.world.getEntitiesAt(wpos.add(offset));
+			var isWall = entities.exists((e) ->
+			{
+				if (!e.has(BitmaskSprite) || !e.has(Explored) || e.has(IsDestroyed))
+				{
+					return false;
+				}
+
+				return bmTypes.contains(e.get(BitmaskSprite).bitmaskType);
+			});
+
+			return isWall;
+		});
+
+		hudText.dbg.text = 'mask=${mask}';
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';
@@ -144,7 +172,7 @@ class AdventureScreen extends Screen
 		if (key == KEY_NUM_0)
 		{
 			var p = game.input.mouse.toWorld().floor();
-			Spawner.Spawn(WOOD_WALL, p);
+			Spawner.Spawn(STONE_WALL, p);
 			world.systems.vision.computeVision();
 		}
 	}
@@ -288,6 +316,10 @@ class AdventureScreen extends Screen
 		xp.color = game.TEXT_COLOR.toHxdColor();
 		xp.y = 96;
 
+		var dbg = new Text(TextResources.BIZCAT, ob);
+		dbg.color = game.TEXT_COLOR.toHxdColor();
+		dbg.y = 112;
+
 		hudText = {
 			ob: ob,
 			fps: fps,
@@ -297,6 +329,7 @@ class AdventureScreen extends Screen
 			cpos: cpos,
 			zpos: zpos,
 			xp: xp,
+			dbg: dbg,
 		};
 
 		game.render(HUD, ob);
