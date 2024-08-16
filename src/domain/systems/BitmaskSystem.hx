@@ -69,7 +69,7 @@ class BitmaskSystem extends System
 		sprite.tileKey = tileKey;
 	}
 
-	function compute(entity:Entity):Int
+	public function compute(entity:Entity):Int
 	{
 		var bitmaskSprite = entity.get(BitmaskSprite);
 		var invert = bitmaskSprite.bitmask.invertUnexplored;

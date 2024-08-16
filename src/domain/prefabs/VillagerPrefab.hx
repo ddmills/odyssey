@@ -1,15 +1,10 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
-import data.FactionType;
 import data.TileKey;
 import domain.components.Dialog;
 import domain.components.EquipmentSlot;
-import domain.components.FactionMember;
-import domain.components.Health;
 import domain.components.Inventory;
-import domain.components.Moniker;
 import domain.components.Sprite;
 import domain.prefabs.decorators.BasicActorDecorator;
 import domain.prefabs.decorators.HumanoidDecorator;

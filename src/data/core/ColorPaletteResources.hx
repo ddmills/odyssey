@@ -44,13 +44,13 @@ class ColorPaletteResources
 
 		p.setColor(C_PURPLE, 0x913E96);
 		p.setColor(C_DARK_GREEN, 0x2E3823);
-		p.setColor(C_GREEN, 0x3D5515);
+		p.setColor(C_GREEN, 0x4E7214);
 
 		p.setColor(C_DARK_RED, 0x642D2D);
 		p.setColor(C_RED, 0xaa3b3b);
 		p.setColor(C_ORANGE, 0xd67215);
 
-		p.setColor(C_DARK_BLUE, 0x2E5464);
+		p.setColor(C_DARK_BLUE, 0x273A47);
 		p.setColor(C_BLUE, 0x4081AF);
 
 		p.setColor(C_YELLOW, 0xe0d948);

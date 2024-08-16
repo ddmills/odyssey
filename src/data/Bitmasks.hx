@@ -6,6 +6,7 @@ import common.util.BitUtil;
 enum BitmaskStyle
 {
 	BITMASK_STYLE_2D;
+	BITMASK_STYLE_BASIC;
 	BITMASK_STYLE_SIMPLE;
 	BITMASK_STYLE_FULL;
 }
@@ -44,6 +45,16 @@ class Bitmasks
 				WALL_THICK_3_4, WALL_THICK_3_5,  WALL_THICK_3_6,  WALL_THICK_3_7, WALL_THICK_3_8, WALL_THICK_3_9, WALL_THICK_3_10, WALL_THICK_3_11
 			],
 		});
+		registry.register(BITMASK_ROCK, {
+			style: BITMASK_STYLE_BASIC,
+			invertUnexplored: true,
+			tiles: [
+				WALL_ROCK_BASIC_0_0,
+				WALL_ROCK_BASIC_0_1,
+				WALL_ROCK_BASIC_1_0,
+				WALL_ROCK_BASIC_1_1
+			],
+		});
 		registry.register(BITMASK_WINDOW, {
 			style: BITMASK_STYLE_2D,
 			invertUnexplored: false,
@@ -75,7 +86,7 @@ class Bitmasks
 		});
 		registry.register(BITMASK_RAILROAD, {
 			style: BITMASK_STYLE_SIMPLE,
-			invertUnexplored: false,
+			invertUnexplored: true,
 			tiles: [
 				RAILROAD_0, RAILROAD_1,  RAILROAD_2,  RAILROAD_3,  RAILROAD_4,  RAILROAD_5,  RAILROAD_6, RAILROAD_7,
 				RAILROAD_8, RAILROAD_9, RAILROAD_10, RAILROAD_11, RAILROAD_12, RAILROAD_13, RAILROAD_14, RAILROAD_15
@@ -198,6 +209,13 @@ class Bitmasks
 				// single post
 				case _: 36;
 			}
+		}
+
+		if (style == BITMASK_STYLE_BASIC)
+		{
+			var below = BitUtil.hasBit(mask, 6);
+
+			return below ? 0 : 1;
 		}
 
 		if (style == BITMASK_STYLE_SIMPLE)

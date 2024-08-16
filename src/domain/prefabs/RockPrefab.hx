@@ -1,9 +1,7 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import core.Game;
-import data.ColorKey;
-import data.TileKey;
+import domain.components.BitmaskSprite;
 import domain.components.Collider;
 import domain.components.LightBlocker;
 import domain.components.Moniker;
@@ -15,10 +13,10 @@ class RockPrefab extends Prefab
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
-		var r = Game.instance.world.rand;
-		var tileKey = r.pick([ROCK_ROUND_1, ROCK_ROUND_2, ROCK_ROUND_3, ROCK_ROUND_4]);
 
-		entity.add(new Sprite(tileKey, C_STONE, C_GRAY, OBJECTS));
+		entity.add(new Sprite(ROCK_ROUND_1, C_STONE, C_DARK_GRAY, OBJECTS));
+		entity.add(new BitmaskSprite([BITMASK_ROCK, BITMASK_WINDOW, BITMASK_FENCE_BAR]));
+
 		entity.add(new Moniker('Rock'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

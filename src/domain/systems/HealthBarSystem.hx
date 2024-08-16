@@ -54,7 +54,7 @@ class HealthBarSystem extends System
 			bar.x = offsetPos.x;
 			bar.y = offsetPos.y;
 
-			var armorOffsetPos = new Coordinate(0, -1.2, WORLD).toPx();
+			var armorOffsetPos = new Coordinate(0, -1.1, WORLD).toPx();
 			barArmor.x = armorOffsetPos.x;
 			barArmor.y = armorOffsetPos.y;
 

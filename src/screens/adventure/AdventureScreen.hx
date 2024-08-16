@@ -106,25 +106,14 @@ class AdventureScreen extends Screen
 		hudText.dbg.text = 'zoink';
 
 		var wpos = mpos.toWorld();
-		var bmTypes:Array<BitmaskType> = [BITMASK_WALL_THICK];
-		var mask = Bitmasks.SumMask((x, y) ->
+		var entities = game.world.getEntitiesAt(wpos);
+		var maskE = entities.find((e) -> e.has(BitmaskSprite));
+
+		if (!maskE.isNull())
 		{
-			var offset = new Coordinate(x, y, WORLD);
-			var entities = game.world.getEntitiesAt(wpos.add(offset));
-			var isWall = entities.exists((e) ->
-			{
-				if (!e.has(BitmaskSprite) || !e.has(Explored) || e.has(IsDestroyed))
-				{
-					return false;
-				}
-
-				return bmTypes.contains(e.get(BitmaskSprite).bitmaskType);
-			});
-
-			return isWall;
-		});
-
-		hudText.dbg.text = 'mask=${mask}';
+			var mask = world.systems.bitmasks.compute(maskE);
+			hudText.dbg.text = 'mask=${mask}';
+		}
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';

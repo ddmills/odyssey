@@ -25,7 +25,7 @@ class TileResources
 
 	public static function Init()
 	{
-		var t = hxd.Res.tiles.smol.sheet_16_16.toTile().divide(16, 16);
+		var t = hxd.Res.tiles.smol.sheet_16_24.toTile().divide(16, 16);
 		// var t = hxd.Res.tiles.smol.sheet_16_24.toTile().divide(16, 16);
 
 		tiles.set(TK_UNKNOWN, t[0][7]);
@@ -234,7 +234,13 @@ class TileResources
 		tiles.set(WALL_14, walls[3][2]);
 		tiles.set(WALL_15, walls[3][3]);
 
-		var thick = hxd.Res.tiles.smol.walls_thick_16_16.toTile().divide(12, 4);
+		var rockBasic = hxd.Res.tiles.smol.walls_rock_16_24.toTile().divide(2, 2);
+		tiles.set(WALL_ROCK_BASIC_0_0, rockBasic[0][0]);
+		tiles.set(WALL_ROCK_BASIC_0_1, rockBasic[0][1]);
+		tiles.set(WALL_ROCK_BASIC_1_0, rockBasic[1][0]);
+		tiles.set(WALL_ROCK_BASIC_1_1, rockBasic[1][1]);
+
+		var thick = hxd.Res.tiles.smol.walls_thick_16_24.toTile().divide(12, 4);
 		tiles.set(WALL_THICK_0_0, thick[0][0]);
 		tiles.set(WALL_THICK_0_1, thick[0][1]);
 		tiles.set(WALL_THICK_0_2, thick[0][2]);
@@ -320,7 +326,7 @@ class TileResources
 		tiles.set(FENCE_BARBED_14, fenceBarbed[3][2]);
 		tiles.set(FENCE_BARBED_15, fenceBarbed[3][3]);
 
-		var fenceBars = hxd.Res.tiles.smol.fence_bars_16_16.toTile().divide(4, 4);
+		var fenceBars = hxd.Res.tiles.smol.fence_bars_16_24.toTile().divide(4, 4);
 		tiles.set(FENCE_BARS_0, fenceBars[0][0]);
 		tiles.set(FENCE_BARS_1, fenceBars[0][1]);
 		tiles.set(FENCE_BARS_2, fenceBars[0][2]);
@@ -356,7 +362,7 @@ class TileResources
 		tiles.set(HIGHLIGHT_14, highlight[3][2]);
 		tiles.set(HIGHLIGHT_15, highlight[3][3]);
 
-		var highlight_dash = hxd.Res.tiles.smol.highlight_dashed_16_16.toTile().divide(4, 4);
+		var highlight_dash = hxd.Res.tiles.smol.highlight_dashed_16_24.toTile().divide(4, 4);
 		tiles.set(HIGHLIGHT_DASH_0, highlight_dash[0][0]);
 		tiles.set(HIGHLIGHT_DASH_1, highlight_dash[0][1]);
 		tiles.set(HIGHLIGHT_DASH_2, highlight_dash[0][2]);
@@ -374,7 +380,7 @@ class TileResources
 		tiles.set(HIGHLIGHT_DASH_14, highlight_dash[3][2]);
 		tiles.set(HIGHLIGHT_DASH_15, highlight_dash[3][3]);
 
-		var railroad = hxd.Res.tiles.smol.railroad_16_16.toTile().divide(4, 4);
+		var railroad = hxd.Res.tiles.smol.railroad_16_24.toTile().divide(4, 4);
 		tiles.set(RAILROAD_0, railroad[0][0]);
 		tiles.set(RAILROAD_1, railroad[0][1]);
 		tiles.set(RAILROAD_2, railroad[0][2]);
@@ -392,7 +398,7 @@ class TileResources
 		tiles.set(RAILROAD_14, railroad[3][2]);
 		tiles.set(RAILROAD_15, railroad[3][3]);
 
-		var progressBar = hxd.Res.tiles.smol.progress_bar.toTile().divide(16, 1);
+		var progressBar = hxd.Res.tiles.smol.progress_bar_16_24.toTile().divide(16, 1);
 		tiles.set(PROGRESS_BAR_0, progressBar[0][0]);
 		tiles.set(PROGRESS_BAR_1, progressBar[0][1]);
 		tiles.set(PROGRESS_BAR_2, progressBar[0][2]);
