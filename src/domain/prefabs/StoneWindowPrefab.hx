@@ -15,7 +15,7 @@ class StoneWindowPrefab extends Prefab
 		var entity = new Entity(pos);
 
 		entity.add(new Sprite(WALL_WINDOW_H, C_STONE, C_BLUE, OBJECTS));
-		entity.add(new BitmaskSprite([BITMASK_WINDOW, BITMASK_WALL]));
+		entity.add(new BitmaskSprite([BITMASK_WINDOW, BITMASK_WALL, BITMASK_WALL_THICK]));
 		entity.add(new Moniker('Window'));
 		entity.add(new Collider());
 

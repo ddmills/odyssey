@@ -269,6 +269,7 @@ class World
 			var local = pos.toChunkLocal().toIntPoint();
 
 			chunk.setExplore(local, true, true);
+
 			for (entity in getEntitiesAt(pos.toWorld().toIntPoint()))
 			{
 				if (!entity.has(Visible))
@@ -288,36 +289,17 @@ class World
 	{
 		var c = coord.toChunk();
 		var chunk = chunks.getChunk(c.x, c.y);
-		if (chunk.isNull())
+		if (chunk.isNull() || !chunk.isLoaded)
 		{
 			return false;
 		}
-		var local = coord.toChunkLocal();
-		return chunk.exploration.get(local.x.floor(), local.y.floor());
+		var local = coord.toChunkLocal().toIntPoint();
+		return chunk.isExplored(local);
 	}
 
 	public function isVisible(coord:Coordinate)
 	{
 		return visible.exists((v) -> v.toWorld().equals(coord.toWorld().floor()));
-	}
-
-	public function explore(coord:Coordinate)
-	{
-		var c = coord.toChunk();
-		var chunk = chunks.getChunk(c.x, c.y);
-		if (chunk != null)
-		{
-			var local = coord.toChunkLocal().toIntPoint();
-			chunk.setExplore(local, true, false);
-
-			for (entity in getEntitiesAt(coord.toWorld().toIntPoint()))
-			{
-				if (!entity.has(Explored))
-				{
-					entity.add(new Explored());
-				}
-			}
-		}
 	}
 
 	public function getCell(pos:IntPoint):Cell

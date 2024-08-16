@@ -15,7 +15,7 @@ class FenceBarsPrefab extends Prefab
 		var entity = new Entity(pos);
 
 		entity.add(new Sprite(FENCE_BARS_0, C_GRAY, C_GRAY, OBJECTS));
-		entity.add(new BitmaskSprite([BITMASK_FENCE_BAR, BITMASK_WALL, BITMASK_FENCE_IRON]));
+		entity.add(new BitmaskSprite([BITMASK_FENCE_BAR, BITMASK_WALL, BITMASK_WALL_THICK, BITMASK_FENCE_IRON]));
 		entity.add(new Moniker('Iron bars'));
 		entity.add(new Collider());
 

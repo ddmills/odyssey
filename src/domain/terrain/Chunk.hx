@@ -309,6 +309,16 @@ class Chunk
 		return entities.get(x.floor(), y.floor());
 	}
 
+	public function isExplored(pos:IntPoint)
+	{
+		if (!isLoaded)
+		{
+			return false;
+		}
+
+		return exploration.get(pos.x, pos.y);
+	}
+
 	public function setExplore(pos:IntPoint, isExplored:Bool, isVisible:Bool)
 	{
 		if (!isLoaded)

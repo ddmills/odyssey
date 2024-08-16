@@ -22,7 +22,7 @@ class WoodDoorPrefab extends Prefab
 		entity.add(new Moniker('Door'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());
-		entity.add(new BitmaskSprite([BITMASK_WALL, BITMASK_WINDOW], false));
+		entity.add(new BitmaskSprite([BITMASK_WALL, BITMASK_WALL_THICK, BITMASK_WINDOW], false));
 
 		WoodBuiltDecorator.Decorate(entity);
 

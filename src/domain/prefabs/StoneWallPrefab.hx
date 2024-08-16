@@ -16,7 +16,7 @@ class StoneWallPrefab extends Prefab
 		var entity = new Entity(pos);
 
 		entity.add(new Sprite(WALL_0, C_STONE, C_BLUE, OBJECTS));
-		entity.add(new BitmaskSprite([BITMASK_WALL_THICK]));
+		entity.add(new BitmaskSprite([BITMASK_WALL_THICK, BITMASK_WINDOW, BITMASK_FENCE_BAR]));
 		entity.add(new Moniker('Stone wall'));
 		entity.add(new Collider());
 		entity.add(new LightBlocker());

@@ -1,7 +1,6 @@
 package domain.systems;
 
-import common.struct.IntPoint;
-import data.BitmaskType;
+import common.struct.Coordinate;
 import data.Bitmasks;
 import domain.components.BitmaskSprite;
 import domain.components.Explored;
@@ -29,25 +28,7 @@ class BitmaskSystem extends System
 		});
 	}
 
-	public function getMaskNeighbors(pos:IntPoint, types:Array<BitmaskType>)
-	{
-		var neighbors = world.getNeighborEntities(pos);
-
-		return neighbors.map((list) ->
-		{
-			return list.filter((e) ->
-			{
-				if (!e.has(BitmaskSprite) || !e.has(Explored) || e.has(IsDestroyed))
-				{
-					return false;
-				}
-
-				return types.contains(e.get(BitmaskSprite).bitmaskType);
-			});
-		});
-	}
-
-	public function refreshMaskAndNeighbors(entity:Entity)
+	function refreshMaskAndNeighbors(entity:Entity)
 	{
 		refreshMask(entity);
 
@@ -72,7 +53,7 @@ class BitmaskSystem extends System
 		}
 	}
 
-	public function refreshMask(entity:Entity)
+	function refreshMask(entity:Entity)
 	{
 		var bitmaskSprite = entity.get(BitmaskSprite);
 
@@ -81,32 +62,42 @@ class BitmaskSystem extends System
 			return;
 		}
 
-		var neighbors = getMaskNeighbors(entity.pos.toWorld().toIntPoint(), bitmaskSprite.bitmaskTypes);
-		var mask = sumMask(neighbors);
+		var mask = compute(entity);
 		var tileKey = Bitmasks.GetTileKey(bitmaskSprite.bitmaskType, mask);
 		var sprite = entity.get(Sprite);
 
 		sprite.tileKey = tileKey;
 	}
 
-	public function computeMask(entity:Entity):Int
+	function compute(entity:Entity):Int
 	{
 		var bitmaskSprite = entity.get(BitmaskSprite);
+		var invert = bitmaskSprite.bitmask.invertUnexplored;
 
-		if (bitmaskSprite == null)
+		return Bitmasks.SumMask((x, y) ->
 		{
-			return 0;
-		}
+			var pos = entity.pos.toIntPoint().add(x, y).asWorld();
+			var list = world.getEntitiesAt(pos);
 
-		var neighbors = getMaskNeighbors(entity.pos.toWorld().toIntPoint(), bitmaskSprite.bitmaskTypes);
-		return sumMask(neighbors);
-	}
+			for (e in list)
+			{
+				if (!invert && !e.has(Explored))
+				{
+					continue;
+				}
 
-	public function sumMask(neighbors:Array<Array<Entity>>):Int
-	{
-		return neighbors.foldi((cell, sum, idx) ->
-		{
-			return cell.length > 0 ? sum + 2.pow(idx) : sum;
-		}, 0);
+				if (!e.has(BitmaskSprite) || e.has(IsDestroyed))
+				{
+					continue;
+				}
+
+				if (bitmaskSprite.bitmaskTypes.contains(e.get(BitmaskSprite).bitmaskType))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		});
 	}
 }
