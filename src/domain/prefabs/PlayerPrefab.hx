@@ -24,9 +24,7 @@ class PlayerPrefab extends Prefab
 		var r = Rand.create();
 		var entity = new Entity(pos);
 
-		var tkey:TileKey = r.pick([
-			PERSON_1, PERSON_2, PERSON_3, PERSON_4, PERSON_5, PERSON_6, PERSON_7, PERSON_8, PERSON_9, PERSON_10,
-		]);
+		var tkey:TileKey = r.pick([PLAYER_1, PLAYER_2, PLAYER_3, PLAYER_4, PLAYER_5]);
 
 		entity.add(new Sprite(tkey, C_WHITE, C_BLUE, ACTORS));
 		entity.add(new IsPlayer());

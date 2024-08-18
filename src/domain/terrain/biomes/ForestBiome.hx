@@ -31,7 +31,7 @@ class ForestBiome extends Biome
 			{
 				Spawner.Spawn(ROCK, pos.asWorld());
 			}
-			else if (trees > .5)
+			else if (trees > .55)
 			{
 				if (r.bool(.25 + trees))
 				{

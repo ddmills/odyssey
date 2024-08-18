@@ -48,12 +48,17 @@ class Bitmasks
 		registry.register(BITMASK_ROCK, {
 			style: BITMASK_STYLE_BASIC,
 			invertUnexplored: true,
-			tiles: [
-				WALL_ROCK_BASIC_0_0,
-				WALL_ROCK_BASIC_0_1,
-				WALL_ROCK_BASIC_1_0,
-				WALL_ROCK_BASIC_1_1
-			],
+			tiles: [WALL_BASIC_FILL, WALL_BASIC_0],
+		});
+		registry.register(BITMASK_BRICK, {
+			style: BITMASK_STYLE_BASIC,
+			invertUnexplored: false,
+			tiles: [WALL_BASIC_FILL, WALL_BASIC_1],
+		});
+		registry.register(BITMASK_CUT_STONE, {
+			style: BITMASK_STYLE_BASIC,
+			invertUnexplored: false,
+			tiles: [WALL_BASIC_FILL, WALL_BASIC_2],
 		});
 		registry.register(BITMASK_WINDOW, {
 			style: BITMASK_STYLE_2D,

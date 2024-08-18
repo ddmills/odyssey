@@ -65,19 +65,6 @@ class TileResources
 		tiles.set(CAMPFIRE_2, t[0][9]);
 		tiles.set(CAMPFIRE_3, t[0][10]);
 
-		tiles.set(PERSON_1, t[5][0]);
-		tiles.set(PERSON_2, t[5][1]);
-		tiles.set(PERSON_3, t[5][2]);
-		tiles.set(PERSON_4, t[5][3]);
-		tiles.set(PERSON_5, t[5][4]);
-		tiles.set(PERSON_6, t[5][5]);
-		tiles.set(PERSON_7, t[5][6]);
-		tiles.set(PERSON_8, t[5][7]);
-		tiles.set(PERSON_9, t[5][8]);
-		tiles.set(PERSON_10, t[5][9]);
-		tiles.set(PERSON_11, t[5][10]);
-		tiles.set(PERSON_12, t[5][11]);
-
 		tiles.set(TERRAIN_BASIC_1, t[1][0]);
 		tiles.set(TERRAIN_BASIC_2, t[1][1]);
 		tiles.set(TERRAIN_BASIC_3, t[1][2]);
@@ -89,8 +76,8 @@ class TileResources
 		tiles.set(TREE_BALD_CYPRESS_3, t[4][2]);
 		tiles.set(TREE_PINE_1, t[4][0]);
 		tiles.set(TREE_PINE_2, t[4][0]);
-		tiles.set(TREE_PINE_3, t[4][0]);
-		tiles.set(TREE_PINE_4, t[4][0]);
+		tiles.set(TREE_PINE_3, t[2][15]);
+		tiles.set(TREE_PINE_4, t[2][15]);
 		tiles.set(TREE_OAK_1, t[4][1]);
 		tiles.set(TREE_OAK_2, t[4][1]);
 		tiles.set(TREE_OAK_3, t[4][1]);
@@ -216,6 +203,22 @@ class TileResources
 		tiles.set(FURNITURE_BOOKSHELF, t[4][12]);
 		tiles.set(FURNITURE_SHELF, t[5][12]);
 
+		var humanoids = hxd.Res.tiles.smol.humanoids_16_24.toTile().divide(8, 8);
+		tiles.set(PLAYER_1, humanoids[0][0]);
+		tiles.set(PLAYER_2, humanoids[0][1]);
+		tiles.set(PLAYER_3, humanoids[0][2]);
+		tiles.set(PLAYER_4, humanoids[0][3]);
+		tiles.set(PLAYER_5, humanoids[0][4]);
+		tiles.set(VILLAGER_1, humanoids[1][0]);
+		tiles.set(VILLAGER_2, humanoids[1][1]);
+		tiles.set(VILLAGER_3, humanoids[1][2]);
+		tiles.set(VILLAGER_4, humanoids[1][3]);
+		tiles.set(BANDIT_1, humanoids[2][0]);
+		tiles.set(BANDIT_2, humanoids[2][1]);
+		tiles.set(BANDIT_3, humanoids[2][2]);
+		tiles.set(BANDIT_4, humanoids[2][3]);
+		tiles.set(BANDIT_5, humanoids[2][4]);
+
 		var walls = hxd.Res.tiles.smol.walls_16_16.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
 		tiles.set(WALL_1, walls[0][1]);
@@ -234,11 +237,11 @@ class TileResources
 		tiles.set(WALL_14, walls[3][2]);
 		tiles.set(WALL_15, walls[3][3]);
 
-		var rockBasic = hxd.Res.tiles.smol.walls_rock_16_24.toTile().divide(2, 2);
-		tiles.set(WALL_ROCK_BASIC_0_0, rockBasic[0][0]);
-		tiles.set(WALL_ROCK_BASIC_0_1, rockBasic[0][1]);
-		tiles.set(WALL_ROCK_BASIC_1_0, rockBasic[1][0]);
-		tiles.set(WALL_ROCK_BASIC_1_1, rockBasic[1][1]);
+		var rockBasic = hxd.Res.tiles.smol.walls_basic_16_24.toTile().divide(8, 1);
+		tiles.set(WALL_BASIC_FILL, rockBasic[0][0]);
+		tiles.set(WALL_BASIC_0, rockBasic[0][1]);
+		tiles.set(WALL_BASIC_1, rockBasic[0][2]);
+		tiles.set(WALL_BASIC_2, rockBasic[0][3]);
 
 		var thick = hxd.Res.tiles.smol.walls_thick_16_24.toTile().divide(12, 4);
 		tiles.set(WALL_THICK_0_0, thick[0][0]);
@@ -344,7 +347,7 @@ class TileResources
 		tiles.set(FENCE_BARS_14, fenceBars[3][2]);
 		tiles.set(FENCE_BARS_15, fenceBars[3][3]);
 
-		var highlight = hxd.Res.tiles.smol.highlight_16_16.toTile().divide(4, 4);
+		var highlight = hxd.Res.tiles.smol.highlight_16_24.toTile().divide(4, 4);
 		tiles.set(HIGHLIGHT_0, highlight[0][0]);
 		tiles.set(HIGHLIGHT_1, highlight[0][1]);
 		tiles.set(HIGHLIGHT_2, highlight[0][2]);

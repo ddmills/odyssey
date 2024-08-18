@@ -42,6 +42,8 @@ class HealthBarSystem extends System
 			var bar = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
 			var barArmor = new Anim(AnimationResources.Get(PROGRESS_BAR), 0, ob);
 
+			ob.visible = false;
+
 			var shader = new SpriteShader(ColorKey.C_RED, ColorKey.C_GRAY);
 			shader.isShrouded = 0;
 			bar.addShader(shader);

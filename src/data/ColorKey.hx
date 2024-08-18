@@ -4,6 +4,7 @@ import core.Game;
 
 enum abstract ColorKey(String) to String from String
 {
+	var C_BRIGHT_WHITE = 'C_BRIGHT_WHITE';
 	var C_WHITE = 'C_WHITE';
 	var C_BLACK = 'C_BLACK';
 

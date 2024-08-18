@@ -53,7 +53,7 @@ class RenderLayerManager
 		root.addChildAt(screen, 2);
 
 		var scanlineShader = new h2d.filter.Shader<ScanlineShader>(new ScanlineShader());
-		scanlineShader.enable = false;
+		scanlineShader.enable = true;
 
 		root.filter = scanlineShader;
 	}

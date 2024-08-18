@@ -14,7 +14,7 @@ class RockPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(ROCK_ROUND_1, C_STONE, C_DARK_GRAY, OBJECTS));
+		entity.add(new Sprite(ROCK_ROUND_1, C_STONE, C_CLEAR, OBJECTS));
 		entity.add(new BitmaskSprite([BITMASK_ROCK, BITMASK_WINDOW, BITMASK_FENCE_BAR]));
 
 		entity.add(new Moniker('Rock'));

@@ -2,6 +2,7 @@ package domain.terrain.biomes;
 
 import common.struct.IntPoint;
 import data.ColorKey;
+import data.TileKey;
 import domain.prefabs.Spawner;
 
 class DesertBiome extends Biome
@@ -15,18 +16,19 @@ class DesertBiome extends Biome
 	{
 		if (r.bool(.1))
 		{
-			cell.tileKey = GRASS_V1_4;
+			cell.tileKey = GRASS_V1_1;
 			cell.terrain = TERRAIN_GRASS;
+			cell.primary = C_BROWN;
 		}
 		else
 		{
-			cell.tileKey = GRASS_V1_2;
+			var c = r.pick([C_BROWN, C_DARK_BROWN, C_DARK_RED]);
+			var t = r.pick([TERRAIN_BASIC_1, TERRAIN_BASIC_2, TERRAIN_BASIC_3]);
+			cell.tileKey = t;
 			cell.terrain = TERRAIN_SAND;
+			cell.primary = c;
 		}
 
-		var c = r.pick([C_BROWN, C_DARK_BROWN, C_DARK_RED, C_ORANGE, C_DARK_GRAY]);
-
-		cell.primary = c;
 		cell.background = C_YELLOW;
 	}
 

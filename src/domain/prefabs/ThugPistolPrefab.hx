@@ -24,7 +24,7 @@ class ThugPistolPrefab extends Prefab
 		var r = Rand.create();
 		var entity = new Entity(pos);
 
-		var tkey:TileKey = r.pick([PERSON_1, PERSON_2, PERSON_3, PERSON_5, PERSON_6, PERSON_7]);
+		var tkey:TileKey = r.pick([BANDIT_5]);
 
 		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
 		entity.add(new Energy(-10));
@@ -35,7 +35,7 @@ class ThugPistolPrefab extends Prefab
 		entity.add(new Health());
 		entity.add(new Attributes(0, 0, 3));
 		entity.add(new IsEnemy());
-		entity.add(new Moniker('Thug'));
+		entity.add(new Moniker('Bandit'));
 		entity.add(new Inventory());
 
 		var rhand = new EquipmentSlot('Right hand', 'handRight', EQ_SLOT_HAND, true);

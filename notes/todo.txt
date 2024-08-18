@@ -9,6 +9,7 @@
 	- [ ] faction modifier durations
 	- [ ] change faction mod permanantly on kill
 	- [ ] faction global temporary modifier
+	- [ ] faction allies/nemesis (shared favor)
 - [ ] dialog
 	- [x] dialog trees
 	- [x] dialog options
@@ -148,3 +149,4 @@
 - [x] add astar max depth!
 - [ ] hand axe
 - [x] animal handling skill (savvy)
+

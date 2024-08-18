@@ -46,7 +46,7 @@ class HighlightSystem extends System
 			var ringStatic = new Bitmap(TileResources.Get(CURSOR));
 			var arrow = new Anim(AnimationResources.Get(ARROW_BOUNCE), 12);
 			var targetPos = e.pos.toPx();
-			var offsetPos = new Coordinate(0, -1.2, WORLD).toPx();
+			var offsetPos = new Coordinate(0, -1, WORLD).toPx();
 			arrow.x = offsetPos.x;
 			arrow.y = offsetPos.y;
 			arrow.visible = highlight.showArrow;

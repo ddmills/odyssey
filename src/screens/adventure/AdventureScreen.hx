@@ -139,16 +139,11 @@ class AdventureScreen extends Screen
 	{
 		var tk:TileKey = switch key
 		{
-			case KEY_NUM_1: PERSON_1;
-			case KEY_NUM_2: PERSON_2;
-			case KEY_NUM_3: PERSON_3;
-			case KEY_NUM_4: PERSON_4;
-			case KEY_NUM_5: PERSON_5;
-			case KEY_NUM_6: PERSON_6;
-			case KEY_NUM_7: PERSON_7;
-			case KEY_NUM_8: PERSON_8;
-			case KEY_NUM_9: PERSON_9;
-			case KEY_NUM_0: PERSON_10;
+			case KEY_NUM_1: PLAYER_1;
+			case KEY_NUM_2: PLAYER_2;
+			case KEY_NUM_3: PLAYER_3;
+			case KEY_NUM_4: PLAYER_4;
+			case KEY_NUM_5: PLAYER_5;
 			case _: null;
 		}
 

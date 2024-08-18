@@ -34,9 +34,10 @@ class ColorPaletteResources
 	{
 		var p = new ColorPalette();
 
+		p.setColor(C_BRIGHT_WHITE, 0xffffff);
 		p.setColor(C_WHITE, 0xcecba9);
 		p.setColor(C_LIGHT_GRAY, 0xB1C0C5);
-		p.setColor(C_GRAY, 0x6C8288);
+		p.setColor(C_GRAY, 0x5C7381);
 		p.setColor(C_DARK_GRAY, 0x3B3B3B);
 		p.setColor(C_BLACK, 0x1f1313);
 		p.setColor(C_CLEAR, 0x1B222B);
@@ -50,15 +51,15 @@ class ColorPaletteResources
 		p.setColor(C_RED, 0xaa3b3b);
 		p.setColor(C_ORANGE, 0xd67215);
 
-		p.setColor(C_DARK_BLUE, 0x273A47);
-		p.setColor(C_BLUE, 0x4081AF);
+		p.setColor(C_DARK_BLUE, 0x445E70);
+		p.setColor(C_BLUE, 0x3E8DC5);
 
 		p.setColor(C_YELLOW, 0xe0d948);
 		p.setColor(C_BROWN, 0x81543B);
 		p.setColor(C_DARK_BROWN, 0x583522);
 
 		p.setColor(C_WOOD, p.getColor(C_RED));
-		p.setColor(C_STONE, p.getColor(C_GRAY));
+		p.setColor(C_STONE, p.getColor(C_DARK_BLUE));
 
 		p.setColor(C_TEXT_PRIMARY, 0xcecba9);
 
