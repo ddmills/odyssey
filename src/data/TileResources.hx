@@ -293,7 +293,7 @@ class TileResources
 		tiles.set(WALL_THICK_3_10, thick[3][10]);
 		tiles.set(WALL_THICK_3_11, thick[3][11]);
 
-		var fenceIron = hxd.Res.tiles.smol.fence_iron_16_16.toTile().divide(4, 4);
+		var fenceIron = hxd.Res.tiles.smol.fence_iron_16_24.toTile().divide(4, 4);
 		tiles.set(FENCE_IRON_0, fenceIron[0][0]);
 		tiles.set(FENCE_IRON_1, fenceIron[0][1]);
 		tiles.set(FENCE_IRON_2, fenceIron[0][2]);

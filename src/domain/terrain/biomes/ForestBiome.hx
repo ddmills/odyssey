@@ -14,9 +14,9 @@ class ForestBiome extends Biome
 
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		cell.tileKey = r.pick([GRASS_V1_1, GRASS_V1_2, GRASS_V1_3]);
+		cell.tileKey = r.pick([GRASS_V1_1, GRASS_V1_2, TERRAIN_BASIC_2, TERRAIN_BASIC_3]);
 		cell.terrain = TERRAIN_GRASS;
-		var c = r.pick([C_DARK_GREEN, C_DARK_BROWN, C_DARK_GRAY]);
+		var c = r.pick([C_DARK_BROWN, C_DARK_GREEN, C_DARK_GRAY]);
 		cell.primary = c;
 		cell.background = C_GREEN;
 	}

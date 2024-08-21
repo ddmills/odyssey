@@ -24,7 +24,7 @@ class ThugPistolPrefab extends Prefab
 		var r = Rand.create();
 		var entity = new Entity(pos);
 
-		var tkey:TileKey = r.pick([BANDIT_5]);
+		var tkey:TileKey = r.pick([BANDIT_2]);
 
 		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
 		entity.add(new Energy(-10));

@@ -2,6 +2,7 @@ package domain.terrain.biomes;
 
 import common.struct.IntPoint;
 import data.ColorKey;
+import data.TileKey;
 import domain.prefabs.Spawner;
 
 class TundraBiome extends Biome
@@ -13,20 +14,21 @@ class TundraBiome extends Biome
 
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
-		if (r.bool(.35))
+		if (r.bool(.1))
 		{
-			cell.tileKey = GRASS_V1_3;
+			cell.tileKey = GRASS_V1_2;
 			cell.terrain = TERRAIN_GRASS;
+			cell.primary = C_DARK_GRAY;
 		}
 		else
 		{
-			cell.tileKey = TERRAIN_BASIC_3;
+			var t = r.pick([TERRAIN_BASIC_1, TERRAIN_BASIC_2, TERRAIN_BASIC_3]);
+			cell.tileKey = t;
 			cell.terrain = TERRAIN_SNOW;
+			var c = r.pick([C_GRAY, C_DARK_GREEN, C_DARK_GRAY]);
+			cell.primary = c;
 		}
 
-		var c = r.pick([C_GRAY, C_DARK_GREEN, C_DARK_GRAY]);
-
-		cell.primary = c;
 		cell.background = C_GRAY;
 	}
 
