@@ -36,38 +36,37 @@ class ChunkGen
 	public function new()
 	{
 		table = new WeightedTable();
-		table.add(TABLE, 3);
-		table.add(CHAIR, 3);
-		table.add(CABINET, 3);
 		table.add(SIGNPOST, 2);
 		table.add(WOOD_CROSS, 2);
 		table.add(WAGON_WHEEL, 3);
-		table.add(CAMPFIRE, 5);
+		table.add(CAMPFIRE, 7);
 		table.add(LANTERN, 4);
 		table.add(SNAKE, 6);
 		table.add(WOLF, 6);
+		table.add(BAT, 6);
+		table.add(BROWN_BEAR, 6);
+		table.add(THUG, 4);
+		table.add(THUG_2, 4);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(JAR, 1);
 		table.add(LOCKBOX, 1);
 		table.add(SNUB_NOSE_REVOLVER, 1);
 		table.add(REVOLVER, 1);
+		table.add(RIFLE, 4);
 		table.add(NAVY_REVOLVER, 1);
 		table.add(RIFLE_AMMO, 2);
 		table.add(PISTOL_AMMO, 2);
 		table.add(SHOTGUN_AMMO, 2);
 		table.add(VIAL, 2);
-		table.add(RIFLE, 4);
 		table.add(PONCHO, 1);
-		table.add(DUSTER, 2);
-		table.add(LONG_JOHNS, 3);
+		table.add(DUSTER, 1);
+		table.add(LONG_JOHNS, 1);
 		table.add(COACH_GUN, 3);
-		table.add(THUG, 4);
-		table.add(THUG_2, 4);
 		table.add(TOMBSTONE, 4);
 		table.add(BOOTS, 4);
-		table.add(PANTS, 4);
-		table.add(COWBOY_HAT, 4);
+		table.add(PANTS, 2);
+		table.add(COWBOY_HAT, 2);
 	}
 
 	public function generate(chunk:Chunk)

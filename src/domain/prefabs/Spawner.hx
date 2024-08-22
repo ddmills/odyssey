@@ -24,6 +24,8 @@ class Spawner
 		prefabs.set(REVOLVER, new RevolverPrefab());
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(WOLF, new WolfPrefab());
+		prefabs.set(BROWN_BEAR, new BrownBearPrefab());
+		prefabs.set(BAT, new BatPrefab());
 		prefabs.set(YARROW, new YarrowPrefab());
 		prefabs.set(YARROW_LEAF, new YarrowLeafPrefab());
 		prefabs.set(HEMLOCK, new HemlockPrefab());

@@ -123,8 +123,6 @@ class TileResources
 		tiles.set(CHEST_SMALL_CLOSED, t[1][4]);
 		tiles.set(CHEST_SMALL_OPEN, t[1][5]);
 
-		tiles.set(SNAKE, t[6][1]);
-
 		tiles.set(CURSOR, t[6][0]);
 		tiles.set(CURSOR_SPIN_1, t[7][4]);
 		tiles.set(CURSOR_SPIN_2, t[7][5]);
@@ -165,7 +163,6 @@ class TileResources
 
 		tiles.set(CORPSE_HUMAN, t[6][2]);
 		tiles.set(CORPSE_SNAKE, t[6][3]);
-		tiles.set(WOLF, t[3][13]);
 		tiles.set(FLOWER_1, t[3][14]);
 		tiles.set(FLOWER_2, t[3][15]);
 		tiles.set(FLOWER_3, t[4][15]);
@@ -218,6 +215,13 @@ class TileResources
 		tiles.set(BANDIT_3, humanoids[2][2]);
 		tiles.set(BANDIT_4, humanoids[2][3]);
 		tiles.set(BANDIT_5, humanoids[2][4]);
+
+		var creatures = hxd.Res.tiles.smol.creatures_16_24.toTile().divide(8, 8);
+		tiles.set(WOLF, creatures[0][0]);
+		tiles.set(SNAKE, creatures[0][1]);
+		tiles.set(BAT, creatures[0][2]);
+		tiles.set(MOUNTAIN_LION, creatures[0][3]);
+		tiles.set(BEAR, creatures[0][4]);
 
 		var walls = hxd.Res.tiles.smol.walls_16_16.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);
