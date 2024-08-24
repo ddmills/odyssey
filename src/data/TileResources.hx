@@ -86,6 +86,7 @@ class TileResources
 		tiles.set(CACTUS_2, t[4][3]);
 		tiles.set(CACTUS_1_FLOWER, t[4][4]);
 		tiles.set(CACTUS_2_FLOWER, t[4][4]);
+		tiles.set(TALL_GRASS, t[5][14]);
 
 		tiles.set(LANTERN, t[1][6]);
 		tiles.set(PILE_ASH, t[1][7]);
@@ -178,14 +179,6 @@ class TileResources
 		tiles.set(PLANK, t[6][9]);
 		tiles.set(LOG, t[6][10]);
 
-		tiles.set(OVERWORLD_TOWN, t[1][14]);
-		tiles.set(OVERWORLD_RIVER, t[1][15]);
-		tiles.set(OVERWORLD_DESERT, t[2][11]);
-		tiles.set(OVERWORLD_SWAMP, t[2][12]);
-		tiles.set(OVERWORLD_TUNDRA, t[2][13]);
-		tiles.set(OVERWORLD_PRAIRIE, t[2][14]);
-		tiles.set(OVERWORLD_FOREST, t[2][15]);
-
 		tiles.set(WALL_WINDOW_H, t[0][13]);
 		tiles.set(WALL_WINDOW_V, t[0][14]);
 
@@ -215,6 +208,25 @@ class TileResources
 		tiles.set(BANDIT_3, humanoids[2][2]);
 		tiles.set(BANDIT_4, humanoids[2][3]);
 		tiles.set(BANDIT_5, humanoids[2][4]);
+
+		var overworld = hxd.Res.tiles.smol.overworld_16_16.toTile().divide(8, 8);
+		tiles.set(OVERWORLD_PRAIRIE_1, overworld[0][0]);
+		tiles.set(OVERWORLD_PRAIRIE_2, overworld[0][1]);
+		tiles.set(OVERWORLD_MOUNTAIN_1, overworld[0][3]);
+		tiles.set(OVERWORLD_MOUNTAIN_2, overworld[0][4]);
+		tiles.set(OVERWORLD_FOREST_1, overworld[1][0]);
+		tiles.set(OVERWORLD_FOREST_2, overworld[1][1]);
+		tiles.set(OVERWORLD_WATER_1, overworld[1][3]);
+		tiles.set(OVERWORLD_WATER_2, overworld[1][4]);
+		tiles.set(OVERWORLD_SWAMP_1, overworld[2][3]);
+		tiles.set(OVERWORLD_SWAMP_2, overworld[2][4]);
+		tiles.set(OVERWORLD_DESERT_1, overworld[2][0]);
+		tiles.set(OVERWORLD_DESERT_2, overworld[2][1]);
+		tiles.set(OVERWORLD_TUNDRA_1, overworld[2][0]);
+		tiles.set(OVERWORLD_TUNDRA_2, overworld[1][0]);
+		tiles.set(OVERWORLD_TOWN, overworld[5][0]);
+		tiles.set(OVERWORLD_FORT, overworld[5][1]);
+		tiles.set(OVERWORLD_DOT, overworld[5][2]);
 
 		var creatures = hxd.Res.tiles.smol.creatures_16_24.toTile().divide(8, 8);
 		tiles.set(WOLF, creatures[0][0]);

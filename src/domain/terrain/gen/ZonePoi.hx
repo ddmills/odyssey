@@ -5,7 +5,7 @@ import common.struct.IntPoint;
 import common.tools.Performance;
 import core.Game;
 import data.PoiType;
-import domain.terrain.MapData.PoiTemplate;
+import domain.terrain.gen.pois.PoiDefinition;
 
 typedef ZonePoiSave =
 {
@@ -13,8 +13,16 @@ typedef ZonePoiSave =
 	type:PoiType,
 	tileOverrides:GridSave<RoomTile>,
 	isGenerated:Bool,
-	template:PoiTemplate,
+	definition:PoiDefinition,
 	rooms:Array<Room>,
+}
+
+enum PoiSize
+{
+	POI_SZ_PRIMARY;
+	POI_SZ_MAJOR;
+	POI_SZ_MEDIUM;
+	POI_SZ_MINOR;
 }
 
 class ZonePoi
@@ -23,7 +31,7 @@ class ZonePoi
 	public var rooms:Array<Room>;
 	public var tileOverrides:Grid<RoomTile>;
 
-	public var template(default, null):PoiTemplate;
+	public var definition(default, null):PoiDefinition;
 	public var type(default, null):PoiType;
 
 	public var width(get, never):Int;
@@ -31,12 +39,12 @@ class ZonePoi
 
 	public var isGenerated(default, null):Bool;
 
-	public function new(zoneId:Int, template:PoiTemplate)
+	public function new(zoneId:Int, definition:PoiDefinition)
 	{
 		this.zoneId = zoneId;
 		this.rooms = [];
-		this.template = template;
-		this.type = template.type;
+		this.definition = definition;
+		this.type = definition.type;
 		tileOverrides = new Grid(width, height);
 	}
 
@@ -57,14 +65,14 @@ class ZonePoi
 			type: type,
 			tileOverrides: tileOverrides.save((t) -> t),
 			isGenerated: isGenerated,
-			template: template,
+			definition: definition,
 			rooms: rooms,
 		};
 	}
 
 	public static function Load(data:ZonePoiSave):ZonePoi
 	{
-		var poi = new ZonePoi(data.zoneId, data.template);
+		var poi = new ZonePoi(data.zoneId, data.definition);
 		poi.type = data.type;
 		poi.tileOverrides.load(data.tileOverrides, (t) -> t);
 		poi.isGenerated = data.isGenerated;

@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
 import domain.components.Fuel;
 import domain.components.Loot;
 import domain.components.Moniker;

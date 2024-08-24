@@ -1,15 +1,34 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
+import common.struct.WeightedTable;
 import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
+import domain.terrain.biomes.Biome.MapIconData;
 
 class PrairieBiome extends Biome
 {
+	var icons:WeightedTable<MapIconData>;
+
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE, C_GREEN, C_GREEN, C_GREEN);
+		super(seed, PRAIRIE);
+
+		icons = new WeightedTable();
+
+		icons.add({
+			primary: ColorKey.C_GREEN,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_PRAIRIE_1,
+		}, 2);
+		icons.add({
+			primary: ColorKey.C_GREEN,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_PRAIRIE_2,
+		}, 4);
 	}
 
 	function getBackgroundTileKey(pos:IntPoint):TileKey
@@ -44,6 +63,11 @@ class PrairieBiome extends Biome
 		return TERRAIN_BASIC_1;
 	}
 
+	public override function getMapIcon():MapIconData
+	{
+		return icons.pick(r);
+	}
+
 	override function setCellData(pos:IntPoint, cell:Cell)
 	{
 		cell.tileKey = getBackgroundTileKey(pos);
@@ -52,8 +76,6 @@ class PrairieBiome extends Biome
 		var c = r.pick([C_DARK_GREEN, C_DARK_GREEN, C_DARK_GRAY]);
 
 		cell.primary = c;
-
-		// cell.primary = C_DARK_GREEN;
 		cell.background = C_GREEN;
 	}
 
@@ -65,7 +87,11 @@ class PrairieBiome extends Biome
 			var trees = perlin.get(pos, 8, 8);
 			var flowers = perlin.get(pos, 12, 8);
 
-			if (h > .6 && trees > .6)
+			if (h > .65)
+			{
+				Spawner.Spawn(TALL_GRASS, pos.asWorld());
+			}
+			else if (h > .6 && trees > .6)
 			{
 				Spawner.Spawn(OAK_TREE, pos.asWorld());
 			}

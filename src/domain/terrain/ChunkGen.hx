@@ -15,6 +15,7 @@ import data.ColorKey;
 import data.LiquidType;
 import data.SpawnableType;
 import domain.prefabs.Spawner;
+import domain.terrain.biomes.Biomes;
 import hxd.Rand;
 
 typedef BiomeWeights =
@@ -41,12 +42,12 @@ class ChunkGen
 		table.add(WAGON_WHEEL, 3);
 		table.add(CAMPFIRE, 7);
 		table.add(LANTERN, 4);
-		table.add(SNAKE, 6);
-		table.add(WOLF, 6);
-		table.add(BAT, 6);
-		table.add(BROWN_BEAR, 6);
-		table.add(THUG, 4);
-		table.add(THUG_2, 4);
+		// table.add(SNAKE, 6);
+		// table.add(WOLF, 6);
+		// table.add(BAT, 6);
+		// table.add(BROWN_BEAR, 6);
+		// table.add(THUG, 4);
+		// table.add(THUG_2, 4);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(JAR, 1);
@@ -121,12 +122,21 @@ class ChunkGen
 
 			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
 			{
+				if (r.bool(.2))
+				{
+					var biome = Biomes.get(cell.value.biomeKey);
+					var e = biome.enemies.pick(r);
+					if (e != null)
+					{
+						Spawner.Spawn(e, worldPos.asWorld());
+					}
+				}
 				var loot = table.pick(r);
 				Spawner.Spawn(loot, worldPos.asWorld());
 			}
 			else
 			{
-				var b = world.map.getBiome(cell.value.biomeKey);
+				var b = Biomes.get(cell.value.biomeKey);
 				b.spawnEntity(worldPos, cell.value);
 			}
 		}
@@ -267,7 +277,7 @@ class ChunkGen
 		var pos = chunk.getCellCoord(idx);
 		var worldCoordinate = chunk.worldPos.add(pos).asWorld();
 		var biomeKey = pickBiome(p1, p2, worldCoordinate, biomes);
-		var biome = world.map.getBiome(biomeKey);
+		var biome = Biomes.get(biomeKey);
 
 		var cell:Cell = {
 			idx: idx,
@@ -294,8 +304,9 @@ class ChunkGen
 				}
 
 				var mixBiomeType = pickBiome(p1, p2, coord, biomes);
-				var mixBiome = world.map.getBiome(mixBiomeType);
-				return Colors.Mix(color, mixBiome.background, .25);
+				var mixBiome = Biomes.get(mixBiomeType);
+				// return Colors.Mix(color, mixBiome.background, .25);
+				return color;
 			}
 
 			if (pos.x > 0 && pos.y > 0 && pos.x < (world.chunkSize) && pos.y < (world.chunkSize))

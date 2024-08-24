@@ -1,5 +1,26 @@
 Difficulty
 
+New plan:
+
+- Each biome has a difficulty tier (1-n)
+- If multiple tiers are needed, a new biome will be created. I.E, Forest -> Primeval Pines -> Haunted Woods, etc
+- Each biome will have weighted tables or lists for
+	- Major POIs (Town, Ruin complex, Fort)
+	- Medium POIs (Bandit camp, Pioneer Cabin)
+	- Minor POIs (Bear den, Shrine, Broken Wagon)
+	- Monsters
+	- Rare monsters
+	- Loot/Litter
+	- Rock/Cliff Type
+	- Common Foliage
+	- Litter
+- Biomes may need to track how many of each POI type has been created
+	- (i.e, after spawning, remove the POI from the weighted table, or reduce it's weight)
+
+
+
+Old plan:
+
 - Each zone will have a difficulty tier (1-n)
 - Each biome type will have different monsters associated with each tier
 - monster difficulty scales with tier, not player
@@ -7,6 +28,3 @@ Difficulty
 	(i.e, if two monsters _look_ the same, they should always be the same difficulty)
 - as player progresses, potentially litter in a few more deadly monsters in lower tiers
 - areas of different difficulty should be separated by land features?
-
-
-

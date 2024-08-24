@@ -77,73 +77,73 @@ class RailroadData
 		var perlin = new Perlin(15);
 		var zones = Game.instance.world.zones;
 
-		for (line in lines)
-		{
-			var stopA = getStop(line.stopAId);
-			var stopB = getStop(line.stopBId);
-			var zoneA = zones.getZoneById(stopA.zoneId);
-			var zoneB = zones.getZoneById(stopB.zoneId);
+		// for (line in lines)
+		// {
+		// 	var stopA = getStop(line.stopAId);
+		// 	var stopB = getStop(line.stopBId);
+		// 	var zoneA = zones.getZoneById(stopA.zoneId);
+		// 	var zoneB = zones.getZoneById(stopB.zoneId);
 
-			var astar = AStar.GetPath({
-				start: zoneA.zonePos,
-				goal: zoneB.zonePos,
-				allowDiagonals: false,
-				cost: (a, b) ->
-				{
-					if (zones.isOutOfBounds(b))
-					{
-						return Math.POSITIVE_INFINITY;
-					}
+		// 	var astar = AStar.GetPath({
+		// 		start: zoneA.zonePos,
+		// 		goal: zoneB.zonePos,
+		// 		allowDiagonals: false,
+		// 		cost: (a, b) ->
+		// 		{
+		// 			if (zones.isOutOfBounds(b))
+		// 			{
+		// 				return Math.POSITIVE_INFINITY;
+		// 			}
 
-					var zone = zones.getZone(b);
+		// 			var zone = zones.getZone(b);
 
-					if (zone.poi != null)
-					{
-						if (zone.poi.type == POI_RAILROAD_STATION && zone.poi.template.railroadStop == line.stopBId)
-						{
-							return 0;
-						}
+		// 			if (zone.poi != null)
+		// 			{
+		// 				if (zone.poi.type == POI_RAILROAD_STATION && zone.poi.template.railroadStop == line.stopBId)
+		// 				{
+		// 					return 0;
+		// 				}
 
-						return Math.POSITIVE_INFINITY;
-					}
+		// 				return Math.POSITIVE_INFINITY;
+		// 			}
 
-					if (zone.railroad != null)
-					{
-						return .15;
-					}
+		// 			if (zone.railroad != null)
+		// 			{
+		// 				return .15;
+		// 			}
 
-					if (BiomeMap.HasRiver(zone.biomes))
-					{
-						return 1.5;
-					}
+		// 			if (BiomeMap.HasRiver(zone.biomes))
+		// 			{
+		// 				return 1.5;
+		// 			}
 
-					var weight = .5 + perlin.get(b, 80, 16);
+		// 			var weight = .5 + perlin.get(b, 80, 16);
 
-					return weight;
-				},
-			});
+		// 			return weight;
+		// 		},
+		// 	});
 
-			if (!astar.success)
-			{
-				trace('NO RAILROAD!');
-				return;
-			}
+		// 	if (!astar.success)
+		// 	{
+		// 		trace('NO RAILROAD!');
+		// 		return;
+		// 	}
 
-			for (part in astar.path)
-			{
-				var zone = zones.getZone(part);
-				if (zone.railroad != null)
-				{
-					zone.railroad.lineIds.push(line.lineId);
-				}
-				else
-				{
-					zone.railroad = {
-						lineIds: [line.lineId],
-						stopId: null,
-					};
-				}
-			}
-		}
+		// 	for (part in astar.path)
+		// 	{
+		// 		var zone = zones.getZone(part);
+		// 		if (zone.railroad != null)
+		// 		{
+		// 			zone.railroad.lineIds.push(line.lineId);
+		// 		}
+		// 		else
+		// 		{
+		// 			zone.railroad = {
+		// 				lineIds: [line.lineId],
+		// 				stopId: null,
+		// 			};
+		// 		}
+		// 	}
+		// }
 	}
 }

@@ -4,12 +4,13 @@ import common.struct.IntPoint;
 import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
+import domain.terrain.biomes.Biome.MapIconData;
 
 class MountainBiome extends Biome
 {
 	public function new(seed:Int)
 	{
-		super(seed, MOUNTAIN, C_DARK_GRAY, C_GRAY, C_DARK_GRAY);
+		super(seed, MOUNTAIN);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -19,6 +20,16 @@ class MountainBiome extends Biome
 		var c = r.pick([C_DARK_GREEN, C_GRAY, C_DARK_GRAY, C_DARK_GRAY, C_DARK_GRAY]);
 		cell.primary = c;
 		cell.background = C_GREEN;
+	}
+
+	override function getMapIcon():MapIconData
+	{
+		return {
+			primary: ColorKey.C_GRAY,
+			secondary: ColorKey.C_CLEAR,
+			background: ColorKey.C_PURPLE,
+			tileKey: r.pick([TileKey.OVERWORLD_MOUNTAIN_1, TileKey.OVERWORLD_MOUNTAIN_2]),
+		};
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

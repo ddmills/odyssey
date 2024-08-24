@@ -1,5 +1,6 @@
 package data.save;
 
+import common.struct.Grid.GridSave;
 import domain.data.factions.FactionManager.FactionManagerSave;
 import domain.systems.StorylineSystem.StorylineSystemSave;
 import domain.terrain.Zone.ZoneSave;
@@ -15,7 +16,7 @@ typedef SavePlayer =
 
 typedef SaveMap =
 {
-	pois:Array<ZonePoiSave>,
+	pois:GridSave<ZonePoiSave>,
 	railroad:RailroadDataSave,
 };
 

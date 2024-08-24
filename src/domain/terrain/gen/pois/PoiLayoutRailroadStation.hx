@@ -1,6 +1,5 @@
 package domain.terrain.gen.pois;
 
-import common.struct.IntPoint;
 import core.Game;
 import hxd.Rand;
 
@@ -9,7 +8,6 @@ class PoiLayoutRailroadStation extends PoiLayout
 	public function apply(poi:ZonePoi, r:Rand):Array<Room>
 	{
 		var zone = Game.instance.world.zones.getZoneById(poi.zoneId);
-		// var connections = zone.getRailroadConnections();
 		var roomWidth = 14;
 		var roomHeight = 8;
 		var middleX = (zone.size / 2).floor();

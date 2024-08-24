@@ -1,15 +1,34 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
+import common.struct.WeightedTable;
 import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
+import domain.terrain.biomes.Biome.MapIconData;
 
 class DesertBiome extends Biome
 {
+	var icons:WeightedTable<MapIconData>;
+
 	public function new(seed:Int)
 	{
-		super(seed, DESERT, C_DARK_RED, C_DARK_GREEN, C_RED);
+		super(seed, DESERT);
+
+		icons = new WeightedTable();
+
+		icons.add({
+			primary: ColorKey.C_RED,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_DESERT_1,
+		}, 6);
+		icons.add({
+			primary: ColorKey.C_GREEN,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_DESERT_2,
+		}, 1);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)
@@ -30,6 +49,11 @@ class DesertBiome extends Biome
 		}
 
 		cell.background = C_YELLOW;
+	}
+
+	override function getMapIcon():MapIconData
+	{
+		return icons.pick(r);
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

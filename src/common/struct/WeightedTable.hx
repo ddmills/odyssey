@@ -33,7 +33,7 @@ class WeightedTable<T>
 		{
 			currentW += row.weight;
 
-			return currentW >= n;
+			return currentW > n;
 		});
 
 		if (picked != null)

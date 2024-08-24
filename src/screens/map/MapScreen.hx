@@ -6,13 +6,13 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.KeyCode;
-import data.BiomeMap;
 import data.BiomeType;
 import data.Bitmasks;
 import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
 import domain.components.Move;
+import domain.terrain.biomes.Biomes;
 import h2d.Anim;
 import h2d.Bitmap;
 import h2d.Interactive;
@@ -32,19 +32,6 @@ class MapScreen extends Screen
 	var ob:Obs;
 
 	public function new() {}
-
-	function getTileKey(biome:BiomeType):TileKey
-	{
-		return switch biome
-		{
-			case DESERT: OVERWORLD_DESERT;
-			case SWAMP: OVERWORLD_SWAMP;
-			case PRAIRIE: OVERWORLD_PRAIRIE;
-			case TUNDRA: OVERWORLD_TUNDRA;
-			case FOREST: OVERWORLD_FOREST;
-			case _: TK_UNKNOWN;
-		}
-	}
 
 	function getIsRailroad(pos:IntPoint, lineIds:Array<Int>)
 	{
@@ -71,16 +58,17 @@ class MapScreen extends Screen
 		var zone = world.zones.getZone(pos);
 		var biomeKey = zone.biomes.nw;
 
-		var tileKey = getTileKey(biomeKey);
+		var biome = Biomes.get(biomeKey);
+		var icon = biome.getMapIcon();
+		var tileKey = icon.tileKey;
 		var tile = TileResources.Get(tileKey);
-		var biome = world.map.getBiome(biomeKey);
-		var primary = biome.primary;
-		var secondary = biome.secondary;
-		var background = biome.background;
+		var primary = icon.primary;
+		var secondary = icon.secondary;
+		var background = icon.background;
 
 		if (zone.biomes.river.nw)
 		{
-			tile = TileResources.Get(OVERWORLD_RIVER);
+			tile = TileResources.Get(OVERWORLD_WATER_1);
 			primary = C_BLUE;
 			background = C_BLUE;
 		}
@@ -88,7 +76,14 @@ class MapScreen extends Screen
 		if (zone.poi != null)
 		{
 			tile = TileResources.Get(OVERWORLD_TOWN);
-			primary = C_RED;
+
+			var poiIcon = zone.poi.definition.icon;
+
+			tileKey = poiIcon.tileKey;
+			tile = TileResources.Get(tileKey);
+			primary = poiIcon.primary;
+			secondary = poiIcon.secondary;
+			background = poiIcon.background;
 		}
 		else if (zone.railroad != null)
 		{
@@ -112,17 +107,16 @@ class MapScreen extends Screen
 		var bm = new Bitmap(tile);
 		var shader = new SpriteShader(primary, secondary);
 		shader.clearBackground = 1;
-		shader.background = background.toHxdColor().toVector();
 		bm.addShader(shader);
 
-		var clicker = new Interactive(game.TILE_W, game.TILE_H, bm);
+		var clicker = new Interactive(game.TILE_W, game.TILE_W, bm);
 		clicker.onClick = (e) ->
 		{
 			teleport(pos);
 		};
 
 		bm.x = pos.x * game.TILE_W;
-		bm.y = pos.y * game.TILE_H;
+		bm.y = pos.y * game.TILE_W;
 		ob.root.addChild(bm);
 	}
 
@@ -161,9 +155,9 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		var white = Tile.fromColor(C_YELLOW, game.TILE_W, game.TILE_H, 0);
-		var red = Tile.fromColor(C_RED, game.TILE_W, game.TILE_H);
-		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_H);
+		var white = Tile.fromColor(C_YELLOW, game.TILE_W, game.TILE_W, 0);
+		var red = Tile.fromColor(C_RED, game.TILE_W, game.TILE_W);
+		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_W);
 		ob = {
 			root: new Object(),
 			bg: new Bitmap(bgTile),
@@ -180,7 +174,7 @@ class MapScreen extends Screen
 	{
 		var blinkPos = world.player.pos.toZone().toIntPoint();
 		ob.blink.x = blinkPos.x * game.TILE_W;
-		ob.blink.y = blinkPos.y * game.TILE_H;
+		ob.blink.y = blinkPos.y * game.TILE_W;
 		world.updateSystems();
 	}
 

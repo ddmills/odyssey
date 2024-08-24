@@ -30,6 +30,7 @@ class ChunkManager
 		chunks = new Grid<Chunk>(chunkCountX, chunkCountY);
 		chunks.fillFn((idx) -> new Chunk(idx, chunkSize));
 		chunksToUnload = new Set();
+		chunksToLoad = new Set();
 	}
 
 	public function loadChunks(curChunk:Int)

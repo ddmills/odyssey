@@ -33,7 +33,7 @@ class Biomes
 		];
 	}
 
-	public function get(type:BiomeType):Biome
+	public static function get(type:BiomeType):Biome
 	{
 		return switch type
 		{

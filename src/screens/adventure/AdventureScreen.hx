@@ -29,6 +29,7 @@ import domain.events.MeleeEvent;
 import domain.events.OpenDoorEvent;
 import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
+import domain.terrain.biomes.Biomes;
 import h2d.Object;
 import h2d.Text;
 import screens.ability.AbilityScreen;
@@ -88,21 +89,21 @@ class AdventureScreen extends Screen
 		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.friendlyString();
 		var hp = world.player.entity.get(Health);
-		hudText.health.text = '${hp.value}/${hp.max} (${hp.armor}/${hp.armorMax}})';
+		hudText.health.text = '${hp.value}/${hp.max} (${hp.armor}/${hp.armorMax})';
 
 		var mpos = game.input.mouse;
 		var zpos = mpos.toZone().toIntPoint();
 		var zone = world.zones.getZone(zpos);
-		var ztext = '';
+		var poi = '';
 
 		if (zone != null && zone.poi != null)
 		{
-			ztext = zone.poi.template.name;
+			poi = zone.poi.definition.name;
 		}
 
 		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
-		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + '(${mpos.toChunkIdx()})';
-		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + '(${mpos.toZoneIdx()}) $ztext';
+		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + ' (${mpos.toChunkIdx()})';
+		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + ' $poi';
 		hudText.dbg.text = 'zoink';
 
 		var wpos = mpos.toWorld();

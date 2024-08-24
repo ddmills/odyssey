@@ -2,41 +2,167 @@ package domain.terrain.biomes;
 
 import common.rand.Perlin;
 import common.struct.IntPoint;
+import common.struct.WeightedTable;
 import data.BiomeType;
 import data.ColorKey;
+import data.PoiLayoutType;
+import data.PoiType;
+import data.SpawnableType;
 import data.TileKey;
 import domain.terrain.Cell;
+import domain.terrain.gen.ZonePoi.PoiSize;
+import domain.terrain.gen.pois.PoiDefinition;
 import hxd.Rand;
 
-typedef BiomeCellData =
+typedef MapIconData =
 {
-	terrain:TerrainType,
-	color:Int,
-	bgTileKey:TileKey,
-	bgColor:Int,
-};
+	primary:ColorKey,
+	secondary:ColorKey,
+	background:ColorKey,
+	tileKey:TileKey,
+}
 
 class Biome
 {
 	public var seed:Int;
 	public var type(default, null):BiomeType;
-	public var primary(default, null):ColorKey;
-	public var secondary(default, null):ColorKey;
-	public var background(default, null):ColorKey;
+	public var enemies:WeightedTable<SpawnableType>;
+	public var majorPois:WeightedTable<PoiDefinition>;
+	public var mediumPois:WeightedTable<PoiDefinition>;
+	public var minorPois:WeightedTable<PoiDefinition>;
 
 	var r:Rand;
 	var perlin:Perlin;
 
-	public function new(seed:Int, type:BiomeType, primary:ColorKey, secondary:ColorKey, background:ColorKey)
+	public function new(seed:Int, type:BiomeType)
 	{
 		this.seed = seed;
 		this.type = type;
-		this.primary = primary;
-		this.secondary = secondary;
-		this.background = background;
 
 		r = new Rand(seed);
 		perlin = new Perlin(seed);
+		enemies = setupEnemies();
+		majorPois = setupMajorPois();
+		mediumPois = setupMediumPois();
+		minorPois = setupMinorPois();
+	}
+
+	public function getMapIcon():MapIconData
+	{
+		return {
+			primary: ColorKey.C_GREEN,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_FOREST_1,
+		}
+	}
+
+	function setupEnemies():WeightedTable<SpawnableType>
+	{
+		var e = new WeightedTable<SpawnableType>();
+
+		e.add(SNAKE, 1);
+		e.add(WOLF, 1);
+		e.add(THUG, 1);
+		e.add(THUG_2, 1);
+		e.add(BAT, 1);
+		e.add(BROWN_BEAR, 1);
+		return e;
+	}
+
+	function setupMajorPois():WeightedTable<PoiDefinition>
+	{
+		var p = new WeightedTable<PoiDefinition>();
+
+		var town:PoiDefinition = {
+			name: "Town",
+			type: PoiType.POI_TOWN,
+			layout: PoiLayoutType.POI_LAYOUT_SCATTERED,
+			size: POI_SZ_MAJOR,
+			rooms: [],
+			icon: {
+				primary: ColorKey.C_YELLOW,
+				secondary: ColorKey.C_WHITE,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_TOWN,
+			}
+		};
+
+		var fort:PoiDefinition = {
+			name: "Fort",
+			type: PoiType.POI_FORT,
+			layout: PoiLayoutType.POI_LAYOUT_FORTRESS,
+			size: POI_SZ_MAJOR,
+			rooms: [],
+			icon: {
+				primary: ColorKey.C_YELLOW,
+				secondary: ColorKey.C_WHITE,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_FORT,
+			}
+		};
+
+		p.add(town, 2);
+		p.add(fort, 2);
+
+		return p;
+	}
+
+	function setupMediumPois():WeightedTable<PoiDefinition>
+	{
+		var p = new WeightedTable<PoiDefinition>();
+
+		var station:PoiDefinition = {
+			name: "Station",
+			type: PoiType.POI_RAILROAD_STATION,
+			layout: PoiLayoutType.POI_LAYOUT_RAILROAD_STATION,
+			size: POI_SZ_MEDIUM,
+			rooms: [],
+			icon: {
+				primary: ColorKey.C_BLUE,
+				secondary: ColorKey.C_WHITE,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_DOT,
+			}
+		};
+
+		p.add(station, 2);
+
+		return p;
+	}
+
+	function setupMinorPois():WeightedTable<PoiDefinition>
+	{
+		var p = new WeightedTable<PoiDefinition>();
+
+		var station:PoiDefinition = {
+			name: "Station (minor)",
+			type: PoiType.POI_RAILROAD_STATION,
+			layout: PoiLayoutType.POI_LAYOUT_RAILROAD_STATION,
+			size: POI_SZ_MINOR,
+			rooms: [],
+			icon: {
+				primary: ColorKey.C_ORANGE,
+				secondary: ColorKey.C_WHITE,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_DOT,
+			}
+		};
+
+		p.add(station, 2);
+
+		return p;
+	}
+
+	public function getPoi(size:PoiSize, r:Rand):PoiDefinition
+	{
+		return switch size
+		{
+			case POI_SZ_MAJOR: majorPois.pick(r);
+			case POI_SZ_MEDIUM: mediumPois.pick(r);
+			case POI_SZ_MINOR: minorPois.pick(r);
+			case _: minorPois.pick(r);
+		}
 	}
 
 	public function setCellData(pos:IntPoint, cell:Cell)

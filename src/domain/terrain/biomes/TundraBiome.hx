@@ -1,15 +1,39 @@
 package domain.terrain.biomes;
 
 import common.struct.IntPoint;
+import common.struct.WeightedTable;
 import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
+import domain.terrain.biomes.Biome.MapIconData;
 
 class TundraBiome extends Biome
 {
+	var icons:WeightedTable<MapIconData>;
+
 	public function new(seed:Int)
 	{
-		super(seed, TUNDRA, C_GRAY, C_GRAY, C_GRAY);
+		super(seed, TUNDRA);
+
+		icons = new WeightedTable();
+
+		icons.add({
+			primary: ColorKey.C_GRAY,
+			secondary: ColorKey.C_WHITE,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_TUNDRA_1,
+		}, 8);
+		icons.add({
+			primary: ColorKey.C_GRAY,
+			secondary: ColorKey.C_WOOD,
+			background: ColorKey.C_PURPLE,
+			tileKey: TileKey.OVERWORLD_TUNDRA_2,
+		}, 1);
+	}
+
+	override function getMapIcon():MapIconData
+	{
+		return icons.pick(r);
 	}
 
 	override function setCellData(pos:IntPoint, cell:Cell)

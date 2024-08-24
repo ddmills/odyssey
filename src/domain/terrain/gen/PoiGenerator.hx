@@ -10,7 +10,7 @@ class PoiGenerator
 {
 	public static function Generate(poi:ZonePoi)
 	{
-		var layout = PoiLayouts.Get(poi.template.layout);
+		var layout = PoiLayouts.Get(poi.definition.layout);
 		var r = new Rand(poi.zoneId);
 		var t = new WeightedTable<RoomType>();
 
@@ -24,7 +24,7 @@ class PoiGenerator
 
 		r.shuffle(options);
 
-		for (roomTemplate in poi.template.rooms)
+		for (roomTemplate in poi.definition.rooms)
 		{
 			var decorator = RoomDecorators.Get(roomTemplate.type);
 			var room = options.pop();

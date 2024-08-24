@@ -1,75 +1,41 @@
 POI - Point Of Interest
 
-1. Define POIs
-	- criteria
-	- name
-	- type
-1. Assign POIs to zones based on Criteria
-	- Start with POIs with strictest criteria
-	- Sort POIs into categories (towns, caves, camps, ?)
-2. Generate POI
-	- Rooms
-	- Tiles (zone x zone)
-		- spawns: [{SpawnableType, Options}] // spawn everything in the list on the tile
-		- bmData (cell background data)
-			- tileKey
-			- primary
-			- secondary
-			- background
+
+Need to have multiple levels of POI:
+
+PRIMARY
+	- Buffered by at least 2 zone
+	- ex: Starting towns, static known locations
+MAJOR
+	- Buffered by at least 2 zone
+	- ex: Hidden towns, forts, bandit hideouts, ruin complex
+MEDIUM
+	- Buffered by at least 1 zone
+	- ex: Ruins, Bandit camp, pioneer cabin
+MINOR
+	- No rules on where they can be placed
+	- ex: Bear cave, shrines, Broken wagon, Wolf Den
 
 
-PoiGenerator
+
+1. Primary POIs are always in the same location. Place these on the map.
+2. Do three passes of poisson disc on the map (major, medium, minor)
+3. Cull points around primary, major, and then medium
+4. For each point, ask the biome for a POI
+
+1. When the player explores a POI, we generated it 
+2. Tell the POI generator the biome type 
+3. POI generator can then use the biome info (monsters, foliage, loot, etc) to populate it
 
 
-ZoneTheme
 
-RoomDecorator
+A POI will have:
 
-Appraiser
-```
-function atMostOne(room:Room, tile:T, candidate:CandidateSpawn):Float
-{
-	if (room.contains(candidate))
-	{
-		return -Math.Inf;
-	}
-	return 1;
-}
-
-function nextTo(room:Room, tile:RoomTile, candidate:CandidateSpawn, target:Spawn):Float
-{
-	for (neighbor in tile.neighbors) {
-		if (neighbor.objects.contains(target))
-		{
-			return 1
-		}
-	}
-	return 0;
-}
-```
-
-
-```haxe
-class RoomContent {
-	type: SpawnableType,
-	settings: Dynamic,
-}
-
-class RoomTile {
-	var content: Array<RoomContent>;
-}
-
-class Room {
-	var content:Grid<RoomTile>;
-
-	public function contains(type:SpawnableType):Bool {
-		return content.exists((c) -> c.type == type);
-	}
-};
-
-function decorate(room:Room):DecoratedRoom
-{
-
-}
-```
+1. Name 
+2. Location 
+3. Layout 
+4. Rooms 
+5. Tile Overrides 
+6. Bool (is Generated)
+7. Possible Save/Load POIs as needed from disk
 
