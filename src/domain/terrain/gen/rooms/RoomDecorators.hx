@@ -16,6 +16,7 @@ class RoomDecorators
 		decorators.register(ROOM_GROVE_PINE, new RoomGrove(PINE_TREE));
 		decorators.register(ROOM_CHURCH, new RoomChurch());
 		decorators.register(ROOM_BLANK, new RoomBlank());
+		decorators.register(ROOM_CAMP, new RoomCamp());
 		decorators.register(ROOM_SHERIFF_OFFICE, new RoomSheriffOffice());
 		decorators.register(ROOM_RAILROAD_STATION, new RoomRailroadStation());
 	}

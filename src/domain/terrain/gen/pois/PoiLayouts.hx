@@ -13,6 +13,7 @@ class PoiLayouts
 		layouts.register(POI_LAYOUT_SCATTERED, new PoiLayoutScattered());
 		layouts.register(POI_LAYOUT_RAILROAD_STATION, new PoiLayoutRailroadStation());
 		layouts.register(POI_LAYOUT_FORTRESS, new PoiLayoutFortress());
+		layouts.register(POI_LAYOUT_BASIC_SQUARE, new PoiLayoutBasicSquare());
 	}
 
 	public static function Get(poiLayoutType:PoiLayoutType):PoiLayout

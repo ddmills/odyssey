@@ -135,12 +135,16 @@ class Biome
 	{
 		var p = new WeightedTable<PoiDefinition>();
 
-		var station:PoiDefinition = {
-			name: "Station (minor)",
-			type: PoiType.POI_RAILROAD_STATION,
-			layout: PoiLayoutType.POI_LAYOUT_RAILROAD_STATION,
+		var banditCamp:PoiDefinition = {
+			name: "Bandit camp",
+			type: PoiType.POI_BANDIT_CAMP,
+			layout: PoiLayoutType.POI_LAYOUT_BASIC_SQUARE,
 			size: POI_SZ_MINOR,
-			rooms: [],
+			rooms: [
+				{
+					type: ROOM_CAMP
+				}
+			],
 			icon: {
 				primary: ColorKey.C_ORANGE,
 				secondary: ColorKey.C_WHITE,
@@ -149,7 +153,26 @@ class Biome
 			}
 		};
 
-		p.add(station, 2);
+		var graveyard:PoiDefinition = {
+			name: "Graveyard",
+			type: PoiType.POI_GRAVEYARD_SMALL,
+			layout: PoiLayoutType.POI_LAYOUT_BASIC_SQUARE,
+			size: POI_SZ_MINOR,
+			rooms: [
+				{
+					type: ROOM_GRAVEYARD
+				}
+			],
+			icon: {
+				primary: ColorKey.C_ORANGE,
+				secondary: ColorKey.C_WHITE,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_DOT,
+			}
+		};
+
+		p.add(banditCamp, 2);
+		p.add(graveyard, 2);
 
 		return p;
 	}

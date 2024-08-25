@@ -146,4 +146,9 @@ class Zone
 	{
 		return Game.instance.world.zoneSize;
 	}
+
+	public inline function hasRiver():Bool
+	{
+		return biomes.river.nw || biomes.river.ne || biomes.river.sw || biomes.river.se;
+	}
 }

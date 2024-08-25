@@ -66,6 +66,13 @@ class MapData
 			if (!pois.isOnEdge(point.x, point.y))
 			{
 				var zone = world.zones.getZone(point);
+
+				if (zone.hasRiver())
+				{
+					point = pz.sample();
+					continue;
+				}
+
 				var biome = Biomes.get(zone.primaryBiome);
 
 				if (checkPoiRange(point, dist))

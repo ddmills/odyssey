@@ -26,7 +26,10 @@ class RoomGraveyard extends RoomDecorator
 				content: [],
 			};
 
-			tile.tileKey = TERRAIN_BASIC_1;
+			if (r.bool(.25))
+			{
+				tile.tileKey = TERRAIN_BASIC_2;
+			}
 
 			if (room.isOnEdge(pos))
 			{
@@ -36,7 +39,6 @@ class RoomGraveyard extends RoomDecorator
 				{
 					tile.content.push({
 						spawnableType: FENCE_IRON,
-						spawnableSettings: {},
 					});
 				}
 			}
@@ -44,14 +46,18 @@ class RoomGraveyard extends RoomDecorator
 			{
 				tile.content.push({
 					spawnableType: TOMBSTONE,
-					spawnableSettings: {},
 				});
 			}
 			else if (r.bool(.05))
 			{
 				tile.content.push({
 					spawnableType: clutter.pick(r),
-					spawnableSettings: {},
+				});
+			}
+			else if (r.bool(.05))
+			{
+				tile.content.push({
+					spawnableType: BAT,
 				});
 			}
 

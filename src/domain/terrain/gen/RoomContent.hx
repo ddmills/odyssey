@@ -5,5 +5,5 @@ import data.SpawnableType;
 typedef RoomContent =
 {
 	spawnableType:SpawnableType,
-	spawnableSettings:Dynamic,
+	?spawnableSettings:Dynamic,
 }
