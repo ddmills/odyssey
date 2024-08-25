@@ -19,7 +19,6 @@ class PoiGenerator
 		t.add(ROOM_CHURCH, 2);
 		t.add(ROOM_GROVE_OAK, 1);
 		t.add(ROOM_GRAVEYARD, 1);
-		t.add(ROOM_CAMP, 1);
 
 		var options = layout.apply(poi, r);
 

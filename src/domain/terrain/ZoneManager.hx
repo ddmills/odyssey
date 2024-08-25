@@ -1,5 +1,6 @@
 package domain.terrain;
 
+import common.struct.Coordinate;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
@@ -53,6 +54,12 @@ class ZoneManager
 	public function getImmediateNeighborZones(pos:IntPoint)
 	{
 		return zones.getImmediateNeighbors(pos.x, pos.y);
+	}
+
+	public function getZoneByCoordinate(coord:Coordinate)
+	{
+		var idx = coord.toZoneIdx();
+		return getZoneById(idx);
 	}
 
 	public function getZoneById(idx:Int)

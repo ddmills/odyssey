@@ -22,6 +22,12 @@ typedef MapIconData =
 	tileKey:TileKey,
 }
 
+typedef RockData =
+{
+	primary:ColorKey,
+	secondary:ColorKey,
+}
+
 class Biome
 {
 	public var seed:Int;
@@ -55,6 +61,14 @@ class Biome
 			background: ColorKey.C_PURPLE,
 			tileKey: TileKey.OVERWORLD_FOREST_1,
 		}
+	}
+
+	public function getCommonRock():RockData
+	{
+		return {
+			primary: C_STONE,
+			secondary: C_CLEAR,
+		};
 	}
 
 	function setupEnemies():WeightedTable<SpawnableType>
@@ -112,10 +126,10 @@ class Biome
 	{
 		var p = new WeightedTable<PoiDefinition>();
 
-		var station:PoiDefinition = {
-			name: "Station",
-			type: PoiType.POI_RAILROAD_STATION,
-			layout: PoiLayoutType.POI_LAYOUT_RAILROAD_STATION,
+		var ruins:PoiDefinition = {
+			name: "Ancient ruins",
+			type: PoiType.POI_RUINS,
+			layout: PoiLayoutType.POI_LAYOUT_RUINS,
 			size: POI_SZ_MEDIUM,
 			rooms: [],
 			icon: {
@@ -126,7 +140,7 @@ class Biome
 			}
 		};
 
-		p.add(station, 2);
+		p.add(ruins, 2);
 
 		return p;
 	}

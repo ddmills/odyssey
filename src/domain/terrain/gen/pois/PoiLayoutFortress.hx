@@ -2,7 +2,6 @@ package domain.terrain.gen.pois;
 
 import common.algorithm.BSP;
 import common.struct.IntPoint;
-import data.Cardinal;
 import hxd.Rand;
 
 class PoiLayoutFortress extends PoiLayout

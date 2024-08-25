@@ -1,11 +1,12 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import data.ColorKey;
+import core.Game;
 import domain.components.BitmaskSprite;
 import domain.components.Collider;
 import domain.components.Moniker;
 import domain.components.Sprite;
+import domain.terrain.biomes.Biomes;
 import ecs.Entity;
 
 class StoneWindowPrefab extends Prefab
@@ -14,7 +15,11 @@ class StoneWindowPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(WALL_WINDOW_H, C_STONE, C_BLUE, OBJECTS));
+		var zone = Game.instance.world.zones.getZoneByCoordinate(pos);
+		var biome = Biomes.get(zone.primaryBiome);
+		var data = biome.getCommonRock();
+
+		entity.add(new Sprite(WALL_WINDOW_H, data.primary, C_BLUE, OBJECTS));
 		entity.add(new BitmaskSprite([
 			BITMASK_WINDOW,
 			BITMASK_WALL,

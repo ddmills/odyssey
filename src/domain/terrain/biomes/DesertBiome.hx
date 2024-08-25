@@ -6,6 +6,7 @@ import data.ColorKey;
 import data.TileKey;
 import domain.prefabs.Spawner;
 import domain.terrain.biomes.Biome.MapIconData;
+import domain.terrain.biomes.Biome.RockData;
 
 class DesertBiome extends Biome
 {
@@ -54,6 +55,14 @@ class DesertBiome extends Biome
 	override function getMapIcon():MapIconData
 	{
 		return icons.pick(r);
+	}
+
+	override public function getCommonRock():RockData
+	{
+		return {
+			primary: C_RED,
+			secondary: C_CLEAR,
+		};
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)
