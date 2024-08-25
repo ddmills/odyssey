@@ -30,6 +30,7 @@ typedef Obs =
 class MapScreen extends Screen
 {
 	var ob:Obs;
+	var scale = 1;
 
 	public function new() {}
 
@@ -105,18 +106,20 @@ class MapScreen extends Screen
 		}
 
 		var bm = new Bitmap(tile);
+		bm.width = game.TILE_W * scale;
+		bm.height = game.TILE_W * scale;
 		var shader = new SpriteShader(primary, secondary);
 		shader.clearBackground = 1;
 		bm.addShader(shader);
 
-		var clicker = new Interactive(game.TILE_W, game.TILE_W, bm);
+		var clicker = new Interactive(game.TILE_W * scale, game.TILE_W * scale, bm);
 		clicker.onClick = (e) ->
 		{
 			teleport(pos);
 		};
 
-		bm.x = pos.x * game.TILE_W;
-		bm.y = pos.y * game.TILE_W;
+		bm.x = pos.x * game.TILE_W * scale;
+		bm.y = pos.y * game.TILE_W * scale;
 		ob.root.addChild(bm);
 	}
 
@@ -155,8 +158,8 @@ class MapScreen extends Screen
 
 	override function onEnter()
 	{
-		var white = Tile.fromColor(C_YELLOW, game.TILE_W, game.TILE_W, 0);
-		var red = Tile.fromColor(C_RED, game.TILE_W, game.TILE_W);
+		var white = Tile.fromColor(C_YELLOW, game.TILE_W * scale, game.TILE_W * scale, 0);
+		var red = Tile.fromColor(C_RED, game.TILE_W * scale, game.TILE_W * scale);
 		var bgTile = Tile.fromColor(Game.instance.CLEAR_COLOR, world.chunkCountX * game.TILE_W, world.chunkCountY * game.TILE_W);
 		ob = {
 			root: new Object(),
@@ -173,8 +176,8 @@ class MapScreen extends Screen
 	override function update(frame:Frame)
 	{
 		var blinkPos = world.player.pos.toZone().toIntPoint();
-		ob.blink.x = blinkPos.x * game.TILE_W;
-		ob.blink.y = blinkPos.y * game.TILE_W;
+		ob.blink.x = blinkPos.x * game.TILE_W * scale;
+		ob.blink.y = blinkPos.y * game.TILE_W * scale;
 		world.updateSystems();
 	}
 

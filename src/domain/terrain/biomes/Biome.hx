@@ -95,7 +95,7 @@ class Biome
 			size: POI_SZ_MAJOR,
 			rooms: [],
 			icon: {
-				primary: ColorKey.C_YELLOW,
+				primary: ColorKey.C_BROWN,
 				secondary: ColorKey.C_WHITE,
 				background: ColorKey.C_PURPLE,
 				tileKey: TileKey.OVERWORLD_TOWN,
@@ -136,10 +136,29 @@ class Biome
 				primary: ColorKey.C_BLUE,
 				secondary: ColorKey.C_WHITE,
 				background: ColorKey.C_PURPLE,
-				tileKey: TileKey.OVERWORLD_DOT,
+				tileKey: TileKey.OVERWORLD_RUINS,
 			}
 		};
 
+		var trading:PoiDefinition = {
+			name: "Trading Post",
+			type: PoiType.POI_TRADE_POST,
+			layout: PoiLayoutType.POI_LAYOUT_BASIC_SQUARE,
+			size: POI_SZ_MEDIUM,
+			rooms: [
+				{
+					type: ROOM_RAILROAD_STATION
+				}
+			],
+			icon: {
+				primary: ColorKey.C_WHITE,
+				secondary: ColorKey.C_RED,
+				background: ColorKey.C_PURPLE,
+				tileKey: TileKey.OVERWORLD_TRADE,
+			}
+		};
+
+		p.add(trading, 2);
 		p.add(ruins, 2);
 
 		return p;
@@ -178,7 +197,7 @@ class Biome
 				}
 			],
 			icon: {
-				primary: ColorKey.C_ORANGE,
+				primary: ColorKey.C_GRAY,
 				secondary: ColorKey.C_WHITE,
 				background: ColorKey.C_PURPLE,
 				tileKey: TileKey.OVERWORLD_DOT,

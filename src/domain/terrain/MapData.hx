@@ -128,7 +128,7 @@ class MapData
 			rooms: [],
 			icon: {
 				primary: ColorKey.C_PURPLE,
-				secondary: ColorKey.C_WHITE,
+				secondary: ColorKey.C_YELLOW,
 				background: ColorKey.C_PURPLE,
 				tileKey: TileKey.OVERWORLD_TOWN,
 			}
@@ -144,7 +144,7 @@ class MapData
 			rooms: [],
 			icon: {
 				primary: ColorKey.C_PURPLE,
-				secondary: ColorKey.C_WHITE,
+				secondary: ColorKey.C_GREEN,
 				background: ColorKey.C_PURPLE,
 				tileKey: TileKey.OVERWORLD_TOWN,
 			}

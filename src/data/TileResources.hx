@@ -227,6 +227,8 @@ class TileResources
 		tiles.set(OVERWORLD_TOWN, overworld[5][0]);
 		tiles.set(OVERWORLD_FORT, overworld[5][1]);
 		tiles.set(OVERWORLD_DOT, overworld[5][2]);
+		tiles.set(OVERWORLD_RUINS, overworld[5][3]);
+		tiles.set(OVERWORLD_TRADE, overworld[5][4]);
 
 		var creatures = hxd.Res.tiles.smol.creatures_16_24.toTile().divide(8, 8);
 		tiles.set(WOLF, creatures[0][0]);

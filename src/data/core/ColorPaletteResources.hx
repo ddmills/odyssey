@@ -41,7 +41,7 @@ class ColorPaletteResources
 		p.setColor(C_DARK_GRAY, 0x3B3B3B);
 		p.setColor(C_BLACK, 0x0c0a0a);
 		p.setColor(C_CLEAR, 0x1A1414);
-		p.setColor(C_SHROUD, 0x2c3538);
+		p.setColor(C_SHROUD, 0x1f2224);
 
 		p.setColor(C_PURPLE, 0x913E96);
 		p.setColor(C_DARK_GREEN, 0x292C1F);
