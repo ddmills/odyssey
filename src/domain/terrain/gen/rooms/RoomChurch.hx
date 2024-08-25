@@ -19,27 +19,18 @@ class RoomChurch extends RoomDecorator
 		}, 180);
 		clutter.add({
 			spawnableType: TABLE,
-			spawnableSettings: {}
 		}, 50);
 		clutter.add({
-			spawnableType: WOOD_CROSS,
-			spawnableSettings: {}
-		}, 120);
-		clutter.add({
 			spawnableType: CHAIR,
-			spawnableSettings: {}
 		}, 100);
 		clutter.add({
 			spawnableType: LOCKBOX,
-			spawnableSettings: {}
 		}, 100);
 		clutter.add({
 			spawnableType: BOOKSHELF,
-			spawnableSettings: {}
 		}, 200);
 		clutter.add({
 			spawnableType: VILLAGER,
-			spawnableSettings: {}
 		}, 120);
 	}
 

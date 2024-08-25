@@ -59,6 +59,22 @@ class RoomCamp extends RoomDecorator
 			]
 		});
 
+		// Barrels
+		room.tiles.set(middle.x - 1, middle.y - 3, {
+			content: [
+				{
+					spawnableType: BARREL,
+				}
+			]
+		});
+		room.tiles.set(middle.x - 1, middle.y - 4, {
+			content: [
+				{
+					spawnableType: BARREL,
+				}
+			]
+		});
+
 		// chairs
 		room.tiles.set(middle.x - 3, middle.y, {
 			content: [

@@ -65,7 +65,7 @@ class Spawner
 		prefabs.set(BOOTS, new BootsPrefab());
 		prefabs.set(COWBOY_HAT, new CowboyHatPrefab());
 		prefabs.set(PANTS, new PantsPrefab());
-		prefabs.set(WOOD_CROSS, new CrossPrefab());
+		prefabs.set(BARREL, new BarrelPrefab());
 		prefabs.set(SIGNPOST, new SignpostPrefab());
 		prefabs.set(WOOD_WALL, new WoodWallPrefab());
 		prefabs.set(WOOD_WALL_WINDOW, new WoodWindowPrefab());
