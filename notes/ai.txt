@@ -1,0 +1,28 @@
+- List of visible enemies
+- List of nearby allies (?)
+- List of nearby cover (?)
+- 
+
+AGGRESSIVE ATTACKER AI: Seek out and attack the target
+	- If you can see an enemy
+		- memorize target and it's position
+		- attack them
+			- try ranged attack
+			- try melee attack
+	- If you cannot see an enemy
+		- do you have a target/position memorized?
+			- If you are not at the position
+				- path to target/position
+			- If you are at the position
+				- If you've been loitering long enough
+					- Unmemorize target/position
+				- Else
+					- Loiter
+		- no target memorized:
+			- Idle (return to leash)
+
+CAUTIOUS ATTACKER AI: Keep a distance from the target, attacking when possible
+	- 
+
+PACK ATTACKER AI: Follow pack leader, attacking the same target
+	- 

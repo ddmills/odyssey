@@ -54,20 +54,20 @@ class RoomCamp extends RoomDecorator
 		room.tiles.set(middle.x, middle.y - 3, {
 			content: [
 				{
-					spawnableType: CHEST,
+					spawnableType: LOCKBOX,
 				}
 			]
 		});
 
 		// Barrels
-		room.tiles.set(middle.x - 1, middle.y - 3, {
+		room.tiles.set(middle.x - 0, middle.y + 3, {
 			content: [
 				{
 					spawnableType: BARREL,
 				}
 			]
 		});
-		room.tiles.set(middle.x - 1, middle.y - 4, {
+		room.tiles.set(middle.x - 1, middle.y + 3, {
 			content: [
 				{
 					spawnableType: BARREL,

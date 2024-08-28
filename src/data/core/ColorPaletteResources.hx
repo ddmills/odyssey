@@ -37,7 +37,7 @@ class ColorPaletteResources
 		p.setColor(C_BRIGHT_WHITE, 0xffffff);
 		p.setColor(C_WHITE, 0xcecba9);
 		p.setColor(C_LIGHT_GRAY, 0xCCC8BE);
-		p.setColor(C_GRAY, 0x5C7381);
+		p.setColor(C_GRAY, 0x8296A1);
 		p.setColor(C_DARK_GRAY, 0x3B3B3B);
 		p.setColor(C_BLACK, 0x0c0a0a);
 		p.setColor(C_CLEAR, 0x1A1414);
@@ -48,11 +48,11 @@ class ColorPaletteResources
 		p.setColor(C_GREEN, 0x45543b);
 
 		p.setColor(C_DARK_RED, 0x642D2D);
-		p.setColor(C_RED, 0xa5292a);
+		p.setColor(C_RED, 0xa33f3f);
 		p.setColor(C_ORANGE, 0xd67215);
 
-		p.setColor(C_DARK_BLUE, 0x303A41);
-		p.setColor(C_BLUE, 0x3B6F8D);
+		p.setColor(C_DARK_BLUE, 0x2F485A);
+		p.setColor(C_BLUE, 0x4C809E);
 
 		p.setColor(C_YELLOW, 0xe0d948);
 		p.setColor(C_BROWN, 0x8a4d31);

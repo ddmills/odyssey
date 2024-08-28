@@ -6,9 +6,9 @@ import ecs.Component;
 
 class HitBlink extends Component
 {
-	@save public var durationSeconds:Float = .4;
+	@save public var durationSeconds:Float = .2;
 	@save public var timeSeconds:Float = 0;
-	@save public var rateSeconds:Float = .2;
+	@save public var rateSeconds:Float = .1;
 	@save public var color:ColorKey = C_BRIGHT_WHITE;
 	@save public var originalColor:ColorKey = Game.instance.CLEAR_COLOR;
 

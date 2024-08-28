@@ -79,8 +79,8 @@ class TileResources
 		tiles.set(TREE_PINE_3, t[2][15]);
 		tiles.set(TREE_PINE_4, t[2][15]);
 		tiles.set(TREE_OAK_1, t[4][1]);
-		tiles.set(TREE_OAK_2, t[4][1]);
-		tiles.set(TREE_OAK_3, t[4][1]);
+		tiles.set(TREE_OAK_2, t[5][1]);
+		tiles.set(TREE_OAK_3, t[5][2]);
 		tiles.set(TREE_OAK_4, t[4][1]);
 		tiles.set(CACTUS_1, t[4][3]);
 		tiles.set(CACTUS_2, t[4][3]);

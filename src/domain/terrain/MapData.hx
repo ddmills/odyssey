@@ -716,7 +716,7 @@ class MapData
 	public function save():SaveMap
 	{
 		return {
-			pois: pois.save((p) -> p.save()),
+			pois: pois.save((p) -> p?.save()),
 			railroad: railroad.save(),
 		};
 	}
@@ -725,7 +725,7 @@ class MapData
 	{
 		r = new Rand(world.seed);
 
-		pois.load(data.pois, (z) -> ZonePoi.Load(z));
+		pois.load(data.pois, (z) -> z == null ? null : ZonePoi.Load(z));
 		railroad = RailroadData.Load(data.railroad);
 	}
 

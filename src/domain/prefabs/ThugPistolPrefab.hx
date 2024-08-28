@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import common.struct.Coordinate;
 import data.TileKey;
+import domain.components.Actor;
 import domain.components.Attributes;
 import domain.components.Dialog;
 import domain.components.Energy;
@@ -28,6 +29,7 @@ class ThugPistolPrefab extends Prefab
 
 		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
 		entity.add(new Energy(-10));
+		entity.add(new Actor(BHV_BASIC));
 		entity.add(new Vision(12));
 		entity.add(new FactionMember(FACTION_BANDIT));
 		entity.add(new Dialog([DIALOG_VILLAGER]));

@@ -12,6 +12,7 @@ import data.dialog.DialogTrees;
 import data.storylines.Stories;
 import data.tables.SpawnTables;
 import domain.abilities.Abilities;
+import domain.ai.behaviours.Behaviours;
 import domain.data.liquids.Liquids;
 import domain.skills.Skills;
 import domain.stats.Stats;
@@ -61,6 +62,7 @@ class Main extends hxd.App
 		Liquids.Init();
 		BiomeMap.Init();
 		PoiLayouts.Init();
+		Behaviours.Init();
 		RoomDecorators.Init();
 		Stories.Init();
 		DialogTrees.Init();

@@ -57,6 +57,7 @@ class Explosive extends Component
 		if (!entity.has(Energy))
 		{
 			entity.add(new Energy(50));
+			entity.add(new Actor(BHV_DYNAMITE));
 		}
 
 		var blink = new HitBlink();

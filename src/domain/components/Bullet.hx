@@ -5,7 +5,7 @@ import ecs.Component;
 
 class Bullet extends Component
 {
-	public var impactSound:AudioKey;
+	@save public var impactSound:AudioKey;
 
 	public function new() {}
 }
