@@ -52,12 +52,12 @@ class GameMath
 		return (Math.pow(Math.max(0, ((XP_SPREAD + 1) + (enemy - level))) / (XP_SPREAD + 1), XP_POWER) * XP_BASE_GAIN).floor();
 	}
 
-	public static function GetTargetDistance(source:IntPoint, target:IntPoint)
+	public static function GetTargetDistance(source:IntPoint, target:IntPoint):Int
 	{
 		return Distance.Diagonal(source, target).floor();
 	}
 
-	public static function GetRangePenalty(source:IntPoint, target:IntPoint, weaponRange:Int)
+	public static function GetRangePenalty(source:IntPoint, target:IntPoint, weaponRange:Int):Int
 	{
 		var distance = GetTargetDistance(source, target);
 		return (distance - weaponRange).ciel().clamp(0, 50);

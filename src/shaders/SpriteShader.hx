@@ -47,11 +47,12 @@ class SpriteShader extends hxsl.Shader
 
 				if (isPrimary && isShrouded == 1)
 				{
-					baseColor = mix(shroudColor, baseColor, .075);
+					baseColor = mix(baseColor, shroudColor, .925);
 				}
+
 				if (isSecondary && isShrouded == 1)
 				{
-					baseColor = shroudColor;
+					baseColor = mix(baseColor, shroudColor, .925);
 				}
 
 				pixelColor.rgb = baseColor;
@@ -68,5 +69,10 @@ class SpriteShader extends hxsl.Shader
 		this.background = Game.instance.CLEAR_COLOR.toHxdColor().toVector();
 		this.clearBackground = 0;
 		this.isShrouded = 0;
+	}
+
+	public function setShrouded(value:Bool)
+	{
+		isShrouded = value ? 1 : 0;
 	}
 }

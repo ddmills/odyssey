@@ -11,7 +11,6 @@ import domain.components.Explored;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.LightBlocker;
-import domain.components.LiquidContainer;
 import domain.components.Visible;
 import domain.components.Vision;
 import ecs.Entity;
@@ -95,6 +94,7 @@ class VisionSystem extends System
 		var a = source.pos.toIntPoint();
 		var b = target.toWorld().toIntPoint();
 		var distance = Distance.Euclidean(a, b).round();
+
 		if (distance > vision.range)
 		{
 			return false;

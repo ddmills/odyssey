@@ -343,19 +343,22 @@ class Chunk
 		}
 
 		var shader = bm.getShader(SpriteShader);
-		shader.isShrouded = 0;
 
 		if (isExplored)
 		{
 			bm.visible = true;
 			if (!isVisible)
 			{
-				shader.isShrouded = 1;
+				shader.setShrouded(true);
+			}
+			else
+			{
+				shader.setShrouded(false);
 			}
 		}
 		else
 		{
-			shader.isShrouded = 1;
+			shader.setShrouded(true);
 			bm.visible = false;
 		}
 	}

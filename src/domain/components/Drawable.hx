@@ -134,7 +134,7 @@ abstract class Drawable extends Component
 	function set_isShrouded(value:Bool):Bool
 	{
 		isShrouded = value;
-		shader.isShrouded = value ? 1 : 0;
+		shader.setShrouded(value);
 		return value;
 	}
 

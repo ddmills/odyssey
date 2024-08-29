@@ -32,7 +32,7 @@ class BasicActorDecorator
 	public static function Decorate(entity:Entity, options:ActorOptions)
 	{
 		entity.add(new Moniker(options.moniker.or('Unknown')));
-		entity.add(new Vision(6));
+		entity.add(new Vision(12));
 		entity.add(new Energy(options.energy.or(-10)));
 		entity.add(new Actor(BHV_BASIC));
 		entity.add(new Level(options.level ?? 1));

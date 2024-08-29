@@ -100,8 +100,6 @@ class MapData
 			{
 				var cur = pois.get(point.x + dx, point.y + dy);
 
-				trace('check $dx,$dy, $range');
-
 				if (cur != null)
 				{
 					return false;

@@ -50,7 +50,7 @@ class SpriteAnim extends Drawable
 	{
 		var bm = new Anim(tiles, speed);
 		var sh = new SpriteShader(primary, secondary);
-		sh.isShrouded = isShrouded ? 1 : 0;
+		sh.setShrouded(isShrouded);
 		if (background == null)
 		{
 			sh.clearBackground = 0;

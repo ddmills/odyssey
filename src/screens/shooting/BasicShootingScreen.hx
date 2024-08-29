@@ -32,7 +32,6 @@ class BasicShootingScreen extends ShootingScreen
 
 		for (weapon in offhandWeapons)
 		{
-			trace('shoot offhand weapon');
 			weapon.entity.fireEvent(new ShootEvent(target.cursor, shooter));
 		}
 	}
