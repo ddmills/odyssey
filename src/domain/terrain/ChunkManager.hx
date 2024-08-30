@@ -142,12 +142,17 @@ class ChunkManager
 		}
 	}
 
-	public inline function getChunkIdx(cx:Float, cy:Float)
+	public inline function getChunkIdx(cx:Float, cy:Float):Int
 	{
 		return chunks.idx(cx.floor(), cy.floor());
 	}
 
-	public inline function getChunkPos(idx:Int)
+	public inline function getChunkIdxByWorld(wx:Float, wy:Float):Int
+	{
+		return getChunkIdx(Math.floor(wx / chunkSize), Math.floor(wy / chunkSize));
+	}
+
+	public inline function getChunkPos(idx:Int):IntPoint
 	{
 		return chunks.coord(idx);
 	}

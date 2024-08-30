@@ -4,4 +4,5 @@ enum BehaviourType
 {
 	BHV_DYNAMITE;
 	BHV_BASIC;
+	BHV_ZOMBIE;
 }

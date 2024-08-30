@@ -4,6 +4,7 @@ import common.algorithm.AStar;
 import common.algorithm.Distance;
 import common.struct.Coordinate;
 import core.Game;
+import domain.components.Actor;
 import domain.components.Collider;
 import domain.components.Health;
 import domain.components.IsEnemy;
@@ -87,7 +88,7 @@ class Behaviour
 		return AStar.GetPath({
 			start: entity.pos.toWorld().toIntPoint(),
 			goal: goal.toWorld().toIntPoint(),
-			maxDepth: 500,
+			maxDepth: 100,
 			allowDiagonals: true,
 			cost: (a, b) ->
 			{

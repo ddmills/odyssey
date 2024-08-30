@@ -76,7 +76,10 @@ class ChunkGen
 
 		var biomes = chunk.zone.biomes;
 
-		chunk.cells.fillFn((idx) -> generateCell(r, chunk, biomes, idx));
+		var terrainP1 = new Perlin(0);
+		var terrainP2 = new Perlin(1);
+
+		chunk.cells.fillFn((idx) -> generateCell(r, chunk, biomes, idx, terrainP1, terrainP2));
 
 		var poi = chunk.zone.poi;
 
@@ -88,13 +91,14 @@ class ChunkGen
 		generateRailroad(chunk, r);
 		var tl = chunk.getZoneLocalOffset();
 
+		var riverP1 = new Perlin(2);
+		var riverP2 = new Perlin(3);
+
 		for (cell in chunk.cells)
 		{
 			var worldPos = chunk.worldPos.add(cell.pos);
 
-			var p1 = new Perlin(2);
-			var p2 = new Perlin(3);
-			var hasRiver = pickRiver(p1, p2, worldPos, biomes);
+			var hasRiver = pickRiver(riverP1, riverP2, worldPos, biomes);
 
 			if (hasRiver)
 			{
@@ -270,10 +274,8 @@ class ChunkGen
 		return (biomes.se == biomes.se) && (biomes.se == biomes.sw) && (biomes.se == biomes.ne) && (biomes.se == biomes.nw);
 	}
 
-	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeZoneData, idx:Int):Cell
+	function generateCell(r:Rand, chunk:Chunk, biomes:BiomeZoneData, idx:Int, p1:Perlin, p2:Perlin):Cell
 	{
-		var p1 = new Perlin(0);
-		var p2 = new Perlin(1);
 		var pos = chunk.getCellCoord(idx);
 		var worldCoordinate = chunk.worldPos.add(pos).asWorld();
 		var biomeKey = pickBiome(p1, p2, worldCoordinate, biomes);

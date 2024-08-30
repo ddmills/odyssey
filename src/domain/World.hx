@@ -172,15 +172,17 @@ class World
 
 	public overload extern inline function getEntitiesAt(pos:IntPoint):Array<Entity>
 	{
-		var w = pos.asWorld();
-		var idx = pos.asWorld().toChunkIdx();
-		var chunk = chunks.getChunkById(idx);
+		var chunkIdx = chunks.getChunkIdxByWorld(pos.x, pos.y);
+		var chunk = chunks.getChunkById(chunkIdx);
+
 		if (chunk.isNull())
 		{
 			return new Array<Entity>();
 		}
-		var local = w.toChunkLocal();
-		var ids = chunk.getEntityIdsAt(local.x, local.y);
+
+		var localX = pos.x % chunkSize;
+		var localY = pos.y % chunkSize;
+		var ids = chunk.getEntityIdsAt(localX, localY);
 
 		return ids.map((id:String) -> game.registry.getEntity(id));
 	}
@@ -190,7 +192,8 @@ class World
 		return getEntitiesAt(pos.toWorld().toIntPoint());
 	}
 
-	public function getEntitiesInRect(pos:IntPoint, width, height):Array<Entity>
+	// TODO: this method is SLOW
+	public function getEntitiesInRect(pos:IntPoint, width:Int, height:Int):Array<Entity>
 	{
 		var entities:Array<Entity> = [];
 

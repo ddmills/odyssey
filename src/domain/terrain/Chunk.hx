@@ -300,13 +300,13 @@ class Chunk
 		entities.set(local.x.floor(), local.y.floor(), entity.id);
 	}
 
-	public function getEntityIdsAt(x:Float, y:Float):Array<String>
+	public function getEntityIdsAt(localX:Int, localY:Int):Array<String>
 	{
 		if (!isLoaded)
 		{
 			return [];
 		}
-		return entities.get(x.floor(), y.floor());
+		return entities.get(localX, localY);
 	}
 
 	public function isExplored(pos:IntPoint)
