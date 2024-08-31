@@ -1,28 +1,30 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import domain.components.Dialog;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
 import domain.prefabs.decorators.BasicCharacterDecorator;
 import ecs.Entity;
 
-class ScorpionPrefab extends Prefab
+class DogPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(SCORPION, C_DARK_GRAY, C_WHITE, ACTORS));
+		entity.add(new Sprite(DOG, C_BROWN, C_DARK_RED, ACTORS));
+		entity.add(new Dialog([DIALOG_DOG]));
 		entity.add(new Inventory(false));
 
 		BasicCharacterDecorator.Decorate(entity, {
-			level: 6,
-			faction: FACTION_WILDLIFE,
-			grit: 4,
-			savvy: 0,
-			finesse: 4,
-			moniker: 'Scorpion',
+			level: 10,
+			faction: FACTION_DOGS,
+			grit: 3,
+			savvy: 3,
+			finesse: 3,
+			moniker: 'Dog',
 			corpse: CORPSE_SNAKE,
 		});
 

@@ -39,7 +39,7 @@ typedef TargetSettings =
 	origin:TargetOrigin,
 	footprint:Footprint,
 	showFootprint:Bool,
-	targetQuery:Query,
+	getTargets:() -> Array<Entity>,
 	range:Int,
 	allowOutsideRange:Bool,
 	onConfirm:(result:TargetResult) -> Void,
@@ -61,7 +61,7 @@ class TargetScreen extends Screen
 	var targetBm:Anim;
 	var targetShader:SpriteShader;
 
-	var targets:Query;
+	var targets:Array<Entity>;
 	var highlights:Query;
 	var targetEntityId:Null<String>;
 	var target(get, never):Null<Entity>;
@@ -83,7 +83,7 @@ class TargetScreen extends Screen
 		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);
 		targetBm.addShader(targetShader);
 
-		targets = settings.targetQuery;
+		targets = settings.getTargets();
 		highlights = new Query({
 			all: [Highlight],
 		});
@@ -151,6 +151,8 @@ class TargetScreen extends Screen
 
 	override function update(frame:Frame)
 	{
+		targets = settings.getTargets();
+
 		if (settings.origin == TARGETER)
 		{
 			origin = targeter.pos.floor();

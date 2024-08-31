@@ -1,6 +1,7 @@
 package data.dialog.parser;
 
 import data.dialog.effects.DialogAudioEffect;
+import data.dialog.effects.DialogBeCompanionEffect;
 import data.dialog.effects.DialogFlagEffect;
 import data.dialog.effects.DialogHealEffect;
 import data.dialog.effects.DialogRelationEffect;
@@ -15,6 +16,7 @@ class DialogEffectParser
 			case DialogEffectType.EFFECT_HEAL: DialogHealEffect.FromJson(json);
 			case DialogEffectType.EFFECT_FLAG: DialogFlagEffect.FromJson(json);
 			case DialogEffectType.EFFECT_AUDIO: DialogAudioEffect.FromJson(json);
+			case DialogEffectType.EFFECT_BE_COMPANION: DialogBeCompanionEffect.FromJson(json);
 			case _: null;
 		}
 	}

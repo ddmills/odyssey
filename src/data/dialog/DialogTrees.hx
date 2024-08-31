@@ -26,6 +26,10 @@ class DialogTrees
 		var wolf = DialogTreeParser.FromJson(wolfJson);
 		dialog.register(DIALOG_WOLF, wolf);
 
+		var dogJson = hxd.Res.stories.dialog.dialog_dog.toJson();
+		var dog = DialogTreeParser.FromJson(dogJson);
+		dialog.register(DIALOG_DOG, dog);
+
 		var rumorsJson = hxd.Res.stories.dialog.options_rumors.toJson();
 		var rumors = DialogExtraOptionParser.FromJson(rumorsJson);
 		options.register(DIALOG_OPTION_RUMORS, rumors);

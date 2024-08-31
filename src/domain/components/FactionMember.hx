@@ -53,6 +53,11 @@ class FactionMember extends Component
 		return modifiers.get(target);
 	}
 
+	public function clearModifiers()
+	{
+		modifiers.clear();
+	}
+
 	inline function get_faction():Faction
 	{
 		return Factions.Get(factionType);

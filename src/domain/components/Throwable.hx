@@ -38,15 +38,20 @@ class Throwable extends Component
 		var throwinStat = Stats.GetValue(STAT_THROWING, evt.thrower);
 		var range = GameMath.GetThrowingDistance(throwinStat);
 
+		var targetQuery = new Query({
+			all: [Visible, Health, IsCreature],
+			none: [IsInventoried, IsDestroyed],
+		});
+
 		Game.instance.screens.push(new TargetScreen(evt.thrower, {
 			origin: TARGETER,
 			footprint: new CircleFootprint(radius),
 			showFootprint: true,
 			range: range,
 			allowOutsideRange: false,
-			targetQuery: new Query({
-				all: [Visible, Health, IsCreature],
-				none: [IsInventoried, IsDestroyed],
+			getTargets: () -> targetQuery.filter((e) ->
+			{
+				return Game.instance.world.factions.areEntitiesHostile(e, evt.thrower);
 			}),
 			onConfirm: (target) ->
 			{

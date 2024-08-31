@@ -12,6 +12,7 @@ class Behaviours
 
 		behaviours.register(BHV_DYNAMITE, new BehaviourDynamite());
 		behaviours.register(BHV_BASIC, new BehaviourBasic());
+		behaviours.register(BHV_BASIC_COMPANION, new BehaviourBasicCompanion());
 	}
 
 	public static function Get(type:BehaviourType):Behaviour

@@ -237,6 +237,7 @@ class TileResources
 		tiles.set(MOUNTAIN_LION, creatures[0][3]);
 		tiles.set(BEAR, creatures[0][4]);
 		tiles.set(SCORPION, creatures[1][1]);
+		tiles.set(DOG, creatures[0][5]);
 
 		var walls = hxd.Res.tiles.smol.walls_16_16.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);

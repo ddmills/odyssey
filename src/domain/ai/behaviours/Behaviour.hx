@@ -4,10 +4,10 @@ import common.algorithm.AStar;
 import common.algorithm.Distance;
 import common.struct.Coordinate;
 import core.Game;
-import domain.components.Actor;
 import domain.components.Collider;
 import domain.components.Health;
 import domain.components.IsCreature;
+import domain.components.IsPlayer;
 import domain.components.Move;
 import domain.components.Vision;
 import domain.components.Weapon;
@@ -59,13 +59,19 @@ class Behaviour
 		return targets;
 	}
 
-	public function tryMoveToward(entity:Entity, goal:Coordinate):Bool
+	public function tryMoveToward(entity:Entity, goal:Coordinate, dist:Int = 0):Bool
 	{
 		var path = astar(entity, goal);
 
 		if (!path.success)
 		{
 			return false;
+		}
+
+		if (path.path.length <= dist)
+		{
+			wait(entity);
+			return true;
 		}
 
 		var next = path.path[1];
@@ -114,7 +120,7 @@ class Behaviour
 
 				var distance = Distance.Diagonal(a, b);
 
-				if (entities.exists((e) -> e.has(IsCreature)))
+				if (entities.exists((e) -> e.has(IsCreature) || e.has(IsPlayer)))
 				{
 					return distance * 5;
 				}

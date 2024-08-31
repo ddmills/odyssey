@@ -1,0 +1,36 @@
+{
+	"dialogs": [
+		{
+			"helper": "The doggo barks at you.",
+			"options": [
+				{
+					"option": "Join me. [-100 relation]",
+					"conditions": [
+						{
+							"type": "CONDITION_RELATION",
+							"min": 60
+						}
+					],
+					"dialogs": [
+						{
+							"say": "Okay.",
+							"effects": [
+								{
+									"type": "EFFECT_BE_COMPANION"
+								},
+								{
+									"type": "EFFECT_RELATION",
+									"value": -100
+								},
+								{
+									"type": "EFFECT_AUDIO",
+									"key": "IGNITE_MATCH"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

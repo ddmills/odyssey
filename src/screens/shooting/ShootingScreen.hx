@@ -1,6 +1,7 @@
 package screens.shooting;
 
 import core.Frame;
+import core.Game;
 import core.input.Command;
 import domain.components.Health;
 import domain.components.IsCreature;
@@ -27,12 +28,13 @@ class ShootingScreen extends TargetScreen
 {
 	var shooter:Entity;
 	var shootingSettings:ShootingScreenSettings;
+	var targetQuery:Query;
 
 	public function new(shooter:Entity, shootingSettings:ShootingScreenSettings)
 	{
 		this.shooter = shooter;
 		this.shootingSettings = shootingSettings;
-		var targetQuery = new Query({
+		targetQuery = new Query({
 			all: [Visible, Health, IsCreature],
 			none: [IsInventoried, IsDestroyed],
 		});
@@ -46,11 +48,19 @@ class ShootingScreen extends TargetScreen
 			origin: TARGETER,
 			footprint: fp,
 			range: range,
-			targetQuery: targetQuery,
+			getTargets: getTargets,
 			allowOutsideRange: false,
 			showFootprint: false,
 			onConfirm: tryShoot,
 			onCancel: shootingSettings.onCancel,
+		});
+	}
+
+	function getTargets():Array<Entity>
+	{
+		return targetQuery.filter((e) ->
+		{
+			return Game.instance.world.factions.areEntitiesHostile(e, shooter);
 		});
 	}
 
