@@ -5,7 +5,7 @@ import domain.components.Dialog;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
-import domain.prefabs.decorators.BasicActorDecorator;
+import domain.prefabs.decorators.BasicCharacterDecorator;
 import ecs.Entity;
 
 class WolfPrefab extends Prefab
@@ -18,7 +18,7 @@ class WolfPrefab extends Prefab
 		entity.add(new Dialog([DIALOG_WOLF]));
 		entity.add(new Inventory(false));
 
-		BasicActorDecorator.Decorate(entity, {
+		BasicCharacterDecorator.Decorate(entity, {
 			level: 2,
 			faction: FACTION_WILDLIFE,
 			grit: 3,

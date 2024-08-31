@@ -124,19 +124,22 @@ class ChunkGen
 				continue;
 			}
 
-			if (cell.value.terrain != TERRAIN_RIVER && r.bool(.01))
+			if (cell.value.terrain != TERRAIN_WATER && r.bool(.01))
 			{
 				if (r.bool(.2))
 				{
 					var biome = Biomes.get(cell.value.biomeKey);
-					var e = biome.enemies.pick(r);
+					var e = biome.creatures.pick(r);
 					if (e != null)
 					{
 						Spawner.Spawn(e, worldPos.asWorld());
 					}
 				}
-				var loot = table.pick(r);
-				Spawner.Spawn(loot, worldPos.asWorld());
+				else
+				{
+					var loot = table.pick(r);
+					Spawner.Spawn(loot, worldPos.asWorld());
+				}
 			}
 			else
 			{
@@ -148,7 +151,7 @@ class ChunkGen
 
 	function addRailroadTrack(chunk:Chunk, pos:IntPoint)
 	{
-		var cell = chunk.getCell(pos);
+		var cell = chunk.getCell(pos.x, pos.y);
 		Spawner.Spawn(RAILROAD, chunk.worldPos.add(pos).asWorld());
 		cell.isRailroad = true;
 	}
@@ -296,31 +299,31 @@ class ChunkGen
 
 		biome.setCellData(worldPos, cell);
 
-		if (!isUniformBiome(biomes))
-		{
-			var mixBiomeColor = (coord:Coordinate, color:Int) ->
-			{
-				if (!chunk.hasWorldPoint(coord.toIntPoint()))
-				{
-					return color;
-				}
+		// if (!isUniformBiome(biomes))
+		// {
+		// var mixBiomeColor = (coord:Coordinate, color:Int) ->
+		// {
+		// 	if (!chunk.hasWorldPoint(coord.toIntPoint()))
+		// 	{
+		// 		return color;
+		// 	}
 
-				var mixBiomeType = pickBiome(p1, p2, coord, biomes);
-				var mixBiome = Biomes.get(mixBiomeType);
-				// return Colors.Mix(color, mixBiome.background, .25);
-				return color;
-			}
+		// 	var mixBiomeType = pickBiome(p1, p2, coord, biomes);
+		// 	var mixBiome = Biomes.get(mixBiomeType);
+		// 	// return Colors.Mix(color, mixBiome.background, .25);
+		// 	return color;
+		// }
 
-			if (pos.x > 0 && pos.y > 0 && pos.x < (world.chunkSize) && pos.y < (world.chunkSize))
-			{
-				var color = cell.background;
-				color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, -1)), color);
-				color = mixBiomeColor(worldCoordinate.add(new Coordinate(1, 0)), color);
-				color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, 1)), color);
-				color = mixBiomeColor(worldCoordinate.add(new Coordinate(-1, 0)), color);
-				cell.background = color;
-			}
-		}
+		// if (pos.x > 0 && pos.y > 0 && pos.x < (world.chunkSize) && pos.y < (world.chunkSize))
+		// {
+		// 	var color = cell.background;
+		// 	color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, -1)), color);
+		// 	color = mixBiomeColor(worldCoordinate.add(new Coordinate(1, 0)), color);
+		// 	color = mixBiomeColor(worldCoordinate.add(new Coordinate(0, 1)), color);
+		// 	color = mixBiomeColor(worldCoordinate.add(new Coordinate(-1, 0)), color);
+		// 	cell.background = color;
+		// }
+		// }
 
 		return cell;
 	}
@@ -338,11 +341,11 @@ class ChunkGen
 	function setWater(chunk:Chunk, p:IntPoint)
 	{
 		var cell = chunk.cells.get(p.x, p.y);
+
 		if (cell != null)
 		{
-			cell.terrain = TERRAIN_RIVER;
+			cell.terrain = TERRAIN_WATER;
 			cell.primary = C_BLUE;
-			// cell.background = C_BLUE;
 			cell.tileKey = WATER_4;
 			// cell.tileKey = TERRAIN_BASIC_1;
 

@@ -32,7 +32,7 @@ class Biome
 {
 	public var seed:Int;
 	public var type(default, null):BiomeType;
-	public var enemies:WeightedTable<SpawnableType>;
+	public var creatures:WeightedTable<SpawnableType>;
 	public var majorPois:WeightedTable<PoiDefinition>;
 	public var mediumPois:WeightedTable<PoiDefinition>;
 	public var minorPois:WeightedTable<PoiDefinition>;
@@ -47,7 +47,7 @@ class Biome
 
 		r = new Rand(seed);
 		perlin = new Perlin(seed);
-		enemies = setupEnemies();
+		creatures = setupCreatures();
 		majorPois = setupMajorPois();
 		mediumPois = setupMediumPois();
 		minorPois = setupMinorPois();
@@ -71,7 +71,7 @@ class Biome
 		};
 	}
 
-	function setupEnemies():WeightedTable<SpawnableType>
+	function setupCreatures():WeightedTable<SpawnableType>
 	{
 		var e = new WeightedTable<SpawnableType>();
 
@@ -81,6 +81,7 @@ class Biome
 		e.add(THUG_2, 1);
 		e.add(BAT, 1);
 		e.add(BROWN_BEAR, 1);
+		e.add(SCORPION, 1);
 		return e;
 	}
 

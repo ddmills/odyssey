@@ -5,7 +5,7 @@ import data.TileKey;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
-import domain.prefabs.decorators.BasicActorDecorator;
+import domain.prefabs.decorators.BasicCharacterDecorator;
 import domain.prefabs.decorators.HumanoidDecorator;
 import ecs.Entity;
 import hxd.Rand;
@@ -20,7 +20,7 @@ class ThugPrefab extends Prefab
 		var tkey:TileKey = r.pick([BANDIT_1]);
 		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
 
-		BasicActorDecorator.Decorate(entity, {
+		BasicCharacterDecorator.Decorate(entity, {
 			moniker: 'Bandit brute',
 			level: 3,
 			grit: 3,

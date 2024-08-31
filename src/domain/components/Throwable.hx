@@ -45,7 +45,7 @@ class Throwable extends Component
 			range: range,
 			allowOutsideRange: false,
 			targetQuery: new Query({
-				all: [Visible, Health, IsEnemy],
+				all: [Visible, Health, IsCreature],
 				none: [IsInventoried, IsDestroyed],
 			}),
 			onConfirm: (target) ->

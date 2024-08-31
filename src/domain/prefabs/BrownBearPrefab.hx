@@ -4,7 +4,7 @@ import common.struct.Coordinate;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
-import domain.prefabs.decorators.BasicActorDecorator;
+import domain.prefabs.decorators.BasicCharacterDecorator;
 import ecs.Entity;
 
 class BrownBearPrefab extends Prefab
@@ -16,10 +16,10 @@ class BrownBearPrefab extends Prefab
 		entity.add(new Sprite(BEAR, C_BROWN, C_RED, ACTORS));
 		entity.add(new Inventory(false));
 
-		BasicActorDecorator.Decorate(entity, {
+		BasicCharacterDecorator.Decorate(entity, {
 			level: 10,
 			faction: FACTION_WILDLIFE,
-			grit: 10,
+			grit: 6,
 			savvy: 8,
 			finesse: 6,
 			moniker: 'Brown Bear',

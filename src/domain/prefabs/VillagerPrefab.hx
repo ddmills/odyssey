@@ -6,7 +6,7 @@ import domain.components.Dialog;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
-import domain.prefabs.decorators.BasicActorDecorator;
+import domain.prefabs.decorators.BasicCharacterDecorator;
 import domain.prefabs.decorators.HumanoidDecorator;
 import ecs.Entity;
 import hxd.Rand;
@@ -18,7 +18,7 @@ class VillagerPrefab extends Prefab
 		var r = Rand.create();
 		var entity = new Entity(pos);
 
-		BasicActorDecorator.Decorate(entity, {
+		BasicCharacterDecorator.Decorate(entity, {
 			moniker: 'Villager',
 			level: 6,
 			grit: 3,

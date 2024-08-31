@@ -17,8 +17,8 @@ import domain.components.Collider;
 import domain.components.Door;
 import domain.components.Explored;
 import domain.components.Health;
+import domain.components.IsCreature;
 import domain.components.IsDestroyed;
-import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Level;
 import domain.components.Move;
@@ -154,6 +154,13 @@ class AdventureScreen extends Screen
 			sprite.tileKey = tk;
 		}
 
+		if (key == KEY_NUM_9)
+		{
+			var p = game.input.mouse.toWorld().floor();
+			Spawner.Spawn(SCORPION, p);
+			world.systems.vision.computeVision();
+		}
+
 		if (key == KEY_NUM_0)
 		{
 			var p = game.input.mouse.toWorld().floor();
@@ -238,7 +245,7 @@ class AdventureScreen extends Screen
 			return;
 		}
 
-		var enemy = entities.find((e) -> e.has(IsEnemy));
+		var enemy = entities.find((e) -> e.has(IsCreature));
 
 		if (enemy != null)
 		{
@@ -335,9 +342,16 @@ class AdventureScreen extends Screen
 
 				var entities = world.getEntitiesAt(b);
 
-				if (entities.exists((e) -> e.has(Collider) || e.has(IsEnemy)))
+				if (entities.exists((e) -> e.has(Collider) || e.has(IsCreature)))
 				{
 					return Math.POSITIVE_INFINITY;
+				}
+
+				var cell = world.getCell(b);
+
+				if (cell != null && cell.terrain == TERRAIN_WATER)
+				{
+					return 1000;
 				}
 
 				return Distance.Diagonal(a, b);

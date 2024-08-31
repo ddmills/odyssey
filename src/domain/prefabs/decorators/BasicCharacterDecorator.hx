@@ -8,13 +8,13 @@ import domain.components.Attributes;
 import domain.components.Energy;
 import domain.components.FactionMember;
 import domain.components.Health;
-import domain.components.IsEnemy;
+import domain.components.IsCreature;
 import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Vision;
 import ecs.Entity;
 
-typedef ActorOptions =
+typedef CharacterOptions =
 {
 	?moniker:Null<String>,
 	?level:Null<Int>,
@@ -27,16 +27,16 @@ typedef ActorOptions =
 	?behaviour:Null<BehaviourType>,
 }
 
-class BasicActorDecorator
+class BasicCharacterDecorator
 {
-	public static function Decorate(entity:Entity, options:ActorOptions)
+	public static function Decorate(entity:Entity, options:CharacterOptions)
 	{
 		entity.add(new Moniker(options.moniker.or('Unknown')));
 		entity.add(new Vision(12));
 		entity.add(new Energy(options.energy.or(-10)));
 		entity.add(new Actor(BHV_BASIC));
 		entity.add(new Level(options.level ?? 1));
-		entity.add(new IsEnemy());
+		entity.add(new IsCreature());
 		entity.add(new Attributes(options.grit ?? 0, options.savvy ?? 0, options.finesse ?? 0));
 		entity.add(new FactionMember(options.faction ?? FACTION_VILLAGE));
 

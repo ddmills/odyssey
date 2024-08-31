@@ -198,9 +198,13 @@ class Chunk
 		}
 	}
 
-	public function getCell(pos:IntPoint):Cell
+	public function getCell(localX:Int, localY:Int):Cell
 	{
-		return cells.get(pos.x, pos.y);
+		if (!isLoaded)
+		{
+			return null;
+		}
+		return cells.get(localX, localY);
 	}
 
 	public function getZoneLocalOffset():IntPoint
@@ -222,7 +226,7 @@ class Chunk
 
 	private function getGroundBitmap(pos:IntPoint):Bitmap
 	{
-		var cell = getCell(pos);
+		var cell = getCell(pos.x, pos.y);
 
 		var tileKey = cell.tileKey;
 		var primary = cell.primary;

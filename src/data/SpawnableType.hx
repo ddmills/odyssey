@@ -15,6 +15,7 @@ enum SpawnableType
 	REVOLVER;
 	RIFLE;
 	WOLF;
+	SCORPION;
 	BROWN_BEAR;
 	BAT;
 	YARROW;

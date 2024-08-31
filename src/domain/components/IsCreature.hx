@@ -2,7 +2,7 @@ package domain.components;
 
 import ecs.Component;
 
-class IsEnemy extends Component
+class IsCreature extends Component
 {
 	public function new() {}
 }

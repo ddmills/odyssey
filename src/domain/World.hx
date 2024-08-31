@@ -308,7 +308,7 @@ class World
 	public function getCell(pos:IntPoint):Cell
 	{
 		var cx = (pos.x / chunkSize).floor();
-		var cy = (pos.x / chunkSize).floor();
+		var cy = (pos.y / chunkSize).floor();
 		var chunk = chunks.getChunk(cx, cy);
 
 		if (chunk.isNull())
@@ -316,10 +316,7 @@ class World
 			return null;
 		}
 
-		return chunk.getCell({
-			x: (pos.x % chunkSize),
-			y: (pos.y % chunkSize),
-		});
+		return chunk.getCell(pos.x % chunkSize, pos.y % chunkSize,);
 	}
 
 	inline function get_game():Game

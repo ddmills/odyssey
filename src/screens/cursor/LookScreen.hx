@@ -5,7 +5,7 @@ import core.Frame;
 import data.AnimationResources;
 import data.ColorKey;
 import data.TileResources;
-import domain.components.IsEnemy;
+import domain.components.IsCreature;
 import domain.components.IsInventoried;
 import domain.components.Moniker;
 import h2d.Anim;
@@ -83,7 +83,7 @@ class LookScreen extends CursorScreen
 			var entities = world.getEntitiesAt(opts.end)
 				.filter((e) -> !e.has(IsInventoried));
 
-			if (entities.exists((e) -> e.has(IsEnemy)))
+			if (entities.exists((e) -> e.has(IsCreature)))
 			{
 				targetShader.primary = ColorKey.C_RED.toHxdColor().toVector();
 			}
@@ -100,9 +100,15 @@ class LookScreen extends CursorScreen
 				return '$name [$disp]';
 			});
 
+			var cell = world.getCell(opts.end.toIntPoint());
+			var terrain = cell.terrain.getName();
 			if (names.length > 0)
 			{
-				targetText.text = names.join(', ');
+				targetText.text = terrain + ' ' + names.join(', ');
+			}
+			else
+			{
+				targetText.text = terrain;
 			}
 		}
 		else

@@ -7,7 +7,7 @@ import core.Game;
 import domain.components.Actor;
 import domain.components.Collider;
 import domain.components.Health;
-import domain.components.IsEnemy;
+import domain.components.IsCreature;
 import domain.components.Move;
 import domain.components.Vision;
 import domain.components.Weapon;
@@ -75,6 +75,14 @@ class Behaviour
 			return false;
 		}
 
+		var entities = world.getEntitiesAt(next);
+
+		if (entities.exists((e) -> e.has(IsCreature)))
+		{
+			wait(entity);
+			return true;
+		}
+
 		EnergySystem.ConsumeEnergy(entity, ACT_MOVE);
 
 		var fast = entity.has(Move);
@@ -99,12 +107,26 @@ class Behaviour
 
 				var entities = world.getEntitiesAt(b);
 
-				if (entities.exists((e) -> e.has(Collider) || e.has(IsEnemy)))
+				if (entities.exists((e) -> e.has(Collider)))
 				{
 					return Math.POSITIVE_INFINITY;
 				}
 
-				return Distance.Diagonal(a, b);
+				var distance = Distance.Diagonal(a, b);
+
+				if (entities.exists((e) -> e.has(IsCreature)))
+				{
+					return distance * 5;
+				}
+
+				var cell = world.getCell(b);
+
+				if (cell != null && cell.terrain == TERRAIN_WATER)
+				{
+					return 1000 * distance;
+				}
+
+				return distance;
 			}
 		});
 	}

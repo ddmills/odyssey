@@ -128,6 +128,12 @@ class Health extends Component
 					duration: 100
 				});
 			}
+
+			var actor = entity.get(Actor);
+			if (actor != null)
+			{
+				actor.lastKnownTargetPosition = evt.attack.attacker.pos;
+			}
 		}
 		else
 		{

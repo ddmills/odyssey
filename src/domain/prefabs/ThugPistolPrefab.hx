@@ -10,7 +10,7 @@ import domain.components.EquipmentSlot;
 import domain.components.FactionMember;
 import domain.components.Health;
 import domain.components.Inventory;
-import domain.components.IsEnemy;
+import domain.components.IsCreature;
 import domain.components.Level;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -36,7 +36,7 @@ class ThugPistolPrefab extends Prefab
 		entity.add(new Level(1));
 		entity.add(new Health());
 		entity.add(new Attributes(0, 0, 3));
-		entity.add(new IsEnemy());
+		entity.add(new IsCreature());
 		entity.add(new Moniker('Bandit'));
 		entity.add(new Inventory());
 

@@ -1,30 +1,32 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import domain.components.Dialog;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
 import domain.prefabs.decorators.BasicCharacterDecorator;
 import ecs.Entity;
 
-class SnakePrefab extends Prefab
+class ScorpionPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate)
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(SNAKE, C_ORANGE, C_BLACK, ACTORS));
+		entity.add(new Sprite(SCORPION, C_DARK_GRAY, C_WHITE, ACTORS));
+		entity.add(new Inventory(false));
 
 		BasicCharacterDecorator.Decorate(entity, {
-			level: 1,
+			level: 6,
 			faction: FACTION_WILDLIFE,
-			savvy: 1,
-			finesse: 2,
-			moniker: 'Rattlesnake',
+			grit: 4,
+			savvy: 0,
+			finesse: 4,
+			moniker: 'Scorpion',
 			corpse: CORPSE_SNAKE,
 		});
 
-		entity.add(new Inventory(false));
 		entity.add(new EquipmentSlot('head', 'face', EQ_SLOT_HAND, true));
 		entity.get(EquipmentSlot).equip(Spawner.Spawn(STICK, pos));
 

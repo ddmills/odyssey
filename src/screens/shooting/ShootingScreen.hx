@@ -3,8 +3,8 @@ package screens.shooting;
 import core.Frame;
 import core.input.Command;
 import domain.components.Health;
+import domain.components.IsCreature;
 import domain.components.IsDestroyed;
-import domain.components.IsEnemy;
 import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.components.Weapon;
@@ -33,7 +33,7 @@ class ShootingScreen extends TargetScreen
 		this.shooter = shooter;
 		this.shootingSettings = shootingSettings;
 		var targetQuery = new Query({
-			all: [Visible, Health, IsEnemy],
+			all: [Visible, Health, IsCreature],
 			none: [IsInventoried, IsDestroyed],
 		});
 

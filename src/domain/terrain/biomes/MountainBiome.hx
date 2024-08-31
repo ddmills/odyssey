@@ -41,16 +41,14 @@ class MountainBiome extends Biome
 
 		var rocks = perlin.get(pos, 10, 3);
 		var trees = perlin.get(pos, 4, 1);
+
 		if (rocks > .55)
 		{
 			Spawner.Spawn(ROCK, pos.asWorld());
 		}
 		else if (trees > .7)
 		{
-			// if (r.bool(.25 + trees))
-			// {
 			Spawner.Spawn(PINE_TREE, pos.asWorld());
-			// }
 		}
 	}
 }

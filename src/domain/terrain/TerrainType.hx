@@ -3,7 +3,6 @@ package domain.terrain;
 enum TerrainType
 {
 	TERRAIN_WATER;
-	TERRAIN_RIVER;
 	TERRAIN_SNOW;
 	TERRAIN_SAND;
 	TERRAIN_GRASS;

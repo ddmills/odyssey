@@ -4,7 +4,7 @@ import common.struct.Coordinate;
 import domain.components.EquipmentSlot;
 import domain.components.Inventory;
 import domain.components.Sprite;
-import domain.prefabs.decorators.BasicActorDecorator;
+import domain.prefabs.decorators.BasicCharacterDecorator;
 import ecs.Entity;
 
 class BatPrefab extends Prefab
@@ -15,7 +15,7 @@ class BatPrefab extends Prefab
 
 		entity.add(new Sprite(BAT, C_GRAY, C_RED, ACTORS));
 
-		BasicActorDecorator.Decorate(entity, {
+		BasicCharacterDecorator.Decorate(entity, {
 			level: 1,
 			faction: FACTION_WILDLIFE,
 			savvy: 3,
