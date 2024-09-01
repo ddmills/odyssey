@@ -4,6 +4,8 @@ import common.algorithm.AStar;
 import common.algorithm.Distance;
 import common.struct.Coordinate;
 import core.Game;
+import data.Cardinal;
+import domain.components.BumpAttack;
 import domain.components.Collider;
 import domain.components.Health;
 import domain.components.IsCreature;
@@ -38,6 +40,13 @@ class Behaviour
 	public function wait(entity:Entity)
 	{
 		EnergySystem.ConsumeEnergy(entity, ACT_WAIT);
+	}
+
+	public function getTarget(entity:Entity):Null<Entity>
+	{
+		var visibile = getVisibleTargets(entity);
+
+		return visibile.length > 0 ? visibile.first() : null;
 	}
 
 	public function getVisibleTargets(entity:Entity):Array<Entity>
@@ -102,7 +111,7 @@ class Behaviour
 		return AStar.GetPath({
 			start: entity.pos.toWorld().toIntPoint(),
 			goal: goal.toWorld().toIntPoint(),
-			maxDepth: 100,
+			maxDepth: 250,
 			allowDiagonals: true,
 			cost: (a, b) ->
 			{
@@ -170,8 +179,9 @@ class Behaviour
 
 	public function tryAttackingNearby(entity:Entity):Bool
 	{
+		var entityPos = entity.pos.toIntPoint();
 		var factions = Game.instance.world.factions;
-		var neighbors = Game.instance.world.getNeighborEntities(entity.pos.toIntPoint());
+		var neighbors = Game.instance.world.getNeighborEntities(entityPos);
 		var target = neighbors.flatten().find((e) -> factions.areEntitiesHostile(e, entity));
 
 		if (target.isNull())
@@ -181,6 +191,11 @@ class Behaviour
 
 		var melee = new MeleeEvent(target, entity);
 		entity.fireEvent(melee);
+
+		var offset = target.pos.toIntPoint().sub(entityPos);
+		var dir = offset.cardinal();
+
+		entity.add(new BumpAttack(dir));
 		return melee.isHandled;
 	}
 

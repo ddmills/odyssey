@@ -51,6 +51,22 @@ class Easing
 		return getEasingFn(type)(x);
 	}
 
+	static public inline function applyZig(x:Float, type:EasingType):Float
+	{
+		var fn = getEasingFn(type);
+
+		if (x < .5)
+		{
+			// [0, .5]
+			// [0, 1]
+			return fn(x * 2);
+		}
+
+		// [.5, 1]
+		// [1, 0]
+		return fn((1 - x) * 2);
+	}
+
 	static public function getEasingFn(type:EasingType)
 	{
 		switch type

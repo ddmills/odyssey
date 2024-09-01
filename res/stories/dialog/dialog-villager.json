@@ -82,6 +82,29 @@
 							"say": "It's mutual."
 						}
 					]
+				},
+				{
+					"option": "Join me.",
+					"conditions": [
+						{
+							"type": "CONDITION_RELATION",
+							"min": 50
+						}
+					],
+					"dialogs": [
+						{
+							"say": "Okay.",
+							"effects": [
+								{
+									"type": "EFFECT_BE_COMPANION"
+								},
+								{
+									"type": "EFFECT_AUDIO",
+									"key": "IGNITE_MATCH"
+								}
+							]
+						}
+					]
 				}
 			]
 		}

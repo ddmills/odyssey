@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import domain.components.Crushable.Cruashable;
 import domain.components.LightBlocker;
 import domain.components.Moniker;
 import domain.components.Sprite;
@@ -14,6 +15,7 @@ class TallGrassPrefab extends Prefab
 
 		entity.add(new Sprite(TALL_GRASS, C_GREEN, C_WOOD, OBJECTS));
 		entity.add(new Moniker('Tall grass'));
+		entity.add(new Cruashable(TALL_GRASS_CRUSHED));
 		entity.add(new LightBlocker());
 
 		return entity;

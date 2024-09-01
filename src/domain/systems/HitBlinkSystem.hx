@@ -1,7 +1,6 @@
 package domain.systems;
 
 import core.Frame;
-import core.Game;
 import domain.components.HitBlink;
 import domain.components.IsDestroyed;
 import domain.components.Sprite;

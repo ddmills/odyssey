@@ -32,9 +32,9 @@ class BasicCharacterDecorator
 	public static function Decorate(entity:Entity, options:CharacterOptions)
 	{
 		entity.add(new Moniker(options.moniker.or('Unknown')));
-		entity.add(new Vision(12));
+		entity.add(new Vision(13));
 		entity.add(new Energy(options.energy.or(-10)));
-		entity.add(new Actor(BHV_BASIC));
+		entity.add(new Actor(BHV_ZOMBIE));
 		entity.add(new Level(options.level ?? 1));
 		entity.add(new IsCreature());
 		entity.add(new Attributes(options.grit ?? 0, options.savvy ?? 0, options.finesse ?? 0));

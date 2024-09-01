@@ -87,6 +87,7 @@ class TileResources
 		tiles.set(CACTUS_1_FLOWER, t[4][4]);
 		tiles.set(CACTUS_2_FLOWER, t[4][4]);
 		tiles.set(TALL_GRASS, t[5][14]);
+		tiles.set(TALL_GRASS_CRUSHED, t[5][15]);
 
 		tiles.set(LANTERN, t[1][6]);
 		tiles.set(PILE_ASH, t[1][7]);

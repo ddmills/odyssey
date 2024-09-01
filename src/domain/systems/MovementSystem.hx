@@ -114,20 +114,4 @@ class MovementSystem extends System
 			}
 		}
 	}
-
-	inline function getDelta(pos:Coordinate, goal:Coordinate, speed:Float, tween:Tween, tmod:Float):Coordinate
-	{
-		switch tween
-		{
-			case LINEAR:
-				var direction = pos.direction(goal);
-				var dx = direction.x * tmod * speed;
-				var dy = direction.y * tmod * speed;
-				return new Coordinate(dx, dy, WORLD);
-			case LERP:
-				return pos.lerp(goal, tmod * speed).sub(pos);
-			case INSTANT:
-				return goal.sub(pos);
-		}
-	}
 }

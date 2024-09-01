@@ -13,8 +13,10 @@ class Actor extends Component
 	@save public var behaviour:BehaviourType;
 	@save public var lastKnownTargetPosition:Null<Coordinate>;
 	@save public var leaderEntityId:Null<String>;
-	@save public var loiterPosition:Null<Coordinate>;
+	@save public var leashPostion:Null<Coordinate>;
 	@save public var path:Null<Array<IntPoint>>;
+	@save public var leashDistance:Int;
+	@save public var isReturningToLeash:Bool;
 
 	public var leader(get, never):Null<Entity>;
 
@@ -23,13 +25,15 @@ class Actor extends Component
 		this.behaviour = behaviour;
 		this.lastKnownTargetPosition = null;
 		this.path = null;
+		this.leashDistance = 25;
+		this.isReturningToLeash = false;
 
 		addHandler(EntitySpawnedEvent, onEntitySpawned);
 	}
 
 	private function onEntitySpawned(evt:EntitySpawnedEvent)
 	{
-		this.loiterPosition = entity.pos;
+		this.leashPostion = entity.pos;
 	}
 
 	inline function get_leader():Null<Dynamic>

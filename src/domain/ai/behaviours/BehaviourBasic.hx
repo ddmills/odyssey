@@ -28,11 +28,11 @@ class BehaviourBasic extends Behaviour
 				}
 			}
 
-			if (!actor.loiterPosition.isNull())
+			if (!actor.leashPostion.isNull())
 			{
 				actor.lastKnownTargetPosition = null;
 
-				if (tryMoveToward(entity, actor.loiterPosition))
+				if (tryMoveToward(entity, actor.leashPostion))
 				{
 					return;
 				}

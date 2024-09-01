@@ -13,6 +13,7 @@ import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
 import domain.components.BitmaskSprite;
+import domain.components.BumpAttack;
 import domain.components.Collider;
 import domain.components.Door;
 import domain.components.Explored;
@@ -85,7 +86,14 @@ class AdventureScreen extends Screen
 	public override function update(frame:Frame)
 	{
 		world.updateSystems();
-		game.camera.focus = world.player.entity.drawable.getDrawnPosition();
+
+		trace(frame.tmod);
+
+		var cfocus = game.camera.focus.toWorld().toFloatPoint();
+		var ctarget = world.player.entity.pos.toFloatPoint();
+
+		game.camera.focus = cfocus.lerp(ctarget, frame.tmod / 5).asWorld();
+
 		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.friendlyString();
 		var hp = world.player.entity.get(Health);
@@ -260,6 +268,7 @@ class AdventureScreen extends Screen
 			if (isHostile)
 			{
 				world.player.entity.fireEvent(new MeleeEvent(enemy, world.player.entity));
+				world.player.entity.add(new BumpAttack(dir));
 				return;
 			}
 			else

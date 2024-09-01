@@ -13,7 +13,7 @@ class ScorpionPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(SCORPION, C_DARK_GRAY, C_WHITE, ACTORS));
+		entity.add(new Sprite(SCORPION, C_ORANGE, C_WHITE, ACTORS));
 		entity.add(new Inventory(false));
 
 		BasicCharacterDecorator.Decorate(entity, {

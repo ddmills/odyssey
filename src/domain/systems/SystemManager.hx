@@ -10,6 +10,7 @@ class SystemManager
 	public var movement(default, null):MovementSystem;
 	public var chunks(default, null):ChunkSystem;
 	public var sprites(default, null):SpriteSystem;
+	public var crushSystem(default, null):CrushSystem;
 	public var lights(default, null):LightSystem;
 	public var vision(default, null):VisionSystem;
 	public var bitmasks(default, null):BitmaskSystem;
@@ -18,6 +19,7 @@ class SystemManager
 	public var path(default, null):PathFollowSystem;
 	public var highlight(default, null):HighlightSystem;
 	public var hitBlink(default, null):HitBlinkSystem;
+	public var bumpAttack(default, null):BumpAttackSystem;
 	public var health(default, null):HealthSystem;
 	public var healthBar(default, null):HealthBarSystem;
 	public var floatingText(default, null):FloatingTextSystem;
@@ -35,12 +37,14 @@ class SystemManager
 		chunks = new ChunkSystem();
 		path = new PathFollowSystem();
 		sprites = new SpriteSystem();
+		crushSystem = new CrushSystem();
 		lights = new LightSystem();
 		vision = new VisionSystem();
 		bitmasks = new BitmaskSystem();
 		death = new DeathSystem();
 		highlight = new HighlightSystem();
 		hitBlink = new HitBlinkSystem();
+		bumpAttack = new BumpAttackSystem();
 		health = new HealthSystem();
 		healthBar = new HealthBarSystem();
 		floatingText = new FloatingTextSystem();
@@ -56,6 +60,7 @@ class SystemManager
 		chunks.update(frame);
 		movement.update(frame);
 		path.update(frame);
+		crushSystem.update(frame);
 		lights.update(frame);
 		highlight.update(frame);
 		vision.update(frame);
@@ -63,6 +68,7 @@ class SystemManager
 		sprites.update(frame);
 		bullets.update(frame);
 		hitBlink.update(frame);
+		bumpAttack.update(frame);
 		health.update(frame);
 		healthBar.update(frame);
 		floatingText.update(frame);
