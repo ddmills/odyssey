@@ -87,12 +87,10 @@ class AdventureScreen extends Screen
 	{
 		world.updateSystems();
 
-		trace(frame.tmod);
-
 		var cfocus = game.camera.focus.toWorld().toFloatPoint();
 		var ctarget = world.player.entity.pos.toFloatPoint();
 
-		game.camera.focus = cfocus.lerp(ctarget, frame.tmod / 5).asWorld();
+		game.camera.focus = cfocus.lerp(ctarget, .2).asWorld();
 
 		hudText.fps.text = frame.fps.floor().toString();
 		hudText.clock.text = world.clock.friendlyString();
@@ -112,17 +110,7 @@ class AdventureScreen extends Screen
 		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
 		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + ' (${mpos.toChunkIdx()})';
 		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + ' $poi';
-		hudText.dbg.text = 'zoink';
-
-		var wpos = mpos.toWorld();
-		var entities = game.world.getEntitiesAt(wpos);
-		var maskE = entities.find((e) -> e.has(BitmaskSprite));
-
-		if (!maskE.isNull())
-		{
-			var mask = world.systems.bitmasks.compute(maskE);
-			hudText.dbg.text = 'mask=${mask}';
-		}
+		hudText.dbg.text = world.getCurrentBiome().getName();
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';

@@ -14,7 +14,6 @@ class YarrowPrefab extends Prefab
 		var entity = new Entity(pos);
 
 		var s = new Sprite(FLOWER_1, C_YELLOW, C_GREEN, OBJECTS);
-		s.background = C_CLEAR;
 		entity.add(s);
 		entity.add(new Moniker('Yarrow'));
 		entity.add(new Forageable(YARROW_LEAF, RUSTLING_1, true));

@@ -5,6 +5,7 @@ import common.struct.IntPoint;
 import common.tools.Performance;
 import core.Game;
 import data.AudioKey;
+import data.BiomeType;
 import data.Cardinal;
 import data.save.SaveWorld;
 import domain.AIManager;
@@ -13,6 +14,7 @@ import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.data.factions.FactionManager;
 import domain.prefabs.Spawner;
+import domain.systems.LightSystem.TileLightData;
 import domain.systems.SystemManager;
 import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
@@ -215,6 +217,14 @@ class World
 		return getEntitiesInRect(topLeft, diameter, diameter);
 	}
 
+	public function getCurrentBiome():BiomeType
+	{
+		var pos = player.pos.toIntPoint();
+		var chunkIdx = chunks.getChunkIdxByWorld(pos.x, pos.y);
+		var chunk = chunks.getChunkById(chunkIdx);
+		return chunk.zone.primaryBiome;
+	}
+
 	public function getNeighborEntities(pos:IntPoint):Array<Array<Entity>>
 	{
 		// todo - just make faster by removing cardinal calls?
@@ -273,6 +283,8 @@ class World
 
 			chunk.setExplore(local, true, true);
 
+			var light = systems.lights.getTileLight(pos.toIntPoint());
+
 			for (entity in getEntitiesAt(pos.toWorld().toIntPoint()))
 			{
 				if (!entity.has(Visible))
@@ -282,6 +294,12 @@ class World
 				if (!entity.has(Explored))
 				{
 					entity.add(new Explored());
+				}
+				if (light.intensity > 0 && entity.drawable != null)
+				{
+					entity.drawable.shader.isLit = 1;
+					entity.drawable.shader.lightColor = light.color.toHxdColor().toVector();
+					entity.drawable.shader.lightIntensity = light.intensity;
 				}
 			}
 		}

@@ -24,6 +24,9 @@ class RoomChurch extends RoomDecorator
 			spawnableType: CHAIR,
 		}, 100);
 		clutter.add({
+			spawnableType: BRAZIER,
+		}, 180);
+		clutter.add({
 			spawnableType: LOCKBOX,
 		}, 100);
 		clutter.add({

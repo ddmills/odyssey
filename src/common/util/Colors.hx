@@ -1,7 +1,5 @@
 package common.util;
 
-import h3d.Vector;
-
 typedef RGB =
 {
 	r:Int,

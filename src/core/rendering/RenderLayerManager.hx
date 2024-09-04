@@ -3,6 +3,7 @@ package core.rendering;
 import core.rendering.RenderLayer.RenderLayerSpace;
 import h2d.Bitmap;
 import h2d.Layers;
+import h2d.Object;
 import h2d.Tile;
 import shaders.ScanlineShader;
 
@@ -28,11 +29,13 @@ class RenderLayerManager
 	private var screenCount:Int = 0;
 	private var layers:Map<RenderLayerType, RenderLayer>;
 
+	public var bkgBm:Bitmap;
+
 	public function new()
 	{
-		var bkg = new Bitmap(Tile.fromColor(Game.instance.CLEAR_COLOR.toInt()));
-		bkg.width = 10000;
-		bkg.height = 10000;
+		bkgBm = new Bitmap(Tile.fromColor(0xffffff));
+		bkgBm.width = 10000;
+		bkgBm.height = 10000;
 
 		layers = new Map();
 		root = new Layers();
@@ -48,7 +51,7 @@ class RenderLayerManager
 		createLayer(HUD, SCREEN);
 		createLayer(POPUP, SCREEN);
 
-		root.addChildAt(bkg, 0);
+		root.addChildAt(bkgBm, 0);
 		root.addChildAt(scroller, 1);
 		root.addChildAt(screen, 2);
 

@@ -14,7 +14,7 @@ class SwampBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, SWAMP);
+		super(seed, SWAMP, 0x150B16);
 
 		icons = new WeightedTable();
 

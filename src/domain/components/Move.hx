@@ -23,7 +23,7 @@ class Move extends Component
 
 	public var startTime:Float;
 
-	public function new(goal:Coordinate, duration:Float = 0.5, ease:EasingType = EASE_LINEAR, epsilon:Float = .0025)
+	public function new(goal:Coordinate, duration:Float = 1., ease:EasingType = EASE_LINEAR, epsilon:Float = .0025)
 	{
 		this.goal = goal;
 		this.ease = ease;

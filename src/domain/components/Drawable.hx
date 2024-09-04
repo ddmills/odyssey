@@ -1,7 +1,6 @@
 package domain.components;
 
 import common.struct.Coordinate;
-import core.Game;
 import core.rendering.RenderLayerManager.RenderLayerType;
 import data.ColorKey;
 import ecs.Component;
@@ -42,7 +41,7 @@ abstract class Drawable extends Component
 		this.layer = layer;
 		this.primary = primary;
 		this.secondary = secondary;
-		this.outline = Game.instance.CLEAR_COLOR;
+		this.outline = C_CLEAR;
 	}
 
 	abstract function getDrawable():h2d.Drawable;

@@ -35,9 +35,21 @@ class VisionSystem extends System
 		});
 		vis.onEntityAdded((entity) ->
 		{
+			var light = world.systems.lights.getTileLight(entity.pos.toIntPoint());
+
 			if (entity.drawable != null)
 			{
 				entity.drawable.isVisible = true;
+				if (light.intensity > 0)
+				{
+					entity.drawable.shader.isLit = 1;
+					entity.drawable.shader.lightColor = light.color.toHxdColor().toVector();
+					entity.drawable.shader.lightIntensity = light.intensity;
+				}
+				else
+				{
+					entity.drawable.shader.isLit = 0;
+				}
 			}
 			flagRecompute = true;
 		});
@@ -46,6 +58,7 @@ class VisionSystem extends System
 			if (entity.drawable != null)
 			{
 				entity.drawable.isVisible = false;
+				entity.drawable.shader.isLit = 0;
 			}
 			flagRecompute = true;
 		});
@@ -103,7 +116,7 @@ class VisionSystem extends System
 		if (distance > getVisionRange(source))
 		{
 			var light = world.systems.lights.getTileLight(b);
-			if (light <= 0)
+			if (light.intensity <= 0)
 			{
 				return false;
 			}
@@ -124,7 +137,7 @@ class VisionSystem extends System
 	public function getVisionRange(entity:Entity):Int
 	{
 		var vision = world.player.entity.get(Vision);
-		return (world.clock.getDaylight() * vision.range).floor();
+		return (world.clock.getDaylight() * vision.range).round();
 	}
 
 	private function isBlocker(p:IntPoint)
@@ -160,7 +173,7 @@ class VisionSystem extends System
 				if (distance > range)
 				{
 					var light = world.systems.lights.getTileLight(pos);
-					if (light > 0)
+					if (light.intensity > 0)
 					{
 						world.setVisible(pos.asWorld());
 					}

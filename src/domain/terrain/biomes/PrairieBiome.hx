@@ -13,7 +13,7 @@ class PrairieBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE);
+		super(seed, PRAIRIE, 0x11180B);
 
 		icons = new WeightedTable();
 

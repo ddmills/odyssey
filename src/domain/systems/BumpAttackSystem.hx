@@ -40,7 +40,7 @@ class BumpAttackSystem extends System
 			var currentDuration = frame.elapsed - bump.startTime;
 			var progress = (currentDuration / bump.duration).clamp(0, 1);
 			var offset = bump.direction.toOffset();
-			var target = new FloatPoint(offset.x * .5, offset.y * .5);
+			var target = new FloatPoint(offset.x * .3, offset.y * .3);
 			var goal = entity.pos.add(target.asWorld());
 			var newPos = entity.pos.easeZig(goal, progress, bump.ease);
 

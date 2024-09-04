@@ -14,7 +14,7 @@ class DesertBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, DESERT);
+		super(seed, DESERT, 0x1B1410);
 
 		icons = new WeightedTable();
 
@@ -69,8 +69,8 @@ class DesertBiome extends Biome
 	{
 		if (cell.terrain == TERRAIN_SAND)
 		{
-			var rocks = perlin.get(pos, 8, 8);
-			if (rocks > .6)
+			var rocks = perlin.get(pos, 18, 2);
+			if (rocks > .7)
 			{
 				Spawner.Spawn(DESERT_ROCK, pos.asWorld());
 			}

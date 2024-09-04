@@ -29,6 +29,7 @@ enum abstract ColorKey(String) to String from String
 
 	var C_WOOD = 'C_WOOD';
 	var C_STONE = 'C_STONE';
+	var C_FIRE_LIGHT = 'C_FIRE_LIGHT';
 	var C_TEXT_PRIMARY = 'C_TEXT_PRIMARY';
 	var C_CLEAR = 'C_CLEAR';
 	var C_SHROUD = 'C_SHROUD';

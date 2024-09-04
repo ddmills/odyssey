@@ -21,7 +21,7 @@ class VialPrefab extends Prefab
 
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(VIAL, Game.instance.CLEAR_COLOR, C_BLUE, OBJECTS));
+		entity.add(new Sprite(VIAL, C_CLEAR, C_BLUE, OBJECTS));
 		entity.add(new Moniker('Vial'));
 		entity.add(new Loot());
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));

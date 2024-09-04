@@ -55,6 +55,7 @@ class Spawner
 		prefabs.set(OAK_TREE, new OakTreePrefab());
 		prefabs.set(TALL_GRASS, new TallGrassPrefab());
 		prefabs.set(CAMPFIRE, new CampfirePrefab());
+		prefabs.set(BRAZIER, new BrazierPrefab());
 		prefabs.set(LANTERN, new LanternPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
 		prefabs.set(VIAL, new VialPrefab());

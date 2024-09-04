@@ -60,7 +60,7 @@ class EnergySystem extends System
 			{
 				if (sleeping.ticksRemaining > 0)
 				{
-					EnergySystem.ConsumeEnergy(world.player.entity, ACT_WAIT);
+					EnergySystem.ConsumeEnergy(world.player.entity, ACT_SLEEP);
 				}
 			}
 			else
@@ -109,12 +109,12 @@ class EnergySystem extends System
 
 		if (type == ACT_SLEEP)
 		{
-			return 2000;
+			return 1000;
 		}
 
 		if (type == ACT_WAIT)
 		{
-			return 100;
+			return 500;
 		}
 
 		if (type == ACT_DROP)

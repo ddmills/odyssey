@@ -1,7 +1,6 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
-import core.Game;
 import data.ColorKey;
 import data.LiquidType;
 import domain.components.Destructable;
@@ -21,7 +20,7 @@ class JarPrefab extends Prefab
 
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(JAR, Game.instance.CLEAR_COLOR, C_BLUE, OBJECTS));
+		entity.add(new Sprite(JAR, ColorKey.C_CLEAR, C_BLUE, OBJECTS));
 		entity.add(new Moniker('Jar'));
 		entity.add(new Loot());
 		entity.add(new LiquidContainer(liquidType, volume, maxVolume, true, false, true, false, false));

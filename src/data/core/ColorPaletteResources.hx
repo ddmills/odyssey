@@ -40,7 +40,6 @@ class ColorPaletteResources
 		p.setColor(C_GRAY, 0x8296A1);
 		p.setColor(C_DARK_GRAY, 0x3B3B3B);
 		p.setColor(C_BLACK, 0x0c0a0a);
-		p.setColor(C_CLEAR, 0x1A1414);
 		p.setColor(C_SHROUD, 0x1f2224);
 
 		p.setColor(C_PURPLE, 0x913E96);
@@ -60,8 +59,10 @@ class ColorPaletteResources
 
 		p.setColor(C_WOOD, p.getColor(C_RED));
 		p.setColor(C_STONE, p.getColor(C_DARK_BLUE));
+		p.setColor(C_FIRE_LIGHT, 0xdbb45f);
 
 		p.setColor(C_TEXT_PRIMARY, 0xcecba9);
+		p.setColor(C_CLEAR, 0xffff00);
 
 		return p;
 	}

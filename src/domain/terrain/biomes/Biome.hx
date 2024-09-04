@@ -36,14 +36,16 @@ class Biome
 	public var majorPois:WeightedTable<PoiDefinition>;
 	public var mediumPois:WeightedTable<PoiDefinition>;
 	public var minorPois:WeightedTable<PoiDefinition>;
+	public var clearColor:Int;
 
 	var r:Rand;
 	var perlin:Perlin;
 
-	public function new(seed:Int, type:BiomeType)
+	public function new(seed:Int, type:BiomeType, clearColor:Int = 0x191D31)
 	{
 		this.seed = seed;
 		this.type = type;
+		this.clearColor = clearColor;
 
 		r = new Rand(seed);
 		perlin = new Perlin(seed);

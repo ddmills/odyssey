@@ -22,7 +22,7 @@ class Game
 
 	public var TILE_W_HALF(get, never):Int;
 	public var TILE_H_HALF(get, never):Int;
-	public var CLEAR_COLOR:ColorKey = ColorKey.C_CLEAR;
+	public var CLEAR_COLOR:ColorKey = ColorKey.C_BLACK;
 	public var TEXT_COLOR:ColorKey = C_TEXT_PRIMARY;
 	public var TEXT_COLOR_FOCUS:ColorKey = C_YELLOW;
 	public var SHOW_BG_COLORS:Bool = false;
@@ -66,6 +66,7 @@ class Game
 
 		app.s2d.scaleMode = Fixed(800, 600, 1, Left, Top);
 		app.s2d.addChild(layers.root);
+		app.s2d.renderer.globals.set("clearColor", CLEAR_COLOR.toHxdColor().toVector());
 	}
 
 	public static function Create(app:hxd.App)

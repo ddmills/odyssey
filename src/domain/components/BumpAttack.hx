@@ -12,7 +12,7 @@ class BumpAttack extends Component
 
 	public var startTime:Float;
 
-	public function new(direction:Cardinal, duration:Float = .12, ease:EasingType = EASE_LINEAR)
+	public function new(direction:Cardinal, duration:Float = .1, ease:EasingType = EASE_LINEAR)
 	{
 		this.direction = direction;
 		this.duration = duration;

@@ -65,6 +65,10 @@ class TileResources
 		tiles.set(CAMPFIRE_2, t[0][9]);
 		tiles.set(CAMPFIRE_3, t[0][10]);
 
+		tiles.set(BRAZIER_1, t[5][6]);
+		tiles.set(BRAZIER_2, t[5][7]);
+		tiles.set(BRAZIER_3, t[5][8]);
+
 		tiles.set(TERRAIN_BASIC_1, t[1][0]);
 		tiles.set(TERRAIN_BASIC_2, t[1][1]);
 		tiles.set(TERRAIN_BASIC_3, t[1][2]);

@@ -39,6 +39,12 @@ class AnimationResources
 			TileResources.Get(CAMPFIRE_3),
 		]);
 
+		animations.set(BRAZIER, [
+			TileResources.Get(BRAZIER_1),
+			TileResources.Get(BRAZIER_2),
+			TileResources.Get(BRAZIER_3),
+		]);
+
 		animations.set(ARROW_BOUNCE, [
 			TileResources.Get(ARROW_BOUNCE_1),
 			TileResources.Get(ARROW_BOUNCE_2),

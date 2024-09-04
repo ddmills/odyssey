@@ -21,13 +21,24 @@ typedef LightFragment =
 	sourceId:String,
 }
 
+typedef TileLightData =
+{
+	intensity:Float,
+	color:Int,
+}
+
 class LightSystem extends System
 {
 	var query:Query;
 	var flagRecompute:Bool = false;
-	private var litTiles:Map<Int, Float> = [];
+	private var litTiles:Map<Int, TileLightData> = [];
 
 	public var lightFragments:Map<Int, Array<LightFragment>> = [];
+
+	var darkTile:TileLightData = {
+		intensity: 0,
+		color: 0,
+	};
 
 	public function new()
 	{
@@ -79,7 +90,9 @@ class LightSystem extends System
 				onLight: (pos, distance) ->
 				{
 					var d = distance > .75 ? distance - .75 : .75;
-					var i = light.intensity / d; // realistic lighting = d^2
+					// var d = distance;
+					// var i = light.intensity / d; // realistic lighting = d^2
+					var i = light.intensity / (d * d); // realistic lighting = d^2
 
 					addFragment({
 						pos: pos,
@@ -160,10 +173,13 @@ class LightSystem extends System
 			if (shader != null)
 			{
 				var compiled = combine(fragmentList);
-				// shader.light = compiled.color.toHxdColor().toVector();
-				// shader.lightIntensity = compiled.intensity.clamp(0, 1);
-				// shader.isLit = 1;
-				litTiles.set(idx, compiled.intensity);
+				shader.lightColor = compiled.color.toHxdColor().toVector();
+				shader.lightIntensity = compiled.intensity.clamp(0, 1);
+				shader.isLit = 1;
+				litTiles.set(idx, {
+					intensity: compiled.intensity,
+					color: compiled.color,
+				});
 			}
 		}
 
@@ -217,20 +233,21 @@ class LightSystem extends System
 			if (shader != null)
 			{
 				var outIntensity = intensity.clamp(0, 1);
-				// shader.light = color.toHxdColor().toVector();
-				// shader.lightIntensity = outIntensity;
-				// shader.isLit = 1;
-				litTiles.set(idx, outIntensity);
+				shader.lightColor = color.toHxdColor().toVector();
+				shader.lightIntensity = outIntensity;
+				shader.isLit = 1;
+				litTiles.set(idx, {
+					intensity: outIntensity,
+					color: color,
+				});
 			}
 		}
 	}
 
-	public function getTileLight(pos:IntPoint)
+	public function getTileLight(pos:IntPoint):Null<TileLightData>
 	{
 		var idx = world.getTileIdx(pos);
-		var intensity = litTiles.get(idx);
-
-		return intensity == null ? 0 : intensity;
+		return litTiles.get(idx).or(darkTile);
 	}
 
 	public function clearLitTiles()
@@ -239,10 +256,10 @@ class LightSystem extends System
 		{
 			var pos = world.getTilePos(idx);
 			var shader = getShader(pos);
-			// if (shader != null)
-			// {
-			// 	shader.isLit = 0;
-			// }
+			if (shader != null)
+			{
+				shader.isLit = 0;
+			}
 		}
 		litTiles = [];
 		lightFragments = [];

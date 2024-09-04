@@ -13,7 +13,7 @@ class TundraBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, TUNDRA);
+		super(seed, TUNDRA, 0x162427);
 
 		icons = new WeightedTable();
 
@@ -42,14 +42,14 @@ class TundraBiome extends Biome
 		{
 			cell.tileKey = GRASS_V1_2;
 			cell.terrain = TERRAIN_GRASS;
-			cell.primary = C_DARK_GRAY;
+			cell.primary = C_WHITE;
 		}
 		else
 		{
 			var t = r.pick([TERRAIN_BASIC_1, TERRAIN_BASIC_2, TERRAIN_BASIC_3]);
 			cell.tileKey = t;
 			cell.terrain = TERRAIN_SNOW;
-			var c = r.pick([C_GRAY, C_DARK_GREEN, C_DARK_GRAY]);
+			var c = r.pick([C_GRAY, C_WHITE]);
 			cell.primary = c;
 		}
 
