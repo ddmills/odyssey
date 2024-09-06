@@ -65,13 +65,13 @@ class MapScreen extends Screen
 		var tile = TileResources.Get(tileKey);
 		var primary = icon.primary;
 		var secondary = icon.secondary;
-		var background = icon.background;
+		var background = biome.clearColor;
 
 		if (zone.biomes.river.nw)
 		{
 			tile = TileResources.Get(OVERWORLD_WATER_1);
 			primary = C_BLUE;
-			background = C_BLUE;
+			background = C_DARK_BLUE;
 		}
 
 		if (zone.poi != null)
@@ -84,7 +84,7 @@ class MapScreen extends Screen
 			tile = TileResources.Get(tileKey);
 			primary = poiIcon.primary;
 			secondary = poiIcon.secondary;
-			background = poiIcon.background;
+			// background = poiIcon.background;
 		}
 		else if (zone.railroad != null)
 		{
@@ -109,7 +109,9 @@ class MapScreen extends Screen
 		bm.width = game.TILE_W * scale;
 		bm.height = game.TILE_W * scale;
 		var shader = new SpriteShader(primary, secondary);
+		shader.background = background.toHxdColor().toVector();
 		shader.clearBackground = 1;
+		shader.ignoreLighting = 1;
 		bm.addShader(shader);
 
 		var clicker = new Interactive(game.TILE_W * scale, game.TILE_W * scale, bm);

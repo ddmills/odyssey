@@ -16,6 +16,7 @@ class SpriteShader extends hxsl.Shader
 			@param var isShrouded:Int;
 			@param var shroudColor:Vec3;
 			@param var isLit:Int;
+			@param var ignoreLighting:Int;
 			@param var seed:Int;
 			@param var lightColor:Vec3;
 			@param var lightIntensity:Float;
@@ -33,47 +34,34 @@ class SpriteShader extends hxsl.Shader
 				var isSecondary = !isBackground && pixelColor.r == 1 && pixelColor.g == 1 && pixelColor.b == 1;
 				var isOutline = !isBackground && pixelColor.r == 1 && pixelColor.g == 0 && pixelColor.b == 0;
 
-				var tu = ((sin(((time) * 2)) + 1) / 2) * .75;
-				var ts = ((sin(((time + seed) * 12)) + 1) / 2) * .25;
-				var t = (tu + ts);
-				var scaled = .5 + (t / 2);
+				var t1 = ((sin((time) * 2) + 1) / 2) * .85;
+				var t2 = ((sin((time + seed) * 24) + 1) / 2) * .15;
+				var t = (t1 + t2);
+
+				var scaled = .5 + (t * .5);
 				var nightIntensity = (1 - daylight) * .75;
 				var intensity = (scaled * lightIntensity);
+
+				if (sin((time + seed) * .8) > -0.025 && sin((time + seed) * .8) < 0.025)
+				{
+					intensity = intensity * .75;
+				}
+
+				var c = color;
+				var applyLighting = ignoreLighting == 0;
 
 				if (isPrimary)
 				{
 					color = primary;
-
-					if (isLit == 1)
-					{
-						var i = (intensity * nightIntensity) / 2;
-						color = mix(color, lightColor, i);
-						nightIntensity = nightIntensity * (1 - intensity);
-					}
 				}
 				else if (isSecondary)
 				{
 					color = secondary;
-
-					if (isLit == 1)
-					{
-						var i = (intensity * nightIntensity) / 2;
-						color = mix(color, lightColor, i);
-						nightIntensity = nightIntensity * (1 - intensity);
-					}
 				}
 				else if (isOutline)
 				{
-					nightIntensity = 0;
-
-					if (outline.r == 1.0 && outline.g == 1.0 && outline.b == 0.0)
-					{
-						color = clearColor;
-					}
-					else
-					{
-						color = outline;
-					}
+					color = outline;
+					applyLighting = false;
 				}
 				else if (isBackground)
 				{
@@ -81,24 +69,36 @@ class SpriteShader extends hxsl.Shader
 					{
 						color = background;
 						pixelColor.a = 1;
+						applyLighting = false;
 					}
 				}
 
-				if (isPrimary && isShrouded == 1)
+				if (color.r == 1.0 && color.g == 1.0 && color.b == 0.0)
 				{
-					color = mix(color, shroudColor, .925);
+					color = clearColor;
+					applyLighting = false;
 				}
 
-				if (isSecondary && isShrouded == 1)
+				if (applyLighting)
 				{
-					color = mix(color, shroudColor, .925);
-				}
+					if (isLit == 1)
+					{
+						var i = (intensity * nightIntensity) * .76;
+						color = mix(color, lightColor, i);
+						nightIntensity = nightIntensity * (1 - intensity);
+					}
 
-				var lutY = 1 - color.g;
-				var lutX = (floor(color.b * 32) / 32) + (color.r / 32);
-				var uvv = vec2(lutX, lutY);
-				var nightColor = lut.get(uvv).rgb;
-				color = mix(color, nightColor, nightIntensity);
+					if (isShrouded == 1)
+					{
+						color = mix(color, shroudColor, .925);
+					}
+
+					var lutY = 1 - color.g;
+					var lutX = (floor(color.b * 32) / 32) + (color.r / 32);
+					var uvv = vec2(lutX, lutY);
+					var nightColor = lut.get(uvv).rgb;
+					color = mix(color, nightColor, nightIntensity);
+				}
 
 				pixelColor.rgb = color;
 			}
@@ -115,6 +115,7 @@ class SpriteShader extends hxsl.Shader
 		this.clearBackground = 0;
 		this.isShrouded = 0;
 		this.isLit = 0;
+		this.ignoreLighting = 0;
 		this.lightColor = ColorKey.C_BRIGHT_WHITE.toHxdColor().toVector();
 		this.lightIntensity = 1;
 		this.seed = Game.instance.world.rand.integer(0, 10000);

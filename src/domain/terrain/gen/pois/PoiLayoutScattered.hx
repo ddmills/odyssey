@@ -2,6 +2,7 @@ package domain.terrain.gen.pois;
 
 import common.algorithm.BSP;
 import common.struct.IntPoint;
+import data.TileKey;
 import hxd.Rand;
 
 class PoiLayoutScattered extends PoiLayout
@@ -32,24 +33,39 @@ class PoiLayoutScattered extends PoiLayout
 				var offY = node.offsetY + 2;
 
 				rooms.push(new Room(offX, offY, width, height));
+				var terrains:Array<TileKey> = [TERRAIN_BASIC_2, TERRAIN_BASIC_3, TERRAIN_BASIC_4, TERRAIN_BASIC_5];
 
 				if (node.offsetY > 0)
 				{
 					for (x in 0...node.width)
 					{
-						var pos:IntPoint = {
+						poi.setTile({
 							x: node.offsetX + x,
 							y: node.offsetY,
-						};
-
-						var tile:RoomTile = {
+						}, {
 							content: [],
 							tileKey: TERRAIN_BASIC_5,
 							primary: C_DARK_RED,
 							background: C_WOOD,
-						};
-
-						poi.setTile(pos, tile);
+						});
+						poi.setTile({
+							x: node.offsetX + x,
+							y: node.offsetY - 1,
+						}, {
+							content: r.bool(.05) ? [{spawnableType: STREETLAMP}] : [],
+							tileKey: r.pick(terrains),
+							primary: C_DARK_RED,
+							background: C_WOOD,
+						});
+						poi.setTile({
+							x: node.offsetX + x,
+							y: node.offsetY + 1,
+						}, {
+							content: r.bool(.05) ? [{spawnableType: STREETLAMP}] : [],
+							tileKey: r.pick(terrains),
+							primary: C_DARK_RED,
+							background: C_WOOD,
+						});
 					}
 				}
 
@@ -57,19 +73,33 @@ class PoiLayoutScattered extends PoiLayout
 				{
 					for (y in 0...node.height)
 					{
-						var pos:IntPoint = {
+						poi.setTile({
 							x: node.offsetX,
 							y: node.offsetY + y,
-						};
-
-						var tile:RoomTile = {
+						}, {
 							content: [],
 							tileKey: TERRAIN_BASIC_5,
 							primary: C_DARK_RED,
 							background: C_WOOD,
-						};
-
-						poi.setTile(pos, tile);
+						});
+						poi.setTile({
+							x: node.offsetX - 1,
+							y: node.offsetY + y,
+						}, {
+							content: r.bool(.05) ? [{spawnableType: STREETLAMP}] : [],
+							tileKey: r.pick(terrains),
+							primary: C_DARK_RED,
+							background: C_WOOD,
+						});
+						poi.setTile({
+							x: node.offsetX + 1,
+							y: node.offsetY + y,
+						}, {
+							content: r.bool(.05) ? [{spawnableType: STREETLAMP}] : [],
+							tileKey: r.pick(terrains),
+							primary: C_DARK_RED,
+							background: C_WOOD,
+						});
 					}
 				}
 			}

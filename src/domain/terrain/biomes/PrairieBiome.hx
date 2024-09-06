@@ -13,7 +13,7 @@ class PrairieBiome extends Biome
 
 	public function new(seed:Int)
 	{
-		super(seed, PRAIRIE, 0x11180B);
+		super(seed, PRAIRIE, 0x191D0A);
 
 		icons = new WeightedTable();
 
@@ -35,10 +35,10 @@ class PrairieBiome extends Biome
 	{
 		var h = perlin.get(pos, 6);
 
-		if (h > .6)
-		{
-			return GRASS_V2_5;
-		}
+		// if (h > .6)
+		// {
+		// 	return GRASS_V2_5;
+		// }
 
 		if (h > .55)
 		{
@@ -60,7 +60,7 @@ class PrairieBiome extends Biome
 			return GRASS_V2_1;
 		}
 
-		return TERRAIN_BASIC_1;
+		return TERRAIN_BASIC_3;
 	}
 
 	public override function getMapIcon():MapIconData

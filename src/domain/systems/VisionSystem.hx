@@ -72,6 +72,7 @@ class VisionSystem extends System
 			if (entity.drawable != null)
 			{
 				entity.drawable.isShrouded = true;
+				entity.drawable.shader.isLit = 0;
 
 				if (entity.has(Energy))
 				{

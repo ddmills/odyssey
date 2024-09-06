@@ -23,6 +23,7 @@ enum abstract ColorKey(String) to String from String
 
 	var C_YELLOW = 'C_YELLOW';
 	var C_PURPLE = 'C_PURPLE';
+	var C_DARK_PURPLE = 'C_DARK_PURPLE';
 	var C_BROWN = 'C_BROWN';
 	var C_DARK_BROWN = 'C_DARK_BROWN';
 	var C_ORANGE = 'C_ORANGE';

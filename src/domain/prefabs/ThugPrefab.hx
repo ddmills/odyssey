@@ -31,11 +31,7 @@ class ThugPrefab extends Prefab
 
 		var eqSlots = entity.getAll(EquipmentSlot);
 		var primary = eqSlots.find((s) -> s.isPrimary);
-		primary.equip(Spawner.Spawn(COACH_GUN, pos));
-
-		var inv = entity.get(Inventory);
-		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO, pos));
-		inv.addLoot(Spawner.Spawn(SHOTGUN_AMMO, pos));
+		primary.equip(Spawner.Spawn(STICK, pos));
 
 		return entity;
 	}

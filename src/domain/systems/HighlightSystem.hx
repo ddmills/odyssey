@@ -39,8 +39,7 @@ class HighlightSystem extends System
 		{
 			var highlight = e.get(Highlight);
 			var shader = new SpriteShader(highlight.color);
-			shader.isShrouded = 0;
-			shader.clearBackground = 0;
+			shader.ignoreLighting = 1;
 			var ob = new Object();
 			var ring = new Anim(AnimationResources.Get(CURSOR_SPIN), 12);
 			var ringStatic = new Bitmap(TileResources.Get(CURSOR));

@@ -25,6 +25,7 @@ class Spawner
 		prefabs.set(RIFLE, new RiflePrefab());
 		prefabs.set(WOLF, new WolfPrefab());
 		prefabs.set(DOG, new DogPrefab());
+		prefabs.set(FIREFLY, new FireflyPrefab());
 		prefabs.set(SCORPION, new ScorpionPrefab());
 		prefabs.set(BROWN_BEAR, new BrownBearPrefab());
 		prefabs.set(BAT, new BatPrefab());
@@ -57,6 +58,7 @@ class Spawner
 		prefabs.set(CAMPFIRE, new CampfirePrefab());
 		prefabs.set(BRAZIER, new BrazierPrefab());
 		prefabs.set(LANTERN, new LanternPrefab());
+		prefabs.set(STREETLAMP, new StreetlampPrefab());
 		prefabs.set(ASHES, new AshPilePrefab());
 		prefabs.set(VIAL, new VialPrefab());
 		prefabs.set(JAR, new JarPrefab());

@@ -45,11 +45,11 @@ class HealthBarSystem extends System
 			ob.visible = false;
 
 			var shader = new SpriteShader(ColorKey.C_RED, ColorKey.C_GRAY);
-			shader.isShrouded = 0;
+			shader.ignoreLighting = 1;
 			bar.addShader(shader);
 
 			var barArmorShader = new SpriteShader(ColorKey.C_BLUE, ColorKey.C_GRAY);
-			barArmorShader.isShrouded = 0;
+			barArmorShader.ignoreLighting = 1;
 			barArmor.addShader(barArmorShader);
 
 			var offsetPos = new Coordinate(0, -1, WORLD).toPx();

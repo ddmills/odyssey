@@ -59,6 +59,7 @@ enum TileKey
 	RASPBERRY;
 	WOLF;
 	DOG;
+	FIREFLY;
 	SCORPION;
 	SNAKE;
 	BAT;
@@ -153,6 +154,7 @@ enum TileKey
 	BRAZIER_2;
 	BRAZIER_3;
 	LANTERN;
+	STREETLAMP;
 	PILE_ASH;
 	PLANK;
 	LOG;

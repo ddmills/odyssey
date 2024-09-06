@@ -94,6 +94,7 @@ class TileResources
 		tiles.set(TALL_GRASS_CRUSHED, t[5][15]);
 
 		tiles.set(LANTERN, t[1][6]);
+		tiles.set(STREETLAMP, t[2][12]);
 		tiles.set(PILE_ASH, t[1][7]);
 		tiles.set(BLOOD_SPATTER, t[2][4]);
 		tiles.set(STICK, t[2][5]);
@@ -243,6 +244,7 @@ class TileResources
 		tiles.set(BEAR, creatures[0][4]);
 		tiles.set(SCORPION, creatures[1][1]);
 		tiles.set(DOG, creatures[0][5]);
+		tiles.set(FIREFLY, creatures[0][6]);
 
 		var walls = hxd.Res.tiles.smol.walls_16_16.toTile().divide(4, 4);
 		tiles.set(WALL_0, walls[0][0]);

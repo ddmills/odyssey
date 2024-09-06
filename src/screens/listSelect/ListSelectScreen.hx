@@ -81,8 +81,8 @@ class ListSelectScreen extends Screen
 
 		targetOb = new Bitmap(TileResources.Get(CURSOR), ob);
 		var shader = new SpriteShader(Game.instance.TEXT_COLOR_FOCUS);
-		shader.isShrouded = 0;
-		shader.clearBackground = 0;
+		shader.ignoreLighting = 1;
+
 		targetOb.addShader(shader);
 		targetOb.visible = false;
 

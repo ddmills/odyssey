@@ -76,11 +76,11 @@ class SwampBiome extends Biome
 		cell.tileKey = getBackgroundTileKey(pos);
 		cell.terrain = TERRAIN_MUD;
 
-		var c = r.pick([C_PURPLE, C_DARK_RED, C_DARK_GRAY, C_DARK_GREEN]);
+		var c = r.pick([C_DARK_PURPLE, C_DARK_GREEN]);
 
 		cell.primary = c;
 
-		cell.background = C_PURPLE;
+		cell.background = C_DARK_PURPLE;
 	}
 
 	override function spawnEntity(pos:IntPoint, cell:Cell)

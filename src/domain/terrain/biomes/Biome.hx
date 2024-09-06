@@ -77,6 +77,7 @@ class Biome
 	{
 		var e = new WeightedTable<SpawnableType>();
 
+		e.add(FIREFLY, 5);
 		e.add(SNAKE, 1);
 		e.add(WOLF, 1);
 		e.add(THUG, 1);

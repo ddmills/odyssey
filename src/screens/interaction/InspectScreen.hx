@@ -104,8 +104,7 @@ class InspectScreen extends Screen
 				targetBm.x = px.x;
 				targetBm.y = px.y;
 				var shader = new SpriteShader(C_YELLOW);
-				shader.isShrouded = 0;
-				shader.clearBackground = 0;
+				shader.ignoreLighting = 1;
 				targetBm.addShader(shader);
 				ob.addChild(targetBm);
 				indicators.push({

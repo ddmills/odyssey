@@ -77,8 +77,7 @@ class TargetScreen extends Screen
 		footprintOb = new Object();
 
 		targetShader = new SpriteShader(ColorKey.C_YELLOW);
-		targetShader.isShrouded = 0;
-		targetShader.clearBackground = 0;
+		targetShader.ignoreLighting = 1;
 
 		targetBm = new Anim(AnimationResources.Get(CURSOR_SPIN), 10, ob);
 		targetBm.addShader(targetShader);
@@ -261,7 +260,7 @@ class TargetScreen extends Screen
 		}
 
 		var shader = new SpriteShader(C_DARK_RED, C_LIGHT_GRAY);
-		shader.isShrouded = 0;
+		shader.ignoreLighting = 1;
 
 		for (p in area)
 		{
@@ -289,7 +288,7 @@ class TargetScreen extends Screen
 		rangeOb.removeChildren();
 		rangeArea = (new CircleFootprint(settings.range)).getFootprint(new Coordinate(0, 0, WORLD), new Coordinate(0, 0, WORLD));
 		var shader = new SpriteShader(C_LIGHT_GRAY, C_LIGHT_GRAY);
-		shader.isShrouded = 0;
+		shader.ignoreLighting = 1;
 
 		for (p in rangeArea)
 		{

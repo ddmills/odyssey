@@ -16,6 +16,7 @@ enum SpawnableType
 	RIFLE;
 	WOLF;
 	DOG;
+	FIREFLY;
 	SCORPION;
 	BROWN_BEAR;
 	BAT;
@@ -47,6 +48,7 @@ enum SpawnableType
 	CAMPFIRE;
 	BRAZIER;
 	LANTERN;
+	STREETLAMP;
 	BEDROLL;
 	ASHES;
 	JAR;

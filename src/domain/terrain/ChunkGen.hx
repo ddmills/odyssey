@@ -41,6 +41,7 @@ class ChunkGen
 		table.add(BARREL, 2);
 		table.add(WAGON_WHEEL, 3);
 		table.add(CAMPFIRE, 7);
+		table.add(STREETLAMP, 2);
 		table.add(BRAZIER, 10);
 		table.add(LANTERN, 4);
 		// table.add(SNAKE, 6);
