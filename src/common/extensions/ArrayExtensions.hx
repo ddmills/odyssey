@@ -40,6 +40,11 @@ class ArrayExtensions
 		return a.length == 0 ? null : a[a.length - 1];
 	}
 
+	@:generic public static function isEmpty<T>(a:Array<T>):Bool
+	{
+		return a.length == 0;
+	}
+
 	// TODO: this is not optimized. Unfortunatly T cannot be used as a Map key.
 	// alternate option is to sort the list _before_ counting frequencies
 	@:generic public static function mostFrequent<T>(it:Array<T>):Null<T>
@@ -50,7 +55,7 @@ class ArrayExtensions
 		for (i in 0...it.length)
 		{
 			var freq = 1;
-			for (k in(i + 1)...it.length)
+			for (k in (i + 1)...it.length)
 			{
 				if (it[i] == it[k])
 				{

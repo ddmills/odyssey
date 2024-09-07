@@ -5,16 +5,15 @@ import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
 import data.BiomeMap;
-import data.BiomeType;
 import data.ColorKey;
 import data.PoiLayoutType;
 import data.PoiType;
 import data.RoomType;
 import data.TileKey;
 import data.save.SaveWorld.SaveMap;
-import domain.terrain.biomes.Biome;
 import domain.terrain.biomes.Biomes;
 import domain.terrain.gen.ZonePoi;
+import domain.terrain.gen.portals.PortalManager;
 import domain.terrain.gen.railroad.RailroadData;
 import hxd.Rand;
 import mapgen.towns.PoiCriteria;
@@ -22,6 +21,7 @@ import mapgen.towns.PoiCriteria;
 typedef RoomTemplate =
 {
 	type:RoomType,
+	?portals:Array<String>,
 	?minWidth:Int,
 	?minHeight:Int,
 	?maxWidth:Int,
@@ -118,12 +118,26 @@ class MapData
 		railroad.stops = [];
 		railroad.lines = [];
 
-		var oxwood = new ZonePoi(world.zones.getZoneId({x: 55, y: 11}), {
+		var oxwoodZoneId = world.zones.getZoneId({x: 55, y: 11});
+		var esperloosaZoneId = world.zones.getZoneId({x: 22, y: 37});
+
+		var esperPortal = world.portals.create(LADDER_DOWN, esperloosaZoneId, "esperloosa_train");
+		var oxwoodPortal = world.portals.create(LADDER_DOWN, oxwoodZoneId, "oxwood_train");
+
+		esperPortal.destinationId = oxwoodPortal.id;
+		oxwoodPortal.destinationId = esperPortal.id;
+
+		var oxwood = new ZonePoi(oxwoodZoneId, {
 			name: "Oxwood",
 			type: PoiType.POI_TOWN,
 			layout: PoiLayoutType.POI_LAYOUT_SCATTERED,
 			size: POI_SZ_PRIMARY,
-			rooms: [],
+			rooms: [
+				{
+					type: ROOM_RAILROAD_STATION,
+					portals: [oxwoodPortal.id]
+				}
+			],
 			icon: {
 				primary: ColorKey.C_PURPLE,
 				secondary: ColorKey.C_YELLOW,
@@ -134,12 +148,17 @@ class MapData
 
 		pois.set(55, 11, oxwood);
 
-		var esperloosa = new ZonePoi(world.zones.getZoneId({x: 22, y: 37}), {
+		var esperloosa = new ZonePoi(esperloosaZoneId, {
 			name: "Esperloosa",
 			type: PoiType.POI_TOWN,
 			layout: PoiLayoutType.POI_LAYOUT_SCATTERED,
 			size: POI_SZ_PRIMARY,
-			rooms: [],
+			rooms: [
+				{
+					type: ROOM_RAILROAD_STATION,
+					portals: [esperPortal.id]
+				}
+			],
 			icon: {
 				primary: ColorKey.C_PURPLE,
 				secondary: ColorKey.C_GREEN,
@@ -150,7 +169,7 @@ class MapData
 
 		pois.set(22, 37, esperloosa);
 
-		addPois(POI_SZ_MAJOR, 7);
+		addPois(POI_SZ_MAJOR, 5);
 		addPois(POI_SZ_MEDIUM, 3);
 		addPois(POI_SZ_MINOR, 1);
 

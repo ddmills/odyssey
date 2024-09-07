@@ -20,6 +20,7 @@ import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
 import domain.terrain.ZoneManager;
+import domain.terrain.gen.portals.PortalManager;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -33,6 +34,7 @@ class World
 	public var zones(default, null):ZoneManager;
 	public var chunks(default, null):ChunkManager;
 	public var factions(default, null):FactionManager;
+	public var portals(default, null):PortalManager;
 	public var spawner(default, null):Spawner;
 	public var zoneCountX(default, null):Int = 64;
 	public var zoneCountY(default, null):Int = 48;
@@ -56,6 +58,7 @@ class World
 
 		clock = new Clock();
 		factions = new FactionManager();
+		portals = new PortalManager();
 		ai = new AIManager();
 		player = new PlayerManager();
 		zones = new ZoneManager();
@@ -71,6 +74,7 @@ class World
 		visible = [];
 
 		factions.initialize();
+		portals.initialize();
 		spawner.initialize();
 		zones.initialize();
 		chunks.initialize();

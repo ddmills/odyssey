@@ -12,6 +12,7 @@ import data.ColorKey;
 import data.TileKey;
 import data.TileResources;
 import domain.components.Move;
+import domain.events.ConsumeEnergyEvent;
 import domain.terrain.biomes.Biomes;
 import h2d.Anim;
 import h2d.Bitmap;
@@ -135,6 +136,8 @@ class MapScreen extends Screen
 		world.chunks.loadChunk(targetPos.toChunkIdx());
 		world.player.entity.drawable.pos = null;
 		world.player.pos = targetPos;
+		world.player.entity.fireEvent(new ConsumeEnergyEvent(1));
+		game.camera.focus = targetPos;
 	}
 
 	function populateMap()

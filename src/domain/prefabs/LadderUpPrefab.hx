@@ -2,6 +2,7 @@ package domain.prefabs;
 
 import common.struct.Coordinate;
 import domain.components.Moniker;
+import domain.components.Portal;
 import domain.components.Sprite;
 import ecs.Entity;
 
@@ -13,6 +14,11 @@ class LadderUpPrefab extends Prefab
 
 		entity.add(new Sprite(LADDER_UP, C_BROWN, C_DARK_GRAY, OBJECTS));
 		entity.add(new Moniker('Ladder up'));
+
+		if (options.portalId != null)
+		{
+			entity.add(new Portal(options.portalId));
+		}
 
 		return entity;
 	}

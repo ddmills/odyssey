@@ -11,6 +11,7 @@ import common.struct.IntPoint;
 	public var offsetX:Int;
 	public var offsetY:Int;
 	public var includeWalls:Bool;
+	public var portals:Array<String>;
 
 	public function new(offsetX:Int, offsetY:Int, width:Int, height:Int)
 	{
@@ -19,6 +20,7 @@ import common.struct.IntPoint;
 		this.width = width;
 		this.height = height;
 		this.includeWalls = true;
+		this.portals = [];
 
 		tiles = new Grid(width, height);
 	}
@@ -36,5 +38,10 @@ import common.struct.IntPoint;
 	public function isOnEdge(pos:IntPoint):Bool
 	{
 		return pos.x == 0 || pos.x == width - 1 || pos.y == 0 || pos.y == height - 1;
+	}
+
+	public function getEmptyTiles():Array<GridItem<RoomTile>>
+	{
+		return tiles.filter((t) -> t.value.content.isEmpty());
 	}
 }

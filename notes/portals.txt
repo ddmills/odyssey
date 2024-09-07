@@ -31,10 +31,42 @@ New concepts:
 	- Realm 
 		- A Dungeon or Cave System. Can have one or multiple sectors.
 	- Sector
-		- A level in a dungeon, or floor in a building
+		- A level in a dungeon, or floor in a building.
+
+
+- Global dictionary of all portals
+	- Where does this portal go?
+	- What Realm & Sector IDs is this portal in?
+	- What is the x/y of this portal? (may be unknown until spawned)
+	- What is the entity ID of this portal? (may be unknown until spawned)
+-
 
 EX: Generate a mine with 4 levels accessible from a POI on the surface
 
 - Mining camp POI contains spawns a mine entrance prefab
-	- POI contains a 
-- Mine entrance prefab is a portal
+	- POI contains a definition for a mining-shaft realm with 4 levels
+	- Defines a portal ID (A) for going into the realm (B)
+- Immediately define two portals (A and B)
+- when A is entered, we check if destination B is generated
+	- We see that (B) is in a REALM, we must lookup the realm ID
+	- We see the realm is NOT generated yet, we must generate the realm
+		- look at the realm definition, and generate it, knowing that (B) must exist within it.
+	- the Mine shaft entity will create the realm defintion ON SPAWN, and add it to the realm registry
+
+
+
+When generating a new realm, must know any "exit" portal ids, and ideally the world position of those as well.
+
+To generate a mine with 2 levels
+	- the world will spawn a new ladder, ladder will be a portal into and out of the mine shaft realm.
+	- when ladder is used, we'll see that the destination is a realm, which is not generated yet.
+	- realm must be defined (realm template)
+		- type of realm
+		= realm entrance/exit portal ids 
+
+EX: Generate a basement in a building
+	- 
+
+EX: Generate a portal between two towns
+	- POI contains a definition for a 
+
