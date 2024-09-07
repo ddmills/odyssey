@@ -180,6 +180,12 @@ class TileResources
 		tiles.set(DOOR, t[6][5]);
 		tiles.set(DOOR_OPEN, t[6][6]);
 
+		tiles.set(STAIR_DOWN, t[6][11]);
+		tiles.set(STAIR_UP, t[6][12]);
+
+		tiles.set(LADDER_DOWN, t[6][13]);
+		tiles.set(LADDER_UP, t[6][14]);
+
 		tiles.set(BARS_DOOR, t[6][7]);
 		tiles.set(BARS_DOOR_OPEN, t[6][8]);
 		tiles.set(PLANK, t[6][9]);

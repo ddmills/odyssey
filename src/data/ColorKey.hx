@@ -34,6 +34,7 @@ enum abstract ColorKey(String) to String from String
 	var C_TEXT_PRIMARY = 'C_TEXT_PRIMARY';
 	var C_CLEAR = 'C_CLEAR';
 	var C_SHROUD = 'C_SHROUD';
+	var C_TEXT_FOCUS = 'C_TEXT_FOCUS';
 
 	@:to
 	public function toInt():Int

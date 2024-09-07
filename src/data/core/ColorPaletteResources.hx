@@ -54,7 +54,7 @@ class ColorPaletteResources
 		p.setColor(C_DARK_BLUE, 0x2F485A);
 		p.setColor(C_BLUE, 0x42a7e2);
 
-		p.setColor(C_YELLOW, 0xe0d948);
+		p.setColor(C_YELLOW, 0xe0d148);
 		p.setColor(C_BROWN, 0x8a4d31);
 		p.setColor(C_DARK_BROWN, 0x583522);
 
@@ -64,6 +64,7 @@ class ColorPaletteResources
 
 		p.setColor(C_TEXT_PRIMARY, 0xcecba9);
 		p.setColor(C_CLEAR, 0xffff00);
+		p.setColor(C_TEXT_FOCUS, 0xffbb00);
 
 		return p;
 	}

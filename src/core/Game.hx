@@ -24,7 +24,7 @@ class Game
 	public var TILE_H_HALF(get, never):Int;
 	public var CLEAR_COLOR:ColorKey = ColorKey.C_BLACK;
 	public var TEXT_COLOR:ColorKey = C_TEXT_PRIMARY;
-	public var TEXT_COLOR_FOCUS:ColorKey = C_YELLOW;
+	public var TEXT_COLOR_FOCUS:ColorKey = C_TEXT_FOCUS;
 	public var SHOW_BG_COLORS:Bool = false;
 	public var PALETTE_KEY:ColorPaletteKey = PALETTE_ODYSSEY;
 

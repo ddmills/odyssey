@@ -150,6 +150,20 @@ class AdventureScreen extends Screen
 			sprite.tileKey = tk;
 		}
 
+		if (key == KEY_NUM_6)
+		{
+			var p = game.input.mouse.toWorld().floor();
+			Spawner.Spawn(LADDER_UP, p);
+			world.systems.vision.computeVision();
+		}
+
+		if (key == KEY_NUM_7)
+		{
+			var p = game.input.mouse.toWorld().floor();
+			Spawner.Spawn(LADDER_DOWN, p);
+			world.systems.vision.computeVision();
+		}
+
 		if (key == KEY_NUM_8)
 		{
 			var p = game.input.mouse.toWorld().floor();

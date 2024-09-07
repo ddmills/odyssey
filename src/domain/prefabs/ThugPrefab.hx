@@ -17,8 +17,7 @@ class ThugPrefab extends Prefab
 		var r = Rand.create();
 		var entity = new Entity(pos);
 
-		var tkey:TileKey = r.pick([BANDIT_1]);
-		entity.add(new Sprite(tkey, C_WHITE, C_RED, ACTORS));
+		entity.add(new Sprite(BANDIT_2, C_WHITE, C_RED, ACTORS));
 
 		BasicCharacterDecorator.Decorate(entity, {
 			moniker: 'Bandit brute',

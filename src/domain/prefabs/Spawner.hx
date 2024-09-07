@@ -77,6 +77,8 @@ class Spawner
 		prefabs.set(STONE_WALL, new StoneWallPrefab());
 		prefabs.set(STONE_WALL_WINDOW, new StoneWindowPrefab());
 		prefabs.set(WOOD_DOOR, new WoodDoorPrefab());
+		prefabs.set(LADDER_DOWN, new LadderDownPrefab());
+		prefabs.set(LADDER_UP, new LadderUpPrefab());
 		prefabs.set(WOOD_PLANK, new WoodPlankPrefab());
 		prefabs.set(TABLE, new TablePrefab());
 		prefabs.set(CHAIR, new ChairPrefab());

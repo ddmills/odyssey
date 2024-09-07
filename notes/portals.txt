@@ -1,0 +1,40 @@
+**Portals**
+
+- can take you to a named place/location (i.e a wagon to Esperloosa)
+- can take you to a new map
+- can take you to another portal
+
+
+Scenario: Bear Den
+
+- spawn a new portal prefab (cave entrance)
+	- portal (A) is registered
+	- portal (B) is registered
+	- portal (A) goes to portal (B)
+- when user enters the portal
+	- if new realm does not exist
+		- place character, inventory, and followers in limbo
+		- unload all active chunks
+		- generate new realm (Bear Den)
+			- Require a cave exit portal (B) that goes back to (A)
+			- Spawn portal (B) into new realm
+			- Portal (B) points to portal (A)
+			- spawn character and followers on portal (B)
+
+
+New concepts:
+	- Portal
+		- ID
+		- Destination (other portal ID)
+	- Limbo 
+		- Take player, inventory, etc out of world map into new registry (?)
+	- Realm 
+		- A Dungeon or Cave System. Can have one or multiple sectors.
+	- Sector
+		- A level in a dungeon, or floor in a building
+
+EX: Generate a mine with 4 levels accessible from a POI on the surface
+
+- Mining camp POI contains spawns a mine entrance prefab
+	- POI contains a 
+- Mine entrance prefab is a portal
