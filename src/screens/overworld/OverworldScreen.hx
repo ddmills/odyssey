@@ -1,4 +1,4 @@
-package screens.map;
+package screens.overworld;
 
 import common.struct.Coordinate;
 import common.struct.IntPoint;
@@ -6,7 +6,6 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.KeyCode;
-import data.BiomeType;
 import data.Bitmasks;
 import data.ColorKey;
 import data.TileKey;
@@ -28,7 +27,7 @@ typedef Obs =
 	blink:Anim,
 };
 
-class MapScreen extends Screen
+class OverworldScreen extends Screen
 {
 	var ob:Obs;
 	var scale = 1;

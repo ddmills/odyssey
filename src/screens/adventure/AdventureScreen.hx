@@ -40,7 +40,7 @@ import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
-import screens.map.MapScreen;
+import screens.overworld.OverworldScreen;
 import screens.save.SaveScreen;
 import screens.shooting.BasicShootingScreen;
 import screens.skill.SkillScreen;
@@ -227,7 +227,7 @@ class AdventureScreen extends Screen
 			case CMD_ABILITIES:
 				game.screens.push(new AbilityScreen(world.player.entity));
 			case CMD_MAP:
-				game.screens.push(new MapScreen());
+				game.screens.push(new OverworldScreen());
 			case CMD_SHOOT:
 				game.screens.push(new BasicShootingScreen(world.player.entity));
 			case CMD_SAVE:
