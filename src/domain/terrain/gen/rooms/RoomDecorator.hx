@@ -9,27 +9,16 @@ abstract class RoomDecorator
 
 	public abstract function decorate(r:Rand, room:Room, poi:ZonePoi):Void;
 
-	function spawnPortals(room:Room, r:Rand)
+	function spawnContent(room:Room, r:Rand)
 	{
 		var emptyTiles = room.getEmptyTiles();
 
-		for (portalId in room.portals)
+		for (content in room.content)
 		{
-			trace('spawn portal $portalId');
-
 			var targetTile = r.pick(emptyTiles);
 			emptyTiles.remove(targetTile);
 
-			var portal = Game.instance.world.portals.get(portalId);
-
-			targetTile.value.content = [
-				{
-					spawnableType: portal.spawnable,
-					spawnableSettings: {
-						portalId: portalId,
-					}
-				}
-			];
+			targetTile.value.content = [content];
 		}
 	}
 }

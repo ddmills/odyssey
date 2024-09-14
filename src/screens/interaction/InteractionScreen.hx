@@ -28,10 +28,12 @@ class InteractionScreen extends ListSelectScreen
 	{
 		if (isOutOfReach())
 		{
+			trace('is out of reach');
 			game.screens.pop();
+			return;
 		}
 
-		title = interactable.get(Moniker).displayName;
+		title = interactable.get(Moniker)?.displayName ?? 'Unknown';
 
 		if (interactable.has(IsInventoried))
 		{
@@ -52,26 +54,27 @@ class InteractionScreen extends ListSelectScreen
 			{
 				if (action.popScreen)
 				{
+					trace('pop screen');
 					game.screens.pop();
 				}
 
 				interactable.fireEvent(action.evt);
 				refreshList();
 
-				if (interactable.has(IsDestroyed))
-				{
-					game.screens.pop();
-				}
-
 				return;
 			},
 		}));
-
 		setItems(items);
 	}
 
 	function isOutOfReach()
 	{
+		if (interactable.isDestroyed || interactable.has(IsDestroyed))
+		{
+			trace('is destroyed');
+			return true;
+		}
+
 		var distance = interactable.pos.distance(interactor.pos, DistanceFormula.CHEBYSHEV);
 
 		return distance > 1;

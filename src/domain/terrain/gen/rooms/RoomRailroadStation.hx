@@ -48,7 +48,7 @@ class RoomRailroadStation extends RoomDecorator
 			return tile;
 		});
 
-		spawnPortals(room, r);
+		spawnContent(room, r);
 
 		return;
 	}

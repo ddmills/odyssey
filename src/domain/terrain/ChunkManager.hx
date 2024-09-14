@@ -5,7 +5,6 @@ import common.struct.IntPoint;
 import common.struct.Set;
 import common.tools.Performance;
 import core.Game;
-import hxd.Timer;
 
 class ChunkManager
 {
@@ -70,6 +69,20 @@ class ChunkManager
 				chunksToLoad.add(chunkIdx);
 			}
 		}
+	}
+
+	public function unloadAllChunks()
+	{
+		for (chunk in chunks)
+		{
+			if (chunk.value.isLoaded)
+			{
+				chunk.value.unload();
+			}
+		}
+
+		chunksToLoad = new Set();
+		chunksToUnload = new Set();
 	}
 
 	public function update()

@@ -27,7 +27,7 @@ class Portal extends Component
 	private function onEntitySpawned(evt:EntitySpawnedEvent)
 	{
 		trace('update portal with new pos etc', entity.pos.toString());
-		portal.pos = entity.pos.toIntPoint();
+		portal.position.pos = entity.pos.toIntPoint();
 	}
 
 	private function onQueryInteraction(evt:QueryInteractionsEvent)
@@ -52,28 +52,59 @@ class Portal extends Component
 			return;
 		}
 
-		if (dest.pos.isNull())
+		if (dest.position.pos.isNull())
 		{
-			// Game.instance.world.chunks.loadChunk(destPos.toChunkIdx());
-			var chunks = Game.instance.world.zones.getChunksForZone(dest.zoneId);
-			trace('destination is not generated yet!');
-
-			for (c in chunks)
+			// check if it has a zone
+			if (dest.position.zoneId.hasValue())
 			{
-				Game.instance.world.chunks.loadChunk(c.chunkId);
+				if (Game.instance.world.realms.hasActiveRealm)
+				{
+					Game.instance.world.realms.leaveActiveRealm(dest.id);
+				}
+				var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
+				for (c in chunks)
+				{
+					Game.instance.world.chunks.loadChunk(c.chunkId);
+				}
+			}
+			else if (dest.position.realmId.hasValue())
+			{
+				trace('PORTAL TO REALM ${dest.position.realmId}');
+				Game.instance.world.realms.setActiveRealm(dest.position.realmId, dest.id);
+				return;
 			}
 
-			if (dest.pos.isNull())
+			// Game.instance.world.chunks.loadChunk(destPos.toChunkIdx());
+			trace('destination is not generated yet!');
+
+			if (dest.position.pos.isNull())
 			{
 				trace('DESTINATION IS STILL NULL');
 				return;
 			}
 		}
 
-		var destPos = dest.pos.asWorld();
+		var destRealm = dest.position.realmId;
+
+		if (destRealm.hasValue())
+		{
+			Game.instance.world.realms.setActiveRealm(destRealm, dest.id);
+		}
+		else
+		{
+			Game.instance.world.realms.leaveActiveRealm(dest.id);
+			var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
+			for (c in chunks)
+			{
+				Game.instance.world.chunks.loadChunk(c.chunkId);
+			}
+			Game.instance.world.player.entity.reattach();
+		}
+
+		var destPos = dest.position.pos.asWorld();
 		evt.user.remove(Move);
 		evt.user.drawable.pos = null;
-		evt.user.pos = dest.pos.asWorld();
+		evt.user.pos = dest.position.pos.asWorld();
 		evt.user.pos = destPos;
 		evt.user.fireEvent(new ConsumeEnergyEvent(1));
 

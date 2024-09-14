@@ -14,13 +14,13 @@ import domain.components.IsInventoried;
 import domain.components.Visible;
 import domain.data.factions.FactionManager;
 import domain.prefabs.Spawner;
-import domain.systems.LightSystem.TileLightData;
 import domain.systems.SystemManager;
 import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
 import domain.terrain.MapData;
 import domain.terrain.ZoneManager;
 import domain.terrain.gen.portals.PortalManager;
+import domain.terrain.gen.realms.RealmManager;
 import ecs.Entity;
 import hxd.Rand;
 
@@ -35,6 +35,7 @@ class World
 	public var chunks(default, null):ChunkManager;
 	public var factions(default, null):FactionManager;
 	public var portals(default, null):PortalManager;
+	public var realms(default, null):RealmManager;
 	public var spawner(default, null):Spawner;
 	public var zoneCountX(default, null):Int = 64;
 	public var zoneCountY(default, null):Int = 48;
@@ -59,6 +60,7 @@ class World
 		clock = new Clock();
 		factions = new FactionManager();
 		portals = new PortalManager();
+		realms = new RealmManager();
 		ai = new AIManager();
 		player = new PlayerManager();
 		zones = new ZoneManager();
@@ -75,6 +77,7 @@ class World
 
 		factions.initialize();
 		portals.initialize();
+		realms.initialize();
 		spawner.initialize();
 		zones.initialize();
 		chunks.initialize();
@@ -178,6 +181,13 @@ class World
 
 	public overload extern inline function getEntitiesAt(pos:IntPoint):Array<Entity>
 	{
+		if (realms.hasActiveRealm)
+		{
+			var ids = realms.activeRealm.getEntityIdsAt(pos);
+
+			return ids.map((id) -> game.registry.getEntity(id));
+		}
+
 		var chunkIdx = chunks.getChunkIdxByWorld(pos.x, pos.y);
 		var chunk = chunks.getChunkById(chunkIdx);
 
@@ -256,21 +266,30 @@ class World
 	{
 		for (value in visible)
 		{
-			var c = value.toChunk();
-			var chunk = chunks.getChunk(c.x, c.y);
-			if (chunk == null || !chunk.isLoaded)
+			// if in realm, call it, else call chunk
+			if (realms.hasActiveRealm)
 			{
-				continue;
+				var local = realms.activeRealm.worldPositionToRealmLocal(value.toIntPoint());
+				realms.activeRealm.setExplore(local, true, false);
 			}
-
-			var local = value.toChunkLocal().toIntPoint();
-
-			chunk.setExplore(local, true, false);
-			for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
+			else
 			{
-				if (entity.has(Visible) && !entity.has(IsInventoried))
+				var c = value.toChunk();
+				var chunk = chunks.getChunk(c.x, c.y);
+				if (chunk == null || !chunk.isLoaded)
 				{
-					entity.remove(Visible);
+					continue;
+				}
+
+				var local = value.toChunkLocal().toIntPoint();
+
+				chunk.setExplore(local, true, false);
+				for (entity in getEntitiesAt(value.toWorld().toIntPoint()))
+				{
+					if (entity.has(Visible) && !entity.has(IsInventoried))
+					{
+						entity.remove(Visible);
+					}
 				}
 			}
 		}
@@ -279,47 +298,66 @@ class World
 
 	public function setVisible(pos:Coordinate)
 	{
-		var c = pos.toChunk();
-		var chunk = chunks.getChunk(c.x, c.y);
-		if (chunk != null)
+		var worldPos = pos.toWorld().toIntPoint();
+
+		if (realms.hasActiveRealm)
 		{
-			var local = pos.toChunkLocal().toIntPoint();
-
-			chunk.setExplore(local, true, true);
-
-			var light = systems.lights.getTileLight(pos.toIntPoint());
-
-			for (entity in getEntitiesAt(pos.toWorld().toIntPoint()))
+			var localPos = realms.activeRealm.worldPositionToRealmLocal(worldPos);
+			realms.activeRealm.setExplore(localPos, true, true);
+		}
+		else
+		{
+			var c = pos.toChunk();
+			var chunk = chunks.getChunk(c.x, c.y);
+			if (chunk != null)
 			{
-				if (!entity.has(Visible))
-				{
-					entity.add(new Visible());
-				}
-				if (!entity.has(Explored))
-				{
-					entity.add(new Explored());
-				}
-				if (light.intensity > 0 && entity.drawable != null)
-				{
-					entity.drawable.shader.isLit = 1;
-					entity.drawable.shader.lightColor = light.color.toHxdColor().toVector();
-					entity.drawable.shader.lightIntensity = light.intensity;
-				}
+				var local = pos.toChunkLocal().toIntPoint();
+
+				chunk.setExplore(local, true, true);
 			}
 		}
+
+		var light = systems.lights.getTileLight(worldPos);
+
+		for (entity in getEntitiesAt(worldPos))
+		{
+			if (!entity.has(Visible))
+			{
+				entity.add(new Visible());
+			}
+			if (!entity.has(Explored))
+			{
+				entity.add(new Explored());
+			}
+			if (light.intensity > 0 && entity.drawable != null)
+			{
+				entity.drawable.shader.isLit = 1;
+				entity.drawable.shader.lightColor = light.color.toHxdColor().toVector();
+				entity.drawable.shader.lightIntensity = light.intensity;
+			}
+		}
+
 		visible.push(pos);
 	}
 
 	public function isExplored(coord:Coordinate)
 	{
-		var c = coord.toChunk();
-		var chunk = chunks.getChunk(c.x, c.y);
-		if (chunk.isNull() || !chunk.isLoaded)
+		if (realms.hasActiveRealm)
 		{
-			return false;
+			var worldPos = coord.toWorld().toIntPoint();
+			return realms.activeRealm.isExplored(worldPos);
 		}
-		var local = coord.toChunkLocal().toIntPoint();
-		return chunk.isExplored(local);
+		else
+		{
+			var c = coord.toChunk();
+			var chunk = chunks.getChunk(c.x, c.y);
+			if (chunk.isNull() || !chunk.isLoaded)
+			{
+				return false;
+			}
+			var local = coord.toChunkLocal().toIntPoint();
+			return chunk.isExplored(local);
+		}
 	}
 
 	public function isVisible(coord:Coordinate)
@@ -329,16 +367,24 @@ class World
 
 	public function getCell(pos:IntPoint):Cell
 	{
-		var cx = (pos.x / chunkSize).floor();
-		var cy = (pos.y / chunkSize).floor();
-		var chunk = chunks.getChunk(cx, cy);
-
-		if (chunk.isNull())
+		if (realms.hasActiveRealm)
 		{
-			return null;
+			var local = realms.activeRealm.worldPositionToRealmLocal(pos);
+			return realms.activeRealm.getCell(local.x, local.y);
 		}
+		else
+		{
+			var cx = (pos.x / chunkSize).floor();
+			var cy = (pos.y / chunkSize).floor();
+			var chunk = chunks.getChunk(cx, cy);
 
-		return chunk.getCell(pos.x % chunkSize, pos.y % chunkSize,);
+			if (chunk.isNull())
+			{
+				return null;
+			}
+
+			return chunk.getCell(pos.x % chunkSize, pos.y % chunkSize,);
+		}
 	}
 
 	inline function get_game():Game

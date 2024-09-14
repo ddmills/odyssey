@@ -25,8 +25,8 @@ class Throwable extends Component
 	{
 		evt.add({
 			name: 'Throw',
-			popScreen: true,
 			evt: new ThrowEvent(evt.interactor),
+			popScreen: true,
 		});
 	}
 
