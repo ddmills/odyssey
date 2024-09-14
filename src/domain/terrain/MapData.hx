@@ -12,16 +12,15 @@ import data.RoomType;
 import data.TileKey;
 import data.save.SaveWorld.SaveMap;
 import domain.terrain.biomes.Biomes;
+import domain.terrain.gen.RoomContent;
 import domain.terrain.gen.ZonePoi;
-import domain.terrain.gen.portals.PortalManager;
 import domain.terrain.gen.railroad.RailroadData;
 import hxd.Rand;
-import mapgen.towns.PoiCriteria;
 
 typedef RoomTemplate =
 {
 	type:RoomType,
-	?portals:Array<String>,
+	?content:Array<RoomContent>,
 	?minWidth:Int,
 	?minHeight:Int,
 	?maxWidth:Int,
@@ -121,8 +120,8 @@ class MapData
 		var oxwoodZoneId = world.zones.getZoneId({x: 55, y: 11});
 		var esperloosaZoneId = world.zones.getZoneId({x: 22, y: 37});
 
-		var esperPortal = world.portals.create(LADDER_DOWN, esperloosaZoneId, "esperloosa_train");
-		var oxwoodPortal = world.portals.create(LADDER_DOWN, oxwoodZoneId, "oxwood_train");
+		var esperPortal = world.portals.create({zoneId: esperloosaZoneId});
+		var oxwoodPortal = world.portals.create({zoneId: oxwoodZoneId});
 
 		esperPortal.destinationId = oxwoodPortal.id;
 		oxwoodPortal.destinationId = esperPortal.id;
@@ -135,7 +134,14 @@ class MapData
 			rooms: [
 				{
 					type: ROOM_RAILROAD_STATION,
-					portals: [oxwoodPortal.id]
+					content: [
+						{
+							spawnableType: LADDER_DOWN,
+							spawnableSettings: {
+								portalId: oxwoodPortal.id
+							}
+						}
+					]
 				}
 			],
 			icon: {
@@ -156,7 +162,14 @@ class MapData
 			rooms: [
 				{
 					type: ROOM_RAILROAD_STATION,
-					portals: [esperPortal.id]
+					content: [
+						{
+							spawnableType: LADDER_DOWN,
+							spawnableSettings: {
+								portalId: esperPortal.id
+							}
+						}
+					]
 				}
 			],
 			icon: {
@@ -172,562 +185,11 @@ class MapData
 		addPois(POI_SZ_MAJOR, 5);
 		addPois(POI_SZ_MEDIUM, 3);
 		addPois(POI_SZ_MINOR, 1);
-
-		// for (z in world.zones.zones)
-		// {
-		// 	z.value.railroad = null;
-		// }
-
-		// r = new Rand(seed);
-
-		// var poiTemplates:Array<PoiTemplate> = [
-		// 	{
-		// 		name: 'Esperloosa',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 0,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [PRAIRIE],
-		// 			quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_GROVE_OAK,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Dresbach',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: null,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [PRAIRIE],
-		// 			quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GROVE_OAK,
-		// 			},
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Oxwood',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 2,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [TUNDRA],
-		// 			quadrants: [{x: 2, y: 0}, {x: 3, y: 0}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Glumtrails',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 4,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [SWAMP],
-		// 			quadrants: [{x: 3, y: 2}, {x: 2, y: 2}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Stagstone',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 1,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [FOREST],
-		// 			quadrants: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GROVE_PINE,
-		// 			},
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Skinny Snag',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_FORTRESS,
-		// 		railroadStop: 5,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [DESERT],
-		// 			quadrants: [{x: 0, y: 2}, {x: 1, y: 2}],
-		// 		},
-		// 		rooms: [
-		// 			// {
-		// 			// 	type: ROOM_GRAVEYARD,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_RAILROAD_STATION,
-		// 			// }
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Fort Mills',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_FORTRESS,
-		// 		railroadStop: 3,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [FOREST],
-		// 			quadrants: [{x: 3, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			// {
-		// 			// 	type: ROOM_GRAVEYARD,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_GROVE_PINE,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_RAILROAD_STATION,
-		// 			// }
-		// 		],
-		// 	}
-		// ];
-
-		// var poisson = new PoissonDiscSampler(world.zoneCountX, world.zoneCountY, 4, seed);
-		// var candidates = poisson.all();
-		// var selected:Array<{template:PoiTemplate, zoneId:Int}> = [];
-
-		// while (poiTemplates.length > 0 && candidates.length > 0)
-		// {
-		// 	var c = r.pickIdx(candidates);
-		// 	var pos = candidates[c];
-		// 	candidates.splice(c, 1);
-
-		// 	for (template in poiTemplates)
-		// 	{
-		// 		var zone = matchZone(pos, template.criteria);
-
-		// 		if (zone == null)
-		// 		{
-		// 			continue;
-		// 		}
-
-		// 		poiTemplates.remove(template);
-		// 		selected.push({
-		// 			template: template,
-		// 			zoneId: zone.zoneId,
-		// 		});
-
-		// 		break;
-		// 	}
-		// }
-
-		// for (z in selected)
-		// {
-		// 	if (z.template.railroadStop != null)
-		// 	{
-		// 		tryAddingStop(z.zoneId, z.template.railroadStop, r);
-		// 		z.template.railroadStop = null;
-		// 	}
-
-		// 	pois.push(new ZonePoi(z.zoneId, z.template));
-		// }
-
-		// var lineId = 0;
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 0,
-		// 	stopBId: 1,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 1,
-		// 	stopBId: 2,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 2,
-		// 	stopBId: 3,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 3,
-		// 	stopBId: 4,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 4,
-		// 	stopBId: 5,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 5,
-		// 	stopBId: 0,
-		// });
-
-		// railroad.generate();		// for (z in world.zones.zones)
-		// {
-		// 	z.value.railroad = null;
-		// }
-
-		// r = new Rand(seed);
-
-		// var poiTemplates:Array<PoiTemplate> = [
-		// 	{
-		// 		name: 'Esperloosa',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 0,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [PRAIRIE],
-		// 			quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_GROVE_OAK,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Dresbach',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: null,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [PRAIRIE],
-		// 			quadrants: [{x: 1, y: 1}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GROVE_OAK,
-		// 			},
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Oxwood',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 2,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [TUNDRA],
-		// 			quadrants: [{x: 2, y: 0}, {x: 3, y: 0}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Glumtrails',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 4,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [SWAMP],
-		// 			quadrants: [{x: 3, y: 2}, {x: 2, y: 2}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			},
-		// 			{
-		// 				type: ROOM_CHURCH,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Stagstone',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_SCATTERED,
-		// 		railroadStop: 1,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [FOREST],
-		// 			quadrants: [{x: 0, y: 0}, {x: 1, y: 0}, {x: 0, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			{
-		// 				type: ROOM_GROVE_PINE,
-		// 			},
-		// 			{
-		// 				type: ROOM_GRAVEYARD,
-		// 			},
-		// 			{
-		// 				type: ROOM_RAILROAD_STATION,
-		// 			}
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Skinny Snag',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_FORTRESS,
-		// 		railroadStop: 5,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [DESERT],
-		// 			quadrants: [{x: 0, y: 2}, {x: 1, y: 2}],
-		// 		},
-		// 		rooms: [
-		// 			// {
-		// 			// 	type: ROOM_GRAVEYARD,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_RAILROAD_STATION,
-		// 			// }
-		// 		],
-		// 	},
-		// 	{
-		// 		name: 'Fort Mills',
-		// 		type: POI_TOWN,
-		// 		layout: POI_LAYOUT_FORTRESS,
-		// 		railroadStop: 3,
-		// 		criteria: {
-		// 			river: false,
-		// 			biomes: [FOREST],
-		// 			quadrants: [{x: 3, y: 1}],
-		// 		},
-		// 		rooms: [
-		// 			// {
-		// 			// 	type: ROOM_GRAVEYARD,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_GROVE_PINE,
-		// 			// },
-		// 			// {
-		// 			// 	type: ROOM_RAILROAD_STATION,
-		// 			// }
-		// 		],
-		// 	}
-		// ];
-
-		// var poisson = new PoissonDiscSampler(world.zoneCountX, world.zoneCountY, 4, seed);
-		// var candidates = poisson.all();
-		// var selected:Array<{template:PoiTemplate, zoneId:Int}> = [];
-
-		// while (poiTemplates.length > 0 && candidates.length > 0)
-		// {
-		// 	var c = r.pickIdx(candidates);
-		// 	var pos = candidates[c];
-		// 	candidates.splice(c, 1);
-
-		// 	for (template in poiTemplates)
-		// 	{
-		// 		var zone = matchZone(pos, template.criteria);
-
-		// 		if (zone == null)
-		// 		{
-		// 			continue;
-		// 		}
-
-		// 		poiTemplates.remove(template);
-		// 		selected.push({
-		// 			template: template,
-		// 			zoneId: zone.zoneId,
-		// 		});
-
-		// 		break;
-		// 	}
-		// }
-
-		// for (z in selected)
-		// {
-		// 	if (z.template.railroadStop != null)
-		// 	{
-		// 		tryAddingStop(z.zoneId, z.template.railroadStop, r);
-		// 		z.template.railroadStop = null;
-		// 	}
-
-		// 	pois.push(new ZonePoi(z.zoneId, z.template));
-		// }
-
-		// var lineId = 0;
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 0,
-		// 	stopBId: 1,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 1,
-		// 	stopBId: 2,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 2,
-		// 	stopBId: 3,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 3,
-		// 	stopBId: 4,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 4,
-		// 	stopBId: 5,
-		// });
-
-		// railroad.addLine({
-		// 	lineId: lineId++,
-		// 	stopAId: 5,
-		// 	stopBId: 0,
-		// });
-
-		// railroad.generate();
 	}
 
 	public function getPOIForZone(zoneId:Int):ZonePoi
 	{
 		return pois.getAt(zoneId);
-	}
-
-	// function tryAddingStop(zoneId:Int, stopId:Int, r:Rand)
-	// {
-	// 	var zone = world.zones.getZoneById(zoneId);
-	// 	var neighbors = world.zones.getImmediateNeighborZones(zone.zonePos);
-	// 	r.shuffle(neighbors);
-	// 	var open = neighbors.find((n) ->
-	// 	{
-	// 		return n.poi == null && !BiomeMap.HasRiver(n.biomes);
-	// 	});
-	// 	if (open == null)
-	// 	{
-	// 		return;
-	// 	}
-	// 	railroad.addStop({
-	// 		stopId: stopId,
-	// 		zoneId: open.zoneId,
-	// 		parentZoneId: zoneId,
-	// 	});
-	// 	pois.push(new ZonePoi(open.zoneId, {
-	// 		name: 'Railroad Station $stopId',
-	// 		type: POI_RAILROAD_STATION,
-	// 		layout: POI_LAYOUT_RAILROAD_STATION,
-	// 		rooms: [
-	// 			{
-	// 				type: ROOM_RAILROAD_STATION,
-	// 			}
-	// 		],
-	// 		criteria: null,
-	// 		railroadStop: stopId,
-	// 	}));
-	// }
-
-	function matchZone(pos:IntPoint, criteria:PoiCriteria):Null<Zone>
-	{
-		if (world.zones.isOutOfBounds(pos))
-		{
-			return null;
-		}
-
-		if (world.zones.zones.isOnEdge(pos.x, pos.y))
-		{
-			return null;
-		}
-
-		var quadrant = pos.divide(16).floor();
-		var zone = world.zones.getZone(pos);
-
-		if (!criteria.quadrants.exists((q) -> q.equals(quadrant)))
-		{
-			return null;
-		}
-
-		if (!criteria.biomes.has(zone.primaryBiome))
-		{
-			return null;
-		}
-
-		if (criteria.river != BiomeMap.HasRiver(zone.biomes))
-		{
-			return null;
-		}
-
-		return zone;
 	}
 
 	public function save():SaveMap

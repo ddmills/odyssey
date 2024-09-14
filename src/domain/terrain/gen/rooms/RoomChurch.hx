@@ -1,6 +1,8 @@
 package domain.terrain.gen.rooms;
 
+import common.struct.IntPoint;
 import common.struct.WeightedTable;
+import core.Game;
 import hxd.Rand;
 
 class RoomChurch extends RoomDecorator
@@ -114,6 +116,33 @@ class RoomChurch extends RoomDecorator
 			}
 
 			return tile;
+		});
+
+		var empty = r.pick(room.getEmptyTiles());
+
+		var stairDownPortal = Game.instance.world.portals.create({zoneId: zone.zoneId});
+		var stairUpPortal = Game.instance.world.portals.create({});
+
+		stairDownPortal.destinationId = stairUpPortal.id;
+		stairUpPortal.destinationId = stairDownPortal.id;
+
+		var z = Game.instance.world.zones.getZoneById(zone.zoneId);
+
+		var basementRealm = Game.instance.world.realms.create({
+			type: REALM_BASEMENT,
+			worldPos: z.worldPos, // todo: hmm.
+			settings: {
+				portalIds: [stairUpPortal.id],
+			},
+		});
+
+		stairUpPortal.position.realmId = basementRealm.realmId;
+
+		empty.value.content.push({
+			spawnableType: STAIR_DOWN,
+			spawnableSettings: {
+				portalId: stairDownPortal.id,
+			}
 		});
 	}
 }

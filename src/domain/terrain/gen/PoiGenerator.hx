@@ -28,7 +28,7 @@ class PoiGenerator
 		{
 			var decorator = RoomDecorators.Get(roomTemplate.type);
 			var room = options.pop();
-			room.portals = roomTemplate.portals.or([]);
+			room.content = roomTemplate.content.or([]);
 			decorator.decorate(r, room, poi);
 			poi.rooms.push(room);
 		}

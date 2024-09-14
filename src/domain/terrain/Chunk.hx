@@ -6,6 +6,7 @@ import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
+import domain.components.IsPlayer;
 import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -323,7 +324,7 @@ class Chunk
 		return exploration.get(pos.x, pos.y);
 	}
 
-	public function setExplore(pos:IntPoint, isExplored:Bool, isVisible:Bool)
+	public function setExplore(localPos:IntPoint, isExplored:Bool, isVisible:Bool)
 	{
 		if (!isLoaded)
 		{
@@ -331,7 +332,7 @@ class Chunk
 			Game.instance.world.chunks.loadChunk(chunkId);
 			return;
 		}
-		var idx = exploration.idx(pos.x, pos.y);
+		var idx = exploration.idx(localPos.x, localPos.y);
 		if (idx < 0)
 		{
 			return;
@@ -339,7 +340,7 @@ class Chunk
 
 		exploration.setIdx(idx, isExplored);
 
-		var bm = bitmaps.get(pos.x, pos.y);
+		var bm = bitmaps.get(localPos.x, localPos.y);
 
 		if (bm == null)
 		{

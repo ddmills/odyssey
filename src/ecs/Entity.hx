@@ -6,6 +6,7 @@ import common.util.UniqueId;
 import core.Game;
 import domain.components.Drawable;
 import domain.components.IsDetached;
+import domain.components.IsPlayer;
 import domain.events.EntityLoadedEvent;
 import domain.events.MovedEvent;
 import domain.terrain.Chunk;
@@ -69,7 +70,13 @@ class Entity
 
 	public function destroy()
 	{
+		if (has(IsPlayer))
+		{
+			trace('destroy player');
+		}
+
 		isCandidacyEnabled = false;
+
 		for (component in components.copy())
 		{
 			for (c in component.copy())
@@ -77,6 +84,7 @@ class Entity
 				remove(c);
 			}
 		}
+
 		isCandidacyEnabled = true;
 		isDestroyed = true;
 		if (chunk != null) // TODO never null
@@ -227,6 +235,26 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
+		if (Game.instance.world.realms.hasActiveRealm)
+		{
+			var p = value.toPx();
+			var w = value.toWorld();
+
+			if (drawable != null)
+			{
+				drawable.updatePos(p.x, p.y);
+			}
+
+			_x = w.x;
+			_y = w.y;
+
+			Game.instance.world.realms.setEntityPosition(this);
+
+			fireEvent(new MovedEvent(this, w));
+
+			return w;
+		}
+
 		var prevChunkIdx = chunkIdx;
 
 		var p = value.toPx();
@@ -303,6 +331,12 @@ class Entity
 	public function detach()
 	{
 		isDetached = true;
+
+		if (has(IsPlayer))
+		{
+			trace('detach player');
+		}
+
 		if (!has(IsDetached))
 		{
 			add(new IsDetached());
