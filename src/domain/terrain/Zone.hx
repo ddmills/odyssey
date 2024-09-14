@@ -134,7 +134,7 @@ class Zone
 
 	inline function get_poi():ZonePoi
 	{
-		return Game.instance.world.map.getPOIForZone(zoneId);
+		return Game.instance.world.overworld.getPOIForZone(zoneId);
 	}
 
 	inline function get_worldPos():IntPoint

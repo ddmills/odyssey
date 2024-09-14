@@ -4,13 +4,12 @@ import common.rand.PoissonDiscSampler;
 import common.struct.Grid;
 import common.struct.IntPoint;
 import core.Game;
-import data.BiomeMap;
 import data.ColorKey;
 import data.PoiLayoutType;
 import data.PoiType;
 import data.RoomType;
 import data.TileKey;
-import data.save.SaveWorld.SaveMap;
+import data.save.SaveWorld.OverworldSave;
 import domain.terrain.biomes.Biomes;
 import domain.terrain.gen.RoomContent;
 import domain.terrain.gen.ZonePoi;
@@ -34,7 +33,7 @@ typedef RailroadTemplate =
 	toId:Int,
 }
 
-class MapData
+class Overworld
 {
 	private var world(get, never):World;
 	private var seed(get, never):Int;
@@ -192,7 +191,7 @@ class MapData
 		return pois.getAt(zoneId);
 	}
 
-	public function save():SaveMap
+	public function save():OverworldSave
 	{
 		return {
 			pois: pois.save((p) -> p?.save()),
@@ -200,7 +199,7 @@ class MapData
 		};
 	}
 
-	public function load(data:SaveMap)
+	public function load(data:OverworldSave)
 	{
 		r = new Rand(world.seed);
 

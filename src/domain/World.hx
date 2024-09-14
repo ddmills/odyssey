@@ -17,7 +17,7 @@ import domain.prefabs.Spawner;
 import domain.systems.SystemManager;
 import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
-import domain.terrain.MapData;
+import domain.terrain.Overworld;
 import domain.terrain.ZoneManager;
 import domain.terrain.gen.portals.PortalManager;
 import domain.terrain.gen.realms.RealmManager;
@@ -46,7 +46,7 @@ class World
 	public var chunkCountY(get, never):Int;
 	public var mapWidth(get, null):Int;
 	public var mapHeight(get, null):Int;
-	public var map(default, null):MapData;
+	public var overworld(default, null):Overworld;
 	public var seed:Int = 2;
 
 	public var rand:Rand;
@@ -67,7 +67,7 @@ class World
 		chunks = new ChunkManager();
 		spawner = new Spawner();
 
-		map = new MapData();
+		overworld = new Overworld();
 	}
 
 	public function initialize()
@@ -81,7 +81,7 @@ class World
 		spawner.initialize();
 		zones.initialize();
 		chunks.initialize();
-		map.initialize();
+		overworld.initialize();
 		player.initialize();
 		systems.initialize();
 	}
@@ -108,7 +108,7 @@ class World
 		rand = new Rand(seed);
 		visible = new Array();
 		Performance.start('map-generate');
-		map.generate();
+		overworld.generate();
 		Performance.stop('map-generate', true);
 		var pos = new Coordinate((mapWidth / 2).floor(), (mapHeight / 2).floor(), WORLD);
 		chunks.loadChunks(pos.toChunkIdx());
@@ -126,7 +126,7 @@ class World
 		clock.setTick(data.tick);
 		factions.load(data.factions);
 		zones.load(data.zones);
-		map.load(data.map);
+		overworld.load(data.overworld);
 		player.load(data.player);
 		systems.storylines.Load(data.storylines);
 
@@ -142,7 +142,7 @@ class World
 	{
 		Performance.start('world-save');
 		var playerData = player.save(teardown);
-		var mapData = map.save();
+		var overworldData = overworld.save();
 		chunks.save(teardown);
 		var zoneData = zones.save();
 
@@ -163,7 +163,7 @@ class World
 		var s = {
 			seed: seed,
 			player: playerData,
-			map: mapData,
+			overworld: overworldData,
 			zones: zoneData,
 			factions: factions.save(),
 			chunkSize: chunkSize,

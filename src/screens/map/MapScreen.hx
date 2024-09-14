@@ -211,7 +211,7 @@ class MapScreen extends Screen
 		}
 		if (key == KEY_G)
 		{
-			world.map.generate();
+			world.overworld.generate();
 			redrawMap();
 		}
 	}
