@@ -43,7 +43,8 @@ class Portal extends Component
 	private function onUsePortal(evt:UsePortalEvent)
 	{
 		trace('teleport!');
-		var success = Game.instance.world.map.usePortal(portalId);
+		var destinationId = portal.destinationId;
+		var success = Game.instance.world.map.goToPortal(destinationId);
 		trace('success? $success');
 	}
 

@@ -59,7 +59,8 @@ class MapManager
 	//
 	// ENTER/LEAVE REALMS
 	//
-	public function usePortal(portalId:String):Bool
+
+	public function goToPortal(portalId:String):Bool
 	{
 		var user = Game.instance.world.player.entity;
 
@@ -67,37 +68,30 @@ class MapManager
 		user.isDetachable = true;
 		user.detach();
 
-		var sourcePortal = portals.get(portalId);
+		var portal = portals.get(portalId);
 
-		if (sourcePortal.isNull())
+		if (portal.isNull())
 		{
 			return false;
 		}
 
-		var destinationPortal = portals.get(sourcePortal.destinationId);
-
-		if (destinationPortal.isNull())
+		if (portal.position.realmId.hasValue())
 		{
-			return false;
-		}
-
-		if (destinationPortal.position.realmId.hasValue())
-		{
-			realms.setActiveRealm(destinationPortal.position.realmId, destinationPortal.id, user);
-			reattachEntityAt(user, destinationPortal.position.pos);
+			realms.setActiveRealm(portal.position.realmId, portal.id, user);
+			reattachEntityAt(user, portal.position.pos);
 			return true;
 		}
 
 		realms.leaveActiveRealm();
 
-		var destChunks = zones.getChunksForZone(destinationPortal.position.zoneId);
+		var destChunks = zones.getChunksForZone(portal.position.zoneId);
 
 		for (c in destChunks)
 		{
 			chunks.loadChunk(c.chunkId);
 		}
 
-		reattachEntityAt(user, destinationPortal.position.pos);
+		reattachEntityAt(user, portal.position.pos);
 
 		return true;
 	}

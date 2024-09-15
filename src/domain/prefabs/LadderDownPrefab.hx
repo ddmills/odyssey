@@ -12,7 +12,7 @@ class LadderDownPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(LADDER_DOWN, C_BROWN, C_DARK_GRAY, OBJECTS));
+		entity.add(new Sprite(LADDER_DOWN, C_BROWN, C_WHITE, OBJECTS));
 		entity.add(new Moniker('Ladder down'));
 
 		if (options.portalId != null)
