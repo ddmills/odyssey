@@ -16,6 +16,7 @@ import domain.terrain.ZoneManager;
 import domain.terrain.gen.portals.PortalManager;
 import domain.terrain.gen.realms.RealmManager;
 import ecs.Entity;
+import h2d.Bitmap;
 
 class MapManager
 {
@@ -96,6 +97,12 @@ class MapManager
 		return true;
 	}
 
+	public function teleportTo(entity:Entity, worldPos:IntPoint)
+	{
+		realms.leaveActiveRealm();
+		reattachEntityAt(entity, worldPos);
+	}
+
 	private function reattachEntityAt(entity:Entity, worldPos:IntPoint)
 	{
 		entity.reattach();
@@ -113,6 +120,14 @@ class MapManager
 	//
 	// ENTITIES
 	//
+
+	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
+	{
+		// TODO: PARENT/CHILD update all child entities as well
+		var data = getMapDataStore();
+		data.updateEntityPosition(entity, targetWorldPos);
+		entity.internalSetPos(targetWorldPos.x, targetWorldPos.y);
+	}
 
 	public function getEntitiesAt(worldPos:IntPoint):Array<Entity>
 	{
@@ -236,5 +251,11 @@ class MapManager
 	{
 		var data = getMapDataStore();
 		return data.getCell(worldPos);
+	}
+
+	public function getBackgroundBitmap(worldPos:IntPoint):Bitmap
+	{
+		var data = getMapDataStore();
+		return data.getBackgroundBitmap(worldPos);
 	}
 }

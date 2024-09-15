@@ -105,7 +105,7 @@ class Realm
 		isLoaded = false;
 	}
 
-	public function setEntityPosition(entity:Entity)
+	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
 	{
 		if (!isLoaded)
 		{
@@ -121,7 +121,7 @@ class Realm
 			return;
 		}
 
-		var local = worldPositionToRealmLocal(entity.pos.toIntPoint());
+		var local = worldPositionToRealmLocal(targetWorldPos);
 		entities.set(local.x, local.y, entity.id);
 	}
 
@@ -195,7 +195,7 @@ class Realm
 	{
 		for (t in bitmaps)
 		{
-			var bm = getGroundBitmap(t.pos);
+			var bm = buildGroundBitmap(t.pos);
 
 			bm.x = t.x * Game.instance.TILE_W;
 			bm.y = t.y * Game.instance.TILE_H;
@@ -220,7 +220,12 @@ class Realm
 		return cells.get(localPos.x, localPos.y);
 	}
 
-	private function getGroundBitmap(localPos:IntPoint):Bitmap
+	public function getGroundBitmap(localPos:IntPoint):Bitmap
+	{
+		return bitmaps.get(localPos.x, localPos.y);
+	}
+
+	private function buildGroundBitmap(localPos:IntPoint):Bitmap
 	{
 		var cell = getCell(localPos);
 

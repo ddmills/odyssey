@@ -48,6 +48,7 @@ class SpriteSystem extends System
 		if (world.clock.tickDelta > 0)
 		{
 			var daylight = world.clock.getDaylight();
+			// TODO: REALMS have based on underground biome
 			game.app.s2d.renderer.globals.set("daylight", daylight);
 			game.app.s2d.renderer.globals.set("dayProgress", world.clock.progress);
 

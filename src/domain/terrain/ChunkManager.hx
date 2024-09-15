@@ -6,6 +6,8 @@ import common.struct.Set;
 import common.tools.Performance;
 import core.Game;
 import data.BiomeType;
+import ecs.Entity;
+import h2d.Bitmap;
 
 class ChunkManager implements MapDataStore
 {
@@ -78,7 +80,7 @@ class ChunkManager implements MapDataStore
 		{
 			if (chunk.value.isLoaded)
 			{
-				chunk.value.unload();
+				saveChunk(chunk.idx, true);
 			}
 		}
 
@@ -281,13 +283,51 @@ class ChunkManager implements MapDataStore
 		return chunk.getCell(local.x, local.y);
 	}
 
-	private inline function worldToChunk(worldPos:IntPoint):IntPoint
+	public inline function worldToChunk(worldPos:IntPoint):IntPoint
 	{
 		return new IntPoint((worldPos.x / chunkSize).floor(), (worldPos.y / chunkSize).floor());
 	}
 
-	private inline function worldToChunkLocal(worldPos:IntPoint):IntPoint
+	public inline function worldToChunkLocal(worldPos:IntPoint):IntPoint
 	{
 		return new IntPoint(worldPos.x % chunkSize, worldPos.y % chunkSize);
+	}
+
+	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
+	{
+		// TODO: PARENT/CHILD update all child entities as well
+		var previousPos = entity.pos.toIntPoint();
+		var previousChunkIdx = getChunkIdxByWorld(previousPos.x, previousPos.y);
+		var nextChunkIdx = getChunkIdxByWorld(targetWorldPos.x, targetWorldPos.y);
+		var nextChunk = getChunkById(nextChunkIdx);
+
+		if (previousChunkIdx != nextChunkIdx)
+		{
+			var previousChunk = getChunkById(previousChunkIdx);
+
+			if (previousChunk != null)
+			{
+				previousChunk.removeEntity(entity);
+			}
+		}
+
+		var localPos = worldToChunkLocal(targetWorldPos);
+
+		nextChunk.updateEntityPosition(entity, localPos);
+	}
+
+	public function getBackgroundBitmap(worldPos:IntPoint):Bitmap
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull())
+		{
+			return null;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+
+		return chunk.getBackgroundBitmap(local);
 	}
 }

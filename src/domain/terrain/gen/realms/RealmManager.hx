@@ -4,9 +4,8 @@ import common.struct.IntPoint;
 import common.util.UniqueId;
 import core.Game;
 import data.BiomeType;
-import domain.components.Move;
-import domain.events.ConsumeEnergyEvent;
 import ecs.Entity;
+import h2d.Bitmap;
 
 enum RealmType
 {
@@ -78,7 +77,7 @@ class RealmManager implements MapDataStore
 		world.player.entity.detach();
 	}
 
-	public function setEntityPosition(entity:Entity)
+	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
 	{
 		if (!hasActiveRealm)
 		{
@@ -86,7 +85,7 @@ class RealmManager implements MapDataStore
 			return;
 		}
 
-		activeRealm.setEntityPosition(entity);
+		activeRealm.updateEntityPosition(entity, targetWorldPos);
 	}
 
 	public function register(realm:Realm)
@@ -163,5 +162,11 @@ class RealmManager implements MapDataStore
 	{
 		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
 		return activeRealm.getCell(localPos);
+	}
+
+	public function getBackgroundBitmap(worldPos:IntPoint):Bitmap
+	{
+		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
+		return activeRealm.getGroundBitmap(localPos);
 	}
 }

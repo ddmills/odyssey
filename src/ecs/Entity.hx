@@ -2,6 +2,7 @@ package ecs;
 
 import bits.Bits;
 import common.struct.Coordinate;
+import common.util.Projection;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Drawable;
@@ -228,6 +229,20 @@ class Entity
 		return Game.instance.registry;
 	}
 
+	public function internalSetPos(x:Int, y:Int)
+	{
+		_x = x;
+		_y = y;
+
+		if (drawable != null)
+		{
+			var px = Projection.worldToPx(x, y);
+			drawable.updatePos(px.x, px.y);
+		}
+
+		fireEvent(new MovedEvent(this, new Coordinate(x, y)));
+	}
+
 	function get_pos():Coordinate
 	{
 		return new Coordinate(_x, _y, WORLD);
@@ -235,57 +250,9 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
-		// TODO: REALMS
-		if (Game.instance.world.map.realms.hasActiveRealm)
-		{
-			var p = value.toPx();
-			var w = value.toWorld();
-
-			if (drawable != null)
-			{
-				drawable.updatePos(p.x, p.y);
-			}
-
-			_x = w.x;
-			_y = w.y;
-
-			Game.instance.world.map.realms.setEntityPosition(this);
-
-			fireEvent(new MovedEvent(this, w));
-
-			return w;
-		}
-
-		var prevChunkIdx = chunkIdx;
-
-		var p = value.toPx();
 		var w = value.toWorld();
 
-		if (drawable != null)
-		{
-			drawable.updatePos(p.x, p.y);
-		}
-
-		_x = w.x;
-		_y = w.y;
-
-		var nextChunkIdx = chunkIdx;
-
-		if (prevChunkIdx != nextChunkIdx)
-		{
-			var prevChunk = Game.instance.world.map.chunks.getChunkById(prevChunkIdx);
-			if (prevChunk != null)
-			{
-				prevChunk.removeEntity(this);
-			}
-		}
-		var nextChunk = Game.instance.world.map.chunks.getChunkById(nextChunkIdx);
-		if (nextChunk != null)
-		{
-			nextChunk.setEntityPosition(this);
-		}
-
-		fireEvent(new MovedEvent(this, w));
+		Game.instance.world.map.updateEntityPosition(this, w.toIntPoint());
 
 		return w;
 	}

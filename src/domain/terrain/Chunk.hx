@@ -3,6 +3,7 @@ package domain.terrain;
 import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
+import common.util.Projection;
 import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
@@ -97,7 +98,8 @@ class Chunk
 			if (e.chunkIdx == chunkId)
 			{
 				e.reattach();
-				setEntityPosition(e);
+				var localPos = Game.instance.world.map.chunks.worldToChunkLocal(e.pos.toIntPoint());
+				updateEntityPosition(e, localPos);
 			}
 		}
 
@@ -188,7 +190,7 @@ class Chunk
 	{
 		for (t in bitmaps)
 		{
-			var bm = getGroundBitmap(t.pos);
+			var bm = buildGroundBitmap(t.pos);
 
 			bm.x = t.x * Game.instance.TILE_W;
 			bm.y = t.y * Game.instance.TILE_H;
@@ -205,6 +207,16 @@ class Chunk
 			return null;
 		}
 		return cells.get(localX, localY);
+	}
+
+	public function getBackgroundBitmap(localPos:IntPoint):Bitmap
+	{
+		if (!isLoaded)
+		{
+			return null;
+		}
+
+		return bitmaps.get(localPos.x, localPos.y);
 	}
 
 	public function getZoneLocalOffset():IntPoint
@@ -224,9 +236,9 @@ class Chunk
 		return cells.coord(idx);
 	}
 
-	private function getGroundBitmap(pos:IntPoint):Bitmap
+	private function buildGroundBitmap(localPos:IntPoint):Bitmap
 	{
-		var cell = getCell(pos.x, pos.y);
+		var cell = getCell(localPos.x, localPos.y);
 
 		var tileKey = cell.tileKey;
 		var primary = cell.primary;
@@ -236,7 +248,7 @@ class Chunk
 		if (zone.poi != null)
 		{
 			var tl = worldPos.sub(zone.worldPos);
-			var zPos = tl.add(pos);
+			var zPos = tl.add(localPos);
 			var tile = zone.poi.getTile(zPos);
 			if (tile != null)
 			{
@@ -258,6 +270,7 @@ class Chunk
 				}
 			}
 		}
+
 		var bm = new h2d.Bitmap();
 		var shader = new SpriteShader(primary, secondary);
 
@@ -284,10 +297,12 @@ class Chunk
 		{
 			return;
 		}
+
+		// TODO: PARENT/CHILD remove all child entities as well
 		entities.remove(entity.id);
 	}
 
-	public function setEntityPosition(entity:Entity)
+	public function updateEntityPosition(entity:Entity, localPos:IntPoint)
 	{
 		if (!isLoaded)
 		{
@@ -300,8 +315,9 @@ class Chunk
 			}
 			return;
 		}
-		var local = entity.pos.toChunkLocal().toWorld();
-		entities.set(local.x.floor(), local.y.floor(), entity.id);
+
+		// TODO:  PARENT/CHILD update children?
+		entities.set(localPos.x, localPos.y, entity.id);
 	}
 
 	public function getEntityIdsAt(localX:Int, localY:Int):Array<String>

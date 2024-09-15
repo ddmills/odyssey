@@ -28,6 +28,10 @@ class RealmGenerator
 		});
 
 		Spawner.Spawn(SIGNPOST, realm.worldPos.add(5, 5).asWorld());
+		Spawner.Spawn(LANTERN, realm.worldPos.add(5, 7).asWorld());
+		Spawner.Spawn(LANTERN, realm.worldPos.add(9, 7).asWorld(), {
+			isLit: true,
+		});
 
 		var portalIds:Array<String> = realm.definition.settings.portalIds;
 

@@ -101,6 +101,7 @@ class World
 
 	public function load(data:SaveWorld)
 	{
+		// TODO: REALMS
 		Performance.start('world-load');
 		seed = data.seed;
 		rand = new Rand(seed);
@@ -122,6 +123,7 @@ class World
 
 	public function save(teardown:Bool = false):SaveWorld
 	{
+		// TODO: REALMS
 		Performance.start('world-save');
 		var playerData = player.save(teardown);
 		var overworldData = overworld.save();
@@ -171,7 +173,7 @@ class World
 		return getEntitiesAt(pos.toWorld().toIntPoint());
 	}
 
-	// TODO: this method is SLOW
+	// TODO: PERFORMANCE this method is SLOW
 	public function getEntitiesInRect(worldPos:IntPoint, width:Int, height:Int):Array<Entity>
 	{
 		return map.getEntitiesInRect(worldPos, width, height);

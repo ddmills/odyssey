@@ -125,19 +125,11 @@ class OverworldScreen extends Screen
 		ob.root.addChild(bm);
 	}
 
-	function teleport(pos:IntPoint)
+	function teleport(zonePos:IntPoint)
 	{
-		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
-		trace('teleport', pos.toString(), targetPos.toString());
-
-		// TODO: REALMS
-		world.player.entity.remove(Move);
-		world.map.chunks.loadChunks(targetPos.toChunkIdx());
-		world.map.chunks.loadChunk(targetPos.toChunkIdx());
-		world.player.entity.drawable.pos = null;
-		world.player.pos = targetPos;
-		world.player.entity.fireEvent(new ConsumeEnergyEvent(1));
-		game.camera.focus = targetPos;
+		var targetPos = zonePos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().toIntPoint();
+		trace('teleport', zonePos.toString(), targetPos.toString());
+		world.map.teleportTo(world.player.entity, targetPos);
 	}
 
 	function populateMap()

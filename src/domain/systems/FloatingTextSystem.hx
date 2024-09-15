@@ -45,7 +45,7 @@ class FloatingTextSystem extends System
 				alpha: 1
 			};
 
-			var offsetPos = new Coordinate(.5, -1, WORLD).toPx();
+			var offsetPos = new Coordinate(.5, -.5, WORLD).toPx();
 			text.x = offsetPos.x;
 			text.y = offsetPos.y;
 
@@ -76,9 +76,9 @@ class FloatingTextSystem extends System
 			var floater = floaters.get(e.id);
 			var life = (component.lifetime / component.duration);
 
-			var target = floater.start.y - 25;
+			var target = floater.start.y - 50;
 
-			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_OUT_QUAD));
+			floater.ob.y = floater.start.y.lerp(target, (life).ease(EASE_LINEAR));
 			floater.ob.alpha = 1; // (1 - life).ease(EASE_LINEAR);
 
 			var scale = .75; // .2.lerp(.75, life.ease(EASE_LINEAR));
