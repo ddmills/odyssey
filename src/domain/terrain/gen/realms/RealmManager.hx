@@ -4,6 +4,8 @@ import common.struct.IntPoint;
 import common.util.UniqueId;
 import core.Game;
 import data.BiomeType;
+import domain.components.Move;
+import domain.events.ConsumeEnergyEvent;
 import ecs.Entity;
 
 enum RealmType
@@ -40,7 +42,7 @@ class RealmManager implements MapDataStore
 	}
 
 	// Set the active realm and go to destinationPortalId
-	public function setActiveRealm(realmId:String, destinationPortalId:String)
+	public function setActiveRealm(realmId:String, destinationPortalId:String, user:Entity)
 	{
 		if (realmId == activeRealmId)
 		{
@@ -49,13 +51,8 @@ class RealmManager implements MapDataStore
 		}
 		else if (hasActiveRealm)
 		{
-			leaveActiveRealm(destinationPortalId);
+			leaveActiveRealm();
 		}
-
-		trace('detach player...');
-		// detach any entities related to player
-		world.player.entity.isDetachable = true;
-		world.player.entity.detach();
 
 		// unload all chunks
 		world.map.chunks.unloadAllChunks();
@@ -70,16 +67,11 @@ class RealmManager implements MapDataStore
 		activeRealmId = realmId;
 		var realm = get(realmId);
 		realm.load();
-
-		trace('reattach player...');
-		// attach player entities into new realm at portal position
-		world.player.entity.reattach();
 	}
 
 	// Leave the active realm and go to destination portalId
-	public function leaveActiveRealm(destinationPortalId:String)
+	public function leaveActiveRealm()
 	{
-		trace('LEAVE ACTIVE REALM');
 		activeRealm?.unload();
 		activeRealmId = null;
 		world.player.entity.isDetachable = true;

@@ -6,7 +6,10 @@ import data.BiomeType;
 import data.Cardinal;
 import domain.components.Explored;
 import domain.components.IsInventoried;
+import domain.components.IsPlayer;
+import domain.components.Move;
 import domain.components.Visible;
+import domain.events.ConsumeEnergyEvent;
 import domain.terrain.Cell;
 import domain.terrain.ChunkManager;
 import domain.terrain.ZoneManager;
@@ -58,6 +61,12 @@ class MapManager
 	//
 	public function usePortal(portalId:String):Bool
 	{
+		var user = Game.instance.world.player.entity;
+
+		trace('detach player...');
+		user.isDetachable = true;
+		user.detach();
+
 		var sourcePortal = portals.get(portalId);
 
 		if (sourcePortal.isNull())
@@ -72,10 +81,40 @@ class MapManager
 			return false;
 		}
 
+		if (destinationPortal.position.realmId.hasValue())
+		{
+			realms.setActiveRealm(destinationPortal.position.realmId, destinationPortal.id, user);
+			reattachEntityAt(user, destinationPortal.position.pos);
+			return true;
+		}
+
+		realms.leaveActiveRealm();
+
+		var destChunks = zones.getChunksForZone(destinationPortal.position.zoneId);
+
+		for (c in destChunks)
+		{
+			chunks.loadChunk(c.chunkId);
+		}
+
+		reattachEntityAt(user, destinationPortal.position.pos);
+
 		return true;
 	}
 
-	public function goToOverworldPos(worldPos:IntPoint) {}
+	private function reattachEntityAt(entity:Entity, worldPos:IntPoint)
+	{
+		entity.reattach();
+		entity.remove(Move);
+		entity.drawable.pos = null;
+		entity.pos = worldPos.asWorld();
+		entity.fireEvent(new ConsumeEnergyEvent(1));
+
+		if (entity.has(IsPlayer))
+		{
+			Game.instance.camera.focus = entity.pos;
+		}
+	}
 
 	//
 	// ENTITIES
