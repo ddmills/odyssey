@@ -23,7 +23,7 @@ class SpriteShader extends hxsl.Shader
 			@param var lutSize:Int;
 			@param var lut:Sampler2D;
 			@global var time:Float;
-			@global var daylight:Float;
+			@global var ambient:Float;
 			@global var dayProgress:Float;
 			@global var clearColor:Vec3;
 			function fragment()
@@ -39,7 +39,7 @@ class SpriteShader extends hxsl.Shader
 				var t = (t1 + t2);
 
 				var scaled = .5 + (t * .5);
-				var nightIntensity = (1 - daylight) * .75;
+				var nightIntensity = (1 - ambient) * .75;
 				var intensity = (scaled * lightIntensity);
 
 				if (sin((time + seed) * .8) > -0.025 && sin((time + seed) * .8) < 0.025)

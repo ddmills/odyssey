@@ -330,4 +330,9 @@ class ChunkManager implements MapDataStore
 
 		return chunk.getBackgroundBitmap(local);
 	}
+
+	public function getAmbientLighting():Float
+	{
+		return Game.instance.world.clock.getDaylight();
+	}
 }

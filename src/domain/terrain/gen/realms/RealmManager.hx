@@ -40,8 +40,7 @@ class RealmManager implements MapDataStore
 		generator = new RealmGenerator();
 	}
 
-	// Set the active realm and go to destinationPortalId
-	public function setActiveRealm(realmId:String, destinationPortalId:String, user:Entity)
+	public function setActiveRealm(realmId:String, user:Entity)
 	{
 		if (realmId == activeRealmId)
 		{
@@ -68,7 +67,6 @@ class RealmManager implements MapDataStore
 		realm.load();
 	}
 
-	// Leave the active realm and go to destination portalId
 	public function leaveActiveRealm()
 	{
 		activeRealm?.unload();
@@ -168,5 +166,10 @@ class RealmManager implements MapDataStore
 	{
 		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
 		return activeRealm.getGroundBitmap(localPos);
+	}
+
+	public function getAmbientLighting():Float
+	{
+		return activeRealm.getAmbientLighting();
 	}
 }

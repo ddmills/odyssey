@@ -137,8 +137,10 @@ class VisionSystem extends System
 
 	public function getVisionRange(entity:Entity):Int
 	{
+		var ambient = world.map.getAmbientLighting();
 		var vision = world.player.entity.get(Vision);
-		return (world.clock.getDaylight() * vision.range).round();
+
+		return (ambient * vision.range).round();
 	}
 
 	private function isBlocker(p:IntPoint)

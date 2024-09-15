@@ -39,7 +39,8 @@ class SpriteSystem extends System
 
 		anims.onEntityAdded((entity) -> renderSprite(entity.get(SpriteAnim)));
 		anims.onEntityRemoved((entity) -> removeSprite(entity.get(SpriteAnim)));
-		game.app.s2d.renderer.globals.set("daylight", world.clock.getDaylight());
+		var ambient = world.map.getAmbientLighting();
+		game.app.s2d.renderer.globals.set("ambient", ambient);
 		game.app.s2d.renderer.globals.set("dayProgress", world.clock.progress);
 	}
 
@@ -47,9 +48,8 @@ class SpriteSystem extends System
 	{
 		if (world.clock.tickDelta > 0)
 		{
-			var daylight = world.clock.getDaylight();
-			// TODO: REALMS have based on underground biome
-			game.app.s2d.renderer.globals.set("daylight", daylight);
+			var ambient = world.map.getAmbientLighting();
+			game.app.s2d.renderer.globals.set("ambient", ambient);
 			game.app.s2d.renderer.globals.set("dayProgress", world.clock.progress);
 
 			var biome = Biomes.get(world.getCurrentBiomeType());
@@ -77,7 +77,7 @@ class SpriteSystem extends System
 				currentBiomeColor = targetBiomeColor;
 			}
 
-			var c = Colors.Mix(nightColor, currentBiomeColor, daylight);
+			var c = Colors.Mix(nightColor, currentBiomeColor, ambient);
 			var clear = c.toHxdColor().toVector();
 
 			game.app.s2d.renderer.globals.set("clearColor", clear);

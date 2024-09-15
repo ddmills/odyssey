@@ -16,4 +16,5 @@ interface MapDataStore
 	function isExplored(worldPos:IntPoint):Bool;
 	function getCell(worldPos:IntPoint):Cell;
 	function getBackgroundBitmap(worldPos:IntPoint):Bitmap;
+	function getAmbientLighting():Float;
 }

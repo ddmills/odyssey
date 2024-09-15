@@ -225,6 +225,11 @@ class Realm
 		return bitmaps.get(localPos.x, localPos.y);
 	}
 
+	public function getAmbientLighting():Float
+	{
+		return .25;
+	}
+
 	private function buildGroundBitmap(localPos:IntPoint):Bitmap
 	{
 		var cell = getCell(localPos);

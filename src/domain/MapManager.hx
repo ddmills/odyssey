@@ -78,7 +78,7 @@ class MapManager
 
 		if (portal.position.realmId.hasValue())
 		{
-			realms.setActiveRealm(portal.position.realmId, portal.id, user);
+			realms.setActiveRealm(portal.position.realmId, user);
 			reattachEntityAt(user, portal.position.pos);
 			return true;
 		}
@@ -257,5 +257,11 @@ class MapManager
 	{
 		var data = getMapDataStore();
 		return data.getBackgroundBitmap(worldPos);
+	}
+
+	public function getAmbientLighting():Float
+	{
+		var data = getMapDataStore();
+		return data.getAmbientLighting();
 	}
 }
