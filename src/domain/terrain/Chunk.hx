@@ -3,10 +3,9 @@ package domain.terrain;
 import common.struct.Grid;
 import common.struct.GridMap;
 import common.struct.IntPoint;
-import common.util.Projection;
 import core.Game;
 import data.TileResources;
-import data.save.SaveChunk;
+import data.save.ChunkSave;
 import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -47,7 +46,7 @@ class Chunk
 		return chunkPos.multiply(size);
 	}
 
-	public function load(?save:SaveChunk)
+	public function load(?save:ChunkSave)
 	{
 		if (isLoaded)
 		{
@@ -94,6 +93,7 @@ class Chunk
 
 		for (detachedId in Game.instance.registry.getDetachedEntities())
 		{
+			// TODO: PARENT/CHILD
 			var e = Game.instance.registry.getEntity(detachedId);
 			if (e.chunkIdx == chunkId)
 			{
@@ -110,7 +110,7 @@ class Chunk
 		tiles.y = pix.y;
 	}
 
-	public function save():SaveChunk
+	public function save():ChunkSave
 	{
 		if (!isLoaded)
 		{
@@ -126,6 +126,7 @@ class Chunk
 			cells: cells.save((v) -> v),
 			entities: entities.save((v) ->
 			{
+				// TODO: PARENT/CHILD
 				return v.filterMap((id) ->
 				{
 					var e = Game.instance.registry.getEntity(id);

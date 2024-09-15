@@ -40,8 +40,6 @@ class World
 
 	public var rand:Rand;
 
-	var visible:Array<Coordinate>;
-
 	public function new()
 	{
 		clock = new Clock();
@@ -88,7 +86,6 @@ class World
 	{
 		this.seed = seed;
 		rand = new Rand(seed);
-		visible = new Array();
 		Performance.start('map-generate');
 		overworld.generate();
 		Performance.stop('map-generate', true);
@@ -105,10 +102,9 @@ class World
 		Performance.start('world-load');
 		seed = data.seed;
 		rand = new Rand(seed);
-		visible = [];
 		clock.setTick(data.tick);
 		factions.load(data.factions);
-		map.zones.load(data.zones);
+		map.load(data.map);
 		overworld.load(data.overworld);
 		player.load(data.player);
 		systems.storylines.Load(data.storylines);
@@ -127,8 +123,7 @@ class World
 		Performance.start('world-save');
 		var playerData = player.save(teardown);
 		var overworldData = overworld.save();
-		map.chunks.save(teardown);
-		var zoneData = map.zones.save();
+		var mapData = map.save(teardown);
 
 		var detachedEntityIds = game.registry.getDetachedEntities();
 		var detachedEntities = new Array<EntitySaveData>();
@@ -148,7 +143,7 @@ class World
 			seed: seed,
 			player: playerData,
 			overworld: overworldData,
-			zones: zoneData,
+			map: mapData,
 			factions: factions.save(),
 			chunkSize: chunkSize,
 			chunkCountX: chunkCountX,

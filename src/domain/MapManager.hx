@@ -18,6 +18,13 @@ import domain.terrain.gen.realms.RealmManager;
 import ecs.Entity;
 import h2d.Bitmap;
 
+typedef MapManagerSave =
+{
+	zones:ZoneManagerSave,
+	portals:PortalManagerSave,
+	realms:RealmManagerSave,
+}
+
 class MapManager
 {
 	public var portals(default, null):PortalManager;
@@ -45,11 +52,36 @@ class MapManager
 		chunks.initialize();
 	}
 
-	public function getCurrentBiomeType():BiomeType
+	//
+	// LOAD & SAVE
+	//
+
+	public function save(teardown:Bool):MapManagerSave
 	{
-		var pos = Game.instance.world.player.pos.toIntPoint();
-		var data = getMapDataStore();
-		return data.getBiomeType(pos);
+		chunks.save(teardown);
+
+		var realmData = realms.save(teardown);
+		var zoneData = zones.save();
+		var portalData = portals.save(teardown);
+
+		if (teardown)
+		{
+			visible = [];
+		}
+
+		return {
+			zones: zoneData,
+			realms: realmData,
+			portals: portalData
+		};
+	}
+
+	public function load(save:MapManagerSave)
+	{
+		visible = [];
+		portals.load(save.portals);
+		realms.load(save.realms);
+		zones.load(save.zones);
 	}
 
 	private inline function getMapDataStore():MapDataStore
@@ -78,7 +110,7 @@ class MapManager
 
 		if (portal.position.realmId.hasValue())
 		{
-			realms.setActiveRealm(portal.position.realmId, user);
+			realms.setActiveRealm(portal.position.realmId);
 			reattachEntityAt(user, portal.position.pos);
 			return true;
 		}
@@ -245,6 +277,17 @@ class MapManager
 	public function isVisible(worldPos:IntPoint)
 	{
 		return visible.exists((v) -> v.equals(worldPos));
+	}
+
+	//
+	// GETTERS
+	//
+
+	public function getCurrentBiomeType():BiomeType
+	{
+		var pos = Game.instance.world.player.pos.toIntPoint();
+		var data = getMapDataStore();
+		return data.getBiomeType(pos);
 	}
 
 	public function getCell(worldPos:IntPoint):Cell

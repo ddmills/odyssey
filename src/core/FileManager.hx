@@ -2,7 +2,8 @@ package core;
 
 import common.tools.Performance;
 import common.util.FS;
-import data.save.SaveChunk;
+import data.save.ChunkSave;
+import data.save.RealmSave;
 import data.save.SaveWorld;
 import hxd.Save;
 import sys.FileSystem;
@@ -18,6 +19,7 @@ class FileManager
 	{
 		saveName = name;
 		FileSystem.createDirectory(filePath(['chunks']));
+		FileSystem.createDirectory(filePath(['realms']));
 	}
 
 	private function filePath(parts:Array<String>):String
@@ -31,7 +33,7 @@ class FileManager
 		FS.deletePath('$saveDirectory/$name', true);
 	}
 
-	public function saveChunk(data:SaveChunk)
+	public function saveChunk(data:ChunkSave)
 	{
 		var isSaved = Save.save(data, filePath(['chunks', 'chunk-${data.idx}']));
 		if (!isSaved)
@@ -41,9 +43,25 @@ class FileManager
 		return isSaved;
 	}
 
-	public function tryReadChunk(idx:Int):Null<SaveChunk>
+	public function saveRealm(data:RealmSave)
+	{
+		var isSaved = Save.save(data, filePath(['realms', 'realm-${data.realmId}']));
+		if (!isSaved)
+		{
+			trace('realm not saved!', data.realmId);
+		}
+		return isSaved;
+	}
+
+	public function tryReadChunk(idx:Int):Null<ChunkSave>
 	{
 		var name = filePath(['chunks', 'chunk-$idx']);
+		return Save.load(null, name);
+	}
+
+	public function tryReadRealm(realmId:String):Null<RealmSave>
+	{
+		var name = filePath(['realms', 'realm-$realmId']);
 		return Save.load(null, name);
 	}
 

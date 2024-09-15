@@ -4,9 +4,9 @@ import common.struct.Grid.GridSave;
 import domain.terrain.Cell;
 import ecs.Entity.EntitySaveData;
 
-typedef SaveChunk =
+typedef RealmSave =
 {
-	var idx:Int;
+	var realmId:String;
 	var size:Int;
 	var explored:GridSave<Bool>;
 	var entities:GridSave<Array<EntitySaveData>>;

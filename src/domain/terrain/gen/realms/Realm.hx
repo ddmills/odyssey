@@ -5,11 +5,20 @@ import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
+import data.save.RealmSave;
 import domain.components.Moniker;
 import domain.terrain.gen.realms.RealmManager.RealmDefinition;
 import ecs.Entity;
 import h2d.Bitmap;
 import shaders.SpriteShader;
+
+typedef RealmMetaDataSave =
+{
+	realmId:String,
+	size:Int,
+	worldPos:IntPoint,
+	definition:RealmDefinition,
+}
 
 class Realm
 {
@@ -38,7 +47,22 @@ class Realm
 		isLoaded = false;
 	}
 
-	public function load()
+	public function saveMetaData():RealmMetaDataSave
+	{
+		return {
+			realmId: realmId,
+			size: size,
+			worldPos: worldPos,
+			definition: definition,
+		};
+	}
+
+	public static function CreateMetaData(save:RealmMetaDataSave)
+	{
+		return new Realm(save.realmId, save.size, save.worldPos, save.definition);
+	}
+
+	public function load(?save:RealmSave)
 	{
 		if (isLoaded)
 		{
@@ -52,15 +76,79 @@ class Realm
 		bitmaps = new Grid(size, size);
 		tiles = new h2d.Object();
 
-		exploration.fill(false);
-		Game.instance.world.map.realms.generator.generate(this);
-		buildTiles();
+		if (save == null)
+		{
+			exploration.fill(false);
+			Game.instance.world.map.realms.generator.generate(this);
+			buildTiles();
+		}
+		else
+		{
+			var tickDelta = Game.instance.world.clock.tick - save.tick;
 
-		Game.instance.render(GROUND, tiles);
+			size = save.size;
+			cells.load(save.cells, (c) -> c);
+			buildTiles();
+
+			exploration.load(save.explored, (v) -> v);
+
+			for (e in exploration)
+			{
+				setExplore(e.pos, e.value, false);
+			}
+
+			entities.load(save.entities, (edata) ->
+			{
+				return edata.map((data) ->
+				{
+					Entity.Load(data, tickDelta);
+					return data.id;
+				});
+			});
+		}
+
+		Game.instance.render(BACKGROUND, tiles);
 
 		var pix = worldPos.asWorld().toPx();
 		tiles.x = pix.x;
 		tiles.y = pix.y;
+	}
+
+	public function save():RealmSave
+	{
+		if (!isLoaded)
+		{
+			trace('Cannot save an unloaded realm');
+			return null;
+		}
+
+		return {
+			realmId: realmId,
+			size: size,
+			explored: exploration.save((v) -> v),
+			tick: Game.instance.world.clock.tick,
+			cells: cells.save((v) -> v),
+			entities: entities.save((v) ->
+			{
+				// TODO: PARENT/CHILD
+				return v.filterMap((id) ->
+				{
+					var e = Game.instance.registry.getEntity(id);
+					if (e != null && !e.isDetachable)
+					{
+						return {
+							value: e.save(),
+							filter: true,
+						};
+					}
+
+					return {
+						value: null,
+						filter: false,
+					};
+				});
+			})
+		}
 	}
 
 	public function unload()
@@ -227,7 +315,7 @@ class Realm
 
 	public function getAmbientLighting():Float
 	{
-		return .25;
+		return .1;
 	}
 
 	private function buildGroundBitmap(localPos:IntPoint):Bitmap

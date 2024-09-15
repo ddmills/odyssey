@@ -17,6 +17,11 @@ typedef PortalPosition =
 	?pos:Null<IntPoint>,
 }
 
+typedef PortalManagerSave =
+{
+	portals:Map<String, PortalData>
+}
+
 class PortalManager
 {
 	var portals:Map<String, PortalData>;
@@ -26,6 +31,23 @@ class PortalManager
 	public function initialize()
 	{
 		portals = new Map();
+	}
+
+	public function save(teardown:Bool):PortalManagerSave
+	{
+		return {
+			portals: portals
+		};
+
+		if (teardown)
+		{
+			portals = new Map();
+		}
+	}
+
+	public function load(save:PortalManagerSave)
+	{
+		portals = save.portals;
 	}
 
 	public function register(portal:PortalData)

@@ -1,9 +1,11 @@
 package domain.terrain.gen.realms;
 
 import common.struct.IntPoint;
+import common.tools.Performance;
 import common.util.UniqueId;
 import core.Game;
 import data.BiomeType;
+import domain.terrain.gen.realms.Realm.RealmMetaDataSave;
 import ecs.Entity;
 import h2d.Bitmap;
 
@@ -17,6 +19,12 @@ typedef RealmDefinition =
 	type:RealmType,
 	worldPos:IntPoint,
 	settings:Dynamic,
+}
+
+typedef RealmManagerSave =
+{
+	realms:Array<RealmMetaDataSave>,
+	activeRealmId:Null<String>,
 }
 
 class RealmManager implements MapDataStore
@@ -36,11 +44,52 @@ class RealmManager implements MapDataStore
 
 	public function initialize()
 	{
+		activeRealmId = null;
 		realms = new Map();
 		generator = new RealmGenerator();
 	}
 
-	public function setActiveRealm(realmId:String, user:Entity)
+	public function save(teardown:Bool):RealmManagerSave
+	{
+		var loaded = realms.filter((r) -> r.isLoaded).map((r) -> r.realmId);
+
+		for (realmId in loaded)
+		{
+			saveRealm(realmId, teardown);
+		}
+
+		var save = {
+			realms: realms.map((r) -> r.saveMetaData()),
+			activeRealmId: activeRealmId
+		};
+
+		if (teardown)
+		{
+			realms = new Map();
+			activeRealmId = null;
+		}
+
+		return save;
+	}
+
+	public function load(save:RealmManagerSave)
+	{
+		realms = new Map();
+		activeRealmId = null;
+
+		for (r in save.realms)
+		{
+			var realm = Realm.CreateMetaData(r);
+			register(realm);
+		}
+
+		if (save.activeRealmId.hasValue())
+		{
+			setActiveRealm(save.activeRealmId);
+		}
+	}
+
+	public function setActiveRealm(realmId:String)
 	{
 		if (realmId == activeRealmId)
 		{
@@ -63,16 +112,51 @@ class RealmManager implements MapDataStore
 
 		// load new realm
 		activeRealmId = realmId;
-		var realm = get(realmId);
-		realm.load();
+		loadRealm(realmId);
 	}
 
 	public function leaveActiveRealm()
 	{
-		activeRealm?.unload();
-		activeRealmId = null;
+		if (activeRealmId.hasValue())
+		{
+			saveRealm(activeRealmId, true);
+			activeRealm?.unload();
+			activeRealmId = null;
+		}
 		world.player.entity.isDetachable = true;
 		world.player.entity.detach();
+	}
+
+	private function saveRealm(realmId:String, unload:Bool)
+	{
+		var realm = get(realmId);
+		Performance.start('realm-save');
+		var data = realm.save();
+		Performance.stop('realm-save');
+		game.files.saveRealm(data);
+		if (unload)
+		{
+			realm.unload();
+		}
+	}
+
+	private function loadRealm(realmId:String)
+	{
+		var realm = get(realmId);
+		var data = game.files.tryReadRealm(realmId);
+
+		if (data != null)
+		{
+			Performance.start('realm-load');
+			realm.load(data);
+			Performance.stop('realm-load');
+		}
+		else
+		{
+			Performance.start('realm-gen');
+			realm.load();
+			Performance.stop('realm-gen');
+		}
 	}
 
 	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
