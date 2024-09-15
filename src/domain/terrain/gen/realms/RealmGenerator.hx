@@ -33,7 +33,7 @@ class RealmGenerator
 
 		for (portalId in portalIds)
 		{
-			var portal = world.portals.get(portalId);
+			var portal = world.map.portals.get(portalId);
 			var pos = realm.worldPos.add(5, 10);
 			Spawner.Spawn(STAIR_UP, pos.asWorld(), {
 				portalId: portalId,

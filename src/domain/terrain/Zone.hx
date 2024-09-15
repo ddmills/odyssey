@@ -74,7 +74,7 @@ class Zone
 			return connections;
 		}
 
-		var zones = Game.instance.world.zones;
+		var zones = Game.instance.world.map.zones;
 		var zNorth = zones.getZone(zonePos.add(0, -1));
 		var zEast = zones.getZone(zonePos.add(1, 0));
 		var zSouth = zones.getZone(zonePos.add(0, 1));
@@ -114,7 +114,7 @@ class Zone
 			for (y in 0...world.chunksPerZone)
 			{
 				var chunkPos = baseChunkPos.add(x, y);
-				var chunk = world.chunks.getChunk(chunkPos.x, chunkPos.y);
+				var chunk = world.map.chunks.getChunk(chunkPos.x, chunkPos.y);
 				chunks.push(chunk);
 			}
 		}
@@ -129,7 +129,7 @@ class Zone
 
 	inline function get_zonePos():IntPoint
 	{
-		return Game.instance.world.zones.getZonePos(zoneId);
+		return Game.instance.world.map.zones.getZonePos(zoneId);
 	}
 
 	inline function get_poi():ZonePoi

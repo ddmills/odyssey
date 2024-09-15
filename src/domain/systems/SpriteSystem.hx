@@ -51,7 +51,7 @@ class SpriteSystem extends System
 			game.app.s2d.renderer.globals.set("daylight", daylight);
 			game.app.s2d.renderer.globals.set("dayProgress", world.clock.progress);
 
-			var biome = Biomes.get(world.getCurrentBiome());
+			var biome = Biomes.get(world.getCurrentBiomeType());
 
 			if (currentBiomeColor == null)
 			{

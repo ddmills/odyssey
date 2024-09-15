@@ -55,7 +55,7 @@ class RailroadData
 	public function addStop(stop:RailroadStop)
 	{
 		stops.push(stop);
-		var zone = Game.instance.world.zones.getZoneById(stop.zoneId);
+		var zone = Game.instance.world.map.zones.getZoneById(stop.zoneId);
 		zone.railroad = {
 			lineIds: [],
 			stopId: stop.stopId,
@@ -75,7 +75,7 @@ class RailroadData
 	public function generate()
 	{
 		var perlin = new Perlin(15);
-		var zones = Game.instance.world.zones;
+		var zones = Game.instance.world.map.zones;
 
 		// for (line in lines)
 		// {

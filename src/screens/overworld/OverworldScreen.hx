@@ -36,7 +36,7 @@ class OverworldScreen extends Screen
 
 	function getIsRailroad(pos:IntPoint, lineIds:Array<Int>)
 	{
-		var zone = world.zones.getZone(pos);
+		var zone = world.map.zones.getZone(pos);
 		if (zone == null)
 		{
 			return false;
@@ -56,7 +56,7 @@ class OverworldScreen extends Screen
 
 	function populateTile(pos:IntPoint)
 	{
-		var zone = world.zones.getZone(pos);
+		var zone = world.map.zones.getZone(pos);
 		var biomeKey = zone.biomes.nw;
 
 		var biome = Biomes.get(biomeKey);
@@ -130,9 +130,10 @@ class OverworldScreen extends Screen
 		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
 		trace('teleport', pos.toString(), targetPos.toString());
 
+		// TODO: REALMS
 		world.player.entity.remove(Move);
-		world.chunks.loadChunks(targetPos.toChunkIdx());
-		world.chunks.loadChunk(targetPos.toChunkIdx());
+		world.map.chunks.loadChunks(targetPos.toChunkIdx());
+		world.map.chunks.loadChunk(targetPos.toChunkIdx());
 		world.player.entity.drawable.pos = null;
 		world.player.pos = targetPos;
 		world.player.entity.fireEvent(new ConsumeEnergyEvent(1));

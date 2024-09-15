@@ -120,15 +120,15 @@ class RoomChurch extends RoomDecorator
 
 		var empty = r.pick(room.getEmptyTiles());
 
-		var stairDownPortal = Game.instance.world.portals.create({zoneId: zone.zoneId});
-		var stairUpPortal = Game.instance.world.portals.create({});
+		var stairDownPortal = Game.instance.world.map.portals.create({zoneId: zone.zoneId});
+		var stairUpPortal = Game.instance.world.map.portals.create({});
 
 		stairDownPortal.destinationId = stairUpPortal.id;
 		stairUpPortal.destinationId = stairDownPortal.id;
 
-		var z = Game.instance.world.zones.getZoneById(zone.zoneId);
+		var z = Game.instance.world.map.zones.getZoneById(zone.zoneId);
 
-		var basementRealm = Game.instance.world.realms.create({
+		var basementRealm = Game.instance.world.map.realms.create({
 			type: REALM_BASEMENT,
 			worldPos: z.worldPos, // todo: hmm.
 			settings: {

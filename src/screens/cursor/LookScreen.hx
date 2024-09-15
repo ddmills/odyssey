@@ -66,18 +66,17 @@ class LookScreen extends CursorScreen
 			{
 				return;
 			}
-			var w = p.asWorld();
 			var bm = new Bitmap(TileResources.Get(DOT), lineOb);
-			var color = world.isVisible(w) ? ColorKey.C_YELLOW : ColorKey.C_LIGHT_GRAY;
+			var color = world.isVisible(p) ? ColorKey.C_YELLOW : ColorKey.C_LIGHT_GRAY;
 			var shader = new SpriteShader(color);
 			shader.ignoreLighting = 1;
 			bm.addShader(shader);
-			var px = w.toPx();
+			var px = p.asWorld().toPx();
 			bm.x = px.x;
 			bm.y = px.y;
 		});
 
-		if (world.isVisible(opts.end))
+		if (world.isVisible(opts.end.toWorld().toIntPoint()))
 		{
 			var entities = world.getEntitiesAt(opts.end)
 				.filter((e) -> !e.has(IsInventoried));

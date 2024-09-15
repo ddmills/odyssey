@@ -53,7 +53,7 @@ class Realm
 		tiles = new h2d.Object();
 
 		exploration.fill(false);
-		Game.instance.world.realms.generator.generate(this);
+		Game.instance.world.map.realms.generator.generate(this);
 		buildTiles();
 
 		Game.instance.render(GROUND, tiles);
@@ -137,14 +137,14 @@ class Realm
 		return entities.get(local.x, local.y);
 	}
 
-	public function isExplored(pos:IntPoint)
+	public function isExplored(localPos:IntPoint)
 	{
 		if (!isLoaded)
 		{
 			return false;
 		}
 
-		return exploration.get(pos.x, pos.y);
+		return exploration.get(localPos.x, localPos.y);
 	}
 
 	public function setExplore(localPos:IntPoint, isExplored:Bool, isVisible:Bool)
@@ -210,19 +210,19 @@ class Realm
 		return pos.sub(worldPos.x, worldPos.y);
 	}
 
-	public function getCell(localX:Int, localY:Int):Cell
+	public function getCell(localPos:IntPoint):Cell
 	{
 		if (!isLoaded)
 		{
 			return null;
 		}
 
-		return cells.get(localX, localY);
+		return cells.get(localPos.x, localPos.y);
 	}
 
-	private function getGroundBitmap(pos:IntPoint):Bitmap
+	private function getGroundBitmap(localPos:IntPoint):Bitmap
 	{
-		var cell = getCell(pos.x, pos.y);
+		var cell = getCell(localPos);
 
 		var tileKey = cell.tileKey;
 		var primary = cell.primary;

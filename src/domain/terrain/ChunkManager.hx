@@ -5,8 +5,9 @@ import common.struct.IntPoint;
 import common.struct.Set;
 import common.tools.Performance;
 import core.Game;
+import data.BiomeType;
 
-class ChunkManager
+class ChunkManager implements MapDataStore
 {
 	private var game(get, never):Game;
 	private var chunks:Grid<Chunk>;
@@ -208,5 +209,85 @@ class ChunkManager
 	inline function get_game():Game
 	{
 		return Game.instance;
+	}
+
+	public function getEntityIdsAt(worldPos:IntPoint):Array<String>
+	{
+		var chunkIdx = getChunkIdxByWorld(worldPos.x, worldPos.y);
+		var chunk = getChunkById(chunkIdx);
+
+		if (chunk.isNull())
+		{
+			return [];
+		}
+
+		var localX = worldPos.x % Game.instance.world.chunkSize;
+		var localY = worldPos.y % Game.instance.world.chunkSize;
+
+		return chunk.getEntityIdsAt(localX, localY);
+	}
+
+	public function getBiomeType(worldPos:IntPoint):BiomeType
+	{
+		var chunkIdx = getChunkIdxByWorld(worldPos.x, worldPos.y);
+		var chunk = getChunkById(chunkIdx);
+		return chunk.zone.primaryBiome;
+	}
+
+	public function setVisible(worldPos:IntPoint)
+	{
+		setExplore(worldPos, true, true);
+	}
+
+	public function setExplore(worldPos:IntPoint, isExplored:Bool, isVisible:Bool)
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk != null)
+		{
+			var local = worldToChunkLocal(worldPos);
+
+			chunk.setExplore(local, isExplored, isVisible);
+		}
+	}
+
+	public function isExplored(worldPos:IntPoint):Bool
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull() || !chunk.isLoaded)
+		{
+			return false;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+		return chunk.isExplored(local);
+	}
+
+	public function getCell(worldPos:IntPoint):Cell
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull())
+		{
+			return null;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+
+		return chunk.getCell(local.x, local.y);
+	}
+
+	private inline function worldToChunk(worldPos:IntPoint):IntPoint
+	{
+		return new IntPoint((worldPos.x / chunkSize).floor(), (worldPos.y / chunkSize).floor());
+	}
+
+	private inline function worldToChunkLocal(worldPos:IntPoint):IntPoint
+	{
+		return new IntPoint(worldPos.x % chunkSize, worldPos.y % chunkSize);
 	}
 }

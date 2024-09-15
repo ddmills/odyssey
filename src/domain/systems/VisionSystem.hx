@@ -176,12 +176,12 @@ class VisionSystem extends System
 					var light = world.systems.lights.getTileLight(pos);
 					if (light.intensity > 0)
 					{
-						world.setVisible(pos.asWorld());
+						world.map.setVisible(pos);
 					}
 				}
 				else
 				{
-					world.setVisible(pos.asWorld());
+					world.map.setVisible(pos);
 				}
 			}
 		});

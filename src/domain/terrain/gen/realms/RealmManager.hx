@@ -3,6 +3,7 @@ package domain.terrain.gen.realms;
 import common.struct.IntPoint;
 import common.util.UniqueId;
 import core.Game;
+import data.BiomeType;
 import ecs.Entity;
 
 enum RealmType
@@ -17,7 +18,7 @@ typedef RealmDefinition =
 	settings:Dynamic,
 }
 
-class RealmManager
+class RealmManager implements MapDataStore
 {
 	private var game(get, never):Game;
 	private var world(get, never):World;
@@ -57,7 +58,7 @@ class RealmManager
 		world.player.entity.detach();
 
 		// unload all chunks
-		world.chunks.unloadAllChunks();
+		world.map.chunks.unloadAllChunks();
 
 		// unload exisitng realm
 		if (activeRealmId.hasValue())
@@ -137,5 +138,38 @@ class RealmManager
 	inline function get_hasActiveRealm():Bool
 	{
 		return activeRealmId.hasValue();
+	}
+
+	public function getEntityIdsAt(worldPos:IntPoint):Array<String>
+	{
+		return activeRealm.getEntityIdsAt(worldPos);
+	}
+
+	public function getBiomeType(worldPos:IntPoint):BiomeType
+	{
+		return BiomeType.SWAMP;
+	}
+
+	public function setVisible(worldPos:IntPoint)
+	{
+		setExplore(worldPos, true, true);
+	}
+
+	public function setExplore(worldPos:IntPoint, isExplored:Bool, isVisible:Bool)
+	{
+		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
+		activeRealm.setExplore(localPos, isExplored, isVisible);
+	}
+
+	public function isExplored(worldPos:IntPoint):Bool
+	{
+		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
+		return activeRealm.isExplored(localPos);
+	}
+
+	public function getCell(worldPos:IntPoint):Cell
+	{
+		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
+		return activeRealm.getCell(localPos);
 	}
 }

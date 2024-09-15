@@ -78,7 +78,7 @@ class Storyline
 			return null;
 		}
 
-		return Game.instance.world.zones.getZoneById(id);
+		return Game.instance.world.map.zones.getZoneById(id);
 	}
 
 	public function setZoneVariable(key:String, zone:Zone)

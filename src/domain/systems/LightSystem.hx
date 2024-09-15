@@ -267,9 +267,10 @@ class LightSystem extends System
 
 	private function getShader(pos:IntPoint):SpriteShader
 	{
+		// TODO: REALMS
 		var w = pos.asWorld();
 		var chunkIdx = w.toChunkIdx();
-		var chunk = world.chunks.getChunkById(chunkIdx);
+		var chunk = world.map.chunks.getChunkById(chunkIdx);
 
 		if (chunk == null || !chunk.isLoaded)
 		{

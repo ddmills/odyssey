@@ -235,7 +235,8 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
-		if (Game.instance.world.realms.hasActiveRealm)
+		// TODO: REALMS
+		if (Game.instance.world.map.realms.hasActiveRealm)
 		{
 			var p = value.toPx();
 			var w = value.toWorld();
@@ -248,7 +249,7 @@ class Entity
 			_x = w.x;
 			_y = w.y;
 
-			Game.instance.world.realms.setEntityPosition(this);
+			Game.instance.world.map.realms.setEntityPosition(this);
 
 			fireEvent(new MovedEvent(this, w));
 
@@ -272,13 +273,13 @@ class Entity
 
 		if (prevChunkIdx != nextChunkIdx)
 		{
-			var prevChunk = Game.instance.world.chunks.getChunkById(prevChunkIdx);
+			var prevChunk = Game.instance.world.map.chunks.getChunkById(prevChunkIdx);
 			if (prevChunk != null)
 			{
 				prevChunk.removeEntity(this);
 			}
 		}
-		var nextChunk = Game.instance.world.chunks.getChunkById(nextChunkIdx);
+		var nextChunk = Game.instance.world.map.chunks.getChunkById(nextChunkIdx);
 		if (nextChunk != null)
 		{
 			nextChunk.setEntityPosition(this);
@@ -318,7 +319,7 @@ class Entity
 
 	inline function get_chunk():Chunk
 	{
-		return Game.instance.world.chunks.getChunkById(chunkIdx);
+		return Game.instance.world.map.chunks.getChunkById(chunkIdx);
 	}
 
 	public function clone(newId:String = null):Entity

@@ -15,7 +15,8 @@ class StoneWindowPrefab extends Prefab
 	{
 		var entity = new Entity(pos);
 
-		var zone = Game.instance.world.zones.getZoneByCoordinate(pos);
+		// todo: consider realm biome
+		var zone = Game.instance.world.map.zones.getZoneByCoordinate(pos);
 		var biome = Biomes.get(zone.primaryBiome);
 		var data = biome.getCommonRock();
 

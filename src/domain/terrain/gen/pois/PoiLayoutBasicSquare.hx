@@ -7,7 +7,7 @@ class PoiLayoutBasicSquare extends PoiLayout
 {
 	public function apply(poi:ZonePoi, r:Rand):Array<Room>
 	{
-		var zone = Game.instance.world.zones.getZoneById(poi.zoneId);
+		var zone = Game.instance.world.map.zones.getZoneById(poi.zoneId);
 		var roomWidth = 14;
 		var roomHeight = 14;
 		var middleX = (zone.size / 2).floor();

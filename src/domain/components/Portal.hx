@@ -44,83 +44,86 @@ class Portal extends Component
 	private function onUsePortal(evt:UsePortalEvent)
 	{
 		trace('teleport!');
-		var dest = destinationPortal;
+		var success = Game.instance.world.map.usePortal(portalId);
 
-		if (dest.isNull())
-		{
-			trace('no destination');
-			return;
-		}
+		trace('success? $success');
+		// var dest = destinationPortal;
 
-		if (dest.position.pos.isNull())
-		{
-			// check if it has a zone
-			if (dest.position.zoneId.hasValue())
-			{
-				if (Game.instance.world.realms.hasActiveRealm)
-				{
-					Game.instance.world.realms.leaveActiveRealm(dest.id);
-				}
-				var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
-				for (c in chunks)
-				{
-					Game.instance.world.chunks.loadChunk(c.chunkId);
-				}
-			}
-			else if (dest.position.realmId.hasValue())
-			{
-				trace('PORTAL TO REALM ${dest.position.realmId}');
-				Game.instance.world.realms.setActiveRealm(dest.position.realmId, dest.id);
-				return;
-			}
+		// if (dest.isNull())
+		// {
+		// 	trace('no destination');
+		// 	return;
+		// }
 
-			// Game.instance.world.chunks.loadChunk(destPos.toChunkIdx());
-			trace('destination is not generated yet!');
+		// if (dest.position.pos.isNull())
+		// {
+		// 	// check if it has a zone
+		// 	if (dest.position.zoneId.hasValue())
+		// 	{
+		// 		if (Game.instance.world.realms.hasActiveRealm)
+		// 		{
+		// 			Game.instance.world.realms.leaveActiveRealm(dest.id);
+		// 		}
+		// 		var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
+		// 		for (c in chunks)
+		// 		{
+		// 			Game.instance.world.chunks.loadChunk(c.chunkId);
+		// 		}
+		// 	}
+		// 	else if (dest.position.realmId.hasValue())
+		// 	{
+		// 		trace('PORTAL TO REALM ${dest.position.realmId}');
+		// 		Game.instance.world.realms.setActiveRealm(dest.position.realmId, dest.id);
+		// 		return;
+		// 	}
 
-			if (dest.position.pos.isNull())
-			{
-				trace('DESTINATION IS STILL NULL');
-				return;
-			}
-		}
+		// 	// Game.instance.world.chunks.loadChunk(destPos.toChunkIdx());
+		// 	trace('destination is not generated yet!');
 
-		var destRealm = dest.position.realmId;
+		// 	if (dest.position.pos.isNull())
+		// 	{
+		// 		trace('DESTINATION IS STILL NULL');
+		// 		return;
+		// 	}
+		// }
 
-		if (destRealm.hasValue())
-		{
-			Game.instance.world.realms.setActiveRealm(destRealm, dest.id);
-		}
-		else
-		{
-			Game.instance.world.realms.leaveActiveRealm(dest.id);
-			var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
-			for (c in chunks)
-			{
-				Game.instance.world.chunks.loadChunk(c.chunkId);
-			}
-			Game.instance.world.player.entity.reattach();
-		}
+		// var destRealm = dest.position.realmId;
 
-		var destPos = dest.position.pos.asWorld();
-		evt.user.remove(Move);
-		evt.user.drawable.pos = null;
-		evt.user.pos = dest.position.pos.asWorld();
-		evt.user.pos = destPos;
-		evt.user.fireEvent(new ConsumeEnergyEvent(1));
+		// if (destRealm.hasValue())
+		// {
+		// 	Game.instance.world.realms.setActiveRealm(destRealm, dest.id);
+		// }
+		// else
+		// {
+		// 	Game.instance.world.realms.leaveActiveRealm(dest.id);
+		// 	var chunks = Game.instance.world.zones.getChunksForZone(dest.position.zoneId);
+		// 	for (c in chunks)
+		// 	{
+		// 		Game.instance.world.chunks.loadChunk(c.chunkId);
+		// 	}
+		// 	Game.instance.world.player.entity.reattach();
+		// }
 
-		if (evt.user.has(IsPlayer))
-		{
-			Game.instance.camera.focus = evt.user.pos;
-		}
+		// var destPos = dest.position.pos.asWorld();
+		// evt.user.remove(Move);
+		// evt.user.drawable.pos = null;
+		// evt.user.pos = dest.position.pos.asWorld();
+		// evt.user.pos = destPos;
+		// evt.user.fireEvent(new ConsumeEnergyEvent(1));
+
+		// if (evt.user.has(IsPlayer))
+		// {
+		// 	Game.instance.camera.focus = evt.user.pos;
+		// }
 	}
 
 	function get_portal():PortalData
 	{
-		return Game.instance.world.portals.get(portalId);
+		return Game.instance.world.map.portals.get(portalId);
 	}
 
 	function get_destinationPortal():Null<PortalData>
 	{
-		return Game.instance.world.portals.get(portal.destinationId);
+		return Game.instance.world.map.portals.get(portal.destinationId);
 	}
 }

@@ -63,7 +63,7 @@ class Overworld
 		{
 			if (!pois.isOnEdge(point.x, point.y))
 			{
-				var zone = world.zones.getZone(point);
+				var zone = world.map.zones.getZone(point);
 
 				if (zone.hasRiver())
 				{
@@ -116,11 +116,11 @@ class Overworld
 		railroad.stops = [];
 		railroad.lines = [];
 
-		var oxwoodZoneId = world.zones.getZoneId({x: 55, y: 11});
-		var esperloosaZoneId = world.zones.getZoneId({x: 22, y: 37});
+		var oxwoodZoneId = world.map.zones.getZoneId({x: 55, y: 11});
+		var esperloosaZoneId = world.map.zones.getZoneId({x: 22, y: 37});
 
-		var esperPortal = world.portals.create({zoneId: esperloosaZoneId});
-		var oxwoodPortal = world.portals.create({zoneId: oxwoodZoneId});
+		var esperPortal = world.map.portals.create({zoneId: esperloosaZoneId});
+		var oxwoodPortal = world.map.portals.create({zoneId: oxwoodZoneId});
 
 		esperPortal.destinationId = oxwoodPortal.id;
 		oxwoodPortal.destinationId = esperPortal.id;

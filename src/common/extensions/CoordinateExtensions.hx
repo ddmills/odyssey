@@ -122,14 +122,14 @@ class CoordinateExtensions
 	{
 		var c = a.toChunk();
 
-		return Game.instance.world.chunks.getChunkIdx(c.x, c.y);
+		return Game.instance.world.map.chunks.getChunkIdx(c.x, c.y);
 	}
 
 	static public inline function toZoneIdx(a:Coordinate):Int
 	{
 		var c = a.toZone();
 
-		return Game.instance.world.zones.getZoneId(c.toIntPoint());
+		return Game.instance.world.map.zones.getZoneId(c.toIntPoint());
 	}
 
 	static public inline function lerp(a:Coordinate, b:Coordinate, time:Float):Coordinate

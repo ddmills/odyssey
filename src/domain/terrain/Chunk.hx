@@ -6,7 +6,6 @@ import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
 import data.save.SaveChunk;
-import domain.components.IsPlayer;
 import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
@@ -39,7 +38,7 @@ class Chunk
 
 	function get_chunkPos():IntPoint
 	{
-		return Game.instance.world.chunks.getChunkPos(chunkId);
+		return Game.instance.world.map.chunks.getChunkPos(chunkId);
 	}
 
 	function get_worldPos():IntPoint
@@ -64,7 +63,7 @@ class Chunk
 		if (save == null)
 		{
 			exploration.fill(false);
-			Game.instance.world.chunks.chunkGen.generate(this);
+			Game.instance.world.map.chunks.chunkGen.generate(this);
 			buildTiles();
 		}
 		else
@@ -329,7 +328,7 @@ class Chunk
 		if (!isLoaded)
 		{
 			trace('Warning: Loading chunk on demand');
-			Game.instance.world.chunks.loadChunk(chunkId);
+			Game.instance.world.map.chunks.loadChunk(chunkId);
 			return;
 		}
 		var idx = exploration.idx(localPos.x, localPos.y);
@@ -371,11 +370,11 @@ class Chunk
 	function get_zoneId():Int
 	{
 		var pos = chunkPos.divide(Game.instance.world.chunksPerZone).floor();
-		return Game.instance.world.zones.getZoneId(pos);
+		return Game.instance.world.map.zones.getZoneId(pos);
 	}
 
 	inline function get_zone():Zone
 	{
-		return Game.instance.world.zones.getZoneById(zoneId);
+		return Game.instance.world.map.zones.getZoneById(zoneId);
 	}
 }
