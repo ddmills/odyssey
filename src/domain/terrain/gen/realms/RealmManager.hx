@@ -117,14 +117,14 @@ class RealmManager implements MapDataStore
 
 	public function leaveActiveRealm()
 	{
+		world.player.entity.detach();
+
 		if (activeRealmId.hasValue())
 		{
 			saveRealm(activeRealmId, true);
 			activeRealm?.unload();
 			activeRealmId = null;
 		}
-		world.player.entity.isDetachable = true;
-		world.player.entity.detach();
 	}
 
 	private function saveRealm(realmId:String, unload:Bool)

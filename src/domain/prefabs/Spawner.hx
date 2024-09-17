@@ -105,17 +105,11 @@ class Spawner
 		prefabs.set(FLOATING_TEXT, new FloatingTextPrefab());
 	}
 
-	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
+	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
 		var o = options == null ? {} : options;
-		var d = isDetachable == null ? false : isDetachable;
 		var entity = prefabs.get(type).Create(o, p);
-
-		if (d)
-		{
-			entity.isDetachable = true;
-		}
 
 		entity.pos = p;
 
@@ -124,8 +118,8 @@ class Spawner
 		return entity;
 	}
 
-	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
+	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
-		return Game.instance.world.spawner.spawn(type, pos, options, isDetachable);
+		return Game.instance.world.spawner.spawn(type, pos, options);
 	}
 }

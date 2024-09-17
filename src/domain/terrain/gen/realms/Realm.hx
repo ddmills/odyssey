@@ -134,7 +134,8 @@ class Realm
 				return v.filterMap((id) ->
 				{
 					var e = Game.instance.registry.getEntity(id);
-					if (e != null && !e.isDetachable)
+					// TODO: DETACHING
+					if (e != null && !e.isDetached)
 					{
 						return {
 							value: e.save(),
@@ -170,16 +171,9 @@ class Realm
 			for (id in ids.value.copy())
 			{
 				var e = Game.instance.registry.getEntity(id);
-				if (e != null)
+				if (e != null && !e.isDetached)
 				{
-					if (e.isDetachable)
-					{
-						e.detach();
-					}
-					else
-					{
-						e.destroy();
-					}
+					e.destroy();
 				}
 			}
 		}

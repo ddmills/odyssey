@@ -130,7 +130,8 @@ class Chunk
 				return v.filterMap((id) ->
 				{
 					var e = Game.instance.registry.getEntity(id);
-					if (e != null && !e.isDetachable)
+					// TODO: DETACHING
+					if (e != null && !e.isDetached)
 					{
 						return {
 							value: e.save(),
@@ -164,26 +165,17 @@ class Chunk
 			for (id in ids.value.copy())
 			{
 				var e = Game.instance.registry.getEntity(id);
-				if (e != null)
+				if (e != null && !e.isDetached)
 				{
-					if (e.isDetachable)
-					{
-						e.detach();
-					}
-					else
-					{
-						e.destroy();
-					}
+					e.destroy();
 				}
 			}
 		}
-
 		exploration = null;
 		entities = null;
 		bitmaps = null;
 		tiles = null;
 		cells = null;
-
 		isLoaded = false;
 	}
 

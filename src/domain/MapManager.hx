@@ -98,7 +98,6 @@ class MapManager
 		var user = Game.instance.world.player.entity;
 
 		trace('detach player...');
-		user.isDetachable = true;
 		user.detach();
 
 		var portal = portals.get(portalId);

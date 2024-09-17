@@ -31,7 +31,6 @@ class Entity
 	public var chunkIdx(get, never):Int;
 	public var isDestroyed(default, null):Bool;
 	public var isDetached(default, null):Bool;
-	public var isDetachable:Bool;
 
 	private var components:Map<String, Array<Component>>;
 
@@ -45,7 +44,6 @@ class Entity
 		components = new Map();
 		isDestroyed = false;
 		isDetached = false;
-		isDetachable = false;
 
 		if (register)
 		{
@@ -298,6 +296,7 @@ class Entity
 
 	public function detach()
 	{
+		trace('detach entity');
 		isDetached = true;
 
 		if (has(IsPlayer))
@@ -314,6 +313,7 @@ class Entity
 
 	public function reattach()
 	{
+		trace('re-attach entity');
 		registry.reattachEntity(id);
 		isDetached = false;
 		remove(IsDetached);
@@ -332,7 +332,6 @@ class Entity
 				x: x,
 				y: y,
 			},
-			isDetachable: isDetachable,
 			isDetached: isDetached,
 			components: cdata,
 		};
@@ -360,7 +359,6 @@ class Entity
 		}
 
 		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
-		entity.isDetachable = data.isDetachable;
 		entity.isDetached = data.isDetached;
 
 		if (entity.isDetached)
@@ -390,7 +388,6 @@ typedef EntitySaveData =
 	{
 		x:Float, y:Float,
 	},
-	isDetachable:Bool,
 	isDetached:Bool,
 	components:Array<ComponentSaveData>,
 }
