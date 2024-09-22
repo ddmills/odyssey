@@ -210,6 +210,12 @@ class MapManager
 	// VISION & EXPLORATION
 	//
 
+	public function isOutOfBounds(worldPos:IntPoint):Bool
+	{
+		var data = getMapDataStore();
+		return data.isOutOfBounds(worldPos);
+	}
+
 	public function reapplyVisible()
 	{
 		for (pos in visible)

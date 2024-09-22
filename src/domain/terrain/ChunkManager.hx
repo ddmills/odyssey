@@ -188,9 +188,9 @@ class ChunkManager implements MapDataStore
 		return chunks.get(cx, cy);
 	}
 
-	public function isOutOfBounds(pos:IntPoint):Bool
+	public function isOutOfBounds(worldPos:IntPoint):Bool
 	{
-		return chunks.isOutOfBounds(pos.x, pos.y);
+		return worldPos.x < 0 || worldPos.y < 0 || worldPos.x > game.world.mapWidth || worldPos.y > game.world.mapHeight;
 	}
 
 	inline function get_chunkCountX():Int

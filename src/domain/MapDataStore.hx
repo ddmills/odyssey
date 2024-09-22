@@ -14,6 +14,7 @@ interface MapDataStore
 	function setVisible(worldPos:IntPoint):Void;
 	function setExplore(worldPos:IntPoint, isExplored:Bool, isVisible:Bool):Void;
 	function isExplored(worldPos:IntPoint):Bool;
+	function isOutOfBounds(worldPos:IntPoint):Bool;
 	function getCell(worldPos:IntPoint):Cell;
 	function getBackgroundBitmap(worldPos:IntPoint):Bitmap;
 	function getAmbientLighting():Float;

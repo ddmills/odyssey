@@ -234,9 +234,9 @@ class World
 		return chunkCountY * chunkSize;
 	}
 
-	public inline function isOutOfBounds(pos:IntPoint)
+	public inline function isOutOfBounds(worldPos:IntPoint)
 	{
-		return pos.x < 0 || pos.y < 0 || pos.x > mapWidth || pos.y > mapHeight;
+		return map.isOutOfBounds(worldPos);
 	}
 
 	public inline function getTileIdx(pos:IntPoint)

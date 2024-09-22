@@ -238,7 +238,7 @@ class Realm
 		}
 
 		var idx = exploration.idx(localPos.x, localPos.y);
-		if (idx < 0)
+		if (exploration.isIdxOutOfBounds(idx))
 		{
 			return;
 		}
@@ -285,6 +285,11 @@ class Realm
 			tiles.addChildAt(bm, t.idx);
 			bitmaps.set(t.x, t.y, bm);
 		}
+	}
+
+	public function isOutOfBounds(localPos:IntPoint):Bool
+	{
+		return exploration.isOutOfBounds(localPos.x, localPos.y);
 	}
 
 	public function worldPositionToRealmLocal(pos:IntPoint)

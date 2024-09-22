@@ -243,6 +243,12 @@ class AdventureScreen extends Screen
 	private function move(dir:Cardinal)
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
+
+		if (world.isOutOfBounds(target))
+		{
+			return;
+		}
+
 		var entities = world.getEntitiesAt(target);
 
 		var collider = entities.find((e) -> e.has(Collider) && !e.has(IsInventoried));

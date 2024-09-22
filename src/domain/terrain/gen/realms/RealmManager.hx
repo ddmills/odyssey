@@ -256,4 +256,10 @@ class RealmManager implements MapDataStore
 	{
 		return activeRealm.getAmbientLighting();
 	}
+
+	public function isOutOfBounds(worldPos:IntPoint):Bool
+	{
+		var localPos = activeRealm.worldPositionToRealmLocal(worldPos);
+		return activeRealm.isOutOfBounds(localPos);
+	}
 }
