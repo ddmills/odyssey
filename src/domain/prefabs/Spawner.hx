@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Game;
 import data.SpawnableType;
 import domain.events.EntitySpawnedEvent;
@@ -108,6 +109,13 @@ class Spawner
 	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
+
+		if (Game.instance.world.isOutOfBounds(p.toIntPoint()))
+		{
+			trace('Warning: Trying to spawn entity out of bounds (${type.getName()}) at ${p.toString()}');
+			return null;
+		}
+
 		var o = options == null ? {} : options;
 		var entity = prefabs.get(type).Create(o, p);
 

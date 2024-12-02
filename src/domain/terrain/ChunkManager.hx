@@ -46,7 +46,7 @@ class ChunkManager implements MapDataStore
 			for (y in [-2, -1, 0, 1, 2])
 			{
 				var chunkPos = curChunkPos.add(x, y);
-				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)
+				if (chunkPos.x >= 0 && chunkPos.y >= 0 && chunkPos.x < chunkCountX && chunkPos.y < chunkCountY)
 				{
 					var chunkIdx = getChunkIdx(chunkPos.x, chunkPos.y);
 					activeChunkIdxs.add(chunkIdx);
@@ -190,7 +190,7 @@ class ChunkManager implements MapDataStore
 
 	public function isOutOfBounds(worldPos:IntPoint):Bool
 	{
-		return worldPos.x < 0 || worldPos.y < 0 || worldPos.x > game.world.mapWidth || worldPos.y > game.world.mapHeight;
+		return worldPos.x < 0 || worldPos.y < 0 || worldPos.x >= game.world.mapWidth || worldPos.y >= game.world.mapHeight;
 	}
 
 	inline function get_chunkCountX():Int

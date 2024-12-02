@@ -120,7 +120,7 @@ class TargetScreen extends Screen
 		var prevWorld = previous.toWorld().floor();
 		var curWorld = pos.toWorld().floor();
 
-		if (!curWorld.equals(prevWorld))
+		if (!curWorld.equals(prevWorld) && !world.isOutOfBounds(curWorld.toIntPoint()))
 		{
 			cursor = curWorld;
 			targetEntityId = null;
@@ -145,7 +145,12 @@ class TargetScreen extends Screen
 	private function look(dir:Cardinal)
 	{
 		targetEntityId = null;
-		cursor = cursor.toWorld().add(dir.toOffset().asWorld());
+		var next = cursor.toWorld().add(dir.toOffset().asWorld());
+
+		if (!world.isOutOfBounds(next.toIntPoint()))
+		{
+			cursor = next;
+		}
 	}
 
 	override function update(frame:Frame)
