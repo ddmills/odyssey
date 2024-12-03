@@ -170,6 +170,17 @@ class RealmManager implements MapDataStore
 		activeRealm.updateEntityPosition(entity, targetWorldPos);
 	}
 
+	public function removeEntity(entity:Entity)
+	{
+		if (!hasActiveRealm)
+		{
+			trace('trying to remove an entity when no realm active!');
+			return;
+		}
+
+		activeRealm.removeEntity(entity);
+	}
+
 	public function register(realm:Realm)
 	{
 		realms.set(realm.realmId, realm);

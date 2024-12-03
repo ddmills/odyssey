@@ -1,7 +1,6 @@
 package domain.components;
 
 import core.Game;
-import domain.events.ConsumeEnergyEvent;
 import domain.events.EntitySpawnedEvent;
 import domain.events.QueryInteractionsEvent;
 import domain.events.UsePortalEvent;

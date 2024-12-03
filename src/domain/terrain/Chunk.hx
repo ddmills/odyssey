@@ -6,7 +6,6 @@ import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
 import data.save.ChunkSave;
-import domain.components.Moniker;
 import ecs.Entity;
 import h2d.Bitmap;
 import shaders.SpriteShader;
@@ -165,12 +164,14 @@ class Chunk
 			for (id in ids.value.copy())
 			{
 				var e = Game.instance.registry.getEntity(id);
+
 				if (e != null && !e.isDetached)
 				{
 					e.destroy();
 				}
 			}
 		}
+
 		exploration = null;
 		entities = null;
 		bitmaps = null;
@@ -299,13 +300,8 @@ class Chunk
 	{
 		if (!isLoaded)
 		{
-			// trace('add entity, not loaded', entity.get(Moniker).displayName);
 			// TODO: put these somewhere on spawn
-			trace('PLACING ENTITY IN UNLOADED CHUNK', entity.id);
-			if (entity.has(Moniker))
-			{
-				trace(entity.get(Moniker).displayName);
-			}
+			trace('PLACING ENTITY IN UNLOADED CHUNK', entity.name);
 			return;
 		}
 

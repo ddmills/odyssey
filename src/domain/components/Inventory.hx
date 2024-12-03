@@ -5,6 +5,8 @@ import core.Game;
 import data.AudioKey;
 import data.StackableType;
 import data.TileKey;
+import domain.events.EntityDetachEvent;
+import domain.events.EntityReattachEvent;
 import domain.events.GetAmmoEvent;
 import domain.events.MovedEvent;
 import domain.events.OpenInventoryEvent;
@@ -35,6 +37,8 @@ class Inventory extends Component
 		addHandler(StashInventoryEvent, onStashInventory);
 		addHandler(MovedEvent, onMoved);
 		addHandler(GetAmmoEvent, onGetAmmo);
+		addHandler(EntityDetachEvent, onEntityDetach);
+		addHandler(EntityReattachEvent, onEntityReattach);
 	}
 
 	public function addLoot(loot:Entity)
@@ -177,6 +181,22 @@ class Inventory extends Component
 		for (e in content)
 		{
 			e.fireEvent(evt);
+		}
+	}
+
+	function onEntityDetach(evt:EntityDetachEvent)
+	{
+		for (e in content)
+		{
+			e.detach();
+		}
+	}
+
+	function onEntityReattach(evt:EntityReattachEvent)
+	{
+		for (e in content)
+		{
+			e.reattach(evt.worldPos);
 		}
 	}
 

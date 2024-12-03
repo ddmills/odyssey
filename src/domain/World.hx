@@ -98,7 +98,6 @@ class World
 
 	public function load(data:SaveWorld)
 	{
-		// TODO: REALMS
 		Performance.start('world-load');
 		seed = data.seed;
 		rand = new Rand(seed);

@@ -95,11 +95,6 @@ class MapManager
 
 	public function goToPortal(portalId:String):Bool
 	{
-		var user = Game.instance.world.player.entity;
-
-		trace('detach player...');
-		user.detach();
-
 		var portal = portals.get(portalId);
 
 		if (portal.isNull())
@@ -107,10 +102,15 @@ class MapManager
 			return false;
 		}
 
+		var user = Game.instance.world.player.entity;
+
+		trace('detach player...');
+		user.detach();
+
 		if (portal.position.realmId.hasValue())
 		{
 			realms.setActiveRealm(portal.position.realmId);
-			reattachEntityAt(user, portal.position.pos);
+			user.reattach(portal.position.pos);
 			return true;
 		}
 
@@ -123,7 +123,7 @@ class MapManager
 			chunks.loadChunk(c.chunkId);
 		}
 
-		reattachEntityAt(user, portal.position.pos);
+		user.reattach(portal.position.pos);
 
 		return true;
 	}
@@ -131,21 +131,7 @@ class MapManager
 	public function teleportTo(entity:Entity, worldPos:IntPoint)
 	{
 		realms.leaveActiveRealm();
-		reattachEntityAt(entity, worldPos);
-	}
-
-	private function reattachEntityAt(entity:Entity, worldPos:IntPoint)
-	{
-		entity.reattach();
-		entity.remove(Move);
-		entity.drawable.pos = null;
-		entity.pos = worldPos.asWorld();
-		entity.fireEvent(new ConsumeEnergyEvent(1));
-
-		if (entity.has(IsPlayer))
-		{
-			Game.instance.camera.focus = entity.pos;
-		}
+		entity.reattach(worldPos);
 	}
 
 	//
@@ -160,12 +146,28 @@ class MapManager
 		entity.internalSetPos(targetWorldPos.x, targetWorldPos.y);
 	}
 
+	public function removeEntity(entity:Entity)
+	{
+		var data = getMapDataStore();
+		data.removeEntity(entity);
+	}
+
 	public function getEntitiesAt(worldPos:IntPoint):Array<Entity>
 	{
 		var data = getMapDataStore();
 		var ids = data.getEntityIdsAt(worldPos);
 
-		return ids.map((id:String) -> Game.instance.registry.getEntity(id));
+		return ids.map((id:String) ->
+		{
+			var e = Game.instance.registry.getEntity(id);
+
+			if (e == null)
+			{
+				trace('NULL ENTITY!!! $id');
+			}
+
+			return e;
+		});
 	}
 
 	public function getEntitiesInRect(worldPos:IntPoint, width:Int, height:Int):Array<Entity>

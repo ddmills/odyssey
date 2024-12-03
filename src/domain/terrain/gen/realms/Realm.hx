@@ -193,7 +193,7 @@ class Realm
 		{
 			// trace('add entity, not loaded', entity.get(Moniker).displayName);
 			// TODO: put these somewhere on spawn
-			trace('PLACING ENTITY IN UNLOADED REALM', entity.id);
+			trace('PLACING ENTITY IN UNLOADED REALM', entity.name);
 
 			if (entity.has(Moniker))
 			{
@@ -205,6 +205,18 @@ class Realm
 
 		var local = worldPositionToRealmLocal(targetWorldPos);
 		entities.set(local.x, local.y, entity.id);
+	}
+
+	public function removeEntity(entity:Entity)
+	{
+		if (!isLoaded)
+		{
+			trace('REMOVING ENTITY FROM UNLOADED REALM', entity.name);
+
+			return;
+		}
+
+		entities.remove(entity.id);
 	}
 
 	public function getEntityIdsAt(world:IntPoint):Array<String>

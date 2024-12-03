@@ -85,6 +85,7 @@ class FloatingTextSystem extends System
 			floater.text.setScale(scale);
 
 			component.lifetime += frame.tmod;
+
 			if (life > 1)
 			{
 				e.destroy();

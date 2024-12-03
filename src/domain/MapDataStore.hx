@@ -10,6 +10,7 @@ interface MapDataStore
 {
 	function getEntityIdsAt(worldPos:IntPoint):Array<String>;
 	function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint):Void;
+	function removeEntity(entity:Entity):Void;
 	function getBiomeType(worldPos:IntPoint):BiomeType;
 	function setVisible(worldPos:IntPoint):Void;
 	function setExplore(worldPos:IntPoint, isExplored:Bool, isVisible:Bool):Void;

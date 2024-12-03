@@ -316,6 +316,11 @@ class ChunkManager implements MapDataStore
 		nextChunk.updateEntityPosition(entity, localPos);
 	}
 
+	public function removeEntity(entity:Entity)
+	{
+		entity.chunk?.removeEntity(entity);
+	}
+
 	public function getBackgroundBitmap(worldPos:IntPoint):Bitmap
 	{
 		var c = worldToChunk(worldPos);
