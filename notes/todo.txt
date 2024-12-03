@@ -20,10 +20,10 @@
 	- [x] extra options (on certain trees)
 	- [ ] one-time trees
 	- [ ] repeatable dialog based on character
-	- [ ] story effects/conditions
-		- [ ] Add dialog tree from story
-		- [ ] Effect: Update story state from dialog
-		- [ ] Condition: Check story state from dialog
+	- [x] story effects/conditions
+		- [x] Add dialog tree from story
+		- [x] Effect: Update story state from dialog
+		- [x] Condition: Check story state from dialog
 	- [x] change "cancel" text
 - [ ] rumor system
 	- [ ] Can ask about rumors
@@ -52,7 +52,7 @@
 	- [x] Stats 
 	- [x] Health
 	- [x] Armor
-	- [ ] Skills
+	- [x] Skills
 	- [ ] Rework damage/health values (increase overall. More predictable.)
 - [x] leveling
 	- [x] XP on kill
@@ -69,13 +69,13 @@
 	- [x] equip/unequip x 1
 	- [x] display for x 1
 - [ ] improvements
-	- [ ] make 'Move' an entity event
+	- [x] make 'Move' an entity event
 	- [ ] always spawn to a location, or load chunk on entity added
 	- [x] entity move order issues
 - [x] fix inventory access
 - [ ] Saving/Loading
 	- [x] Component and entity .save() and .load()
-	- [ ] component and entity save flags
+	- [x] component and entity save flags
 	- [x] haxe macro/metadata flags
 	- [x] entity clone()
 	- [ ] no-arg component constructors
@@ -86,8 +86,8 @@
 	- [x] save map data
 	- [ ] out of bounds entity destroy (no chunk)
 	- [x] save/load tile data
-	- [ ] inventory items
-	- [ ] ensure inventory items stored
+	- [x] inventory items
+	- [x] ensure inventory items stored
 	- [x] allow saving of detached entities
 	- [x] detached entites should not be part of queries
 	- [ ] add "temporary" entities (not saved)
@@ -119,7 +119,7 @@
 	- [x] equip replace lightable (lantern)
 - [x] ammo
 - [x] replace all addHandler evt casting
-- [ ] exit interaction screen (entity destroyed) - gather puddles
+- [x] exit interaction screen (entity destroyed) - gather puddles
 - [ ] switch line algorithm https://www.redblobgames.com/grids/line-drawing.html
 - [x] entity unattached - no location
 - [x] save chunk data to disk
