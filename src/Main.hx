@@ -44,6 +44,7 @@ class Main extends hxd.App
 
 		var window = hxd.Window.getInstance();
 
+		window.title = "Odyssey";
 		window.addResizeEvent(() ->
 		{
 			trace('resize', window.height);
@@ -70,8 +71,6 @@ class Main extends hxd.App
 		Stories.Init();
 		DialogTrees.Init();
 		Factions.Init();
-
-		hxd.Window.getInstance().title = "Odyssey";
 
 		game = Game.Create(this);
 		game.backgroundColor = game.CLEAR_COLOR;

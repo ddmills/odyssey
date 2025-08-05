@@ -12,6 +12,8 @@ class PoiGenerator
 	{
 		var layout = PoiLayouts.Get(poi.definition.layout);
 		var r = new Rand(poi.zoneId);
+		var options = layout.apply(poi, r);
+
 		var t = new WeightedTable<RoomType>();
 
 		t.add(ROOM_SHERIFF_OFFICE, 4);
@@ -19,8 +21,6 @@ class PoiGenerator
 		t.add(ROOM_CHURCH, 2);
 		t.add(ROOM_GROVE_OAK, 1);
 		t.add(ROOM_GRAVEYARD, 1);
-
-		var options = layout.apply(poi, r);
 
 		r.shuffle(options);
 

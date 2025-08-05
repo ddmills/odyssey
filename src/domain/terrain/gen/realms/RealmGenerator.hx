@@ -18,7 +18,7 @@ class RealmGenerator
 
 		realm.cells.fillFn((idx) -> {
 			idx: idx,
-			terrain: TerrainType.TERRAIN_SAND,
+			terrain: TerrainType.TERRAIN_MUD,
 			biomeKey: BiomeType.DESERT,
 			tileKey: TileKey.TERRAIN_BASIC_1,
 			primary: 0x007777,
