@@ -28,6 +28,7 @@ New concepts:
 		- Destination (other portal ID)
 	- Limbo 
 		- Take player, inventory, etc out of world map into new registry (?)
+		- how is this different from "detached" entities?
 	- Realm 
 		- A Dungeon or Cave System. Can have one or multiple sectors.
 	- Sector

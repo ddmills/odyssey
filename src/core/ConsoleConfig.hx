@@ -3,11 +3,9 @@ package core;
 import common.util.Serial;
 import core.input.Command;
 import data.Commands;
-import data.save.SaveChunk;
 import domain.components.Attributes;
 import domain.components.Health;
 import domain.components.Level;
-import domain.prefabs.Spawner;
 import domain.stats.Stats;
 import h2d.Console;
 import haxe.EnumTools;
@@ -34,48 +32,6 @@ class ConsoleConfig
 			{
 				console.log('${cmd.friendlyKey()} - ${cmd.name}', game.TEXT_COLOR_FOCUS);
 			});
-		});
-
-		console.addCommand('save', 'save', [{name: 'chunk index', t: AInt}], (idx:Int) ->
-		{
-			var p = game.world.player.entity;
-			var e = Spawner.Spawn(CAMPFIRE, p.pos);
-
-			var c = e.clone();
-			trace(e.save());
-			c.x += 3;
-
-			// trace(Meta.getFields(Type.getClass(s)));
-			// var c = game.world.player.entity.clone();
-
-			// c.x += 3;
-			// trace('primary', c.get(Sprite).primary);
-			// trace('primaryOverride', c.get(Sprite).primaryOverride);
-			// trace('primaryColor', c.get(Sprite).primaryColor);
-			// trace('primaryColor', c.get(Sprite).shader.primary.toColor());
-
-			// trace('saving...', idx);
-			// var chunk = game.world.chunks.getChunkById(idx);
-			// var data = chunk.save();
-
-			// SAVE_DATA = Serial.Serialize(data);
-			// chunk.unload();
-		});
-
-		console.addCommand('load', 'load', [{name: 'chunk index', t: AInt}], (idx:Int) ->
-		{
-			// var p = game.world.player.entity;
-			// var data = p.save();
-			// var save = Serial.Serialize(data);
-			// trace(save);
-			// var deser = Serial.Deserialize(save);
-			// deser.id = 'test';
-			// var c = Entity.Load(deser);
-			// c.pos = new Coordinate(28, 37, WORLD);
-			trace('loading...', idx);
-			var chunk = game.world.chunks.getChunkById(idx);
-			var data:SaveChunk = Serial.Deserialize(SAVE_DATA);
-			chunk.load(data);
 		});
 
 		console.addCommand('attributes', 'List player attributes & stats', [], () ->

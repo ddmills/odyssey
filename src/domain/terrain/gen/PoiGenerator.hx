@@ -12,6 +12,8 @@ class PoiGenerator
 	{
 		var layout = PoiLayouts.Get(poi.definition.layout);
 		var r = new Rand(poi.zoneId);
+		var options = layout.apply(poi, r);
+
 		var t = new WeightedTable<RoomType>();
 
 		t.add(ROOM_SHERIFF_OFFICE, 4);
@@ -20,15 +22,13 @@ class PoiGenerator
 		t.add(ROOM_GROVE_OAK, 1);
 		t.add(ROOM_GRAVEYARD, 1);
 
-		var options = layout.apply(poi, r);
-
 		r.shuffle(options);
 
 		for (roomTemplate in poi.definition.rooms)
 		{
 			var decorator = RoomDecorators.Get(roomTemplate.type);
 			var room = options.pop();
-			room.portals = roomTemplate.portals.or([]);
+			room.content = roomTemplate.content.or([]);
 			decorator.decorate(r, room, poi);
 			poi.rooms.push(room);
 		}

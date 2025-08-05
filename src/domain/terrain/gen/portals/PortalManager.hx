@@ -2,17 +2,24 @@ package domain.terrain.gen.portals;
 
 import common.struct.IntPoint;
 import common.util.UniqueId;
-import data.SpawnableType;
 
 typedef PortalData =
 {
 	id:String,
-	spawnable:SpawnableType,
-	?name:Null<String>,
+	position:PortalPosition,
 	?destinationId:Null<String>,
-	zoneId:Int,
-	?chunkId:Null<Int>,
+}
+
+typedef PortalPosition =
+{
+	?realmId:String,
+	?zoneId:Int,
 	?pos:Null<IntPoint>,
+}
+
+typedef PortalManagerSave =
+{
+	portals:Map<String, PortalData>
 }
 
 class PortalManager
@@ -26,6 +33,23 @@ class PortalManager
 		portals = new Map();
 	}
 
+	public function save(teardown:Bool):PortalManagerSave
+	{
+		return {
+			portals: portals
+		};
+
+		if (teardown)
+		{
+			portals = new Map();
+		}
+	}
+
+	public function load(save:PortalManagerSave)
+	{
+		portals = save.portals;
+	}
+
 	public function register(portal:PortalData)
 	{
 		portals.set(portal.id, portal);
@@ -36,18 +60,11 @@ class PortalManager
 		return portals.get(portalId);
 	}
 
-	public function getByName(name:String):Null<PortalData>
-	{
-		return portals.find((p) -> p.name == name);
-	}
-
-	public function create(spawnable:SpawnableType, zoneId:Int, ?name:String):PortalData
+	public function create(position:PortalPosition):PortalData
 	{
 		var portal = {
 			id: UniqueId.Create(),
-			spawnable: spawnable,
-			zoneId: zoneId,
-			name: name,
+			position: position,
 		};
 
 		register(portal);

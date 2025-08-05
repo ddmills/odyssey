@@ -7,19 +7,14 @@ import core.Frame;
 import core.Screen;
 import core.input.Command;
 import core.input.KeyCode;
-import data.BitmaskType;
-import data.Bitmasks;
 import data.Cardinal;
 import data.TextResources;
 import data.TileKey;
-import domain.components.BitmaskSprite;
 import domain.components.BumpAttack;
 import domain.components.Collider;
 import domain.components.Door;
-import domain.components.Explored;
 import domain.components.Health;
 import domain.components.IsCreature;
-import domain.components.IsDestroyed;
 import domain.components.IsInventoried;
 import domain.components.Level;
 import domain.components.Move;
@@ -30,7 +25,6 @@ import domain.events.MeleeEvent;
 import domain.events.OpenDoorEvent;
 import domain.prefabs.Spawner;
 import domain.systems.EnergySystem;
-import domain.terrain.biomes.Biomes;
 import h2d.Object;
 import h2d.Text;
 import screens.ability.AbilityScreen;
@@ -40,7 +34,7 @@ import screens.cursor.LookScreen;
 import screens.equipment.EquipmentScreen;
 import screens.interaction.InspectScreen;
 import screens.inventory.InventoryScreen;
-import screens.map.MapScreen;
+import screens.overworld.OverworldScreen;
 import screens.save.SaveScreen;
 import screens.shooting.BasicShootingScreen;
 import screens.skill.SkillScreen;
@@ -99,7 +93,7 @@ class AdventureScreen extends Screen
 
 		var mpos = game.input.mouse;
 		var zpos = mpos.toZone().toIntPoint();
-		var zone = world.zones.getZone(zpos);
+		var zone = world.map.zones.getZone(zpos);
 		var poi = '';
 
 		if (zone != null && zone.poi != null)
@@ -110,7 +104,7 @@ class AdventureScreen extends Screen
 		hudText.wpos.text = 'world ' + mpos.toWorld().toIntPoint().toString();
 		hudText.cpos.text = 'chunk ' + mpos.toChunk().toIntPoint().toString() + ' (${mpos.toChunkIdx()})';
 		hudText.zpos.text = 'zone ' + mpos.toZone().toIntPoint().toString() + ' $poi';
-		hudText.dbg.text = world.getCurrentBiome().getName();
+		hudText.dbg.text = world.getCurrentBiomeType().getName();
 
 		var lvl = world.player.entity.get(Level);
 		hudText.xp.text = 'Level ${lvl.level} ${lvl.xp}/${lvl.nextLevelXpReq}';
@@ -227,7 +221,7 @@ class AdventureScreen extends Screen
 			case CMD_ABILITIES:
 				game.screens.push(new AbilityScreen(world.player.entity));
 			case CMD_MAP:
-				game.screens.push(new MapScreen());
+				game.screens.push(new OverworldScreen());
 			case CMD_SHOOT:
 				game.screens.push(new BasicShootingScreen(world.player.entity));
 			case CMD_SAVE:
@@ -249,6 +243,12 @@ class AdventureScreen extends Screen
 	private function move(dir:Cardinal)
 	{
 		var target = world.player.pos.toIntPoint().add(dir.toOffset());
+
+		if (world.isOutOfBounds(target))
+		{
+			return;
+		}
+
 		var entities = world.getEntitiesAt(target);
 
 		var collider = entities.find((e) -> e.has(Collider) && !e.has(IsInventoried));

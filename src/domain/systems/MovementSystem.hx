@@ -1,6 +1,5 @@
 package domain.systems;
 
-import common.struct.Coordinate;
 import core.Frame;
 import domain.components.IsDestroyed;
 import domain.components.IsInventoried;

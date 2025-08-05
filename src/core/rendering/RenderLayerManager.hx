@@ -5,6 +5,7 @@ import h2d.Bitmap;
 import h2d.Layers;
 import h2d.Object;
 import h2d.Tile;
+import shaders.CrtFilter;
 import shaders.ScanlineShader;
 
 enum RenderLayerType
@@ -58,7 +59,10 @@ class RenderLayerManager
 		var scanlineShader = new h2d.filter.Shader<ScanlineShader>(new ScanlineShader());
 		scanlineShader.enable = false;
 
-		root.filter = scanlineShader;
+		var crtFilter = new CrtFilter();
+		crtFilter.enable = true;
+
+		// Game.instance.app.s2d.filter = crtFilter;
 	}
 
 	function createLayer(type:RenderLayerType, space:RenderLayerSpace):RenderLayer

@@ -5,8 +5,7 @@ import common.struct.GridMap;
 import common.struct.IntPoint;
 import core.Game;
 import data.TileResources;
-import data.save.SaveChunk;
-import domain.components.Moniker;
+import data.save.ChunkSave;
 import ecs.Entity;
 import h2d.Bitmap;
 import shaders.SpriteShader;
@@ -38,7 +37,7 @@ class Chunk
 
 	function get_chunkPos():IntPoint
 	{
-		return Game.instance.world.chunks.getChunkPos(chunkId);
+		return Game.instance.world.map.chunks.getChunkPos(chunkId);
 	}
 
 	function get_worldPos():IntPoint
@@ -46,7 +45,7 @@ class Chunk
 		return chunkPos.multiply(size);
 	}
 
-	public function load(?save:SaveChunk)
+	public function load(?save:ChunkSave)
 	{
 		if (isLoaded)
 		{
@@ -63,7 +62,7 @@ class Chunk
 		if (save == null)
 		{
 			exploration.fill(false);
-			Game.instance.world.chunks.chunkGen.generate(this);
+			Game.instance.world.map.chunks.chunkGen.generate(this);
 			buildTiles();
 		}
 		else
@@ -93,11 +92,13 @@ class Chunk
 
 		for (detachedId in Game.instance.registry.getDetachedEntities())
 		{
+			// TODO: PARENT/CHILD
 			var e = Game.instance.registry.getEntity(detachedId);
 			if (e.chunkIdx == chunkId)
 			{
 				e.reattach();
-				setEntityPosition(e);
+				var localPos = Game.instance.world.map.chunks.worldToChunkLocal(e.pos.toIntPoint());
+				updateEntityPosition(e, localPos);
 			}
 		}
 
@@ -108,7 +109,7 @@ class Chunk
 		tiles.y = pix.y;
 	}
 
-	public function save():SaveChunk
+	public function save():ChunkSave
 	{
 		if (!isLoaded)
 		{
@@ -124,10 +125,12 @@ class Chunk
 			cells: cells.save((v) -> v),
 			entities: entities.save((v) ->
 			{
+				// TODO: PARENT/CHILD
 				return v.filterMap((id) ->
 				{
 					var e = Game.instance.registry.getEntity(id);
-					if (e != null && !e.isDetachable)
+					// TODO: DETACHING
+					if (e != null && !e.isDetached)
 					{
 						return {
 							value: e.save(),
@@ -161,16 +164,10 @@ class Chunk
 			for (id in ids.value.copy())
 			{
 				var e = Game.instance.registry.getEntity(id);
-				if (e != null)
+
+				if (e != null && !e.isDetached)
 				{
-					if (e.isDetachable)
-					{
-						e.detach();
-					}
-					else
-					{
-						e.destroy();
-					}
+					e.destroy();
 				}
 			}
 		}
@@ -180,7 +177,6 @@ class Chunk
 		bitmaps = null;
 		tiles = null;
 		cells = null;
-
 		isLoaded = false;
 	}
 
@@ -188,7 +184,7 @@ class Chunk
 	{
 		for (t in bitmaps)
 		{
-			var bm = getGroundBitmap(t.pos);
+			var bm = buildGroundBitmap(t.pos);
 
 			bm.x = t.x * Game.instance.TILE_W;
 			bm.y = t.y * Game.instance.TILE_H;
@@ -205,6 +201,16 @@ class Chunk
 			return null;
 		}
 		return cells.get(localX, localY);
+	}
+
+	public function getBackgroundBitmap(localPos:IntPoint):Bitmap
+	{
+		if (!isLoaded)
+		{
+			return null;
+		}
+
+		return bitmaps.get(localPos.x, localPos.y);
 	}
 
 	public function getZoneLocalOffset():IntPoint
@@ -224,9 +230,9 @@ class Chunk
 		return cells.coord(idx);
 	}
 
-	private function getGroundBitmap(pos:IntPoint):Bitmap
+	private function buildGroundBitmap(localPos:IntPoint):Bitmap
 	{
-		var cell = getCell(pos.x, pos.y);
+		var cell = getCell(localPos.x, localPos.y);
 
 		var tileKey = cell.tileKey;
 		var primary = cell.primary;
@@ -236,7 +242,7 @@ class Chunk
 		if (zone.poi != null)
 		{
 			var tl = worldPos.sub(zone.worldPos);
-			var zPos = tl.add(pos);
+			var zPos = tl.add(localPos);
 			var tile = zone.poi.getTile(zPos);
 			if (tile != null)
 			{
@@ -258,6 +264,7 @@ class Chunk
 				}
 			}
 		}
+
 		var bm = new h2d.Bitmap();
 		var shader = new SpriteShader(primary, secondary);
 
@@ -284,24 +291,22 @@ class Chunk
 		{
 			return;
 		}
+
+		// TODO: PARENT/CHILD remove all child entities as well
 		entities.remove(entity.id);
 	}
 
-	public function setEntityPosition(entity:Entity)
+	public function updateEntityPosition(entity:Entity, localPos:IntPoint)
 	{
 		if (!isLoaded)
 		{
-			// trace('add entity, not loaded', entity.get(Moniker).displayName);
 			// TODO: put these somewhere on spawn
-			trace('PLACING ENTITY IN UNLOADED CHUNK', entity.id);
-			if (entity.has(Moniker))
-			{
-				trace(entity.get(Moniker).displayName);
-			}
+			trace('PLACING ENTITY IN UNLOADED CHUNK', entity.name);
 			return;
 		}
-		var local = entity.pos.toChunkLocal().toWorld();
-		entities.set(local.x.floor(), local.y.floor(), entity.id);
+
+		// TODO:  PARENT/CHILD update children?
+		entities.set(localPos.x, localPos.y, entity.id);
 	}
 
 	public function getEntityIdsAt(localX:Int, localY:Int):Array<String>
@@ -323,15 +328,15 @@ class Chunk
 		return exploration.get(pos.x, pos.y);
 	}
 
-	public function setExplore(pos:IntPoint, isExplored:Bool, isVisible:Bool)
+	public function setExplore(localPos:IntPoint, isExplored:Bool, isVisible:Bool)
 	{
 		if (!isLoaded)
 		{
 			trace('Warning: Loading chunk on demand');
-			Game.instance.world.chunks.loadChunk(chunkId);
+			Game.instance.world.map.chunks.loadChunk(chunkId);
 			return;
 		}
-		var idx = exploration.idx(pos.x, pos.y);
+		var idx = exploration.idx(localPos.x, localPos.y);
 		if (idx < 0)
 		{
 			return;
@@ -339,7 +344,7 @@ class Chunk
 
 		exploration.setIdx(idx, isExplored);
 
-		var bm = bitmaps.get(pos.x, pos.y);
+		var bm = bitmaps.get(localPos.x, localPos.y);
 
 		if (bm == null)
 		{
@@ -370,11 +375,11 @@ class Chunk
 	function get_zoneId():Int
 	{
 		var pos = chunkPos.divide(Game.instance.world.chunksPerZone).floor();
-		return Game.instance.world.zones.getZoneId(pos);
+		return Game.instance.world.map.zones.getZoneId(pos);
 	}
 
 	inline function get_zone():Zone
 	{
-		return Game.instance.world.zones.getZoneById(zoneId);
+		return Game.instance.world.map.zones.getZoneById(zoneId);
 	}
 }

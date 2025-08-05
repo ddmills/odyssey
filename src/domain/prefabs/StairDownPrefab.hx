@@ -6,14 +6,14 @@ import domain.components.Portal;
 import domain.components.Sprite;
 import ecs.Entity;
 
-class LadderDownPrefab extends Prefab
+class StairDownPrefab extends Prefab
 {
 	public function Create(options:Dynamic, pos:Coordinate):Entity
 	{
 		var entity = new Entity(pos);
 
-		entity.add(new Sprite(LADDER_DOWN, C_BROWN, C_WHITE, OBJECTS));
-		entity.add(new Moniker('Ladder down'));
+		entity.add(new Sprite(STAIR_DOWN, C_WHITE, C_DARK_GRAY, OBJECTS));
+		entity.add(new Moniker('Stair down'));
 
 		if (options.portalId != null)
 		{

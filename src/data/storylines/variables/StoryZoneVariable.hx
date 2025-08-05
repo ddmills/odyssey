@@ -47,7 +47,7 @@ class StoryZoneVariable extends StoryVariable
 		var req = params.requirements.params;
 
 		// find all eligible zones
-		var eligible = Game.instance.world.zones.zones.filterMap((z) ->
+		var eligible = Game.instance.world.map.zones.zones.filterMap((z) ->
 		{
 			var zone = z.value;
 

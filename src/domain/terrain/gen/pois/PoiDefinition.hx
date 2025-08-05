@@ -2,7 +2,7 @@ package domain.terrain.gen.pois;
 
 import data.PoiLayoutType;
 import data.PoiType;
-import domain.terrain.MapData.RoomTemplate;
+import domain.terrain.Overworld.RoomTemplate;
 import domain.terrain.biomes.Biome.MapIconData;
 import domain.terrain.gen.ZonePoi.PoiSize;
 

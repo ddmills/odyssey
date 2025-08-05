@@ -2,6 +2,8 @@ package domain.components;
 
 import data.EquipmentSlotType;
 import data.WeaponFamilyType;
+import domain.events.EntityDetachEvent;
+import domain.events.EntityReattachEvent;
 import domain.events.MeleeEvent;
 import domain.events.MovedEvent;
 import domain.events.QueryEquippedWeaponsEvent;
@@ -43,6 +45,8 @@ class EquipmentSlot extends Component
 		addHandler(ShootEvent, onShoot);
 		addHandler(ReloadEvent, onReload);
 		addHandler(MovedEvent, onMoved);
+		addHandler(EntityDetachEvent, onEntityDetach);
+		addHandler(EntityReattachEvent, onEntityReattach);
 		addHandler(QueryEquippedWeaponsEvent, onQueryEquippedWeapons);
 	}
 
@@ -51,6 +55,22 @@ class EquipmentSlot extends Component
 		if (!isEmpty)
 		{
 			content.fireEvent(evt);
+		}
+	}
+
+	function onEntityDetach(evt:EntityDetachEvent)
+	{
+		if (!isEmpty)
+		{
+			content.detach();
+		}
+	}
+
+	function onEntityReattach(evt:EntityReattachEvent)
+	{
+		if (!isEmpty)
+		{
+			content.reattach(evt.worldPos);
 		}
 	}
 

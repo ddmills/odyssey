@@ -73,6 +73,12 @@ class EnergySystem extends System
 		{
 			var entity = getNext();
 
+			if (entity.isNull())
+			{
+				trace('no entity with energy!');
+				break;
+			}
+
 			if (entity.has(IsPlayer))
 			{
 				isPlayersTurn = true;

@@ -1,6 +1,7 @@
 package domain.prefabs;
 
 import common.struct.Coordinate;
+import common.struct.IntPoint;
 import core.Game;
 import data.SpawnableType;
 import domain.events.EntitySpawnedEvent;
@@ -79,6 +80,8 @@ class Spawner
 		prefabs.set(WOOD_DOOR, new WoodDoorPrefab());
 		prefabs.set(LADDER_DOWN, new LadderDownPrefab());
 		prefabs.set(LADDER_UP, new LadderUpPrefab());
+		prefabs.set(STAIR_DOWN, new StairDownPrefab());
+		prefabs.set(STAIR_UP, new StairUpPrefab());
 		prefabs.set(WOOD_PLANK, new WoodPlankPrefab());
 		prefabs.set(TABLE, new TablePrefab());
 		prefabs.set(CHAIR, new ChairPrefab());
@@ -103,17 +106,18 @@ class Spawner
 		prefabs.set(FLOATING_TEXT, new FloatingTextPrefab());
 	}
 
-	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
+	public function spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
 		var p = pos == null ? new Coordinate(0, 0, WORLD) : pos.toWorld().floor();
-		var o = options == null ? {} : options;
-		var d = isDetachable == null ? false : isDetachable;
-		var entity = prefabs.get(type).Create(o, p);
 
-		if (d)
+		if (Game.instance.world.isOutOfBounds(p.toIntPoint()))
 		{
-			entity.isDetachable = true;
+			trace('Warning: Trying to spawn entity out of bounds (${type.getName()}) at ${p.toString()}');
+			return null;
 		}
+
+		var o = options == null ? {} : options;
+		var entity = prefabs.get(type).Create(o, p);
 
 		entity.pos = p;
 
@@ -122,8 +126,8 @@ class Spawner
 		return entity;
 	}
 
-	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic, ?isDetachable:Bool)
+	public static function Spawn(type:SpawnableType, ?pos:Coordinate, ?options:Dynamic)
 	{
-		return Game.instance.world.spawner.spawn(type, pos, options, isDetachable);
+		return Game.instance.world.spawner.spawn(type, pos, options);
 	}
 }

@@ -5,9 +5,11 @@ import common.struct.IntPoint;
 import common.struct.Set;
 import common.tools.Performance;
 import core.Game;
-import hxd.Timer;
+import data.BiomeType;
+import ecs.Entity;
+import h2d.Bitmap;
 
-class ChunkManager
+class ChunkManager implements MapDataStore
 {
 	private var game(get, never):Game;
 	private var chunks:Grid<Chunk>;
@@ -44,7 +46,7 @@ class ChunkManager
 			for (y in [-2, -1, 0, 1, 2])
 			{
 				var chunkPos = curChunkPos.add(x, y);
-				if (chunkPos.x >= 0 || chunkPos.y >= 0 || chunkPos.x < chunkCountX || chunkPos.y < chunkCountY)
+				if (chunkPos.x >= 0 && chunkPos.y >= 0 && chunkPos.x < chunkCountX && chunkPos.y < chunkCountY)
 				{
 					var chunkIdx = getChunkIdx(chunkPos.x, chunkPos.y);
 					activeChunkIdxs.add(chunkIdx);
@@ -70,6 +72,20 @@ class ChunkManager
 				chunksToLoad.add(chunkIdx);
 			}
 		}
+	}
+
+	public function unloadAllChunks()
+	{
+		for (chunk in chunks)
+		{
+			if (chunk.value.isLoaded)
+			{
+				saveChunk(chunk.idx, true);
+			}
+		}
+
+		chunksToLoad = new Set();
+		chunksToUnload = new Set();
 	}
 
 	public function update()
@@ -172,9 +188,9 @@ class ChunkManager
 		return chunks.get(cx, cy);
 	}
 
-	public function isOutOfBounds(pos:IntPoint):Bool
+	public function isOutOfBounds(worldPos:IntPoint):Bool
 	{
-		return chunks.isOutOfBounds(pos.x, pos.y);
+		return worldPos.x < 0 || worldPos.y < 0 || worldPos.x >= game.world.mapWidth || worldPos.y >= game.world.mapHeight;
 	}
 
 	inline function get_chunkCountX():Int
@@ -195,5 +211,133 @@ class ChunkManager
 	inline function get_game():Game
 	{
 		return Game.instance;
+	}
+
+	public function getEntityIdsAt(worldPos:IntPoint):Array<String>
+	{
+		var chunkIdx = getChunkIdxByWorld(worldPos.x, worldPos.y);
+		var chunk = getChunkById(chunkIdx);
+
+		if (chunk.isNull())
+		{
+			return [];
+		}
+
+		var localX = worldPos.x % Game.instance.world.chunkSize;
+		var localY = worldPos.y % Game.instance.world.chunkSize;
+
+		return chunk.getEntityIdsAt(localX, localY);
+	}
+
+	public function getBiomeType(worldPos:IntPoint):BiomeType
+	{
+		var chunkIdx = getChunkIdxByWorld(worldPos.x, worldPos.y);
+		var chunk = getChunkById(chunkIdx);
+		return chunk.zone.primaryBiome;
+	}
+
+	public function setVisible(worldPos:IntPoint)
+	{
+		setExplore(worldPos, true, true);
+	}
+
+	public function setExplore(worldPos:IntPoint, isExplored:Bool, isVisible:Bool)
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk != null)
+		{
+			var local = worldToChunkLocal(worldPos);
+
+			chunk.setExplore(local, isExplored, isVisible);
+		}
+	}
+
+	public function isExplored(worldPos:IntPoint):Bool
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull() || !chunk.isLoaded)
+		{
+			return false;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+		return chunk.isExplored(local);
+	}
+
+	public function getCell(worldPos:IntPoint):Cell
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull())
+		{
+			return null;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+
+		return chunk.getCell(local.x, local.y);
+	}
+
+	public inline function worldToChunk(worldPos:IntPoint):IntPoint
+	{
+		return new IntPoint((worldPos.x / chunkSize).floor(), (worldPos.y / chunkSize).floor());
+	}
+
+	public inline function worldToChunkLocal(worldPos:IntPoint):IntPoint
+	{
+		return new IntPoint(worldPos.x % chunkSize, worldPos.y % chunkSize);
+	}
+
+	public function updateEntityPosition(entity:Entity, targetWorldPos:IntPoint)
+	{
+		// TODO: PARENT/CHILD update all child entities as well
+		var previousPos = entity.pos.toIntPoint();
+		var previousChunkIdx = getChunkIdxByWorld(previousPos.x, previousPos.y);
+		var nextChunkIdx = getChunkIdxByWorld(targetWorldPos.x, targetWorldPos.y);
+		var nextChunk = getChunkById(nextChunkIdx);
+
+		if (previousChunkIdx != nextChunkIdx)
+		{
+			var previousChunk = getChunkById(previousChunkIdx);
+
+			if (previousChunk != null)
+			{
+				previousChunk.removeEntity(entity);
+			}
+		}
+
+		var localPos = worldToChunkLocal(targetWorldPos);
+
+		nextChunk.updateEntityPosition(entity, localPos);
+	}
+
+	public function removeEntity(entity:Entity)
+	{
+		entity.chunk?.removeEntity(entity);
+	}
+
+	public function getBackgroundBitmap(worldPos:IntPoint):Bitmap
+	{
+		var c = worldToChunk(worldPos);
+		var chunk = getChunk(c.x, c.y);
+
+		if (chunk.isNull())
+		{
+			return null;
+		}
+
+		var local = worldToChunkLocal(worldPos);
+
+		return chunk.getBackgroundBitmap(local);
+	}
+
+	public function getAmbientLighting():Float
+	{
+		return Game.instance.world.clock.getDaylight();
 	}
 }

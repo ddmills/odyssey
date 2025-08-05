@@ -1,4 +1,4 @@
-package screens.map;
+package screens.overworld;
 
 import common.struct.Coordinate;
 import common.struct.IntPoint;
@@ -6,7 +6,6 @@ import core.Frame;
 import core.Game;
 import core.Screen;
 import core.input.KeyCode;
-import data.BiomeType;
 import data.Bitmasks;
 import data.ColorKey;
 import data.TileKey;
@@ -28,7 +27,7 @@ typedef Obs =
 	blink:Anim,
 };
 
-class MapScreen extends Screen
+class OverworldScreen extends Screen
 {
 	var ob:Obs;
 	var scale = 1;
@@ -37,7 +36,7 @@ class MapScreen extends Screen
 
 	function getIsRailroad(pos:IntPoint, lineIds:Array<Int>)
 	{
-		var zone = world.zones.getZone(pos);
+		var zone = world.map.zones.getZone(pos);
 		if (zone == null)
 		{
 			return false;
@@ -57,7 +56,7 @@ class MapScreen extends Screen
 
 	function populateTile(pos:IntPoint)
 	{
-		var zone = world.zones.getZone(pos);
+		var zone = world.map.zones.getZone(pos);
 		var biomeKey = zone.biomes.nw;
 
 		var biome = Biomes.get(biomeKey);
@@ -126,18 +125,11 @@ class MapScreen extends Screen
 		ob.root.addChild(bm);
 	}
 
-	function teleport(pos:IntPoint)
+	function teleport(zonePos:IntPoint)
 	{
-		var targetPos = pos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().floor();
-		trace('teleport', pos.toString(), targetPos.toString());
-
-		world.player.entity.remove(Move);
-		world.chunks.loadChunks(targetPos.toChunkIdx());
-		world.chunks.loadChunk(targetPos.toChunkIdx());
-		world.player.entity.drawable.pos = null;
-		world.player.pos = targetPos;
-		world.player.entity.fireEvent(new ConsumeEnergyEvent(1));
-		game.camera.focus = targetPos;
+		var targetPos = zonePos.asZone().add(new Coordinate(.5, .5, ZONE)).toWorld().toIntPoint();
+		trace('teleport', zonePos.toString(), targetPos.toString());
+		world.map.teleportTo(world.player.entity, targetPos);
 	}
 
 	function populateMap()
@@ -211,7 +203,7 @@ class MapScreen extends Screen
 		}
 		if (key == KEY_G)
 		{
-			world.map.generate();
+			world.overworld.generate();
 			redrawMap();
 		}
 	}

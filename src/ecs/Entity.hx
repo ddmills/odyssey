@@ -2,11 +2,19 @@ package ecs;
 
 import bits.Bits;
 import common.struct.Coordinate;
+import common.struct.IntPoint;
+import common.util.Projection;
 import common.util.UniqueId;
 import core.Game;
 import domain.components.Drawable;
 import domain.components.IsDetached;
+import domain.components.IsPlayer;
+import domain.components.Moniker;
+import domain.components.Move;
+import domain.events.ConsumeEnergyEvent;
+import domain.events.EntityDetachEvent;
 import domain.events.EntityLoadedEvent;
+import domain.events.EntityReattachEvent;
 import domain.events.MovedEvent;
 import domain.terrain.Chunk;
 
@@ -21,6 +29,7 @@ class Entity
 
 	public var game(get, null):Game;
 	public var registry(get, null):Registry;
+	public var name(get, null):String;
 	public var id(default, null):String;
 	public var pos(get, set):Coordinate;
 	public var x(get, set):Float;
@@ -29,7 +38,6 @@ class Entity
 	public var chunkIdx(get, never):Int;
 	public var isDestroyed(default, null):Bool;
 	public var isDetached(default, null):Bool;
-	public var isDetachable:Bool;
 
 	private var components:Map<String, Array<Component>>;
 
@@ -43,7 +51,6 @@ class Entity
 		components = new Map();
 		isDestroyed = false;
 		isDetached = false;
-		isDetachable = false;
 
 		if (register)
 		{
@@ -69,7 +76,13 @@ class Entity
 
 	public function destroy()
 	{
+		if (has(IsPlayer))
+		{
+			trace('destroy player');
+		}
+
 		isCandidacyEnabled = false;
+
 		for (component in components.copy())
 		{
 			for (c in component.copy())
@@ -77,12 +90,12 @@ class Entity
 				remove(c);
 			}
 		}
+
 		isCandidacyEnabled = true;
 		isDestroyed = true;
-		if (chunk != null) // TODO never null
-		{
-			chunk.removeEntity(this);
-		}
+
+		Game.instance.world.map.removeEntity(this);
+
 		registry.unregisterEntity(this);
 	}
 
@@ -105,6 +118,7 @@ class Entity
 			{
 				remove(type);
 			}
+
 			components.set(component.type, [component]);
 		}
 
@@ -220,6 +234,20 @@ class Entity
 		return Game.instance.registry;
 	}
 
+	public function internalSetPos(x:Int, y:Int)
+	{
+		_x = x;
+		_y = y;
+
+		if (drawable != null)
+		{
+			var px = Projection.worldToPx(x, y);
+			drawable.updatePos(px.x, px.y);
+		}
+
+		fireEvent(new MovedEvent(this, new Coordinate(x, y)));
+	}
+
 	function get_pos():Coordinate
 	{
 		return new Coordinate(_x, _y, WORLD);
@@ -227,36 +255,9 @@ class Entity
 
 	function set_pos(value:Coordinate):Coordinate
 	{
-		var prevChunkIdx = chunkIdx;
-
-		var p = value.toPx();
 		var w = value.toWorld();
 
-		if (drawable != null)
-		{
-			drawable.updatePos(p.x, p.y);
-		}
-
-		_x = w.x;
-		_y = w.y;
-
-		var nextChunkIdx = chunkIdx;
-
-		if (prevChunkIdx != nextChunkIdx)
-		{
-			var prevChunk = Game.instance.world.chunks.getChunkById(prevChunkIdx);
-			if (prevChunk != null)
-			{
-				prevChunk.removeEntity(this);
-			}
-		}
-		var nextChunk = Game.instance.world.chunks.getChunkById(nextChunkIdx);
-		if (nextChunk != null)
-		{
-			nextChunk.setEntityPosition(this);
-		}
-
-		fireEvent(new MovedEvent(this, w));
+		Game.instance.world.map.updateEntityPosition(this, w.toIntPoint());
 
 		return w;
 	}
@@ -290,7 +291,7 @@ class Entity
 
 	inline function get_chunk():Chunk
 	{
-		return Game.instance.world.chunks.getChunkById(chunkIdx);
+		return Game.instance.world.map.chunks.getChunkById(chunkIdx);
 	}
 
 	public function clone(newId:String = null):Entity
@@ -303,18 +304,33 @@ class Entity
 	public function detach()
 	{
 		isDetached = true;
+
 		if (!has(IsDetached))
 		{
 			add(new IsDetached());
 			registry.detachEntity(id);
+			fireEvent(new EntityDetachEvent());
 		}
 	}
 
-	public function reattach()
+	public function reattach(?worldPos:IntPoint)
 	{
 		registry.reattachEntity(id);
 		isDetached = false;
 		remove(IsDetached);
+		var p = worldPos ?? pos.toIntPoint();
+
+		remove(Move);
+		drawable.pos = null;
+		pos = p.asWorld();
+		fireEvent(new ConsumeEnergyEvent(1));
+
+		if (has(IsPlayer))
+		{
+			Game.instance.camera.focus = pos;
+		}
+
+		fireEvent(new EntityReattachEvent(p));
 	}
 
 	public function save():EntitySaveData
@@ -330,7 +346,6 @@ class Entity
 				x: x,
 				y: y,
 			},
-			isDetachable: isDetachable,
 			isDetached: isDetached,
 			components: cdata,
 		};
@@ -341,7 +356,6 @@ class Entity
 		var entity = new Entity(false);
 		entity.isCandidacyEnabled = false;
 		entity.setId(data.id);
-
 		for (cdata in data.components)
 		{
 			var clazz = Type.resolveClass(cdata.type);
@@ -353,25 +367,24 @@ class Entity
 			var c = cast(Type.createInstance(clazz, []), Component);
 			c._attach(entity);
 			c.load(cdata.data);
-
 			entity.add(c);
 		}
-
 		entity.pos = new Coordinate(data.pos.x, data.pos.y, WORLD);
-		entity.isDetachable = data.isDetachable;
 		entity.isDetached = data.isDetached;
-
 		if (entity.isDetached)
 		{
 			entity.registry.detachEntity(entity.id);
 		}
-
 		entity.isCandidacyEnabled = true;
 		entity.registry.candidacy(entity);
-
 		entity.fireEvent(new EntityLoadedEvent(tickDelta));
-
 		return entity;
+	}
+
+	function get_name():String
+	{
+		var moniker = get(Moniker)?.displayName ?? 'Unknown';
+		return '($id) $moniker';
 	}
 }
 
@@ -388,7 +401,6 @@ typedef EntitySaveData =
 	{
 		x:Float, y:Float,
 	},
-	isDetachable:Bool,
 	isDetached:Bool,
 	components:Array<ComponentSaveData>,
 }

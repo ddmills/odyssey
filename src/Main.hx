@@ -36,7 +36,7 @@ class Main extends hxd.App
 		// hack to fix audio not playing more than once
 		@:privateAccess haxe.MainLoop.add(() -> {});
 
-		s2d.renderer.globals.set("daylight", 0);
+		s2d.renderer.globals.set("ambient", 0);
 		s2d.renderer.globals.set("dayProgress", 0);
 		s2d.renderer.globals.set("screenH", 800);
 		s2d.renderer.globals.set("time", 0);
@@ -44,6 +44,7 @@ class Main extends hxd.App
 
 		var window = hxd.Window.getInstance();
 
+		window.title = "Odyssey";
 		window.addResizeEvent(() ->
 		{
 			trace('resize', window.height);
@@ -70,8 +71,6 @@ class Main extends hxd.App
 		Stories.Init();
 		DialogTrees.Init();
 		Factions.Init();
-
-		hxd.Window.getInstance().title = "Odyssey";
 
 		game = Game.Create(this);
 		game.backgroundColor = game.CLEAR_COLOR;

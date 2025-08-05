@@ -11,7 +11,7 @@ import common.struct.IntPoint;
 	public var offsetX:Int;
 	public var offsetY:Int;
 	public var includeWalls:Bool;
-	public var portals:Array<String>;
+	public var content:Array<RoomContent>;
 
 	public function new(offsetX:Int, offsetY:Int, width:Int, height:Int)
 	{
@@ -20,7 +20,7 @@ import common.struct.IntPoint;
 		this.width = width;
 		this.height = height;
 		this.includeWalls = true;
-		this.portals = [];
+		this.content = [];
 
 		tiles = new Grid(width, height);
 	}

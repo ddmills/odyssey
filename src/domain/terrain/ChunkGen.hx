@@ -30,7 +30,6 @@ class ChunkGen
 {
 	private var seed(get, null):Int;
 	private var world(get, null):World;
-	private var riverWidth:Int = 4;
 
 	var table:WeightedTable<SpawnableType>;
 
@@ -44,12 +43,6 @@ class ChunkGen
 		table.add(STREETLAMP, 2);
 		table.add(BRAZIER, 10);
 		table.add(LANTERN, 4);
-		// table.add(SNAKE, 6);
-		// table.add(WOLF, 6);
-		// table.add(BAT, 6);
-		// table.add(BROWN_BEAR, 6);
-		// table.add(THUG, 4);
-		// table.add(THUG_2, 4);
 		table.add(STICK, 3);
 		table.add(CHEST, 3);
 		table.add(JAR, 1);

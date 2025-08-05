@@ -1,10 +1,9 @@
 package data.save;
 
 import common.struct.Grid.GridSave;
+import domain.MapManager.MapManagerSave;
 import domain.data.factions.FactionManager.FactionManagerSave;
 import domain.systems.StorylineSystem.StorylineSystemSave;
-import domain.terrain.Zone.ZoneSave;
-import domain.terrain.ZoneManager.ZoneManagerSave;
 import domain.terrain.gen.ZonePoi.ZonePoiSave;
 import domain.terrain.gen.railroad.RailroadData.RailroadDataSave;
 import ecs.Entity.EntitySaveData;
@@ -14,7 +13,7 @@ typedef SavePlayer =
 	entity:EntitySaveData,
 };
 
-typedef SaveMap =
+typedef OverworldSave =
 {
 	pois:GridSave<ZonePoiSave>,
 	railroad:RailroadDataSave,
@@ -23,8 +22,8 @@ typedef SaveMap =
 typedef SaveWorld =
 {
 	seed:Int,
-	map:SaveMap,
-	zones:ZoneManagerSave,
+	overworld:OverworldSave,
+	map:MapManagerSave,
 	player:SavePlayer,
 	factions:FactionManagerSave,
 	tick:Int,

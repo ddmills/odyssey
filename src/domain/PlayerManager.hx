@@ -32,13 +32,16 @@ class PlayerManager
 		entityRef.entity = Spawner.Spawn(PLAYER, pos);
 	}
 
-	public function save(?unload:Bool = false):SavePlayer
+	public function save(?teardown:Bool = false):SavePlayer
 	{
+		entity.detach();
 		var data = entity.save();
-		if (unload)
+
+		if (teardown)
 		{
 			entity.destroy();
 		}
+
 		return {
 			entity: data,
 		};
@@ -47,6 +50,7 @@ class PlayerManager
 	public function load(data:SavePlayer)
 	{
 		entityRef.entity = Entity.Load(data.entity);
+		entityRef.entity.reattach();
 	}
 
 	inline function get_x():Float

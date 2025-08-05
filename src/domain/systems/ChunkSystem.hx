@@ -16,12 +16,15 @@ class ChunkSystem extends System
 
 		q.onEntityAdded((e) ->
 		{
-			world.chunks.loadChunks(e.pos.toChunkIdx());
+			if (!world.map.realms.hasActiveRealm)
+			{
+				world.map.chunks.loadChunks(e.pos.toChunkIdx());
+			}
 		});
 	}
 
 	override function update(frame:Frame)
 	{
-		world.chunks.update();
+		world.map.chunks.update();
 	}
 }

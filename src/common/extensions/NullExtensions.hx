@@ -16,4 +16,9 @@ class NullExtensions
 	{
 		return nullable == null;
 	}
+
+	static public inline function hasValue<T>(nullable:Null<T>):Bool
+	{
+		return nullable != null;
+	}
 }

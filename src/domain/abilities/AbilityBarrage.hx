@@ -32,7 +32,7 @@ class AbilityBarrage extends Ability
 		trace("Initiate barrage!");
 		var pistol = getPrimaryPistol(entity);
 
-		// if player, push screen, if AI, choose target
+		// if player, push screen, if AI, choose target randomly
 		Game.instance.screens.push(new ShootingScreen(entity, {
 			primaryWeapon: pistol,
 			offhandWeapons: [],
